@@ -21,10 +21,10 @@ Climb
 - stop (lock) when tension is too high?
 
 Shoot
-- Aim (auto?)
+- Aim (auto?) (Currently only elevation, no turret)
 - shoot (auto?)
 
-Sweep up balls
+Sweep up balls (front loader)
 - Turn on/turn off
 - Let driver control this
 
@@ -45,8 +45,21 @@ Loading
 
 Climbing
 
-
-Is camera a subsytem?
-
 --------------------------------------------------------------------------------
+
+Sensors
+
+Camera
+- Image detection, to recognize targets
+- Light detection, to see when goal light is lit (after climbing)
+- Aiming? Maybe just show image to operator.
+
+Compass
+- Maybe we can use that. Do we get to calibrate before autonomous section?
+
+Range finder?
+- Is there something available?
+
+Question: Can we add a camera on a pole to the driver's station?
+
 
