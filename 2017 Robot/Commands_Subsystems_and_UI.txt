@@ -1,0 +1,52 @@
+Commands, Subsystems, and UI components
+
+AUTONOMOUS
+----------
+Gears
+- Navigate to the gear goal
+- Deposit gear
+- Navigate to the gear pickup
+- Repeat (if we're really fast)
+
+COMMANDS
+--------
+Drive
+- Set speeds, with inputs that are left stick and right stick (y-axis only), for tank-style driving
+- Two joysticks
+- Separate driver and gunner/gear grabber controls
+
+Climb
+- Climb rope
+- stop (lock) when there is a light in front of me?
+- stop (lock) when tension is too high?
+
+Shoot
+- Aim (auto?)
+- shoot (auto?)
+
+Sweep up balls
+- Turn on/turn off
+- Let driver control this
+
+Gear grabber control
+- XBox controller
+- Multiple joints to control
+
+
+------------------------------------------------------------------------------
+
+SUBSYSTEMS
+----------
+Driving
+- Set speeds for left and right drive wheel
+
+Loading
+- ?
+
+Climbing
+
+
+Is camera a subsytem?
+
+--------------------------------------------------------------------------------
+
