@@ -51,6 +51,8 @@ Sensors
 
 Camera
 - Image detection, to recognize targets
+	* There are vision targets surrounding the gear lift.
+	* There are vision targets on the high fuel goal 
 - Light detection, to see when goal light is lit (after climbing)
 - Aiming? Maybe just show image to operator.
 
@@ -58,8 +60,19 @@ Compass
 - Maybe we can use that. Do we get to calibrate before autonomous section?
 
 Range finder?
-- Is there something available?
+- Is there something available? yes!
 
-Question: Can we add a camera on a pole to the driver's station?
+--------------------------------------------------------------------------
 
+Vision subsystem
+
+Components
+
+Shape finder
+
+- Given an image look for a particular shape and color (or saturation) in the image
+- Return the coordinates of the center of the shape
+- Ideally, we'll want to convert these coordinates such that (0,0) in the image is the "forwards" direction for the robot,
+  so having a target at x-coordinate 0 means that we can drive forward and eventually hit it.
+- 
 
