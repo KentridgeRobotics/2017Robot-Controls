@@ -1,20 +1,111 @@
 Tasks for learning Java
 
+Some vocabulary:
+
+- comment: In your program, you may want to put notes to yourself or to other developers. Java lets you
+	to this in two ways, either by making two / characters to indicate that everything after the //'s is
+	just a comment and should be ignored by the computer, or by surrounding your comment with /* and */.
+	
+	Examples:
+		// This is a comment
+		/* This is also a comment*/
+		/*
+			This comment
+			goes across many lines
+			Until I get to the end sequence.
+		*/
+		
+- character: something you can print out, like a letter. When you type, you are entering characters into some program.
+	In a Java program, when you want to talk about a particular character, you put it in single quotes, like this:
+		'a' 
+		'9'
+		' ' (the space character)
+		'\n' (This character is called "newline", and you spell it with a \ and an n. This is an example of a "control sequence".)
+
+- string: a sequence of characters. In a Java program, strings are put in double quotes, like this:
+	"This is a string"
+	
+- int: an integer. This is a number with no decimal part. In Java, an int can store
+	any number from -2,147,483,648 up to 2,147,483,647, inclusive.
+	32
+	-129
+	
+- variable: a named place to store a value of a particular type. You can put any integer into
+	an "int" variable, and any string into a "String" variable. Similarly for other types
+	of values. Examples:
+	
+	int x; // "Declaring" a variable. This tells Java to create a chunk of memory big enough to
+			// store an integer (32 bits, which is 4 bytes), and to give that chunk of memory
+			// the name "x"
+			
+	x = 42; // Now I've stored the integer 42 into the location x.
+	x = x + 1; // Now x has the value 43, because this line reads the current value of x, adds 1 to it,
+				// and then stores the result back into x.
+	x += 1;  // This is a shorter way of writing "x = x + 1"
+	x++;  // This is an even shorter way, where we don't even say 1
+
+- block: a sequence of lines of code, usually inside a pair of braces like this:
+
+	{
+		// do something
+		// do something else
+		// etc.
+	}
+
+- method (or function): code that actually does something.
+
+In Java, all code is organized into "classes", so initially you can think of a class as
+a container to put "methods" and variables.
+
+---------------------
+
+Now on to the problems. To start, for each of these create a new file, with a name like "Problem1.java"
+In this file, copy this sample class definition
+
+public class Problem1 {
+	public static void main(String[] args) {
+	
+	}
+}
+
+-------------------
+
+
 1. Hello World
 
 Write a program that prints out "Hello Word", and make it run.
-Hint: System.out.println is a method that prints out a line.
+Hint: System.out.println is a method that prints out a string on a single line.
 
+-------------------
 2. Counting
 
 Write a program that prints the numbers from 1 to 10, each on a separate line.
-Hint: Use a "for" loop.
-Hint: In Java, an easy way to turn any variable into a string to print is to append it to the end
+Hint: Use a "while" loop. This is a way to repeat a block of code. For example, the
+following code adds together the numbers from 1 to 100, storing the result in "sum"
+
+int number = 1;
+int sum = 0;
+while (number <= 100) {
+	sum += number;
+	number++;
+}
+
+A closely related statement is "for". It's really common to add 1 to a variable for each time through
+the block of code, which is what happens to "number" in the example above. (This is called "incrementing"
+the variable.) Since it's so common, there is a special way of writing it, using a "for" loop.
+
+int sum = 0;
+for (int number = 1; number <= 100; number++) {
+	sum += number;
+}
+
+Hint: In Java, an easy way to turn any variable into a string that you can print is to append it to the end
 	of an empty string, like this:
 	
 	int number = 42;
 	String numberString = "" + number;
 	
+-------------------
 
 3. More complex counting
 
@@ -24,6 +115,8 @@ Write a program that prints the numbers from 1 to 100, with ten numbers on each 
 21 22 23 24 25 26 27 28 29 30
 ...
 Hint: System.out.print is a method that prints a string without moving to a new line
+
+-------------------
 
 4. My first method
 
@@ -43,7 +136,9 @@ Hint: In Java, an easy way to build strings is by using + to append them, like t
 	String name = "Pikachu";
 	int age = 3;
 	String message = name + " is " + age + " years old.";
-	 
+	
+-------------------
+ 
 5. Power table
 
 Write a "powerTable" method to print out a table of x to the power of y. In this table, "x" counts the numbers
@@ -57,3 +152,6 @@ The result should look like this:
 3 9 27 81 273 729 2187 6561 19683 59049
 4 16 64 256 1024 4096 16384 65536 262144 1048576
 5 25 125 625 3125 15625 78125 390625 1953125 9765625
+
+-------------------
+
