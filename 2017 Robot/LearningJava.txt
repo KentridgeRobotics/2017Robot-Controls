@@ -52,7 +52,7 @@ Some vocabulary:
 		// etc.
 	}
 
-- method (or function): code that actually does something.
+- method (or function): code that actually does something. (More on this later.)
 
 In Java, all code is organized into "classes", so initially you can think of a class as
 a container to put "methods" and variables.
@@ -64,7 +64,6 @@ In this file, copy this sample class definition
 
 public class Problem1 {
 	public static void main(String[] args) {
-	
 	}
 }
 
@@ -80,11 +79,14 @@ Hint: System.out.println is a method that prints out a string on a single line.
 2. Counting
 
 Write a program that prints the numbers from 1 to 10, each on a separate line.
-Hint: Use a "while" loop. This is a way to repeat a block of code. For example, the
+Hint: Use a "while" loop. This is a way to repeat a block of code for as long as the
+"test" (which is the expression in parentheses after the "while") is true. For example, the
 following code adds together the numbers from 1 to 100, storing the result in "sum"
 
 int number = 1;
 int sum = 0;
+
+// The test in this while statement will be true as long as number is less than or equal to 100.
 while (number <= 100) {
 	sum += number;
 	number++;
@@ -120,11 +122,46 @@ Hint: System.out.print is a method that prints a string without moving to a new 
 
 4. My first method
 
-Write a "power" method. This function computes x to the y power. Here's what it should look like:
+
+When you're writing an essay, you don't put everything into one paragraph. Similarly,
+when you're programming, you don't put everything into the "main" method. Instead, you
+write a number of smaller methods to split up the work, so the main method can be a sequence
+of calls to other methods.
+
+public static void main(String[] args) {
+	doFirstThing();
+	doSecondThing();
+	doThirdThing();
+}
+
+But breaking up big methods into a collection of smaller ones isn't the real power of writing
+new methods. The real power is when a methods has "parameters", that let you tell the method
+the value to use in for a variable, and the method also has a "return", which lets the method
+tell its caller the result of the function.
+
+For example, this is a function to compute the square of a number:
+
+int square(int x) {
+	return x * x;
+}
+
+In the function "square", the parameter is an int named x, and the function square returns an int.
+(And the value that it returned is the value of x times x.)
+
+Write a "power" method. This method computes x to the y power. 
+
+Here's what it should look like:
 
 static int power(int x, int y) {
+	int result = 1; // Think about why you want to have 1 and not 0 to start
+	
 	// your code goes here
+	
+	return result;
 }
+
+Methods are "called" from other methods. The only exception is "main", which is called by the operating system
+when you start your program.
 
 Call this method from "main" with several different combinations of x and y, and print out the result, like:
 2 to the power of 3 is 8
