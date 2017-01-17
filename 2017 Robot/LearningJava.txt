@@ -369,7 +369,16 @@ int[] findPrimesLessThanN(int n)
 	// Sixth: OK, this is outside of both for loops. Now you need to count how many elements in possiblePrimes
 	// are true. This is going to be the number of elements to return as primes.
 	
-	// Seventh: Create an array of ints big enough
+	// Seventh: Create an array of ints big enough to fit all the primes
+	
+	// Eighth: Create a variable currentPrimeIndex = 0
+
+	// Ninth: Using a for loop with index i, go through the array of possiblePrimes. 
+	// Every time you find a true value, set primes[currentPrimeIndex] = i.
+	// Then increment currentPrimeIndex
+	
+	// Tenth: Return primes.
+	// 
 }
 
 
