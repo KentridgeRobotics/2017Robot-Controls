@@ -44,6 +44,15 @@ Some vocabulary:
 	x += 1;  // This is a shorter way of writing "x = x + 1"
 	x++;  // This is an even shorter way, where we don't even say 1
 
+- comparison: There are lots of ways of comparing values in Java
+	x == y   Is x equal to y?
+	x != y   Is x not equal to y?
+	x > y    Is x greater than y?
+	x < y    Is x less than y?
+	x >= y   Is x greater than or equal to y?
+	x <= y   Is x less than or equal to y?
+	
+
 - block: a sequence of lines of code, usually inside a pair of braces like this:
 
 	{
@@ -191,4 +200,177 @@ The result should look like this:
 5 25 125 625 3125 15625 78125 390625 1953125 9765625
 
 -------------------
+
+6. Booleans and if statements
+
+int is a data type that can hold any integer (within limits). But in programming, it's very, very common
+to want to talk about values that can only be either true or false. Is the light on? Is the robot moving?
+Is the number zero? Is the password correct? For cases like that, there is a special data type called "boolean".
+(The name is from George Boole, who invented a type of logic about combining variables that can be
+true or false. We call this kind of logic "Boolean logic" or "Boolean algebra".) 
+
+Use it like this:
+
+boolean isSomethingWrong = false; // you can set booleans directly to true or false
+boolean isNegative = (n < 0); // built-in comparison operators produce booleans.
+
+boolean isStatusOk() {
+	// you can return booleans, just like ints
+	return !isSomethingWrong; // The ! is a boolean operator
+}
+
+Since boolean logic is so important in programming, here's a list of the boolean operators you're likely to encounter:
+
+! is "not". It converts true to false, and false to true.
+&& is "and". a && b is true if both a and b are true, and false otherwise.
+|| is "or". a || b is true if a is true, or if b is true, or both are true.
+
+Some places where you might encounter booleans are in "while" and "for" loops (as we saw in exercise 2), and in
+"if" statements.
+
+And if statement looks like a while loop:
+
+if (n < 100) {
+	// do something
+}
+
+The difference is that while loops will repeat over and over, until the boolean condition in parentheses after the word "while"
+evaluates to false. If statements are only evaluated once. If the condition is true, then you execute the block following. If not, you don't.
+
+It's also possible to extend an if statement, to tell it what to do in case the condition is false:
+
+if (n < 100) {
+	// do something
+}
+else {
+	// n was not less than 100. Do something else.
+}
+
+And you can go even further, using "else if" after the intial "if".
+
+if (n < 100) {
+	// something
+}
+else if (n > 200) {
+	// something else
+}
+else if (n == 147) {
+	// yet another thing.
+}
+else {
+	// if nothing else in the sequence was true
+}
+
+
+
+7. Arrays
+
+If you have a number of values to store, you might create a lot of variables. For example, if you want to record a series of
+distance measurements, you might have a lot of variables like:
+
+int distance0;
+int distance1;
+int distance2;
+int distance3;
+...
+
+But you can do this more easily, and more flexibly, by using an "array". An array lets you
+say that you want a certain number of places to store values of a given type.
+
+int[] distances = new int[5]; // 5 is the "size" of the array.
+
+Then you can use particular locations in the array ("elements" of the array) as variables of the
+element type. You specify an element of the array by giving its "index", which is the number that
+tells you which position in the array you want. 
+
+NOTE: The first element in the array is at index 0, and the last element is at index (size - 1) !!!!
+
+distances[0] = 42;
+
+Why is this useful? Because sometimes you don't know how many elements you want to have. Also,
+it makes programming easier if you can use a number to indicate which variable you're talking
+about. Also, an array is itself a variable, of type "array of whatever", which means that you
+can have variables and parameters that are arrays. So you might create a method like this:
+
+void printMessage(int number, String[] colors) {
+	System.out.println("Color #" + number + " is " + colors[number]);
+}
+
+And then you might use that method like this:
+
+String[] colors = new String[4];
+colors[0] = "red";
+colors[1] = "blue";
+colors[2] = "green";
+colors[3] = "magenta";
+
+int userSelectedColor = 2;
+
+printMessage(userSelectedColor, colors);
+
+
+Task: Write a method that returns an array containing all of the integers from
+	0 to a value n that is specified by the caller. It should look something like
+	this:
+	
+int[] numbersUpToN(int n) {
+	int[] integers = new int[n+1]; // Can you see why we need n+1 elements?
+	
+	// Fill in the "integers" array with the correct values
+	// Hint: Use a for loop.
+		
+	return integers;
+}
+
+--------------------------------------------------------------------------
+
+
+8. let's use arrays to solve a problem!
+
+Do you remember prime numbers from math class? The oldest way of finding prime numbers is called
+"The Sieve of Eratosthenes". This is something you can do on paper, by writing down the numbers
+from 0 to 100. Then you start "sieving" the numbers. 
+
+Skip over 0 and 1, since they're not prime by 
+definition. Put your finger on the number 2, and then cross off all the numbers after 2 that
+you reach by stepping forward 2 numbers at a stride. (4, 6, 8, 10, ...). Then move your finger
+to the next number that hasn't been crossed off yet (3), and cross off all the numbers after
+3 that you reach by stepping forward 3 numbers at a stride (6, 9, 12, 15, ...) It's OK to
+cross off numbers again. Continue this by moving your finger to the next un-crossed-off number,
+count forward the number of spaces given by the number under your finger, cross off, count forward
+the same number, etc., until you reach the end of the list. And then move your finger forward and repeat.
+
+Implement the Sieve of Eratosthenes as a method like this:
+
+int[] findPrimesLessThanN(int n)
+{
+	// We're using possiblePrimes to keep track of which numbers we've
+	// eliminates as possibly being prime. This is like crossing them off a
+	// sheet of paper. Here, we're making use of the array index to indicate what
+	// the number is, so the only information about the number we have to store
+	// is whether or not we've crossed it off our list.
+
+	boolean[] possiblePrimes = new boolean[n];
+	// First: set all the elements of possiblePrimes to true.
+
+	// Second: set possiblePrimes[0] and possiblePrimes[1] to false, since we know
+	// by definition that 0 and 1 are not prime.
+	
+	// Third: Make a for loop. Have a variable currentPossible that starts at 2, and have the
+	// loop continue for as long as currentPossible < n, and increment by 1.
+	
+	// Fourth: INSIDE the for loop mentioned above, make another for loop. This one should have
+	// a variable currentMultiple that starts at (currentPossible + currentPossible), and continues
+	// for as long as currentMultiple < n, and increment by currentPossible.
+	
+	// Fifth, INSIDE this inner for loop, set possiblePrimes[currentMultiple] to false
+	
+	
+	// Sixth: OK, this is outside of both for loops. Now you need to count how many elements in possiblePrimes
+	// are true. This is going to be the number of elements to return as primes.
+	
+	// Seventh: Create an array of ints big enough
+}
+
+
 
