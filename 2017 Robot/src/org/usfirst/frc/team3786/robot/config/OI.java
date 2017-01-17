@@ -39,13 +39,17 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
-	Joystick stick = new Joystick(0);
+	public static Joystick stick = new Joystick(0);
 	JoystickButton openButton = new JoystickButton(stick, 1);
 	Button closeButton = new JoystickButton(stick, 2);
 	
 	public OI() {
+		//should remove these once actual competition stuff rolls around
 		openButton.whenPressed(ServoOpen.getInstance());
 		closeButton.whenPressed(ServoClose.getInstance());
+	}
+	public static Joystick getJoystick() {
+		return stick;
 	}
 
 	

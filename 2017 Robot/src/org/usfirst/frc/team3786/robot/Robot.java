@@ -2,8 +2,10 @@
 package org.usfirst.frc.team3786.robot;
 
 import org.usfirst.frc.team3786.robot.commands.ExampleCommand;
+import org.usfirst.frc.team3786.robot.commands.MiniCIMSpeed;
 import org.usfirst.frc.team3786.robot.config.OI;
 import org.usfirst.frc.team3786.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team3786.robot.subsystems.MiniCIM;
 import org.usfirst.frc.team3786.robot.subsystems.ServoTest;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -25,6 +27,7 @@ public class Robot extends IterativeRobot {
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 	public static final ServoTest servoTest = ServoTest.getInstance();
+	public static final MiniCIM miniCIMTest = MiniCIM.getInstance();
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -99,6 +102,8 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		
+		MiniCIMSpeed.getInstance();
 	}
 
 	/**
