@@ -150,7 +150,7 @@ tell its caller the result of the function.
 
 For example, this is a function to compute the square of a number:
 
-int square(int x) {
+static int square(int x) {
 	return x * x;
 }
 
@@ -292,7 +292,7 @@ it makes programming easier if you can use a number to indicate which variable y
 about. Also, an array is itself a variable, of type "array of whatever", which means that you
 can have variables and parameters that are arrays. So you might create a method like this:
 
-void printMessage(int number, String[] colors) {
+static void printMessage(int number, String[] colors) {
 	System.out.println("Color #" + number + " is " + colors[number]);
 }
 
@@ -313,7 +313,7 @@ Task: Write a method that returns an array containing all of the integers from
 	0 to a value n that is specified by the caller. It should look something like
 	this:
 	
-int[] numbersUpToN(int n) {
+static int[] numbersUpToN(int n) {
 	int[] integers = new int[n+1]; // Can you see why we need n+1 elements?
 	
 	// Fill in the "integers" array with the correct values
@@ -342,7 +342,7 @@ the same number, etc., until you reach the end of the list. And then move your f
 
 Implement the Sieve of Eratosthenes as a method like this:
 
-int[] findPrimesLessThanN(int n)
+static int[] findPrimesLessThanN(int n)
 {
 	// We're using possiblePrimes to keep track of which numbers we've
 	// eliminates as possibly being prime. This is like crossing them off a
