@@ -88,6 +88,7 @@ Hint: System.out.println is a method that prints out a string on a single line.
 2. Counting
 
 Write a program that prints the numbers from 1 to 10, each on a separate line.
+
 Hint: Use a "while" loop. This is a way to repeat a block of code for as long as the
 "test" (which is the expression in parentheses after the "while") is true. For example, the
 following code adds together the numbers from 1 to 100, storing the result in "sum"
@@ -125,7 +126,18 @@ Write a program that prints the numbers from 1 to 100, with ten numbers on each 
 11 12 13 14 15 16 17 18 19 20
 21 22 23 24 25 26 27 28 29 30
 ...
-Hint: System.out.print is a method that prints a string without moving to a new line
+
+Hint: System.out.print is a method that prints a string without moving to a new line, and
+	System.out.println is a method that prints a newline after whatever string you pass to it.
+	You can also create a newline with the \n character sequence like this: System.out.print("\n");
+
+Hint: You can put anything inside a loop. Including another loop. For example, you can do something like:
+
+	for (int row = 0; row < 3; row++) {
+		for (int column = 0; column < 3; column++) {
+			System.out.println("Row = " + row + ", Column = " + column);
+		}
+	}
 
 -------------------
 
