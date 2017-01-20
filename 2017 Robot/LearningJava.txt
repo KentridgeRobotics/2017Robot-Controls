@@ -211,6 +211,7 @@ The result should look like this:
 4 16 64 256 1024 4096 16384 65536 262144 1048576
 5 25 125 625 3125 15625 78125 390625 1953125 9765625
 
+
 -------------------
 
 6. Booleans and if statements
@@ -258,7 +259,7 @@ else {
 	// n was not less than 100. Do something else.
 }
 
-And you can go even further, using "else if" after the intial "if".
+And you can go even further, using "else if" after the intial "if". 
 
 if (n < 100) {
 	// something
@@ -271,6 +272,41 @@ else if (n == 147) {
 }
 else {
 	// if nothing else in the sequence was true
+}
+
+
+The way this works is:
+- First the condition in the "if" clause is checked. If that's true, then do whatever is inside
+	the block connected to the "if". And then skip all of the following "else" and "else if" clauses.
+
+- Next look at the first "else if" clause. If the condition in it is true, then do
+	what is in the block, and skip all the following "else" and "else if" clauses
+	
+- Then look at the next "else if", using the same rule.
+
+- Finally, if none of the "if" and "else if" conditions were true, do whatever the "else
+	clause says. (If there is an "else".)
+	
+
+Question: What does this program print out?
+
+int number = 42;
+
+if (number > 0) {
+	System.out.println("A");
+}
+
+if (number < 0) {
+	System.out.println("B");
+}
+else if (number > 5) {
+	System.out.println("C");
+}
+else if (number > 10) {
+	System.out.println("D");
+}
+else {
+	System.out.println("E");
 }
 
 
