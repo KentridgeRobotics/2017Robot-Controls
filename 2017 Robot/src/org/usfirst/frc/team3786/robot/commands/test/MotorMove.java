@@ -1,35 +1,34 @@
-package org.usfirst.frc.team3786.robot.commands;
+package org.usfirst.frc.team3786.robot.commands.test;
 
 import org.usfirst.frc.team3786.robot.Robot;
+import org.usfirst.frc.team3786.robot.subsystems.MiniCIM;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ServoClose extends Command {
+public class MotorMove extends Command {
 
-	public static ServoClose instance;
+	public static MotorMove instance;
 	
-	public static ServoClose getInstance() {
+	public static MotorMove  getInstance() {
 		if(instance == null)
-			instance = new ServoClose();
+			instance = new MotorMove();
 		return instance;
 	}
 
-	
-    public ServoClose() {
-		requires(Robot.servoTest);
-		setTimeout(.9);
+    public MotorMove() {
+       requires(MiniCIM.getInstance());
+       setTimeout(.9);
     }
-
     // Called just before this Command runs the first time
     protected void initialize() {
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.servoTest.close();
+    	MiniCIM.getInstance().setSpeed(.1);
     }
 
     // Make this return true when this Command no longer needs to run execute()

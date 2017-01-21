@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3786.robot.subsystems;
 
-import org.usfirst.frc.team3786.robot.commands.Drive;
+import org.usfirst.frc.team3786.robot.commands.drive.Drive;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 
 import com.ctre.CANTalon;

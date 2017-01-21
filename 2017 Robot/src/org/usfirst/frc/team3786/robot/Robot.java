@@ -1,8 +1,8 @@
 
 package org.usfirst.frc.team3786.robot;
 
-import org.usfirst.frc.team3786.robot.commands.Drive;
-import org.usfirst.frc.team3786.robot.commands.MiniCIMSpeed;
+import org.usfirst.frc.team3786.robot.commands.drive.Drive;
+import org.usfirst.frc.team3786.robot.commands.test.MiniCIMSpeed;
 import org.usfirst.frc.team3786.robot.config.ControlConfig;
 import org.usfirst.frc.team3786.robot.config.OI;
 import org.usfirst.frc.team3786.robot.subsystems.ExampleSubsystem;
