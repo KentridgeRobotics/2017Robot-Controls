@@ -8,7 +8,10 @@ import org.usfirst.frc.team3786.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team3786.robot.subsystems.MiniCIM;
 import org.usfirst.frc.team3786.robot.subsystems.ServoTest;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -28,6 +31,8 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static final ServoTest servoTest = ServoTest.getInstance();
 	public static final MiniCIM miniCIMTest = MiniCIM.getInstance();
+	public static Joystick stick = new Joystick(0);
+	
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -40,8 +45,11 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		chooser.addDefault("Default Auto", new ExampleCommand());
+		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
+		cam.setResolution(1280, 720);
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		
 	}
 
 	/**
@@ -112,7 +120,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		MiniCIMSpeed.getInstance();
+		//MiniCIMSpeed.getInstance();
+		miniCIMTest.setSpeed(stick.getRawAxis(1) * .25);
+		SmartDashboard.putNumber("Stick Y", stick.getY());
 	}
 
 	/**
