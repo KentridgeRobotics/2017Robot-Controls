@@ -1,34 +1,32 @@
 package org.usfirst.frc.team3786.robot.commands;
 
 import org.usfirst.frc.team3786.robot.Robot;
-import org.usfirst.frc.team3786.robot.config.OI;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class MiniCIMSpeed extends Command {
+public class MotorStop extends Command {
+
+	public static MotorStop instance;
 	
-	public static MiniCIMSpeed instance;
-	
-	public static MiniCIMSpeed  getInstance() {
+	public static MotorStop  getInstance() {
 		if(instance == null)
-			instance = new MiniCIMSpeed();
+			instance = new MotorStop();
 		return instance;
 	}
 
-    public MiniCIMSpeed() {
+    public MotorStop() {
        requires(Robot.miniCIMTest);
     }
-
     // Called just before this Command runs the first time
     protected void initialize() {
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.miniCIMTest.setSpeed(OI.getJoystickY() * -1);
+    	Robot.miniCIMTest.setSpeed(0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

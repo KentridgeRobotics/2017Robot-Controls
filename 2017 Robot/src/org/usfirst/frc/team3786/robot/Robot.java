@@ -103,7 +103,7 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		
-		MiniCIMSpeed.getInstance();
+		
 	}
 
 	/**
@@ -112,6 +112,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		MiniCIMSpeed.getInstance();
 	}
 
 	/**
