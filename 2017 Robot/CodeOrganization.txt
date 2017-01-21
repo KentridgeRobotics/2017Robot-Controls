@@ -11,7 +11,17 @@ robot/commands/drive
 robot/commands/auto
 
 	Put all the autonomous commands under this directory. These are the programs that we can run
-	in autonomous mode.
+	in autonomous mode. We should write several of these, and we can pick one to use during
+	a competition. Some examples: 
+	
+	AutoDriveOverBaseline:
+		a program that just moves the robot over the baseline.
+		
+	AutoDropOffGear:
+		A program that navigates to the gear lifter and drops off the gear. 
+		
+	AutoShooter:
+		A program that moves into the shooting area and shoots baskets.
 	
 robot/commands/shooter
 
