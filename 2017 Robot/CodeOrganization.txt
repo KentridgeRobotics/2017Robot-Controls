@@ -1,6 +1,10 @@
 Code organization
 
-Let's organize our robot like this:
+First, let's make sure to not check in code that breaks the build for everyone else. So before you push your changes
+to the "master" branch, make sure that you haven't broken anything. This means compiling the project, deploying it
+to the robot, and verifying that any of the functions you're working on still work.
+
+Second, let's organize our robot like this:
 
 robot/commands/drive
 
