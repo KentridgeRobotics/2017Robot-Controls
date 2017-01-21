@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3786.robot.config;
 
+import org.usfirst.frc.team3786.robot.Robot;
 import org.usfirst.frc.team3786.robot.commands.MotorMove;
 import org.usfirst.frc.team3786.robot.commands.MotorStop;
 import org.usfirst.frc.team3786.robot.commands.ServoClose;
@@ -41,11 +42,11 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
-	public static Joystick stick = new Joystick(0);
-	JoystickButton openButton = new JoystickButton(stick, 1);
-	Button closeButton = new JoystickButton(stick, 2);
-	Button motorMove = new JoystickButton(stick, 5);
-	Button motorStop = new JoystickButton(stick, 3);
+	//public static Joystick stick = new Joystick(0);
+	JoystickButton openButton = new JoystickButton(Robot.stick, 1);
+	Button closeButton = new JoystickButton(Robot.stick, 2);
+	Button motorMove = new JoystickButton(Robot.stick, 5);
+	Button motorStop = new JoystickButton(Robot.stick, 3);
 	
 	public OI() {
 		//should remove these once actual competition stuff rolls around
@@ -56,7 +57,8 @@ public class OI {
 		
 	}
 	public static double getJoystickY() {
-		return stick.getY();
+		//return stick.getRawAxis(1);
+		return 0;
 	}
 
 	

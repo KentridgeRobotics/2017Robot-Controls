@@ -1,8 +1,9 @@
 package org.usfirst.frc.team3786.robot.subsystems;
 
+import org.usfirst.frc.team3786.robot.config.RobotConfig;
+
 import com.ctre.CANTalon;
 
-import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -15,8 +16,7 @@ public class MiniCIM extends Subsystem {
 			instance = new MiniCIM();
 		return instance;
 	}
-	CANTalon miniDriver = new CANTalon(1);
-	//TalonSRX miniDriver = new TalonSRX(1);
+	CANTalon miniDriver = new CANTalon(RobotConfig.getInstance().getLeftDriveMotor());
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
