@@ -1,0 +1,63 @@
+Code organization
+
+Let's organize our robot like this:
+
+robot/commands/drive
+
+	We want a "Drive.java" class in this directory, where we specify what happens in response to
+	joystick input. Do we need anything else here?
+
+	
+robot/commands/auto
+
+	Put all the autonomous commands under this directory. These are the programs that we can run
+	in autonomous mode.
+	
+robot/commands/shooter
+
+	Put all the commands related to operation of the shooter here. Probably commands for raise/lower the aim,
+	control the shooter motor.
+	
+robot/commands/grabber
+
+	Put all commands related to operation of the gear grabber here. Probably commands for raise/lower the
+	grabber arm, open or close the servo to grab the gear, move the arm to certain preset positions.
+	
+robot/commands/macro
+
+	This is where we put all the command groups for doing complex operations as a single command that
+	we can assign to a button. For
+	example:
+	
+	Shoot a basket
+		- Move the robot to the perfect position for shooting a basket
+		- Raise or lower the aim to whatever we've determined is correct
+			for shooting from this position
+		- Rev up the shooter motor to the correct speed
+		- Take the shot.
+		
+robot/config
+
+	This is where we put all the constants for specifying the IDs for the various controllers in RobotMap.java.
+	We also put code for setting up the operator interface (SmartDashboard) in OI.java
+	
+robot/subsystems/
+
+	This is where we actually control the hardware. Some classes inside this are:
+	
+	DriveTrain
+		Control the drive motors.
+		
+	Shooter
+		Control the shooter's motor, aim, and shot
+		
+	GearGrabber
+		Control the gear grabber's arm and servo mechanism.
+		
+	Climber
+		Control the climber's motor
+		
+	BallCollector
+		Control the ball collector's motors.
+		
+
