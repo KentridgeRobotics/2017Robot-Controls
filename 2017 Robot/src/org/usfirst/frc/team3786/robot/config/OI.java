@@ -47,13 +47,7 @@ public class OI {
 		//should remove these once actual competition stuff rolls around
 		openButton.whenPressed(ServoOpen.getInstance());
 		closeButton.whenPressed(ServoClose.getInstance());
-//		motorMove.whenPressed(MotorMove.getInstance());
-//		motorStop.whenPressed(MotorStop.getInstance());
 		
-	}
-	public static double getJoystickY() {
-		//return stick.getRawAxis(1);
-		return 0;
 	}
 
 	
