@@ -10,6 +10,15 @@ import edu.wpi.first.wpilibj.Joystick;
 public abstract class ControlConfig {
 	private static ControlConfig instance;
 	
+	public static ControlConfig getInstance() {
+		if(instance == null)
+			instance = new TankDrive();
+		return instance;
+	}
+	
+	
 	
 	public abstract Joystick getLeftStick();
+	
+	
 }

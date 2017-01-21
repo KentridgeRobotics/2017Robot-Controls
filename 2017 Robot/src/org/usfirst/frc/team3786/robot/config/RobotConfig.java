@@ -18,4 +18,6 @@ public abstract class RobotConfig {
 	
 	public abstract int getLeftDriveMotor();
 	
+	public abstract int getRightDriveMotor();
+		
 }

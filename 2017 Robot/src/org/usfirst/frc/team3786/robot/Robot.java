@@ -1,8 +1,9 @@
 
 package org.usfirst.frc.team3786.robot;
 
-import org.usfirst.frc.team3786.robot.commands.ExampleCommand;
+import org.usfirst.frc.team3786.robot.commands.Drive;
 import org.usfirst.frc.team3786.robot.commands.MiniCIMSpeed;
+import org.usfirst.frc.team3786.robot.config.ControlConfig;
 import org.usfirst.frc.team3786.robot.config.OI;
 import org.usfirst.frc.team3786.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team3786.robot.subsystems.MiniCIM;
@@ -27,11 +28,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 	public static final ServoTest servoTest = ServoTest.getInstance();
-	public static final MiniCIM miniCIMTest = MiniCIM.getInstance();
-	public static Joystick stick = new Joystick(0);
+	//public static Joystick stick = new Joystick(0);
 	
 
 	Command autonomousCommand;
@@ -44,7 +43,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		chooser.addDefault("Default Auto", new ExampleCommand());
+		Drive.getInstance();
+		chooser.addDefault("Default Auto", new Drive());
 		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
 		cam.setResolution(1280, 720);
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -120,9 +120,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		//MiniCIMSpeed.getInstance();
-		miniCIMTest.setSpeed(stick.getRawAxis(1) * .25);
-		SmartDashboard.putNumber("Stick Y", stick.getY());
+		SmartDashboard.putNumber("Stick Y", ControlConfig.getInstance().getLeftStick().getY());
 	}
 
 	/**

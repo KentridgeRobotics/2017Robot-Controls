@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3786.robot.commands;
 
 import org.usfirst.frc.team3786.robot.Robot;
+import org.usfirst.frc.team3786.robot.subsystems.MiniCIM;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -18,7 +19,7 @@ public class MotorStop extends Command {
 	}
 
     public MotorStop() {
-       requires(Robot.miniCIMTest);
+       requires(MiniCIM.getInstance());
     }
     // Called just before this Command runs the first time
     protected void initialize() {
@@ -26,7 +27,7 @@ public class MotorStop extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.miniCIMTest.setSpeed(0);
+    	MiniCIM.getInstance().setSpeed(0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3786.robot.commands;
 
 import org.usfirst.frc.team3786.robot.Robot;
+import org.usfirst.frc.team3786.robot.subsystems.MiniCIM;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -18,7 +19,7 @@ public class MotorMove extends Command {
 	}
 
     public MotorMove() {
-       requires(Robot.miniCIMTest);
+       requires(MiniCIM.getInstance());
        setTimeout(.9);
     }
     // Called just before this Command runs the first time
@@ -27,7 +28,7 @@ public class MotorMove extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.miniCIMTest.setSpeed(.1);
+    	MiniCIM.getInstance().setSpeed(.1);
     }
 
     // Make this return true when this Command no longer needs to run execute()
