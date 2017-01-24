@@ -2,7 +2,7 @@ package org.usfirst.frc.team3786.robot.commands.drive;
 
 import org.usfirst.frc.team3786.robot.config.ControlConfig;
 import org.usfirst.frc.team3786.robot.config.OI;
-import org.usfirst.frc.team3786.robot.subsystems.MiniCIM;
+import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -18,7 +18,7 @@ public class Drive extends Command {
 	}
 	public Drive() {
 		// Use requires() here to declare subsystem dependencies
-		requires(MiniCIM.getInstance());
+		requires(DriveTrain.getInstance());
 	}
 
 	// Called just before this Command runs the first time
@@ -29,7 +29,7 @@ public class Drive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		MiniCIM.getInstance().setSpeed(ControlConfig.getInstance().getLeftStick().getY() * -.25);
+		DriveTrain.getInstance().setSpeed(ControlConfig.getInstance().getLeftDrive(), ControlConfig.getInstance().getRightDrive());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

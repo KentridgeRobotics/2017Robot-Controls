@@ -10,22 +10,24 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class MiniCIM extends Subsystem {
-	public static MiniCIM instance;
-	public static MiniCIM getInstance() {
+public class DriveTrain extends Subsystem {
+	public static DriveTrain instance;
+	public static DriveTrain getInstance() {
 		if(instance == null)
-			instance = new MiniCIM();
+			instance = new DriveTrain();
 		return instance;
 	}
-	CANTalon miniDriver = new CANTalon(RobotConfig.getInstance().getLeftDriveMotor());
+	CANTalon leftDriveMotor = new CANTalon(RobotConfig.getInstance().getLeftDriveMotor());
+	CANTalon rightDriveMotor = new CANTalon(RobotConfig.getInstance().getRightDriveMotor());
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     	setDefaultCommand(Drive.getInstance());
     }
     
-    public void setSpeed(double speed) {
-    	miniDriver.set(speed);
+    public void setSpeed(double leftSpeed, double rightSpeed) {
+    	leftDriveMotor.set(leftSpeed);
+    	rightDriveMotor.set(rightSpeed);
     }
 }
 

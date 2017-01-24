@@ -4,7 +4,7 @@ public class CompetitionConfig extends RobotConfig {
 
 	private static final int LEFT_DRIVE_MOTOR = 1;
 	
-	private static final int RIGHT_DRIVE_MOTOR = 2;
+	private static final int RIGHT_DRIVE_MOTOR = 8;
 	
 	
 	@Override

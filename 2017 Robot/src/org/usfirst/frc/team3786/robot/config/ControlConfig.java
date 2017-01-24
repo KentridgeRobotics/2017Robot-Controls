@@ -20,5 +20,11 @@ public abstract class ControlConfig {
 	
 	public abstract Joystick getLeftStick();
 	
+	public abstract Joystick getRightStick();
+	
+	public abstract double getLeftDrive();
+	
+	public abstract double getRightDrive();
+	
 	
 }

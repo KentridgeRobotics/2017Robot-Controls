@@ -2,17 +2,13 @@
 package org.usfirst.frc.team3786.robot;
 
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
-import org.usfirst.frc.team3786.robot.commands.test.MiniCIMSpeed;
 import org.usfirst.frc.team3786.robot.config.ControlConfig;
 import org.usfirst.frc.team3786.robot.config.OI;
-import org.usfirst.frc.team3786.robot.subsystems.ExampleSubsystem;
-import org.usfirst.frc.team3786.robot.subsystems.MiniCIM;
 import org.usfirst.frc.team3786.robot.subsystems.ServoTest;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -120,7 +116,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Stick Y", ControlConfig.getInstance().getLeftStick().getY());
 	}
 
 	/**
