@@ -358,3 +358,178 @@ angle: 60
     ]
   }
 }
+
+
+
+------------------------
+
+
+Second try
+
+Dist: 3 ft
+Angle: 0
+
+{
+  "myContoursReport": {
+    "area": [
+      3320.0,
+      3440.0
+    ],
+    "centerY": [
+      155.0,
+      153.0
+    ],
+    "centerX": [
+      241.0,
+      389.0
+    ],
+    "width": [
+      38.0,
+      38.0
+    ],
+    "solidity": [
+      1.0,
+      1.0
+    ],
+    "height": [
+      95.0,
+      98.0
+    ]
+  }
+}
+
+
+Dist: 3 ft
+Angle: 15 degrees, right side closer
+
+{
+  "myContoursReport": {
+    "area": [
+      2863.0,
+      3865.0
+    ],
+    "centerY": [
+      154.0,
+      147.0
+    ],
+    "centerX": [
+      271.0,
+      416.0
+    ],
+    "width": [
+      34.0,
+      40.0
+    ],
+    "solidity": [
+      1.0,
+      1.0
+    ],
+    "height": [
+      93.0,
+      103.0
+    ]
+  }
+}
+
+
+
+Dist: 3 ft
+Angle: 30 degrees, right side closer
+
+{
+  "myContoursReport": {
+    "area": [
+      2467.0,
+      3478.0
+    ],
+    "centerY": [
+      164.0,
+      153.0
+    ],
+    "centerX": [
+      248.0,
+      378.0
+    ],
+    "width": [
+      32.0,
+      36.0
+    ],
+    "solidity": [
+      1.0,
+      1.0
+    ],
+    "height": [
+      89.0,
+      105.0
+    ]
+  }
+}
+
+
+Dist: 3 ft
+Angle: 45 degrees, right side closer
+
+{
+  "myContoursReport": {
+    "area": [
+      1897.0,
+      3138.0
+    ],
+    "centerY": [
+      153.0,
+      137.0
+    ],
+    "centerX": [
+      243.0,
+      353.0
+    ],
+    "width": [
+      26.0,
+      34.0
+    ],
+    "solidity": [
+      1.0,
+      1.0
+    ],
+    "height": [
+      88.0,
+      109.0
+    ]
+  }
+}
+
+
+Dist 3 ft
+Angle: 60 degrees, right side closer
+
+{
+  "myContoursReport": {
+    "area": [
+      1304.5,
+      2509.5
+    ],
+    "centerY": [
+      153.0,
+      134.0
+    ],
+    "centerX": [
+      318.0,
+      401.0
+    ],
+    "width": [
+      20.0,
+      30.0
+    ],
+    "solidity": [
+      1.0,
+      1.0
+    ],
+    "height": [
+      87.0,
+      112.0
+    ]
+  }
+}
+
+
+
