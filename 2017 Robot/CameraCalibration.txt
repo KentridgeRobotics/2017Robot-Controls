@@ -1,0 +1,360 @@
+Dist: 3 feet
+angle: 0
+{
+  "myContoursReport": {
+    "area": [
+      3107.5,
+      3241.5
+    ],
+    "centerY": [
+      112.0,
+      109.0
+    ],
+    "centerX": [
+      206.0,
+      361.0
+    ],
+    "width": [
+      36.0,
+      38.0
+    ],
+    "solidity": [
+      1.0,
+      1.0
+    ],
+    "height": [
+      93.0,
+      94.0
+    ]
+  }
+}
+dist: 4 feet
+angle:0
+{
+  "myContoursReport": {
+    "area": [
+      840.0,
+      1707.0
+    ],
+    "centerY": [
+      119.0,
+      130.0
+    ],
+    "centerX": [
+      363.0,
+      247.0
+    ],
+    "width": [
+      26.0,
+      26.0
+    ],
+    "solidity": [
+      1.0,
+      1.0
+    ],
+    "height": [
+      37.0,
+      71.0
+    ]
+  }
+}
+dist: 5
+angle 0
+{
+  "myContoursReport": {
+    "area": [
+      1092.5,
+      1082.5
+    ],
+    "centerY": [
+      151.0,
+      149.0
+    ],
+    "centerX": [
+      381.0,
+      288.0
+    ],
+    "width": [
+      22.0,
+      21.0
+    ],
+    "solidity": [
+      1.0,
+      1.0
+    ],
+    "height": [
+      56.0,
+      58.0
+    ]
+  }
+}
+dist: 6
+angle: 0
+{
+  "myContoursReport": {
+    "area": [
+      771.0,
+      801.5
+    ],
+    "centerY": [
+      176.0,
+      174.0
+    ],
+    "centerX": [
+      369.0,
+      292.0
+    ],
+    "width": [
+      18.0,
+      20.0
+    ],
+    "solidity": [
+      1.0,
+      1.0
+    ],
+    "height": [
+      47.0,
+      48.0
+    ]
+  }
+}
+dist: 7
+angle: 0
+{
+  "myContoursReport": {
+    "area": [
+      565.0,
+      550.0
+    ],
+    "centerY": [
+      176.0,
+      175.0
+    ],
+    "centerX": [
+      356.0,
+      290.0
+    ],
+    "width": [
+      16.0,
+      16.0
+    ],
+    "solidity": [
+      1.0,
+      1.0
+    ],
+    "height": [
+      41.0,
+      40.0
+    ]
+  }
+}
+dist: 8
+angle: 0
+{
+  "myContoursReport": {
+    "area": [
+      447.5,
+      481.0
+    ],
+    "centerY": [
+      89.0,
+      87.0
+    ],
+    "centerX": [
+      315.0,
+      374.0
+    ],
+    "width": [
+      14.0,
+      16.0
+    ],
+    "solidity": [
+      1.0,
+      1.0
+    ],
+    "height": [
+      37.0,
+      37.0
+    ]
+  }
+}
+dist: 9
+angle: 0
+{
+  "myContoursReport": {
+    "area": [
+      338.0,
+      333.0
+    ],
+    "centerY": [
+      165.0,
+      163.0
+    ],
+    "centerX": [
+      329.0,
+      278.0
+    ],
+    "width": [
+      13.0,
+      12.0
+    ],
+    "solidity": [
+      1.0,
+      1.0
+    ],
+    "height": [
+      32.0,
+      32.0
+    ]
+  }
+}
+dist: 10
+angle: 0
+{
+  "myContoursReport": {
+    "area": [
+      258.0,
+      282.0
+    ],
+    "centerY": [
+      181.0,
+      179.0
+    ],
+    "centerX": [
+      323.0,
+      278.0
+    ],
+    "width": [
+      11.0,
+      12.0
+    ],
+    "solidity": [
+      1.0,
+      1.0
+    ],
+    "height": [
+      28.0,
+      28.0
+    ]
+  }
+}
+dist: 3
+angle: 15
+{
+  "myContoursReport": {
+    "area": [
+      3145.5,
+      3495.5
+    ],
+    "centerY": [
+      75.0,
+      75.0
+    ],
+    "centerX": [
+      234.0,
+      387.0
+    ],
+    "width": [
+      36.0,
+      38.0
+    ],
+    "solidity": [
+      1.0,
+      1.0
+    ],
+    "height": [
+      95.0,
+      100.0
+    ]
+  }
+}
+dist: 3
+angle: 30
+{
+  "myContoursReport": {
+    "area": [
+      2378.0,
+      3518.5
+    ],
+    "centerY": [
+      116.0,
+      101.0
+    ],
+    "centerX": [
+      270.0,
+      405.0
+    ],
+    "width": [
+      28.0,
+      37.0
+    ],
+    "solidity": [
+      1.0,
+      1.0
+    ],
+    "height": [
+      91.0,
+      103.0
+    ]
+  }
+}
+dist: 3
+angle: 45
+{
+  "myContoursReport": {
+    "area": [
+      1778.0,
+      3067.5
+    ],
+    "centerY": [
+      156.0,
+      135.0
+    ],
+    "centerX": [
+      241.0,
+      355.0
+    ],
+    "width": [
+      22.0,
+      34.0
+    ],
+    "solidity": [
+      1.0,
+      1.0
+    ],
+    "height": [
+      87.0,
+      99.0
+    ]
+  }
+}
+dist: 3
+angle: 60
+{
+  "myContoursReport": {
+    "area": [
+      1179.5,
+      2484.5
+    ],
+    "centerY": [
+      152.0,
+      125.0
+    ],
+    "centerX": [
+      228.0,
+      309.0
+    ],
+    "width": [
+      16.0,
+      26.0
+    ],
+    "solidity": [
+      1.0,
+      1.0
+    ],
+    "height": [
+      88.0,
+      106.0
+    ]
+  }
+}
