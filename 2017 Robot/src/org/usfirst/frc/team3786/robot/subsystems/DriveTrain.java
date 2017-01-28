@@ -22,12 +22,18 @@ public class DriveTrain extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(Drive.getInstance());
+    	setDefaultCommand(Drive.getInstance());  	
     }
     
     public void setSpeed(double leftSpeed, double rightSpeed) {
     	leftDriveMotor.set(leftSpeed);
     	rightDriveMotor.set(rightSpeed);
+    }
+    public int getLeftEncoder() {
+    	return leftDriveMotor.getEncPosition();
+    }
+    public int getLeftVelocity() {
+    	return leftDriveMotor.getEncVelocity();
     }
 }
 
