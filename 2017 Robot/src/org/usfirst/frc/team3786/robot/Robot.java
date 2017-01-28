@@ -2,6 +2,7 @@
 package org.usfirst.frc.team3786.robot;
 
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
+import org.usfirst.frc.team3786.robot.config.Camera;
 import org.usfirst.frc.team3786.robot.config.ControlConfig;
 import org.usfirst.frc.team3786.robot.config.OI;
 import org.usfirst.frc.team3786.robot.subsystems.ServoTest;
@@ -27,7 +28,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static final ServoTest servoTest = ServoTest.getInstance();
 	//public static Joystick stick = new Joystick(0);
-	
+	public Camera camera;
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -38,6 +39,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		camera = new Camera("VISION");
+		
 		oi = new OI();
 		Drive.getInstance();
 		chooser.addDefault("Default Auto", new Drive());
@@ -116,6 +119,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Camera X", camera.getX());
 	}
 
 	/**
