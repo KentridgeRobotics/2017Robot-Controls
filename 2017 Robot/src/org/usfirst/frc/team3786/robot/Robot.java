@@ -5,14 +5,17 @@ import org.usfirst.frc.team3786.robot.commands.drive.Drive;
 import org.usfirst.frc.team3786.robot.config.Camera;
 import org.usfirst.frc.team3786.robot.config.ControlConfig;
 import org.usfirst.frc.team3786.robot.config.OI;
+import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3786.robot.subsystems.ServoTest;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -27,7 +30,6 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 	public static final ServoTest servoTest = ServoTest.getInstance();
-	//public static Joystick stick = new Joystick(0);
 	public Camera camera;
 
 	Command autonomousCommand;
@@ -39,14 +41,15 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		camera = new Camera("VISION");
-		
+		//NetworkTable.setClientMode();
+		//NetworkTable.setIPAddress("10.37.86.88");
+		//Camera.getInstance();
 		oi = new OI();
 		Drive.getInstance();
 		chooser.addDefault("Default Auto", new Drive());
-		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
-		cam.setResolution(1280, 720);
-		// chooser.addObject("My Auto", new MyAutoCommand());
+		//UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
+		//cam.setResolution(1280, 720);
+		//chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		
 	}
@@ -119,7 +122,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Camera X", camera.getX());
+		//Camera.getInstance().pollCamera();
+		//PID position test
+//		DriveTrain.getInstance().setPosition(1000);
+//		Timer.delay(2);
+//		DriveTrain.getInstance().setPosition(-1000);
+//		Timer.delay(2);
 	}
 
 	/**
