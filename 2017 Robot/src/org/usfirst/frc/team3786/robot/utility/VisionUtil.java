@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3786.robot.utility;
 
-//Utility class to calculate 
+//Utility class to calculate distances and angles using measurements
+//in Pixels and coordinates.
 public class VisionUtil {
 	
 	//Calculate Distance  
