@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3786.robot.config;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * Abstract class to store all the controls.
@@ -21,10 +22,12 @@ public abstract class ControlConfig {
 	public abstract Joystick getLeftStick();
 	
 	public abstract Joystick getRightStick();
-	
+			
 	public abstract double getLeftDrive();
 	
 	public abstract double getRightDrive();
+	
+	public abstract JoystickButton getTestButton();
 	
 	
 }

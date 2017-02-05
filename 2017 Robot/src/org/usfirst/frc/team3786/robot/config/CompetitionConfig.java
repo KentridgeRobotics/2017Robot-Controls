@@ -6,6 +6,8 @@ public class CompetitionConfig extends RobotConfig {
 	
 	private static final int RIGHT_DRIVE_MOTOR = 8;
 	
+	private static final int GEAR_ARM_MOTOR = 3;
+	
 	
 	@Override
 	public int getLeftDriveMotor() {
@@ -16,6 +18,12 @@ public class CompetitionConfig extends RobotConfig {
 	@Override
 	public int getRightDriveMotor() {
 		return RIGHT_DRIVE_MOTOR;
+	}
+
+
+	@Override
+	public int getGearArmMotor() {
+		return GEAR_ARM_MOTOR;
 	}
 
 }

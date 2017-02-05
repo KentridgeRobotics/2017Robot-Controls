@@ -3,11 +3,14 @@ package org.usfirst.frc.team3786.robot.config;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TankDrive extends ControlConfig {
 	private Joystick leftStick = new Joystick(0);
 	private Joystick rightStick = new Joystick(1);
+	private JoystickButton testButton = new JoystickButton(leftStick, 3);
+
 	
 	private static double leftOut, rightOut;
 	
@@ -32,6 +35,10 @@ public class TankDrive extends ControlConfig {
 		rightOut = rightStick.getY();
 		SmartDashboard.putNumber("Right Stick", rightOut);
 		return Math.pow(rightOut, 2) * (Math.abs(rightOut)/rightOut);
+	}
+	@Override
+	public JoystickButton getTestButton() {
+		return testButton;
 	}
 
 }

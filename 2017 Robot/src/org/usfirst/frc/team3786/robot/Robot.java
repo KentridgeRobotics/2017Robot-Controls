@@ -2,10 +2,13 @@
 package org.usfirst.frc.team3786.robot;
 
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
+import org.usfirst.frc.team3786.robot.commands.grabber.MoveGearArm;
+import org.usfirst.frc.team3786.robot.commands.test.EncoderPositionTest;
 import org.usfirst.frc.team3786.robot.config.Camera;
 import org.usfirst.frc.team3786.robot.config.ControlConfig;
 import org.usfirst.frc.team3786.robot.config.OI;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 import org.usfirst.frc.team3786.robot.subsystems.ServoTest;
 
 import edu.wpi.cscore.UsbCamera;
@@ -46,6 +49,9 @@ public class Robot extends IterativeRobot {
 		//Camera.getInstance();
 		oi = new OI();
 		Drive.getInstance();
+		MoveGearArm.getInstance();
+		ControlConfig.getInstance().getTestButton().whenPressed(EncoderPositionTest.getInstance());
+		
 		chooser.addDefault("Default Auto", new Drive());
 		//UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
 		//cam.setResolution(1280, 720);
@@ -106,12 +112,15 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
+		
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		
+		//DriveTrain.getInstance().setPositionDrive();
 		
 		
 	}
@@ -122,11 +131,16 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
+		SmartDashboard.putNumber("Left Encoder", DriveTrain.getInstance().getLeftEncoder());
+		SmartDashboard.putNumber("Left Voltage", DriveTrain.getInstance().getMotorOutput());
 		//Camera.getInstance().pollCamera();
 		//PID position test
 //		DriveTrain.getInstance().setPosition(1000);
+//		SmartDashboard.putNumber("Left Encoder", DriveTrain.getInstance().getLeftEncoder());
 //		Timer.delay(2);
 //		DriveTrain.getInstance().setPosition(-1000);
+//		SmartDashboard.putNumber("Left Encoder", DriveTrain.getInstance().getLeftEncoder());
 //		Timer.delay(2);
 	}
 
