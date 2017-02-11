@@ -61,11 +61,12 @@ public class GearTargetFinder extends Subsystem {
 		    	
 		        Mat source = new Mat();
 		        cvSink.grabFrame(source);
-		        cvSource = CameraServer.getInstance().putVideo("Output", IMG_WIDTH, IMG_HEIGHT);
-		        cvSource.putFrame(grip.maskOutput());
-		        
+		      	        
 		        grip.process(source);
 				ArrayList<MatOfPoint> convexHulls = grip.convexHullsOutput();
+				
+				cvSource = CameraServer.getInstance().putVideo("Output", IMG_WIDTH, IMG_HEIGHT);
+		        cvSource.putFrame(grip.maskOutput());
 				return convexHulls;
 			}
     	};
