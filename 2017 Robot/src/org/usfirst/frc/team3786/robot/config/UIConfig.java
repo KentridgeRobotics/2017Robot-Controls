@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * @author Aaron Weber 2017
  *
  */
-public abstract class ControlConfig {
-	private static ControlConfig instance;
+public abstract class UIConfig {
+	private static UIConfig instance;
 	
-	public static ControlConfig getInstance() {
+	public static UIConfig getInstance() {
 		if(instance == null)
 			instance = new TankDrive();
 		return instance;
@@ -28,6 +28,10 @@ public abstract class ControlConfig {
 	public abstract double getRightDrive();
 	
 	public abstract JoystickButton getTestButton();
+	
+	public abstract JoystickButton getServoCloseButton();
+	
+	public abstract JoystickButton getServoOpenButton();
 	
 	
 }

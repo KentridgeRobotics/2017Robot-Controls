@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3786.robot.commands.grabber;
 
-import org.usfirst.frc.team3786.robot.config.ControlConfig;
+import org.usfirst.frc.team3786.robot.config.UIConfig;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 
 import edu.wpi.first.wpilibj.command.Command;

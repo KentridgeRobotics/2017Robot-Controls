@@ -5,9 +5,10 @@ import org.usfirst.frc.team3786.robot.commands.auto.AutoTest;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
 import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
+import org.usfirst.frc.team3786.robot.commands.test.ServoClose;
+import org.usfirst.frc.team3786.robot.commands.test.ServoOpen;
 import org.usfirst.frc.team3786.robot.config.Camera;
-import org.usfirst.frc.team3786.robot.config.ControlConfig;
-import org.usfirst.frc.team3786.robot.config.OI;
+import org.usfirst.frc.team3786.robot.config.UIConfig;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 import org.usfirst.frc.team3786.robot.subsystems.ServoTest;
@@ -33,8 +34,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public static OI oi;
-	public static final ServoTest servoTest = ServoTest.getInstance();
 	public Camera camera;
 	public static DisplayData displayData;
 
@@ -50,8 +49,10 @@ public class Robot extends IterativeRobot {
 		//NetworkTable.setClientMode();
 		//NetworkTable.setIPAddress("10.37.86.88");
 		//Camera.getInstance();
-		oi = new OI();
 		Drive.getInstance();
+		//these two are really just for testing servo stuff right now
+		UIConfig.getInstance().getServoOpenButton().whenPressed(ServoOpen.getInstance());
+		UIConfig.getInstance().getServoCloseButton().whenPressed(ServoClose.getInstance());
 		//MoveGearArm.getInstance();
 		
 		chooser.addDefault("Do Nothing", new DoNothing());

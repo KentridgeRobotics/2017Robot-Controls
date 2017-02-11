@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3786.robot.commands.test;
 
 import org.usfirst.frc.team3786.robot.Robot;
+import org.usfirst.frc.team3786.robot.subsystems.ServoTest;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -18,7 +19,7 @@ public class ServoOpen extends Command {
 
 	
     public ServoOpen() {
-		requires(Robot.servoTest);
+		requires(ServoTest.getInstance());
 		setTimeout(.9);
     }
 
@@ -28,7 +29,7 @@ public class ServoOpen extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.servoTest.open();
+    	ServoTest.getInstance().open();
     }
 
     // Make this return true when this Command no longer needs to run execute()

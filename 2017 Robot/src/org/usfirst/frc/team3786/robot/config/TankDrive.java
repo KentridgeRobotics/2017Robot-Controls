@@ -6,10 +6,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class TankDrive extends ControlConfig {
+public class TankDrive extends UIConfig {
 	private Joystick leftStick = new Joystick(0);
 	private Joystick rightStick = new Joystick(1);
 	private JoystickButton testButton = new JoystickButton(leftStick, 3);
+	private JoystickButton openButton = new JoystickButton(leftStick, 1);
+	private JoystickButton closeButton = new JoystickButton(leftStick, 2);
 
 	
 	private static double leftOut, rightOut;
@@ -39,6 +41,14 @@ public class TankDrive extends ControlConfig {
 	@Override
 	public JoystickButton getTestButton() {
 		return testButton;
+	}
+	@Override
+	public JoystickButton getServoCloseButton() {
+		return closeButton;
+	}
+	@Override
+	public JoystickButton getServoOpenButton() {
+		return openButton;
 	}
 
 }

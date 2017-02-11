@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3786.robot.commands.drive;
 
-import org.usfirst.frc.team3786.robot.config.ControlConfig;
+import org.usfirst.frc.team3786.robot.config.UIConfig;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -28,7 +28,7 @@ public class Drive extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		DriveTrain.getInstance().setSpeed(ControlConfig.getInstance().getLeftDrive(), ControlConfig.getInstance().getRightDrive());
+		DriveTrain.getInstance().setSpeed(UIConfig.getInstance().getLeftDrive(), UIConfig.getInstance().getRightDrive());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
