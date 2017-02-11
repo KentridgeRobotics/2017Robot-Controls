@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team3786.robot;
 
+import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
 import org.usfirst.frc.team3786.robot.config.Camera;
 import org.usfirst.frc.team3786.robot.config.ControlConfig;
@@ -31,6 +32,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static final ServoTest servoTest = ServoTest.getInstance();
 	public Camera camera;
+	public static DisplayData displayData;
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -47,10 +49,12 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		Drive.getInstance();
 		chooser.addDefault("Default Auto", new Drive());
+		displayData = new DisplayData();
 		//UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
 		//cam.setResolution(1280, 720);
 		//chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		SmartDashboard.putData("Display camera Data", displayData);
 		
 	}
 
