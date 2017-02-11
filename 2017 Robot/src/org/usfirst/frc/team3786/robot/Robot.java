@@ -3,9 +3,8 @@ package org.usfirst.frc.team3786.robot;
 
 import org.usfirst.frc.team3786.robot.commands.auto.AutoTest;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
+import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
-import org.usfirst.frc.team3786.robot.commands.grabber.MoveGearArm;
-import org.usfirst.frc.team3786.robot.commands.test.EncoderPositionTest;
 import org.usfirst.frc.team3786.robot.config.Camera;
 import org.usfirst.frc.team3786.robot.config.ControlConfig;
 import org.usfirst.frc.team3786.robot.config.OI;
@@ -37,6 +36,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static final ServoTest servoTest = ServoTest.getInstance();
 	public Camera camera;
+	public static DisplayData displayData;
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
