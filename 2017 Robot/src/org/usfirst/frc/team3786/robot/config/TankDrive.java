@@ -9,9 +9,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TankDrive extends UIConfig {
 	private Joystick leftStick = new Joystick(0);
 	private Joystick rightStick = new Joystick(1);
-	private JoystickButton testButton = new JoystickButton(leftStick, 3);
-	private JoystickButton openButton = new JoystickButton(leftStick, 1);
-	private JoystickButton closeButton = new JoystickButton(leftStick, 2);
+	private Joystick xbox = new Joystick(2);
+	private JoystickButton testButton = new JoystickButton(xbox, 6);
+	private JoystickButton openButton = new JoystickButton(xbox, 1);
+	private JoystickButton closeButton = new JoystickButton(xbox, 2);
+	private JoystickButton gearLoadedButton = new JoystickButton(xbox, 5);
 
 	
 	private static double leftOut, rightOut;
@@ -23,6 +25,10 @@ public class TankDrive extends UIConfig {
 	@Override
 	public Joystick getRightStick() {
 		return rightStick;
+	}
+	@Override
+	public Joystick getXbox() {
+		return xbox;
 	}
 	@Override
 	public double getLeftDrive() {
@@ -49,6 +55,10 @@ public class TankDrive extends UIConfig {
 	@Override
 	public JoystickButton getServoOpenButton() {
 		return openButton;
+	}
+	@Override
+	public JoystickButton getGearLoadedButton() {
+		return gearLoadedButton;
 	}
 
 }

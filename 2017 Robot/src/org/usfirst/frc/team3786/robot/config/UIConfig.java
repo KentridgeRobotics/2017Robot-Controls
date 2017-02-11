@@ -22,6 +22,8 @@ public abstract class UIConfig {
 	public abstract Joystick getLeftStick();
 	
 	public abstract Joystick getRightStick();
+	
+	public abstract Joystick getXbox();
 			
 	public abstract double getLeftDrive();
 	
@@ -33,5 +35,7 @@ public abstract class UIConfig {
 	
 	public abstract JoystickButton getServoOpenButton();
 	
+	public abstract JoystickButton getGearLoadedButton();
+		
 	
 }
