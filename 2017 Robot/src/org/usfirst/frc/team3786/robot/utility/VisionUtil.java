@@ -4,7 +4,7 @@ package org.usfirst.frc.team3786.robot.utility;
 //in Pixels and coordinates.
 public class VisionUtil {
 	
-	//Calculate Distance  
+	//Calculate Distance using Height of Target
 	public static double distanceEstimate(double pixel) {
 		return 5.0 / Math.tan(Math.toRadians((pixel * 41.64)/ 480.0));
 	}
@@ -16,7 +16,8 @@ public class VisionUtil {
 	
 	//Calculate Angle of the Target
 	public static double angleOfTarget(double width, double height) {
-		return 0.0;
+		double actualWidth = (height * 2.0) / 5.0;
+		return Math.toRadians(Math.acos(width/actualWidth));
 	}
 	
 }

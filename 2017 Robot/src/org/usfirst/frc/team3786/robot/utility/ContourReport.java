@@ -11,11 +11,11 @@ public class ContourReport {
 	private double _width;
 	
 	//Constructor
-	public ContourReport(double x, double y, double h, double w) {
+	public ContourReport(double x, double y, double w, double h) {
 		_centerX = x;
 		_centerY = y;
-		_height = h;
 		_width = w;
+		_height = h;
 	}
 	
 	

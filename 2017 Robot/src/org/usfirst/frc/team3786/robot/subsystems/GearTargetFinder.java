@@ -3,6 +3,9 @@ package org.usfirst.frc.team3786.robot.subsystems;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.Rect;
+import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team3786.robot.utility.*;
 import org.usfirst.frc.team3786.robot.vision.GripPipeline;
 import edu.wpi.cscore.UsbCamera;
@@ -43,8 +46,18 @@ public class GearTargetFinder extends Subsystem {
     
     //Return List of ContourReports
     //Finish Later
-    public List<ContourReport> extractContourReports() {
-    	return null;
+    public List<ContourReport> extractContourReports(ArrayList<MatOfPoint> contourMap) {
+    	List<ContourReport> contourReports = new ArrayList<ContourReport>();
+    	for(MatOfPoint matOfPoint : contourMap) {
+    		Rect r = Imgproc.boundingRect(matOfPoint);
+    		contourReports.add(new ContourReport(
+    			r.x + (r.width / 2),
+    			r.y + (r.height / 2),
+    			r.width,
+    			r.height
+    		));
+    	}
+    	return contourReports;
     }
     
     //Return List of TargetPotitions
@@ -54,7 +67,7 @@ public class GearTargetFinder extends Subsystem {
     		tempList.add(new TargetPosition(
     				VisionUtil.angleToEstimate(report.getCenterX()), 
     				VisionUtil.distanceEstimate(report.getHeight()),
-    				0.0
+    				VisionUtil.angleOfTarget(report.getWidth(), report.getHeight())
     				));
     	}
     	return tempList;
