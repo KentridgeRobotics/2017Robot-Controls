@@ -77,9 +77,17 @@ public class GripPipeline implements VisionPipeline {
 		// Step Convex_Hulls0:
 		ArrayList<MatOfPoint> convexHullsContours = filterContoursOutput;
 		convexHulls(convexHullsContours, convexHullsOutput);
-
+		displayOutputs();
 	}
 
+	//Display Output
+	public void displayOutputs() {
+		System.err.println("Size of FindContoursOutput: " + findContoursOutput);
+		System.err.println("Size of FilterContoursOutput: " + filterContoursOutput);
+		System.err.println("Size of convexHullsOutput: " + convexHullsOutput);
+		System.err.println("hslThresholdOutput: /n   Width: " + hslThresholdOutput.width() + "/n   Height: " + hslThresholdOutput.height());
+	}
+	
 	/**
 	 * This method is a generated getter for the output of a HSL_Threshold.
 	 * @return Mat output from HSL_Threshold.
