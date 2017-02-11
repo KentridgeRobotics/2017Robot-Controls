@@ -17,7 +17,7 @@ public class VisionUtil {
 	//Calculate Angle of the Target
 	public static double angleOfTarget(double width, double height) {
 		double actualWidth = (height * 2.0) / 5.0;
-		return Math.toRadians(Math.acos(width/actualWidth));
+		return Math.toDegrees(Math.acos(width/actualWidth));
 	}
 	
 }
