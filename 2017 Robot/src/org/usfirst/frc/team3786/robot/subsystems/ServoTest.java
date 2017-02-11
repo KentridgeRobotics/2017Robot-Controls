@@ -25,7 +25,7 @@ public class ServoTest extends Subsystem {
     	return instance;
     }
     public void open() {
-    	hitec.set(0.5);
+    	hitec.set(1);
     }
     public void close() {
     	hitec.set(0);

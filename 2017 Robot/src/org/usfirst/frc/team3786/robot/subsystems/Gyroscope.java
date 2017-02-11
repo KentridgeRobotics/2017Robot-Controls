@@ -56,7 +56,11 @@ public class Gyroscope {
 	 * Constructor which initializes the I2C connection to the device with ID 3786 (the Arduino)
 	 */
 	private Gyroscope() {
-		_gyroscope = new I2C(I2C.Port.kOnboard, 3786);
+		_gyroscope = new I2C(I2C.Port.kMXP, 3786);
+	}
+	
+	public boolean isConnected() {
+		return _gyroscope.addressOnly();
 	}
 	
 	/**
