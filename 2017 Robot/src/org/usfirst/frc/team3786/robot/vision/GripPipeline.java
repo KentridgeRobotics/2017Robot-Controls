@@ -44,9 +44,9 @@ public class GripPipeline implements VisionPipeline {
 	@Override	public void process(Mat source0) {
 		// Step HSL_Threshold0:
 		Mat hslThresholdInput = source0;
-		double[] hslThresholdHue = {22.66187050359712, 55.75757575757575};
-		double[] hslThresholdSaturation = {107.77877697841726, 255.0};
-		double[] hslThresholdLuminance = {68.79496402877697, 214.2171717171717};
+		double[] hslThresholdHue = {0.0, 180.0};
+		double[] hslThresholdSaturation = {199.50539568345323, 255.0};
+		double[] hslThresholdLuminance = {0.0, 255.0};
 		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
 		// Step Mask0:
@@ -62,16 +62,16 @@ public class GripPipeline implements VisionPipeline {
 		// Step Filter_Contours0:
 		ArrayList<MatOfPoint> filterContoursContours = findContoursOutput;
 		double filterContoursMinArea = 100.0;
-		double filterContoursMinPerimeter = 0;
-		double filterContoursMinWidth = 0;
-		double filterContoursMaxWidth = 1000;
-		double filterContoursMinHeight = 0;
-		double filterContoursMaxHeight = 1000;
-		double[] filterContoursSolidity = {0, 100};
-		double filterContoursMaxVertices = 1000000;
-		double filterContoursMinVertices = 0;
-		double filterContoursMinRatio = 0;
-		double filterContoursMaxRatio = 1000;
+		double filterContoursMinPerimeter = 0.0;
+		double filterContoursMinWidth = 10.0;
+		double filterContoursMaxWidth = 50.0;
+		double filterContoursMinHeight = 10.0;
+		double filterContoursMaxHeight = 500.0;
+		double[] filterContoursSolidity = {87.23021582733813, 100};
+		double filterContoursMaxVertices = 43.0;
+		double filterContoursMinVertices = 0.0;
+		double filterContoursMinRatio = 0.2;
+		double filterContoursMaxRatio = 3.0;
 		filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, filterContoursOutput);
 
 		// Step Convex_Hulls0:
@@ -242,6 +242,9 @@ public class GripPipeline implements VisionPipeline {
 			outputContours.add(mopHull);
 		}
 	}
+
+
+
 
 }
 
