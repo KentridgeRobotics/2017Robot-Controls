@@ -41,7 +41,8 @@ public class GripPipeline implements VisionPipeline {
 	/**
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
 	 */
-	@Override	public void process(Mat source0) {
+	@Override	
+	public void process(Mat source0) {
 		// Step HSL_Threshold0:
 		Mat hslThresholdInput = source0;
 		double[] hslThresholdHue = {0.0, 180.0};
@@ -82,9 +83,9 @@ public class GripPipeline implements VisionPipeline {
 
 	//Display Output
 	public void displayOutputs() {
-		System.err.println("Size of FindContoursOutput: " + findContoursOutput);
-		System.err.println("Size of FilterContoursOutput: " + filterContoursOutput);
-		System.err.println("Size of convexHullsOutput: " + convexHullsOutput);
+		System.err.println("Size of FindContoursOutput: " + findContoursOutput.size());
+		System.err.println("Size of FilterContoursOutput: " + filterContoursOutput.size());
+		System.err.println("Size of convexHullsOutput: " + convexHullsOutput.size());
 		System.err.println("hslThresholdOutput: /n   Width: " + hslThresholdOutput.width() + "/n   Height: " + hslThresholdOutput.height());
 	}
 	

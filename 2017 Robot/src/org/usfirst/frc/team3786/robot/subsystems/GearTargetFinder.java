@@ -16,6 +16,7 @@ import org.usfirst.frc.team3786.robot.utility.*;
 import org.usfirst.frc.team3786.robot.vision.GripPipeline;
 
 import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -32,6 +33,7 @@ public class GearTargetFinder extends Subsystem {
 	//Fixed ThreadPool for Running Image through Pipeline
 	UsbCamera camera;
 	CvSink cvSink;
+	CvSource cvSource;
 	ExecutorService executorService = Executors.newFixedThreadPool(1);
 	
 	//Default Command
@@ -59,9 +61,12 @@ public class GearTargetFinder extends Subsystem {
 		    	
 		        Mat source = new Mat();
 		        cvSink.grabFrame(source);
+		        cvSource = CameraServer.getInstance().putVideo("Output", IMG_WIDTH, IMG_HEIGHT);
+		        cvSource.putFrame(grip.maskOutput());
+		        
 		        grip.process(source);
-				ArrayList<MatOfPoint> output = grip.convexHullsOutput();
-				return output;
+				ArrayList<MatOfPoint> convexHulls = grip.convexHullsOutput();
+				return convexHulls;
 			}
     	};
     	
