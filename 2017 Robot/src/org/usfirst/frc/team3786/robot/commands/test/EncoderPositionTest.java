@@ -25,7 +25,7 @@ public class EncoderPositionTest extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	DriveTrain.getInstance().setPositionDrive();
-    	DriveTrain.getInstance().setPosition(2000);
+    	DriveTrain.getInstance().setPosition(2000, 0);
     	
     }
 

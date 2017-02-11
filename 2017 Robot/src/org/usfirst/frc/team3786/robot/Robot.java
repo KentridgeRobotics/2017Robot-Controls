@@ -115,7 +115,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Left Encoder", DriveTrain.getInstance().getLeftEncoder());
-		SmartDashboard.putNumber("Left Voltage", DriveTrain.getInstance().getMotorOutput());
+		SmartDashboard.putNumber("Left Voltage", DriveTrain.getInstance().getLeftMotorOutput());
 	}
 
 	@Override
