@@ -49,6 +49,7 @@ public class GearTargetFinder extends Subsystem {
 			@Override
 			public ArrayList<MatOfPoint> call() throws Exception {
 				// TODO Auto-generated method stub
+				System.err.println("Callable called");
 				UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 		    	camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
 		    	GripPipeline grip = new GripPipeline();
@@ -70,6 +71,7 @@ public class GearTargetFinder extends Subsystem {
     //Run image through the Grip Pipeline once. 
     //
     public List<ContourReport> executeVisionCamera() throws Exception{
+    	System.err.println("Execute Vision Camera Called ");
     	Future<ArrayList<MatOfPoint>> futureResult = executorService.submit(runVisionThread());
     	ArrayList<MatOfPoint> result = futureResult.get();
     	return extractContourReports(result);
@@ -80,7 +82,9 @@ public class GearTargetFinder extends Subsystem {
     //Return List of ContourReports
     public List<ContourReport> extractContourReports(ArrayList<MatOfPoint> contourMap) {
     	List<ContourReport> contourReports = new ArrayList<ContourReport>();
+    	System.err.println("Size of Contour Map: " + contourMap.size());
     	for(MatOfPoint matOfPoint : contourMap) {
+    		System.err.println("Mat Of Point Found");
     		Rect r = Imgproc.boundingRect(matOfPoint);
     		contourReports.add(new ContourReport(
     			r.x + (r.width / 2),
@@ -109,6 +113,7 @@ public class GearTargetFinder extends Subsystem {
     
     //Display List of ContourReports onto the Console.
     public void displayContourReports(List<ContourReport> contourReportsList) {
+    	System.err.println("Size of ContourReport: " + contourReportsList.size());
     	for(ContourReport report: contourReportsList) {
     		System.out.println(report);
     	}
