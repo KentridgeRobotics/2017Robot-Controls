@@ -18,8 +18,11 @@ public class DisplayData extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	CompetitionConfig.gearTargetFinder.runVisionRunnerOnce();
-    	
+    	try {
+    		CompetitionConfig.gearTargetFinder.displayContourReports(CompetitionConfig.gearTargetFinder.executeVisionCamera());
+    	}catch(Exception e) {
+    		System.out.println("Exception: " + e);
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run

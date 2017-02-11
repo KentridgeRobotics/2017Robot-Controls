@@ -15,11 +15,9 @@ import org.usfirst.frc.team3786.robot.utility.*;
 import org.usfirst.frc.team3786.robot.vision.GripPipeline;
 
 import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.vision.VisionRunner;
 
 /**
  Take Inputs from Usb Camera and input into GripPipeline
@@ -71,10 +69,10 @@ public class GearTargetFinder extends Subsystem {
     
     //Run image through the Grip Pipeline once. 
     //
-    public List<TargetPosition> executeVisionCamera() throws Exception{
+    public List<ContourReport> executeVisionCamera() throws Exception{
     	Future<ArrayList<MatOfPoint>> futureResult = executorService.submit(runVisionThread());
     	ArrayList<MatOfPoint> result = futureResult.get();
-    	return extractTargetPosition(extractContourReports(result));
+    	return extractContourReports(result);
     
     }
     
