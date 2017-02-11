@@ -5,6 +5,7 @@ import org.usfirst.frc.team3786.robot.commands.auto.AutoTest;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
 import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
+import org.usfirst.frc.team3786.robot.commands.grabber.GearLoaded;
 import org.usfirst.frc.team3786.robot.commands.grabber.MoveGearArmManual;
 import org.usfirst.frc.team3786.robot.commands.test.ServoClose;
 import org.usfirst.frc.team3786.robot.commands.test.ServoOpen;
@@ -55,6 +56,7 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getServoOpenButton().whenPressed(ServoOpen.getInstance());
 		UIConfig.getInstance().getServoCloseButton().whenPressed(ServoClose.getInstance());
 		UIConfig.getInstance().getTestButton().whenPressed(MoveGearArmManual.getInstance());
+		UIConfig.getInstance().getGearLoadedButton().whenPressed(GearLoaded.getInstance());
 		//MoveGearArm.getInstance();
 		
 		chooser.addDefault("Do Nothing", new DoNothing());
@@ -149,6 +151,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
 		//Camera.getInstance().pollCamera();
 		SmartDashboard.putNumber("Gyro X", Gyroscope.getInstance().getX());
+		SmartDashboard.putBoolean("Gear is loaded", GearArm.getInstance().getIsLoaded());
 		
 	}
 
