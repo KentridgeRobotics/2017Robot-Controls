@@ -27,8 +27,10 @@ public class GearTargetFinder extends Subsystem {
 	//Temporary Resolution
 	private int IMG_WIDTH = 640;
 	private int IMG_HEIGHT = 480;
-		
+	
 	//Fixed ThreadPool for Running Image through Pipeline
+	UsbCamera camera;
+	CvSink cvSink;
 	ExecutorService executorService = Executors.newFixedThreadPool(1);
 	
 	//Default Command
@@ -40,7 +42,9 @@ public class GearTargetFinder extends Subsystem {
     
     //Constructor
     public GearTargetFinder() {
-    	
+    	camera = CameraServer.getInstance().startAutomaticCapture();
+        camera.setResolution(640, 480);
+    	cvSink = CameraServer.getInstance().getVideo();
     }
     
     //Callable method to run Vision Thread on seperate Thread
@@ -50,12 +54,8 @@ public class GearTargetFinder extends Subsystem {
 			public ArrayList<MatOfPoint> call() throws Exception {
 				// TODO Auto-generated method stub
 				System.err.println("Callable called");
-				UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-		    	camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
 		    	GripPipeline grip = new GripPipeline();
 		    	
-		    	CvSink cvSink = CameraServer.getInstance().getVideo();
-		        
 		        Mat source = new Mat();
 		        cvSink.grabFrame(source);
 		        grip.process(source);
