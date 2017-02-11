@@ -11,10 +11,8 @@ public class CompetitionConfig extends RobotConfig {
 	private static final int RIGHT_DRIVE_MOTOR = 8;
 	
 	private static final int GEAR_ARM_MOTOR = 3;
-		
-	public static UsbCamera visionCamera = new UsbCamera("Usb Camera 0", 0);
-	
-	public static GearTargetFinder gearTargetFinder = new GearTargetFinder(visionCamera);
+			
+	public static GearTargetFinder gearTargetFinder = new GearTargetFinder();
 	
 	
 	@Override
