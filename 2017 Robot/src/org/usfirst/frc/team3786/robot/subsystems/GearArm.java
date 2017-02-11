@@ -39,6 +39,7 @@ public class GearArm extends Subsystem {
 	}
 	
 //	public void setSpeed(double speed) {
+//		windowMotor.changeControlMode(TalonControlMode.Speed);
 //		windowMotor.set(speed);
 //	}
 	

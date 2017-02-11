@@ -30,6 +30,7 @@ public class DriveTrain extends Subsystem {
 	public DriveTrain() {
 		leftDriveMotor = new CANTalon(RobotConfig.getInstance().getLeftDriveMotor());
 		rightDriveMotor = new CANTalon(RobotConfig.getInstance().getRightDriveMotor());
+
 		
 		//PID position stuff
 		
@@ -52,6 +53,7 @@ public class DriveTrain extends Subsystem {
     }
     
     public void setPosition(double pos) {
+    	leftDriveMotor.setEncPosition(0);
     	leftDriveMotor.set(pos);
     }
     
@@ -67,21 +69,24 @@ public class DriveTrain extends Subsystem {
 		leftDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		leftDriveMotor.reverseSensor(true);
 		leftDriveMotor.configNominalOutputVoltage(+0f, -0f);
-		leftDriveMotor.configPeakOutputVoltage(+12f, -12f);
+		leftDriveMotor.configPeakOutputVoltage(+6f, -6f);
 		leftDriveMotor.setF(0.0);
 		leftDriveMotor.setP(0.25);
 		leftDriveMotor.setI(0.0);
 		leftDriveMotor.setD(0.0);
 		//leftDriveMotor.configEncoderCodesPerRev(360);
-    	leftDriveMotor.setPosition(0);
+    	//leftDriveMotor.setPosition(0);
+		//leftDriveMotor.setEncPosition(0);
     }
     
     public double getMotorOutput() {
     	return leftDriveMotor.getOutputVoltage();
     }
     
+    //this doesn't seem to be working, need to look into it
     public void setSpeedDrive() {
     	leftDriveMotor.changeControlMode(TalonControlMode.Speed);
+    	rightDriveMotor.changeControlMode(TalonControlMode.Speed);
     }
     
     public void initDefaultCommand() {

@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team3786.robot;
 
+import org.usfirst.frc.team3786.robot.commands.auto.AutoTest;
+import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
 import org.usfirst.frc.team3786.robot.commands.grabber.MoveGearArm;
 import org.usfirst.frc.team3786.robot.commands.test.EncoderPositionTest;
@@ -14,6 +16,7 @@ import org.usfirst.frc.team3786.robot.subsystems.ServoTest;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -49,10 +52,10 @@ public class Robot extends IterativeRobot {
 		//Camera.getInstance();
 		oi = new OI();
 		Drive.getInstance();
-		MoveGearArm.getInstance();
-		ControlConfig.getInstance().getTestButton().whenPressed(EncoderPositionTest.getInstance());
+		//MoveGearArm.getInstance();
 		
-		chooser.addDefault("Default Auto", new Drive());
+		chooser.addDefault("Do Nothing", new DoNothing());
+		chooser.addObject("Auto Test", new AutoTest());
 		//UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
 		//cam.setResolution(1280, 720);
 		//chooser.addObject("My Auto", new MyAutoCommand());
@@ -112,16 +115,16 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		//DriveTrain.getInstance().setSpeedDrive();
 		
-		//DriveTrain.getInstance().setPositionDrive();
 		
+
 		
 	}
 
