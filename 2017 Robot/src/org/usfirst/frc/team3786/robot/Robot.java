@@ -5,12 +5,14 @@ import org.usfirst.frc.team3786.robot.commands.auto.AutoTest;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
 import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
+import org.usfirst.frc.team3786.robot.commands.grabber.MoveGearArmManual;
 import org.usfirst.frc.team3786.robot.commands.test.ServoClose;
 import org.usfirst.frc.team3786.robot.commands.test.ServoOpen;
 import org.usfirst.frc.team3786.robot.config.Camera;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
+import org.usfirst.frc.team3786.robot.subsystems.Gyroscope;
 import org.usfirst.frc.team3786.robot.subsystems.ServoTest;
 
 import edu.wpi.cscore.UsbCamera;
@@ -36,7 +38,6 @@ public class Robot extends IterativeRobot {
 
 	public Camera camera;
 	public static DisplayData displayData;
-
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -53,16 +54,22 @@ public class Robot extends IterativeRobot {
 		//these two are really just for testing servo stuff right now
 		UIConfig.getInstance().getServoOpenButton().whenPressed(ServoOpen.getInstance());
 		UIConfig.getInstance().getServoCloseButton().whenPressed(ServoClose.getInstance());
+		UIConfig.getInstance().getTestButton().whenPressed(MoveGearArmManual.getInstance());
 		//MoveGearArm.getInstance();
 		
 		chooser.addDefault("Do Nothing", new DoNothing());
 		chooser.addObject("Auto Test", new AutoTest());
+		
+		Gyroscope.getInstance();
 		//UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
 		//cam.setResolution(1280, 720);
 		//chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		displayData = new DisplayData();
 		SmartDashboard.putData("Display Data", displayData);
+		SmartDashboard.putBoolean("Connected", !Gyroscope.getInstance().isConnected());
+		
+		SmartDashboard.putData(Scheduler.getInstance());
 		
 	}
 
@@ -141,13 +148,8 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
 		//Camera.getInstance().pollCamera();
-		//PID position test
-//		DriveTrain.getInstance().setPosition(1000);
-//		SmartDashboard.putNumber("Left Encoder", DriveTrain.getInstance().getLeftEncoder());
-//		Timer.delay(2);
-//		DriveTrain.getInstance().setPosition(-1000);
-//		SmartDashboard.putNumber("Left Encoder", DriveTrain.getInstance().getLeftEncoder());
-//		Timer.delay(2);
+		SmartDashboard.putNumber("Gyro X", Gyroscope.getInstance().getX());
+		
 	}
 
 	/**

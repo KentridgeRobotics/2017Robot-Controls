@@ -16,6 +16,11 @@ public class GearArm extends Subsystem {
 	
 	private static GearArm instance;
 	
+	private enum DriveType {
+		POSITION, MANUAL
+	}
+	private static DriveType _currentType;
+	
 	public static GearArm getInstance() {
 		if(instance == null)
 			instance = new GearArm();
@@ -38,20 +43,27 @@ public class GearArm extends Subsystem {
 
 	}
 	
-//	public void setSpeed(double speed) {
-//		windowMotor.changeControlMode(TalonControlMode.Speed);
-//		windowMotor.set(speed);
-//	}
+	public void setSpeed(double speed) {
+		if(_currentType == DriveType.MANUAL)
+			windowMotor.set(speed);
+	}
 	
 	public void setPosition(double pos) {
-		windowMotor.set(pos);
+		if(_currentType == DriveType.POSITION)
+			windowMotor.set(pos);
 	}
 	
 	public int getPosition() {
 		return windowMotor.getAnalogInPosition();
 	}
-	
-	
+	public void setPositionDrive() {
+		_currentType = DriveType.POSITION;
+		windowMotor.changeControlMode(TalonControlMode.Position);
+	}
+	public void setManualDrive() {
+		_currentType = DriveType.MANUAL;
+		windowMotor.changeControlMode(TalonControlMode.PercentVbus);
+	}
 	
     public void initDefaultCommand() {
     	setDefaultCommand(MoveGearArm.getInstance());
