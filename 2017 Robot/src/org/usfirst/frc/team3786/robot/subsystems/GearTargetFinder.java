@@ -3,6 +3,7 @@ package org.usfirst.frc.team3786.robot.subsystems;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -70,11 +71,16 @@ public class GearTargetFinder extends Subsystem {
     
     //Run image through the Grip Pipeline once. 
     //
-    public List<ContourReport> executeVisionCamera() throws Exception{
+    public List<ContourReport> executeVisionCamera() {
     	System.err.println("Execute Vision Camera Called ");
-    	Future<ArrayList<MatOfPoint>> futureResult = executorService.submit(runVisionThread());
-    	ArrayList<MatOfPoint> result = futureResult.get();
-    	return extractContourReports(result);
+    	try {
+    		Future<ArrayList<MatOfPoint>> futureResult = executorService.submit(runVisionThread());
+    		ArrayList<MatOfPoint> result = futureResult.get();
+    		return extractContourReports(result);
+    	} catch(Exception exc) {
+    		System.err.println("Exception: " + exc);
+    		return null;
+    	}
     
     }
     
