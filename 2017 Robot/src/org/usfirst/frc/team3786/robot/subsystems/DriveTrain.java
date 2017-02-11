@@ -85,8 +85,8 @@ public class DriveTrain extends Subsystem {
     
     //this doesn't seem to be working, need to look into it
     public void setSpeedDrive() {
-    	leftDriveMotor.changeControlMode(TalonControlMode.Speed);
-    	rightDriveMotor.changeControlMode(TalonControlMode.Speed);
+    	leftDriveMotor.changeControlMode(TalonControlMode.PercentVbus);
+    	rightDriveMotor.changeControlMode(TalonControlMode.PercentVbus);
     }
     
     public void initDefaultCommand() {
