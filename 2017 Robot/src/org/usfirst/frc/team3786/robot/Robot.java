@@ -61,6 +61,8 @@ public class Robot extends IterativeRobot {
 		//cam.setResolution(1280, 720);
 		//chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		displayData = new DisplayData();
+		SmartDashboard.putData("Display Data", displayData);
 		
 	}
 
@@ -112,6 +114,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Left Encoder", DriveTrain.getInstance().getLeftEncoder());
+		SmartDashboard.putNumber("Left Voltage", DriveTrain.getInstance().getMotorOutput());
 	}
 
 	@Override
@@ -136,8 +140,6 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
-		SmartDashboard.putNumber("Left Encoder", DriveTrain.getInstance().getLeftEncoder());
-		SmartDashboard.putNumber("Left Voltage", DriveTrain.getInstance().getMotorOutput());
 		//Camera.getInstance().pollCamera();
 		//PID position test
 //		DriveTrain.getInstance().setPosition(1000);
