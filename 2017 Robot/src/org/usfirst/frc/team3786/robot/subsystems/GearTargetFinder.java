@@ -73,13 +73,20 @@ public class GearTargetFinder extends Subsystem {
     	return tempList;
     }
     
+    public void displayContourReports(List<ContourReport> contourReportsList) {
+    	for(ContourReport report: contourReportsList) {
+    		System.out.println(report);
+    	}
+    }
+    
     //Output of the GripPipeline
     //Called after VisionRunner runs once
     private class VisionListener implements VisionRunner.Listener<GripPipeline> {
 		@Override
 		public void copyPipelineOutputs(GripPipeline pipeline) {
 			// TODO Auto-generated method stub
-			pipeline.findContoursOutput();
+			ArrayList<MatOfPoint> output = pipeline.convexHullsOutput();
+			displayContourReports(extractContourReports(output));
 		}
     }
 
