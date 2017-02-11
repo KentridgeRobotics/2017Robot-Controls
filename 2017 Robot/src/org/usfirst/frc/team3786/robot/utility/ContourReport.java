@@ -18,6 +18,9 @@ public class ContourReport {
 		_height = h;
 	}
 	
+	public String toString() {
+		return "Center X: " + _centerX + ", Center Y: " + _centerY + ", Width: " + _width + ", Height: " + _height;
+	}
 	
 	//Return Values
 	public double getCenterX() {
