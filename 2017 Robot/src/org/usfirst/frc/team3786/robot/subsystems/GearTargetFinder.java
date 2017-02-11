@@ -33,7 +33,6 @@ public class GearTargetFinder extends Subsystem {
 	//Fixed ThreadPool for Running Image through Pipeline
 	UsbCamera camera;
 	CvSink cvSink;
-	CvSource cvSource;
 	ExecutorService executorService = Executors.newFixedThreadPool(1);
 	
 	//Default Command
@@ -65,8 +64,6 @@ public class GearTargetFinder extends Subsystem {
 		        grip.process(source);
 				ArrayList<MatOfPoint> convexHulls = grip.convexHullsOutput();
 				
-				cvSource = CameraServer.getInstance().putVideo("Output", IMG_WIDTH, IMG_HEIGHT);
-		        cvSource.putFrame(grip.maskOutput());
 				return convexHulls;
 			}
     	};
