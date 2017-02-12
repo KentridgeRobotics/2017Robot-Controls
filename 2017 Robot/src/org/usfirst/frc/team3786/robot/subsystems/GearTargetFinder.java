@@ -2,11 +2,11 @@ package org.usfirst.frc.team3786.robot.subsystems;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
+//import java.util.concurrent.Callable;
+//import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+//import java.util.concurrent.Future;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -16,7 +16,6 @@ import org.usfirst.frc.team3786.robot.utility.*;
 import org.usfirst.frc.team3786.robot.vision.GripPipeline;
 
 import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -45,12 +44,26 @@ public class GearTargetFinder extends Subsystem {
     //Constructor
     public GearTargetFinder() {
     	camera = CameraServer.getInstance().startAutomaticCapture();
-        camera.setResolution(640, 480);
+        camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
     	cvSink = CameraServer.getInstance().getVideo();
     }
     
     //Callable method to run Vision Thread on seperate Thread
-    public Callable<ArrayList<MatOfPoint>> runVisionThread() {	
+    
+    public ArrayList<MatOfPoint> runVisionThread() {
+    	System.err.println("Callable called");
+    	GripPipeline grip = new GripPipeline();
+    	
+        Mat source = new Mat();
+        cvSink.grabFrame(source);
+      	        
+        grip.process(source);
+		ArrayList<MatOfPoint> convexHulls = grip.convexHullsOutput();
+		
+		return convexHulls;    	
+    }
+    
+    /*public Callable<ArrayList<MatOfPoint>> callVisionThread() {	
     	return new Callable<ArrayList<MatOfPoint>>() {
 			@Override
 			public ArrayList<MatOfPoint> call() throws Exception {
@@ -77,7 +90,7 @@ public class GearTargetFinder extends Subsystem {
     public List<ContourReport> executeVisionCamera() {
     	System.err.println("Execute Vision Camera Called ");
     	try {
-    		Future<ArrayList<MatOfPoint>> futureResult = executorService.submit(runVisionThread());
+    		Future<ArrayList<MatOfPoint>> futureResult = executorService.submit(callVisionThread());
     		ArrayList<MatOfPoint> result = futureResult.get();
     		return extractContourReports(result);
     	} catch(Exception exc) {
@@ -86,7 +99,7 @@ public class GearTargetFinder extends Subsystem {
     	}
     
     }
-    
+    */
         
     //Return List of ContourReports
     public List<ContourReport> extractContourReports(ArrayList<MatOfPoint> contourMap) {
@@ -125,6 +138,13 @@ public class GearTargetFinder extends Subsystem {
     	System.err.println("Size of ContourReport: " + contourReportsList.size());
     	for(ContourReport report: contourReportsList) {
     		System.out.println(report);
+    	}
+    }
+    
+    public void displayTargetPositions(List<TargetPosition> targetPositionList) {
+    	System.err.println("Target Positions: ");
+    	for(TargetPosition point: targetPositionList) {
+    		System.out.println(point);
     	}
     }
    
