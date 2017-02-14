@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3786.robot.subsystems;
 
+import org.usfirst.frc.team3786.robot.commands.grabber.MoveGearArmManual;
 import org.usfirst.frc.team3786.robot.commands.grabber.MoveGearArmPosition;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 
@@ -74,9 +75,12 @@ public class GearArm extends Subsystem {
 	public void setIsLoaded(boolean b) {
 		isLoaded = b;
 	}
+	public String getMode() {
+		return _currentType.toString();
+	}
 	
     public void initDefaultCommand() {
-    	setDefaultCommand(MoveGearArmPosition.getInstance());
+    	setDefaultCommand(MoveGearArmManual.getInstance());
     }
 }
 

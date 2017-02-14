@@ -14,6 +14,7 @@ public class TankDrive extends UIConfig {
 	private JoystickButton openButton = new JoystickButton(xbox, 1);
 	private JoystickButton closeButton = new JoystickButton(xbox, 2);
 	private JoystickButton gearLoadedButton = new JoystickButton(xbox, 5);
+	private JoystickButton loadPositionButton = new JoystickButton(xbox, 3);
 
 	
 	private static double leftOut, rightOut;
@@ -59,6 +60,10 @@ public class TankDrive extends UIConfig {
 	@Override
 	public JoystickButton getGearLoadedButton() {
 		return gearLoadedButton;
+	}
+	@Override
+	public JoystickButton getLoadPositionButton() {
+		return loadPositionButton;
 	}
 
 }

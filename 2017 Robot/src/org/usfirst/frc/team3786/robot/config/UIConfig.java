@@ -36,6 +36,8 @@ public abstract class UIConfig {
 	public abstract JoystickButton getServoOpenButton();
 	
 	public abstract JoystickButton getGearLoadedButton();
+	
+	public abstract JoystickButton getLoadPositionButton();
 		
 	
 }

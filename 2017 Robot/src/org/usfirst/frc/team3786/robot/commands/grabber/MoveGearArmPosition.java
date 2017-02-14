@@ -25,7 +25,7 @@ public class MoveGearArmPosition extends Command {
 
     protected void initialize() {
     	GearArm.getInstance().setPositionDrive();
-		GearArm.getInstance().setPosition(500);
+		GearArm.getInstance().setPosition(950);
     }
 
     protected void execute() {

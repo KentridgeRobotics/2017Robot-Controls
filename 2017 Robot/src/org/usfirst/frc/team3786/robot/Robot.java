@@ -7,6 +7,7 @@ import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearLoaded;
 import org.usfirst.frc.team3786.robot.commands.grabber.MoveGearArmManual;
+import org.usfirst.frc.team3786.robot.commands.grabber.MoveGearArmPosition;
 import org.usfirst.frc.team3786.robot.commands.test.ServoClose;
 import org.usfirst.frc.team3786.robot.commands.test.ServoOpen;
 import org.usfirst.frc.team3786.robot.config.Camera;
@@ -14,6 +15,7 @@ import org.usfirst.frc.team3786.robot.config.UIConfig;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 import org.usfirst.frc.team3786.robot.subsystems.Gyroscope;
+import org.usfirst.frc.team3786.robot.subsystems.Rangefinders;
 import org.usfirst.frc.team3786.robot.subsystems.ServoTest;
 
 import edu.wpi.cscore.UsbCamera;
@@ -55,21 +57,22 @@ public class Robot extends IterativeRobot {
 		//these two are really just for testing servo stuff right now
 		UIConfig.getInstance().getServoOpenButton().whenPressed(ServoOpen.getInstance());
 		UIConfig.getInstance().getServoCloseButton().whenPressed(ServoClose.getInstance());
-		UIConfig.getInstance().getTestButton().whenPressed(MoveGearArmManual.getInstance());
+		//UIConfig.getInstance().getTestButton().whenPressed(MoveGearArmManual.getInstance());
 		UIConfig.getInstance().getGearLoadedButton().whenPressed(GearLoaded.getInstance());
+		UIConfig.getInstance().getLoadPositionButton().whenPressed(MoveGearArmPosition.getInstance());
 		//MoveGearArm.getInstance();
 		
 		chooser.addDefault("Do Nothing", new DoNothing());
 		chooser.addObject("Auto Test", new AutoTest());
 		
-		Gyroscope.getInstance();
+		//Gyroscope.getInstance();
 		//UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
 		//cam.setResolution(1280, 720);
 		//chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		displayData = new DisplayData();
 		SmartDashboard.putData("Display Data", displayData);
-		SmartDashboard.putBoolean("Connected", !Gyroscope.getInstance().isConnected());
+		//SmartDashboard.putBoolean("Connected", !Gyroscope.getInstance().isConnected());
 		
 		SmartDashboard.putData(Scheduler.getInstance());
 		
@@ -152,6 +155,8 @@ public class Robot extends IterativeRobot {
 		//Camera.getInstance().pollCamera();
 		SmartDashboard.putNumber("Gyro X", Gyroscope.getInstance().getX());
 		SmartDashboard.putBoolean("Gear is loaded", GearArm.getInstance().getIsLoaded());
+		SmartDashboard.putString("Gear Arm Drive Mode", GearArm.getInstance().getMode());
+		SmartDashboard.putNumber("Test Rangefinder Voltage", Rangefinders.getInstance().getTestVoltage());
 		
 	}
 

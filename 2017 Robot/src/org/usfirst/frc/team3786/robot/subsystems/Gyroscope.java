@@ -12,8 +12,10 @@ public class Gyroscope {
 	/**
 	 * Enum/Datastructure which holds data to talk to an Arduino and hold the data it receives
 	 */
+	
 	private enum Axis {
-		X('x'),Y('y'),Z('y');
+		
+		X('x'),Y('y'),Z('z');
 		
 		private byte[] _axis = new byte[1];
 		private byte[] _data = new byte[8];
@@ -56,7 +58,7 @@ public class Gyroscope {
 	 * Constructor which initializes the I2C connection to the device with ID 3786 (the Arduino)
 	 */
 	private Gyroscope() {
-		_gyroscope = new I2C(I2C.Port.kMXP, 3786);
+		_gyroscope = new I2C(I2C.Port.kOnboard, 3786);
 	}
 	
 	public boolean isConnected() {
