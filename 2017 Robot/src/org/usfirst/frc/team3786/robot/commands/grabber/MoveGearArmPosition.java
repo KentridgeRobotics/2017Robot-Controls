@@ -25,7 +25,10 @@ public class MoveGearArmPosition extends Command {
 
     protected void initialize() {
     	GearArm.getInstance().setPositionDrive();
-		GearArm.getInstance().setPosition(950);
+    	if(GearArm.getInstance().getPosition() > UIConfig.getInstance().getPegPosition())
+    		GearArm.getInstance().setPosition(-UIConfig.getInstance().getPegPosition()+20);
+    	else
+    		GearArm.getInstance().setPosition(-UIConfig.getInstance().getPegPosition() - 35);
     }
 
     protected void execute() {

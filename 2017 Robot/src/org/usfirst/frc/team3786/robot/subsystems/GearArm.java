@@ -41,8 +41,9 @@ public class GearArm extends Subsystem {
 		windowMotor.changeControlMode(TalonControlMode.Position);
 		windowMotor.configNominalOutputVoltage(+0f, -0f);
 		windowMotor.configPeakOutputVoltage(+12f, -12f);
+		windowMotor.reverseSensor(true);
 		windowMotor.setF(0.0);
-		windowMotor.setP(0.1);
+		windowMotor.setP(2.0);
 		windowMotor.setI(0.0);
 		windowMotor.setD(0.0);
 
@@ -53,11 +54,15 @@ public class GearArm extends Subsystem {
 			windowMotor.set(speed);
 	}
 	
-	public void setPosition(double pos) {
+	public void setPosition(double pos) {		
 		if(_currentType == DriveType.POSITION)
 			windowMotor.set(pos);
 	}
 	
+	public double getVoltage() {
+		return windowMotor.getOutputVoltage();
+	}
+		
 	public int getPosition() {
 		return windowMotor.getAnalogInPosition();
 	}

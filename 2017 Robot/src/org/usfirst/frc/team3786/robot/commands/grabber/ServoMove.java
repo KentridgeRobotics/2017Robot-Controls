@@ -1,35 +1,38 @@
-package org.usfirst.frc.team3786.robot.commands.test;
+package org.usfirst.frc.team3786.robot.commands.grabber;
 
 import org.usfirst.frc.team3786.robot.Robot;
-import org.usfirst.frc.team3786.robot.subsystems.ServoTest;
+import org.usfirst.frc.team3786.robot.subsystems.GearServo;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ServoOpen extends Command {
-	public static ServoOpen instance;
+public class ServoMove extends Command {
+	public static ServoMove instance;
 	
-	public static ServoOpen getInstance() {
+	public static ServoMove getInstance() {
 		if(instance == null)
-			instance = new ServoOpen();
+			instance = new ServoMove();
 		return instance;
 	}
 
 	
-    public ServoOpen() {
-		requires(ServoTest.getInstance());
-		setTimeout(.9);
+    public ServoMove() {
+		requires(GearServo.getInstance());
+		setTimeout(.01);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if(GearServo.getInstance().getIsClosed())
+    		GearServo.getInstance().open();
+    	else
+    		GearServo.getInstance().close();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	ServoTest.getInstance().open();
     }
 
     // Make this return true when this Command no longer needs to run execute()

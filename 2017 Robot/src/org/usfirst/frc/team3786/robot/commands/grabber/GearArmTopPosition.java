@@ -1,41 +1,41 @@
-package org.usfirst.frc.team3786.robot.commands.test;
+package org.usfirst.frc.team3786.robot.commands.grabber;
 
-import org.usfirst.frc.team3786.robot.Robot;
-import org.usfirst.frc.team3786.robot.subsystems.GearServo;
+import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ServoClose extends Command {
-
-	public static ServoClose instance;
+public class GearArmTopPosition extends Command {
 	
-	public static ServoClose getInstance() {
+	private static GearArmTopPosition instance;
+	
+	public static GearArmTopPosition getInstance() {
 		if(instance == null)
-			instance = new ServoClose();
+			instance = new GearArmTopPosition();
 		return instance;
 	}
 
-	
-    public ServoClose() {
-		requires(GearServo.getInstance());
-		setTimeout(.9);
+
+    public GearArmTopPosition() {
+    	requires(GearArm.getInstance());
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	GearArm.getInstance().setPositionDrive();
+    	GearArm.getInstance().setPosition(40);
+    	//not working right now
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	GearServo.getInstance().close();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut();
+        return false;
     }
 
     // Called once after isFinished returns true

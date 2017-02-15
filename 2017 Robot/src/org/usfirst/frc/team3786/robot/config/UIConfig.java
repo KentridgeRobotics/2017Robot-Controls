@@ -30,14 +30,17 @@ public abstract class UIConfig {
 	public abstract double getRightDrive();
 	
 	public abstract JoystickButton getTestButton();
-	
-	public abstract JoystickButton getServoCloseButton();
-	
-	public abstract JoystickButton getServoOpenButton();
+		
+	public abstract JoystickButton getServoMoveButton();
 	
 	public abstract JoystickButton getGearLoadedButton();
 	
-	public abstract JoystickButton getLoadPositionButton();
+	public abstract JoystickButton getPegPositionButton();
+	
+	public abstract double getPegPosition();
+	
+	public abstract JoystickButton getGearArmTopButton();
+
 		
 	
 }

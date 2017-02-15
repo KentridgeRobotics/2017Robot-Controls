@@ -12,7 +12,7 @@ public class TankDrive extends UIConfig {
 	private Joystick xbox = new Joystick(2);
 	private JoystickButton testButton = new JoystickButton(xbox, 6);
 	private JoystickButton openButton = new JoystickButton(xbox, 1);
-	private JoystickButton closeButton = new JoystickButton(xbox, 2);
+	private JoystickButton gearArmTopButton = new JoystickButton(xbox, 2);
 	private JoystickButton gearLoadedButton = new JoystickButton(xbox, 5);
 	private JoystickButton loadPositionButton = new JoystickButton(xbox, 3);
 
@@ -50,11 +50,7 @@ public class TankDrive extends UIConfig {
 		return testButton;
 	}
 	@Override
-	public JoystickButton getServoCloseButton() {
-		return closeButton;
-	}
-	@Override
-	public JoystickButton getServoOpenButton() {
+	public JoystickButton getServoMoveButton() {
 		return openButton;
 	}
 	@Override
@@ -62,8 +58,16 @@ public class TankDrive extends UIConfig {
 		return gearLoadedButton;
 	}
 	@Override
-	public JoystickButton getLoadPositionButton() {
+	public JoystickButton getPegPositionButton() {
 		return loadPositionButton;
+	}
+	@Override
+	public double getPegPosition() {
+		return 175;
+	}
+	@Override
+	public JoystickButton getGearArmTopButton() {
+		return gearArmTopButton;
 	}
 
 }
