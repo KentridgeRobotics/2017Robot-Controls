@@ -3,6 +3,7 @@ package org.usfirst.frc.team3786.robot.config;
 import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
 
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 
 public class CompetitionConfig extends RobotConfig {
 

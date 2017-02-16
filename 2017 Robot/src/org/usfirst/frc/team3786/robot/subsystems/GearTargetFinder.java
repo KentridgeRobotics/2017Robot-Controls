@@ -17,6 +17,7 @@ import org.usfirst.frc.team3786.robot.utility.*;
 import org.usfirst.frc.team3786.robot.vision.GripPipeline;
 
 import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -33,6 +34,7 @@ public class GearTargetFinder extends Subsystem {
 	//Fixed ThreadPool for Running Image through Pipeline
 	UsbCamera camera;
 	CvSink cvSink;
+	CvSource cvSource;
 	//ExecutorService executorService = Executors.newFixedThreadPool(1);
 	
 	//Default Command
@@ -47,6 +49,8 @@ public class GearTargetFinder extends Subsystem {
     	camera = CameraServer.getInstance().startAutomaticCapture();
         camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
     	cvSink = CameraServer.getInstance().getVideo();
+    	cvSource = CameraServer.getInstance().putVideo("MyOutput", IMG_WIDTH, IMG_HEIGHT);
+    	
     }
     
     //Callable method to run Vision Thread on seperate Thread
