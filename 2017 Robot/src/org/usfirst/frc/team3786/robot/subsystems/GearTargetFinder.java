@@ -1,11 +1,12 @@
 package org.usfirst.frc.team3786.robot.subsystems;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 //import java.util.concurrent.Callable;
 //import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+//import java.util.concurrent.ExecutorService;
+//import java.util.concurrent.Executors;
 //import java.util.concurrent.Future;
 
 import org.opencv.core.Mat;
@@ -32,7 +33,7 @@ public class GearTargetFinder extends Subsystem {
 	//Fixed ThreadPool for Running Image through Pipeline
 	UsbCamera camera;
 	CvSink cvSink;
-	ExecutorService executorService = Executors.newFixedThreadPool(1);
+	//ExecutorService executorService = Executors.newFixedThreadPool(1);
 	
 	//Default Command
     @Override
@@ -121,15 +122,33 @@ public class GearTargetFinder extends Subsystem {
     
     //Return List of TargetPotitions
     public List<TargetPosition> extractTargetPosition(List<ContourReport> contourReportsList) {
-    	List<TargetPosition> tempList = new ArrayList<TargetPosition>();
-    	for(ContourReport report : contourReportsList) {
-    		tempList.add(new TargetPosition(
-    				VisionUtil.angleToEstimate(report.getCenterX()), 
-    				VisionUtil.distanceEstimate(report.getHeight()),
-    				VisionUtil.angleOfTarget(report.getWidth(), report.getHeight())
-    				));
+    	if(contourReportsList.size() == 2) {	
+        	List<TargetPosition> tempList = new ArrayList<TargetPosition>();
+    		for(ContourReport report : contourReportsList) {
+    			double tempDouble = 0.0; 
+    			if(contourReportsList.get(0).getArea() > contourReportsList.get(1).getArea()) {				//check Area of Each Rectangle
+    				if(contourReportsList.get(0).getCenterX() > contourReportsList.get(1).getCenterX()) {
+    					tempDouble = -VisionUtil.angleOfTarget(report.getWidth(), report.getHeight());
+    				} else {
+    					tempDouble = VisionUtil.angleOfTarget(report.getWidth(), report.getHeight());
+    				}
+				}else {
+					if(contourReportsList.get(0).getCenterX() > contourReportsList.get(1).getCenterX()) {
+    					tempDouble = VisionUtil.angleOfTarget(report.getWidth(), report.getHeight());
+    				} else {
+    					tempDouble = -VisionUtil.angleOfTarget(report.getWidth(), report.getHeight());
+    				}
+				}
+    			tempList.add(new TargetPosition(
+    					VisionUtil.angleToEstimate(report.getCenterX()), 
+    					VisionUtil.distanceEstimate(report.getHeight()),
+    					tempDouble
+    					));
+    		}
+    		return tempList;
+    	} else {
+    		return Collections.emptyList();
     	}
-    	return tempList;
     }
     
     
