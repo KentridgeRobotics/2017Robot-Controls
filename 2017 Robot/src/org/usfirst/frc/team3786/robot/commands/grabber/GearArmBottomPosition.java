@@ -7,18 +7,18 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class GearArmTopPosition extends Command {
+public class GearArmBottomPosition extends Command {
 	
-	private static GearArmTopPosition instance;
+	private static GearArmBottomPosition instance;
 	
-	public static GearArmTopPosition getInstance() {
+	public static GearArmBottomPosition getInstance() {
 		if(instance == null)
-			instance = new GearArmTopPosition();
+			instance = new GearArmBottomPosition();
 		return instance;
 	}
 
 
-    public GearArmTopPosition() {
+    public GearArmBottomPosition() {
     	requires(GearArm.getInstance());
     }
 
@@ -29,7 +29,7 @@ public class GearArmTopPosition extends Command {
 //    	GearArm.getInstance().setPosition(40);
     	//seeing how well just driving until it hits the limit will work
     	GearArm.getInstance().setManualDrive();
-    	GearArm.getInstance().setSpeed(.5);
+    	GearArm.getInstance().setSpeed(-.5);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -38,7 +38,7 @@ public class GearArmTopPosition extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return GearArm.getInstance().getTopLimitSwitch();
+        return GearArm.getInstance().getBottomLimitSwitch();
     }
 
     // Called once after isFinished returns true

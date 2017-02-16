@@ -46,6 +46,7 @@ public class GearArm extends Subsystem {
 		windowMotor.setP(2.0);
 		windowMotor.setI(0.0);
 		windowMotor.setD(0.0);
+		
 
 	}
 	
@@ -82,6 +83,13 @@ public class GearArm extends Subsystem {
 	}
 	public String getMode() {
 		return _currentType.toString();
+	}
+	
+	public boolean getTopLimitSwitch() {
+		return windowMotor.isFwdLimitSwitchClosed();
+	}
+	public boolean getBottomLimitSwitch() {
+		return windowMotor.isRevLimitSwitchClosed();
 	}
 	
     public void initDefaultCommand() {

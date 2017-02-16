@@ -13,6 +13,7 @@ public class TankDrive extends UIConfig {
 	private JoystickButton testButton = new JoystickButton(xbox, 6);
 	private JoystickButton openButton = new JoystickButton(xbox, 1);
 	private JoystickButton gearArmTopButton = new JoystickButton(xbox, 2);
+	private JoystickButton gearArmBottomButton = new JoystickButton(xbox, 4);
 	private JoystickButton gearLoadedButton = new JoystickButton(xbox, 5);
 	private JoystickButton loadPositionButton = new JoystickButton(xbox, 3);
 
@@ -68,6 +69,10 @@ public class TankDrive extends UIConfig {
 	@Override
 	public JoystickButton getGearArmTopButton() {
 		return gearArmTopButton;
+	}
+	@Override
+	public JoystickButton getGearArmBottomButton() {
+		return gearArmBottomButton;
 	}
 
 }
