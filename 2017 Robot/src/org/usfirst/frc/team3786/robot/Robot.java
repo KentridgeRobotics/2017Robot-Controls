@@ -16,7 +16,6 @@ import org.usfirst.frc.team3786.robot.config.Camera;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
-import org.usfirst.frc.team3786.robot.subsystems.Gyroscope;
 import org.usfirst.frc.team3786.robot.subsystems.Rangefinders;
 import org.usfirst.frc.team3786.robot.subsystems.GearServo;
 
@@ -154,7 +153,6 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
 		//Camera.getInstance().pollCamera();
-		SmartDashboard.putNumber("Gyro X", Gyroscope.getInstance().getX());
 		SmartDashboard.putBoolean("Gear is loaded", GearArm.getInstance().getIsLoaded());
 		SmartDashboard.putString("Gear Arm Drive Mode", GearArm.getInstance().getMode());
 		SmartDashboard.putNumber("Test Rangefinder Voltage", Rangefinders.getInstance().getTestVoltage());
