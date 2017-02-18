@@ -70,6 +70,7 @@ public class DriveTrain extends Subsystem {
     public int getRightVelocity() {
     	return rightDriveMotor.getEncVelocity();
     }
+    
     public void setPositionDrive() {
     	if(_currentType != DriveType.POSITION) {
     	

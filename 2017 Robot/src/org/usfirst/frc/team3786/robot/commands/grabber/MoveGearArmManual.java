@@ -33,7 +33,7 @@ public class MoveGearArmManual extends Command {
 		    	if(GearArm.getInstance().getIsLoaded())
 					GearArm.getInstance().setSpeed(.6);
 		    	else
-		    		GearArm.getInstance().setSpeed(.35);
+		    		GearArm.getInstance().setSpeed(.45);
 		    }
 			else if(UIConfig.getInstance().getXbox().getPOV(0) == 180)
 				GearArm.getInstance().setSpeed(-.25);
