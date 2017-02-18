@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import org.usfirst.frc.team3786.robot.autonomous.action.RobotAction;
 import org.usfirst.frc.team3786.robot.vision.ContourReport;
 import org.usfirst.frc.team3786.robot.vision.GripPipeline;
 import org.usfirst.frc.team3786.robot.vision.TargetPosition;

@@ -49,10 +49,14 @@ public class CrossBaseline extends CommandGroup {
 		// a CommandGroup containing them would require both the chassis and the
 		// arm.
 
-		addSequential(DriveRobot (2.0));
+		// Go forward far enough to not bump into the back wall when we rotate
+		addSequential(DriveRobot (18.0));
+		// Rotate
 		// onTrue condition is to turn left, onFalse is to turn right.
-		addSequential(new MaybeTurn(RotateRobot(-45.0), RotateRobot(45.0)));
-		addSequential(DriveRobot (10.0));
+		addSequential(new MaybeTurn(RotateRobot(-30.0), RotateRobot(30.0)));
+		
+		// Drive forward until we're across the baseline
+		addSequential(DriveRobot (120.0));
 	}
 	
 	class MaybeTurn extends ConditionalCommand
