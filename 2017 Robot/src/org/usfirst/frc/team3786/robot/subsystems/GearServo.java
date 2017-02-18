@@ -29,7 +29,7 @@ public class GearServo extends Subsystem {
 	}
 
     public void open() {
-    	servo.set(1);
+    	servo.set(.75);
     	isClosed = false;
     }
     public void close() {

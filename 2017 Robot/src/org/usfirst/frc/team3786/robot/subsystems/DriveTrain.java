@@ -16,6 +16,12 @@ public class DriveTrain extends Subsystem {
 	
 	public static DriveTrain instance;
 	
+	private enum DriveType {
+		POSITION, SPEED
+	}
+	
+	private DriveType _currentType;
+	
 	public static DriveTrain getInstance() {
 		if(instance == null)
 			instance = new DriveTrain();
@@ -34,15 +40,19 @@ public class DriveTrain extends Subsystem {
     
     
     public void setSpeed(double leftSpeed, double rightSpeed) {
-    	leftDriveMotor.set(leftSpeed);
-    	rightDriveMotor.set(rightSpeed);
+    	if(_currentType == DriveType.SPEED) {
+        	leftDriveMotor.set(leftSpeed);
+        	rightDriveMotor.set(rightSpeed);
+    	}
     }
     
     public void setPosition(double leftPos, double rightPos) {
-    	leftDriveMotor.setEncPosition(0);
-    	leftDriveMotor.set(leftPos);
-    	rightDriveMotor.setEncPosition(0);
-    	rightDriveMotor.set(rightPos);
+    	if(_currentType == DriveType.POSITION) {
+        	leftDriveMotor.setEncPosition(0);
+        	leftDriveMotor.set(leftPos);
+        	rightDriveMotor.setEncPosition(0);
+        	rightDriveMotor.set(rightPos);
+    	}
 
     }
     
@@ -60,6 +70,8 @@ public class DriveTrain extends Subsystem {
     	return rightDriveMotor.getEncVelocity();
     }
     public void setPositionDrive() {
+    	_currentType = DriveType.POSITION;
+    	
 		leftDriveMotor.changeControlMode(TalonControlMode.Position);
 		leftDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		leftDriveMotor.reverseSensor(true);
@@ -86,10 +98,13 @@ public class DriveTrain extends Subsystem {
     public double getRightMotorOutput() {
     	return rightDriveMotor.getOutputVoltage();
     }
-
     
-    //this doesn't seem to be working, need to look into it
+    public String getDriveType() {
+    	return _currentType.toString();
+    }
+    
     public void setSpeedDrive() {
+    	_currentType = DriveType.SPEED;
     	leftDriveMotor.changeControlMode(TalonControlMode.PercentVbus);
     	rightDriveMotor.changeControlMode(TalonControlMode.PercentVbus);
     }

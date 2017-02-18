@@ -18,6 +18,7 @@ import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 import org.usfirst.frc.team3786.robot.subsystems.Gyroscope;
 import org.usfirst.frc.team3786.robot.subsystems.Rangefinders;
+import org.usfirst.frc.team3786.robot.utility.FinderOfRange;
 import org.usfirst.frc.team3786.robot.subsystems.GearServo;
 
 import edu.wpi.cscore.UsbCamera;
@@ -52,11 +53,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		//NetworkTable.setClientMode();
-		//NetworkTable.setIPAddress("10.37.86.88");
-		//Camera.getInstance();
 		Drive.getInstance();
-		//these two are really just for testing servo stuff right now
 		UIConfig.getInstance().getServoMoveButton().whenPressed(ServoMove.getInstance());
 		UIConfig.getInstance().getGearLoadedButton().whenPressed(GearLoaded.getInstance());
 		UIConfig.getInstance().getPegPositionButton().whenPressed(MoveGearArmPosition.getInstance());
@@ -154,13 +151,17 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
 		//Camera.getInstance().pollCamera();
-		SmartDashboard.putNumber("Gyro X", Gyroscope.getInstance().getX());
+		//SmartDashboard.putNumber("Gyro X", Gyroscope.getInstance().getX());
+		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().getDriveType());
+		SmartDashboard.putBoolean("Servo is closed", GearServo.getInstance().getIsClosed());
 		SmartDashboard.putBoolean("Gear is loaded", GearArm.getInstance().getIsLoaded());
 		SmartDashboard.putString("Gear Arm Drive Mode", GearArm.getInstance().getMode());
 		SmartDashboard.putNumber("Test Rangefinder Voltage", Rangefinders.getInstance().getTestVoltage());
+		SmartDashboard.putNumber("Test Rangefinder Distance", FinderOfRange.rangeForVoltage(Rangefinders.getInstance().getTestVoltage()));
 		SmartDashboard.putNumber("Window Motor Voltage", GearArm.getInstance().getVoltage());
 		SmartDashboard.putBoolean("Top Limit", GearArm.getInstance().getTopLimitSwitch());
 		SmartDashboard.putBoolean("Bottom Limit", GearArm.getInstance().getBottomLimitSwitch());
+		
 		
 	}
 
