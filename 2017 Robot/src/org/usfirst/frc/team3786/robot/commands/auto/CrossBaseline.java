@@ -1,22 +1,12 @@
 package org.usfirst.frc.team3786.robot.commands.auto;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.opencv.core.MatOfPoint;
 import org.usfirst.frc.team3786.robot.commands.drive.AutonomousDrive;
-import org.usfirst.frc.team3786.robot.config.CompetitionConfig;
-import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
-import org.usfirst.frc.team3786.robot.vision.ContourReport;
+import org.usfirst.frc.team3786.robot.vision.VisionUtil;
+import org.usfirst.frc.team3786.robot.vision.WhichSide;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-enum WhichSide
-{
-	LEFT,
-	RIGHT,
-	WHO_KNOWS
-}
+
 /**
  *
  */
@@ -32,30 +22,6 @@ public class CrossBaseline extends CommandGroup {
 		return new AutonomousDrive(distance*robotDegreesPerDistance, distance*robotDegreesPerDistance);
 	}
 
-	WhichSide getPositionOfGearTarget() {
-		GearTargetFinder gtf = CompetitionConfig.gearTargetFinder;
-		ArrayList<MatOfPoint> matlist = gtf.runVisionThread();
-		List<ContourReport> contourList = gtf.extractContourReports(matlist);
-		int contoursCenter = 0; 
-		if (contourList.size() == 0)
-		{
-			return WhichSide.WHO_KNOWS;
-		}
-		for (ContourReport contour : contourList)
-		{
-			contoursCenter += contour.getCenterX();
-		}
-		contoursCenter /= contourList.size();
-		
-		if (contoursCenter <= 320) {
-			return WhichSide.LEFT;
-		}
-		else {
-			return WhichSide.RIGHT;
-		}
-	}
-	
-	
 	public CrossBaseline() {
 		// Add Commands here:
 		// e.g. addSequential(new Command1());
@@ -74,7 +40,7 @@ public class CrossBaseline extends CommandGroup {
 		// a CommandGroup containing them would require both the chassis and the
 		// arm.
 
-		WhichSide whichSide = getPositionOfGearTarget();
+		WhichSide whichSide = VisionUtil.getPositionOfGearTarget();
 		addSequential(DriveRobot (2.0));
 
 		if (whichSide == WhichSide.RIGHT) {
