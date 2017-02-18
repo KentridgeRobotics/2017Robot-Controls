@@ -24,7 +24,7 @@ public class DisplayData extends Command {
     	try {
     		List<ContourReport> matList = CompetitionConfig.gearTargetFinder.extractContourReports(CompetitionConfig.gearTargetFinder.runVisionThread());
     		CompetitionConfig.gearTargetFinder.displayContourReports(matList);
-    		CompetitionConfig.gearTargetFinder.displayTargetPositions(CompetitionConfig.gearTargetFinder.extractTargetPosition(matList));
+    		CompetitionConfig.gearTargetFinder.displayTargetPositions(CompetitionConfig.gearTargetFinder.extractListOfTargetPosition(matList));
     	}catch(Exception e) {
     		System.out.println("Exception: " + e);
     	}

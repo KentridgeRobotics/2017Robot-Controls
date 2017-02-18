@@ -123,36 +123,46 @@ public class GearTargetFinder extends Subsystem {
     	return contourReports;
     }
     
+    //Return List of ContourReports Based On Object
+    //Returns one or two ContourReport(s)
+    //Finish Later
+    public List<ContourReport> findObjectiveContourReport(List<ContourReport> contourReport) {
+    	List<ContourReport> contourReports = new ArrayList<ContourReport>();
+    	switch(contourReport.size()) {
+    		case 4:
+    			
+    		case 3:
+    			
+    		case 2:
+    		
+    		default:
+    			if(contourReport.size() > 4){
+    				
+    			}else if(contourReport.size() < 1) {
+    				
+    			} else {
+    				System.err.println("T");
+    			}
+    			return Collections.emptyList();
+    			//break;
+    	}
+    	
+    	
+    	//return contourReports;
+    }
     
-    //Return List of TargetPotitions
-    public List<TargetPosition> extractTargetPosition(List<ContourReport> contourReportsList) {
-    	if(contourReportsList.size() == 2) {	
-        	List<TargetPosition> tempList = new ArrayList<TargetPosition>();
+    
+    //Return List of TargetPotitions Based On Contour Reports
+    public List<TargetPosition> extractListOfTargetPosition(List<ContourReport> contourReportsList) {
+    	List<TargetPosition> tempList = new ArrayList<TargetPosition>();
     		for(ContourReport report : contourReportsList) {
-    			double tempDouble = 0.0; 
-    			if(contourReportsList.get(0).getArea() > contourReportsList.get(1).getArea()) {				//check Area of Each Rectangle
-    				if(contourReportsList.get(0).getCenterX() > contourReportsList.get(1).getCenterX()) {
-    					tempDouble = -VisionUtil.angleOfTarget(report.getWidth(), report.getHeight());
-    				} else {
-    					tempDouble = VisionUtil.angleOfTarget(report.getWidth(), report.getHeight());
-    				}
-				}else {
-					if(contourReportsList.get(0).getCenterX() > contourReportsList.get(1).getCenterX()) {
-    					tempDouble = VisionUtil.angleOfTarget(report.getWidth(), report.getHeight());
-    				} else {
-    					tempDouble = -VisionUtil.angleOfTarget(report.getWidth(), report.getHeight());
-    				}
-				}
     			tempList.add(new TargetPosition(
     					VisionUtil.angleToEstimate(report.getCenterX()), 
     					VisionUtil.distanceEstimate(report.getHeight()),
-    					tempDouble
+    					VisionUtil.angleOfTarget(report.getWidth(), report.getHeight())
     					));
     		}
     		return tempList;
-    	} else {
-    		return Collections.emptyList();
-    	}
     }
     
     

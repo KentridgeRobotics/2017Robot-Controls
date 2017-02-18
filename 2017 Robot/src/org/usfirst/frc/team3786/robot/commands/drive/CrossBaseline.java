@@ -1,5 +1,13 @@
 package org.usfirst.frc.team3786.robot.commands.drive;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.opencv.core.MatOfPoint;
+import org.usfirst.frc.team3786.robot.config.CompetitionConfig;
+import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
+import org.usfirst.frc.team3786.robot.utility.ContourReport;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -18,10 +26,15 @@ public class CrossBaseline extends CommandGroup {
 	}
 
 	double getPositionOfGearTarget() {
+		GearTargetFinder gtf = CompetitionConfig.gearTargetFinder;
+		ArrayList<MatOfPoint> matlist = gtf.runVisionThread();
+		List<ContourReport> contourList = gtf.extractContourReports(matlist);
+		
 		return 0.0;
 		//Come back here
 	}
-
+	
+	
 	public CrossBaseline() {
 		// Add Commands here:
 		// e.g. addSequential(new Command1());

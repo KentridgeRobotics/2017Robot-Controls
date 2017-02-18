@@ -16,7 +16,7 @@ public class TargetPosition {
 	
 	
 	public String toString() {
-		return "Angle to Target: " + _angleToTargetInDegrees + "/nDistance to Target: " + _distanceToTargetInInches + "/nAngle of Target in Degrees: " + _angleOfTargetInDegrees;
+		return "Angle to Target: " + _angleToTargetInDegrees + "\nDistance to Target: " + _distanceToTargetInInches + "\nAngle of Target in Degrees: " + _angleOfTargetInDegrees;
 	}
 	
 	//return values
