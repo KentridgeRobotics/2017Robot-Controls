@@ -6,7 +6,7 @@ import java.util.List;
 import org.opencv.core.MatOfPoint;
 import org.usfirst.frc.team3786.robot.config.CompetitionConfig;
 import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
-import org.usfirst.frc.team3786.robot.utility.ContourReport;
+import org.usfirst.frc.team3786.robot.vision.ContourReport;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

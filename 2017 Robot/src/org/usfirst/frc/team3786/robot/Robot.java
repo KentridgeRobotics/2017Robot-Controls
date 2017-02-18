@@ -17,7 +17,7 @@ import org.usfirst.frc.team3786.robot.config.UIConfig;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 import org.usfirst.frc.team3786.robot.subsystems.Rangefinders;
-import org.usfirst.frc.team3786.robot.utility.FinderOfRange;
+import org.usfirst.frc.team3786.robot.vision.FinderOfRange;
 import org.usfirst.frc.team3786.robot.subsystems.GearServo;
 
 import edu.wpi.cscore.UsbCamera;

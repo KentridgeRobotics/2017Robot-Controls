@@ -3,7 +3,7 @@ package org.usfirst.frc.team3786.robot.commands.display;
 import java.util.List;
 
 import org.usfirst.frc.team3786.robot.config.CompetitionConfig;
-import org.usfirst.frc.team3786.robot.utility.ContourReport;
+import org.usfirst.frc.team3786.robot.vision.ContourReport;
 
 import edu.wpi.first.wpilibj.command.Command;
 

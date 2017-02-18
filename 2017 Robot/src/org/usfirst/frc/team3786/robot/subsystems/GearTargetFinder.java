@@ -14,7 +14,10 @@ import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team3786.robot.utility.*;
+import org.usfirst.frc.team3786.robot.vision.ContourReport;
 import org.usfirst.frc.team3786.robot.vision.GripPipeline;
+import org.usfirst.frc.team3786.robot.vision.TargetPosition;
+import org.usfirst.frc.team3786.robot.vision.VisionUtil;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
