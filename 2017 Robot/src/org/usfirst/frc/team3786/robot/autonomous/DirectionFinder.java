@@ -77,7 +77,22 @@ public class DirectionFinder {
 	public static List<RobotAction> extractListOfActionsFromSingleTargetPosition(List<TargetPosition> targetPosition) {
 		if(targetPosition.size() == 1) {
 			List<RobotAction> listOfActions = new ArrayList<RobotAction>();
-		
+			TargetPosition tempPos = targetPosition.get(0);
+			
+			if(tempPos.getAngleToTargetInDegrees() < -1.0 || tempPos.getAngleToTargetInDegrees() > 1.0){
+				listOfActions.add(new RobotAction(tempPos.getAngleToTargetInDegrees(), 0));
+			} 	
+			if(tempPos.getAngleOfTargetInDegrees() < -1.0 || tempPos.getAngleOfTargetInDegrees() > 1.0){
+				listOfActions.add(new RobotAction(tempPos.getAngleOfTargetInDegrees(), 0));
+				listOfActions.add(new RobotAction(0, 
+						(tempPos.getDistanceToTargetInInches() / 2) / Math.cos(Math.toRadians(tempPos.getAngleOfTargetInDegrees()))
+						));
+				listOfActions.add(new RobotAction(
+						-(90 - tempPos.getAngleOfTargetInDegrees()) * 2
+						, 0));
+			} else {
+				listOfActions.add(new RobotAction(0, tempPos.getDistanceToTargetInInches()));
+			}
 			return listOfActions;
 		} else {
 			System.err.println("Error in extractListOfAction: Size of list does not equal 2");
@@ -99,8 +114,7 @@ public class DirectionFinder {
 	
 	
 	
-	
-	
+
 	
 	//TEST MAIN METHOD -------------------------------------------------------------------------------------
 	/*

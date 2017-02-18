@@ -54,7 +54,7 @@ public class GearTargetFinder extends Subsystem {
     }
     
     //Callable method to run Vision Thread on seperate Thread
-    
+    //return ArrayList of MatOfPoint
     public ArrayList<MatOfPoint> runVisionThread() {
     	System.err.println("Callable called");
     	GripPipeline grip = new GripPipeline();
@@ -123,15 +123,43 @@ public class GearTargetFinder extends Subsystem {
     	return contourReports;
     }
     
+    //Enum class 
+    public enum Direction {
+    	LEFT 	(-1),
+    	RIGHT 	(1),
+    	MIDDLE 	(0);
+    	
+    	private final int value;
+    	private Direction(int val) {
+    		this.value = val;
+    	}
+    	
+    	public int getValue() {
+    		return this.value;
+    	}
+    }
+    
     //Return List of ContourReports Based On Object
     //Returns one or two ContourReport(s)
     //Finish Later
-    public List<ContourReport> findObjectiveContourReport(List<ContourReport> contourReport) {
-    	List<ContourReport> contourReports = new ArrayList<ContourReport>();
+       
+    public List<ContourReport> findObjectiveContourReport(List<ContourReport> contourReport, Direction direction) {
+    	List<ContourReport> contourReports = new ArrayList(contourReport);
+    	ContourReport temp;
+    	for (int i = 0; i < contourReports.size(); i++){
+	    	for (int j = 0; j < contourReports.size(); j++){
+	            if (contourReports.get(i).getCenterX() < contourReports.get(j).getCenterX())
+	            {
+	                temp = contourReports.get(i);
+	                contourReports.set(i, contourReports.get(j));
+	                contourReports.set(j,  temp);
+	            }
+	        }
+	    }
     	switch(contourReport.size()) {
     		case 4:
     			
-    		case 3:
+    		case 3: 
     			
     		case 2:
     		
