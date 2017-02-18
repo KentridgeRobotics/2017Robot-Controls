@@ -17,6 +17,7 @@ import org.usfirst.frc.team3786.robot.vision.ContourReport;
 import org.usfirst.frc.team3786.robot.vision.GripPipeline;
 import org.usfirst.frc.team3786.robot.vision.TargetPosition;
 import org.usfirst.frc.team3786.robot.vision.VisionUtil;
+import org.usfirst.frc.team3786.robot.vision.WhichDirection;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
@@ -125,27 +126,12 @@ public class GearTargetFinder extends Subsystem {
     	return contourReports;
     }
     
-    //Enum class 
-    public enum Direction {
-    	LEFT 	(-1),
-    	RIGHT 	(1),
-    	MIDDLE 	(0);
-    	
-    	private final int value;
-    	private Direction(int val) {
-    		this.value = val;
-    	}
-    	
-    	public int getValue() {
-    		return this.value;
-    	}
-    }
     
     //Return List of ContourReports Based On Object
     //Returns one or two ContourReport(s)
-    //Finish Later
+    //Filters List of Contours into one or 
        
-    public List<ContourReport> findObjectiveContourReport(List<ContourReport> contourReport, Direction direction) {
+    public List<ContourReport> findObjectiveContourReport(List<ContourReport> contourReport, WhichDirection direction) {
     	List<ContourReport> contourReports = new ArrayList(contourReport);
     	ContourReport temp;
     	for (int i = 0; i < contourReports.size(); i++){
@@ -160,25 +146,65 @@ public class GearTargetFinder extends Subsystem {
 	    }
     	switch(contourReport.size()) {
     		case 4:
-    			
+    			if(Math.abs(contourReports.get(0).getCenterX() - contourReports.get(1).getCenterX()) < contourReports.get(0).getHeight() * 2.5) {
+    				contourReports.remove(3);
+    				contourReports.remove(2);
+    			} else if(Math.abs(contourReports.get(2).getCenterX() - contourReports.get(3).getCenterX()) < contourReports.get(2).getHeight() * 2.5) {
+    				contourReports.remove(0);
+    				contourReports.remove(0);
+    			} else {
+    				System.err.println("Doesn't have an ideal target");
+    			}
+    			break;
     		case 3: 
-    			
+    			if(Math.abs(contourReports.get(0).getCenterX() - contourReports.get(1).getCenterX()) < contourReports.get(0).getHeight() * 2.5) {
+    				contourReports.remove(2); 
+    			}else if (Math.abs(contourReports.get(1).getCenterX() - contourReports.get(2).getCenterX()) < contourReports.get(1).getHeight() * 2.5) {
+    				contourReports.remove(0);
+    			}
+    			break;
     		case 2:
-    		
+    			if(Math.abs(contourReports.get(0).getCenterX() - contourReports.get(1).getCenterX()) < contourReports.get(0).getHeight() * 2.5) {
+    				return contourReports;
+    			} else {
+    				switch(direction) {
+    					case LEFT:
+    						contourReports.remove(1);
+    						break;
+    					case RIGHT:
+    						contourReports.remove(0);
+    						break;
+    					case MIDDLE_LEFT:
+    						contourReports.remove(0);
+    						break;
+    					case MIDDLE_RIGHT:
+    						contourReports.remove(1);
+    						break;
+    					case UNKNOWN:
+    						if(640 - contourReports.get(0).getCenterX() < 640 - contourReports.get(0).getCenterX()) {
+    							contourReport.remove(0);
+    						} else {
+    							
+    						}
+    						break;
+    					default:
+    						break;
+    				}
+    			}
+    			break;
     		default:
     			if(contourReport.size() > 4){
-    				
+    				System.err.println("Too many Contours");
     			}else if(contourReport.size() < 1) {
-    				
+    				System.err.println("No Contour Reports");
     			} else {
-    				System.err.println("T");
+    				System.err.println("Unknown Error");
     			}
     			return Collections.emptyList();
-    			//break;
     	}
     	
     	
-    	//return contourReports;
+    	return contourReports;
     }
     
     
