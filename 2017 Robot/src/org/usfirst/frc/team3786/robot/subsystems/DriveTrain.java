@@ -72,6 +72,7 @@ public class DriveTrain extends Subsystem {
     public void setPositionDrive() {
     	_currentType = DriveType.POSITION;
     	
+    	leftDriveMotor.enableBrakeMode(true);
 		leftDriveMotor.changeControlMode(TalonControlMode.Position);
 		leftDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		leftDriveMotor.reverseSensor(true);
@@ -81,6 +82,7 @@ public class DriveTrain extends Subsystem {
 		leftDriveMotor.setP(0.25);
 		leftDriveMotor.setI(0.0);
 		leftDriveMotor.setD(0.0);
+		rightDriveMotor.enableBrakeMode(true);
 		rightDriveMotor.changeControlMode(TalonControlMode.Position);
 		rightDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		rightDriveMotor.configNominalOutputVoltage(+0f, -0f);
@@ -102,11 +104,13 @@ public class DriveTrain extends Subsystem {
     public String getDriveType() {
     	return _currentType.toString();
     }
-    
+        
     public void setSpeedDrive() {
     	_currentType = DriveType.SPEED;
     	leftDriveMotor.changeControlMode(TalonControlMode.PercentVbus);
+    	leftDriveMotor.enableBrakeMode(false);
     	rightDriveMotor.changeControlMode(TalonControlMode.PercentVbus);
+    	rightDriveMotor.enableBrakeMode(false);
     }
     
     public void initDefaultCommand() {

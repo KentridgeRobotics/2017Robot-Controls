@@ -21,5 +21,9 @@ public abstract class RobotConfig {
 	public abstract int getRightDriveMotor();
 	
 	public abstract int getGearArmMotor();
+	
+	public abstract int getWinchMotor();
+	
+	public abstract int getWinchDeployMotor();
 		
 }
