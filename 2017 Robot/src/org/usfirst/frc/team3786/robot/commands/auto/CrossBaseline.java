@@ -4,22 +4,31 @@ import org.usfirst.frc.team3786.robot.commands.drive.AutonomousDrive;
 import org.usfirst.frc.team3786.robot.vision.VisionUtil;
 import org.usfirst.frc.team3786.robot.vision.WhichSide;
 
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.ConditionalCommand;
 
 
 /**
  *
  */
 public class CrossBaseline extends CommandGroup {
-	static final double robotRotationsPerWheelRotation = (220.0/180.0);
-	static final double robotDegreesPerDistance = (5.9528082612573013834882986734396);
-
+	/** when turning both wheels in opposite directions, how many degrees
+	 * of robot turn are in a degree of wheel turn
+	 */
+	static final double wheelRotationDegreesPerRobotTurnDegree = (180.0/220.0);
+	static final double wheelDegreesPerInch = (5.9528082612573013834882986734396);
+	
 	public AutonomousDrive RotateRobot (double degrees) {
-		return new AutonomousDrive(-degrees*robotRotationsPerWheelRotation, degrees*robotRotationsPerWheelRotation);
+		return new AutonomousDrive(-degrees*wheelRotationDegreesPerRobotTurnDegree, degrees*wheelRotationDegreesPerRobotTurnDegree);
 	}
-
+	/**
+	 * 
+	 * @param distance
+	 * @return
+	 */
 	public AutonomousDrive DriveRobot (double distance) {
-		return new AutonomousDrive(distance*robotDegreesPerDistance, distance*robotDegreesPerDistance);
+		return new AutonomousDrive(distance*wheelDegreesPerInch, distance*wheelDegreesPerInch);
 	}
 
 	public CrossBaseline() {
@@ -40,21 +49,36 @@ public class CrossBaseline extends CommandGroup {
 		// a CommandGroup containing them would require both the chassis and the
 		// arm.
 
-		WhichSide whichSide = VisionUtil.getPositionOfGearTarget();
-		addSequential(DriveRobot (2.0));
-
-		if (whichSide == WhichSide.RIGHT) {
-			// The targets are mostly off to the right, so we should turn left
-			addSequential(RotateRobot (-45.0));
-		}
-		else if (whichSide == WhichSide.LEFT) {
-			// The targets are mostly off to the left, so we should turn right
-			addSequential(RotateRobot (45.0));
-		}
-		else {
-			// Who knows where the targets are? Maybe the way ahead is clear. YOLO.
-		}
-		addSequential(DriveRobot (10.0));
+		// Go forward far enough to not bump into the back wall when we rotate
+		addSequential(DriveRobot (18.0));
+		// Rotate
+		// onTrue condition is to turn left, onFalse is to turn right.
+		addSequential(new MaybeTurn(RotateRobot(-30.0), RotateRobot(30.0)));
+		
+		// Drive forward until we're across the baseline
+		addSequential(DriveRobot (120.0));
 	}
 	
+	class MaybeTurn extends ConditionalCommand
+	{
+		
+		public MaybeTurn(Command onTrue, Command onFalse) {
+			super(onTrue, onFalse);
+		}
+
+		// Returns true if the target is to the RIGHT!
+		@Override
+		protected boolean condition() {
+			WhichSide whichSide = VisionUtil.getPositionOfGearTarget();
+			if (whichSide == WhichSide.RIGHT)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
+	}
 }

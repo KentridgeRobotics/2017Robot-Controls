@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team3786.robot;
 
+import org.usfirst.frc.team3786.robot.commands.auto.CrossBaseline;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
 import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
@@ -15,14 +16,19 @@ import org.usfirst.frc.team3786.robot.config.UIConfig;
 import org.usfirst.frc.team3786.robot.subsystems.BNO055;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
-import org.usfirst.frc.team3786.robot.subsystems.GearServo;
 import org.usfirst.frc.team3786.robot.subsystems.Rangefinders;
 import org.usfirst.frc.team3786.robot.vision.FinderOfRange;
+import org.usfirst.frc.team3786.robot.subsystems.GearServo;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -59,7 +65,7 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchUpButton().whenReleased(WinchMove.getStopInstance());
 		
 		chooser.addDefault("Do Nothing", new DoNothing());
-		// chooser.addObject("Autonomous baseline crosser", new CrossBaseline());
+		chooser.addObject("Autonomous baseline crosser", new CrossBaseline());
 		
 		imu = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
 			  BNO055.vector_type_t.VECTOR_EULER);

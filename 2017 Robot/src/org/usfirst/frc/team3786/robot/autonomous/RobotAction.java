@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3786.robot.autonomous.action;
+package org.usfirst.frc.team3786.robot.autonomous;
 
 public class RobotAction {
 	double angleToTurnDegrees;
