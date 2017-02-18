@@ -51,8 +51,9 @@ public class GearArm extends Subsystem {
 	}
 		
 	public void setSpeed(double speed) {
-		if(_currentType == DriveType.MANUAL)
-			windowMotor.set(speed);
+		if(_currentType != DriveType.MANUAL)
+			_currentType = DriveType.MANUAL;
+		windowMotor.set(speed);
 	}
 	
 	public void setPosition(double pos) {		

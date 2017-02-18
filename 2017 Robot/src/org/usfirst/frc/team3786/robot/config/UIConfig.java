@@ -13,7 +13,7 @@ public abstract class UIConfig {
 	
 	public static UIConfig getInstance() {
 		if(instance == null)
-			instance = new TankDrive();
+			instance = new ArcadeDrive();
 		return instance;
 	}
 	
@@ -42,6 +42,10 @@ public abstract class UIConfig {
 	public abstract JoystickButton getGearArmTopButton();
 	
 	public abstract JoystickButton getGearArmBottomButton();
+	
+	public abstract JoystickButton getWinchUpButton();
+	
+	public abstract JoystickButton getWinchDownButton();
 
 		
 	

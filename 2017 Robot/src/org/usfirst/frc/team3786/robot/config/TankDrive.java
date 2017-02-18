@@ -16,7 +16,9 @@ public class TankDrive extends UIConfig {
 	private JoystickButton gearArmBottomButton = new JoystickButton(xbox, 4);
 	private JoystickButton gearLoadedButton = new JoystickButton(xbox, 5);
 	private JoystickButton pegPositionButton = new JoystickButton(xbox, 3);
-	private final double PEG_POSITION = 175;
+	private JoystickButton winchUpButton = new JoystickButton(xbox, 8);
+	private JoystickButton winchDownButton = new JoystickButton(xbox, 7);
+	private final double PEG_POSITION = 165;
 
 
 	
@@ -75,6 +77,14 @@ public class TankDrive extends UIConfig {
 	@Override
 	public JoystickButton getGearArmBottomButton() {
 		return gearArmBottomButton;
+	}
+	@Override
+	public JoystickButton getWinchUpButton() {
+		return winchUpButton;
+	}
+	@Override
+	public JoystickButton getWinchDownButton() {
+		return winchDownButton;
 	}
 
 }

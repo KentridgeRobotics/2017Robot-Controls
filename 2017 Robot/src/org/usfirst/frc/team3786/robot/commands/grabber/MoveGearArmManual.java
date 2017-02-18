@@ -30,10 +30,10 @@ public class MoveGearArmManual extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 		    if(UIConfig.getInstance().getXbox().getPOV(0) == 0) {
-		    	if(GearArm.getInstance().getIsLoaded())
+		    	//if(GearArm.getInstance().getIsLoaded())
 					GearArm.getInstance().setSpeed(.6);
-		    	else
-		    		GearArm.getInstance().setSpeed(.5);
+//		    	else
+//		    		GearArm.getInstance().setSpeed(.5);
 		    }
 			else if(UIConfig.getInstance().getXbox().getPOV(0) == 180)
 				GearArm.getInstance().setSpeed(-.25);

@@ -12,17 +12,19 @@ public class ArcadeDrive extends UIConfig {
 	private JoystickButton gearArmBottomButton = new JoystickButton(xbox, 4);
 	private JoystickButton gearLoadedButton = new JoystickButton(xbox, 5);
 	private JoystickButton pegPositionButton = new JoystickButton(xbox, 3);
-	private final double PEG_POSITION = 175;
+	private JoystickButton winchUpButton = new JoystickButton(xbox, 8);
+	private JoystickButton winchDownButton = new JoystickButton(xbox, 7);
+	private final double PEG_POSITION = 165;
 	
 	private final double GAIN = .5;
 
 	
 	private double throttle() {
-		return leftStick.getY();
+		return -leftStick.getX();
 	}
 
 	private double turn() {
-		return leftStick.getX();
+		return leftStick.getY();
 	}
 	
 	private double leftOut() {
@@ -100,5 +102,14 @@ public class ArcadeDrive extends UIConfig {
 	public JoystickButton getGearArmBottomButton() {
 		return gearArmBottomButton;
 	}
+	@Override
+	public JoystickButton getWinchUpButton() {
+		return winchUpButton;
+	}
+	@Override
+	public JoystickButton getWinchDownButton() {
+		return winchDownButton;
+	}
+
 
 }

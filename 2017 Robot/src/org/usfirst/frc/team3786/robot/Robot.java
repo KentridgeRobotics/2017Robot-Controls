@@ -2,6 +2,7 @@
 package org.usfirst.frc.team3786.robot;
 
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
+import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
 import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearArmBottomPosition;
@@ -36,7 +37,7 @@ public class Robot extends IterativeRobot {
 
 	public Camera camera;
 	public static DisplayData displayData;
-	//private static BNO055 imu;
+	private static BNO055 imu;
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -52,12 +53,16 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getPegPositionButton().whenPressed(MoveGearArmPosition.getInstance());
 		UIConfig.getInstance().getGearArmTopButton().whenPressed(GearArmTopPosition.getInstance());
 		UIConfig.getInstance().getGearArmBottomButton().whenPressed(GearArmBottomPosition.getInstance());
+		UIConfig.getInstance().getWinchDownButton().whileHeld(WinchMove.getDownInstance());
+		UIConfig.getInstance().getWinchDownButton().whenReleased(WinchMove.getStopInstance());
+		UIConfig.getInstance().getWinchUpButton().whileHeld(WinchMove.getUpInstance());
+		UIConfig.getInstance().getWinchUpButton().whenReleased(WinchMove.getStopInstance());
 		
 		chooser.addDefault("Do Nothing", new DoNothing());
 		// chooser.addObject("Autonomous baseline crosser", new CrossBaseline());
 		
-		//imu = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
-			  //BNO055.vector_type_t.VECTOR_EULER);
+		imu = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
+			  BNO055.vector_type_t.VECTOR_EULER);
 		
 		//UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
 		//cam.setResolution(1280, 720);
@@ -146,7 +151,12 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
 		//Camera.getInstance().pollCamera();
-		//SmartDashboard.putNumber("Gyro X", imu.getVector()[0]);
+		SmartDashboard.putNumber("Gyro X", imu.getVector()[0]);
+		SmartDashboard.putNumber("Gyro Y", imu.getVector()[1]);
+		SmartDashboard.putNumber("Gyro Z", imu.getVector()[2]);
+		
+		SmartDashboard.putBoolean("Gyro Calibration", imu.isCalibrated());
+		
 		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().getDriveType());
 		SmartDashboard.putBoolean("Servo is closed", GearServo.getInstance().getIsClosed());
 		SmartDashboard.putBoolean("Gear is loaded", GearArm.getInstance().getIsLoaded());
