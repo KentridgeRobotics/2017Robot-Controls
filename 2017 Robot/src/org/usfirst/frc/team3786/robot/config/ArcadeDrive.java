@@ -1,14 +1,10 @@
 package org.usfirst.frc.team3786.robot.config;
 
-import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class TankDrive extends UIConfig {
+public class ArcadeDrive extends UIConfig {
 	private Joystick leftStick = new Joystick(0);
-	private Joystick rightStick = new Joystick(1);
 	private Joystick xbox = new Joystick(2);
 	private JoystickButton testButton = new JoystickButton(xbox, 6);
 	private JoystickButton servoButton = new JoystickButton(xbox, 1);
@@ -17,61 +13,82 @@ public class TankDrive extends UIConfig {
 	private JoystickButton gearLoadedButton = new JoystickButton(xbox, 5);
 	private JoystickButton pegPositionButton = new JoystickButton(xbox, 3);
 	private final double PEG_POSITION = 175;
-
+	
+	private final double GAIN = .5;
 
 	
-	private static double leftOut, rightOut;
+	private double throttle() {
+		return leftStick.getY();
+	}
+
+	private double turn() {
+		return leftStick.getX();
+	}
+	
+	private double skim(double v) {
+		  // gain determines how much to skim off the top
+		  if (v > 1.0)
+		    return -((v - 1.0) * GAIN);
+		  else if (v < -1.0)
+		    return -((v + 1.0) * GAIN);
+		  return 0;
+		}
 	
 	@Override
 	public Joystick getLeftStick() {
 		return leftStick;
 	}
+
 	@Override
 	public Joystick getRightStick() {
-		return rightStick;
+		return null;
 	}
+
 	@Override
 	public Joystick getXbox() {
 		return xbox;
 	}
+
 	@Override
 	public double getLeftDrive() {
-		leftOut = -(leftStick.getY());
-		SmartDashboard.putNumber("Left Stick", leftOut);
-		SmartDashboard.putNumber("Left Encoder", DriveTrain.getInstance().getLeftEncoder());
-		SmartDashboard.putNumber("Left Velocity", DriveTrain.getInstance().getLeftVelocity());
-		return Math.pow(leftOut, 2) * (Math.abs(leftOut)/leftOut);
+		return throttle() + turn() + skim(getRightDrive());
 	}
+
 	@Override
 	public double getRightDrive() {
-		rightOut = rightStick.getY();
-		SmartDashboard.putNumber("Right Stick", rightOut);
-		return Math.pow(rightOut, 2) * (Math.abs(rightOut)/rightOut);
+		return throttle() - turn() + skim(getLeftDrive());
 	}
+
 	@Override
 	public JoystickButton getTestButton() {
 		return testButton;
 	}
+
 	@Override
 	public JoystickButton getServoMoveButton() {
 		return servoButton;
 	}
+
 	@Override
 	public JoystickButton getGearLoadedButton() {
 		return gearLoadedButton;
 	}
+
 	@Override
 	public JoystickButton getPegPositionButton() {
 		return pegPositionButton;
 	}
+
 	@Override
 	public double getPegPosition() {
 		return PEG_POSITION;
 	}
+
 	@Override
 	public JoystickButton getGearArmTopButton() {
 		return gearArmTopButton;
 	}
+
 	@Override
 	public JoystickButton getGearArmBottomButton() {
 		return gearArmBottomButton;
