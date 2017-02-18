@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3786.robot.commands.drive;
 
+import org.usfirst.frc.team3786.robot.commands.auto.CrossBaseline;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -59,4 +60,17 @@ public class AutonomousDrive extends Command {
     protected void interrupted() {
     	System.err.println("Interrupted autonomous drive.");
     }
+
+	public static AutonomousDrive RotateRobot(double degrees) {
+		return new AutonomousDrive(-degrees*CrossBaseline.wheelRotationDegreesPerRobotTurnDegree, degrees*CrossBaseline.wheelRotationDegreesPerRobotTurnDegree);
+	}
+
+	/**
+	 * 
+	 * @param distance
+	 * @return
+	 */
+	public static AutonomousDrive DriveRobot(double distance) {
+		return new AutonomousDrive(distance*CrossBaseline.wheelDegreesPerInch, distance*CrossBaseline.wheelDegreesPerInch);
+	}
 }

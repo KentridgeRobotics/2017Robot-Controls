@@ -56,8 +56,8 @@ public class GearTargetFinder extends Subsystem {
     	
     }
     
-    //Callable method to run Vision Thread on seperate Thread
-    //return ArrayList of MatOfPoint
+    // Get recognized targets from the camera as processed by the Grip pipeline.
+    // Returns List of MatOfPoint
     public List<MatOfPoint> runVisionThread() {
     	System.err.println("runVisionThread called");
     	GripPipeline grip = new GripPipeline();
