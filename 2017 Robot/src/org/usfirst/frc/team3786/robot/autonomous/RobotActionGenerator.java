@@ -13,7 +13,7 @@ import org.usfirst.frc.team3786.robot.vision.GripPipeline;
 import org.usfirst.frc.team3786.robot.vision.TargetPosition;
 import org.usfirst.frc.team3786.robot.vision.VisionUtil;
 
-public class DirectionFinder {
+public class RobotActionGenerator {
 	
 	//Requires Two TargetPositions
 	//Creates A List Of actions based on the Target Position
