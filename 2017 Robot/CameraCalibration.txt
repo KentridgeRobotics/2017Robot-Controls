@@ -533,3 +533,39 @@ Angle: 60 degrees, right side closer
 
 
 
+Example of seeing 3 targets:
+  "myContoursReport": {
+    "area": [
+      693.5,
+      420.5,
+      1119.5
+    ],
+    "centerY": [
+      307.0,
+      299.0,
+      156.0
+    ],
+    "centerX": [
+      482.0,
+      420.0,
+      614.0
+    ],
+    "width": [
+      17.0,
+      12.0,
+      49.0
+    ],
+    "solidity": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "height": [
+      46.0,
+      42.0,
+      27.0
+    ]
+  }
+}
+
+
