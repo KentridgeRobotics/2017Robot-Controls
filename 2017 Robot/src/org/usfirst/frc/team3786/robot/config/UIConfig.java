@@ -40,6 +40,8 @@ public abstract class UIConfig {
 	public abstract double getPegPosition();
 	
 	public abstract JoystickButton getGearArmTopButton();
+	
+	public abstract JoystickButton getGearArmBottomButton();
 
 		
 	

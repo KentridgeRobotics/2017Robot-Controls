@@ -5,6 +5,7 @@ import org.usfirst.frc.team3786.robot.commands.auto.AutoTest;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
 import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
+import org.usfirst.frc.team3786.robot.commands.grabber.GearArmBottomPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearArmTopPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearLoaded;
 import org.usfirst.frc.team3786.robot.commands.grabber.MoveGearArmManual;
@@ -15,7 +16,6 @@ import org.usfirst.frc.team3786.robot.config.Camera;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
-import org.usfirst.frc.team3786.robot.subsystems.Gyroscope;
 import org.usfirst.frc.team3786.robot.subsystems.Rangefinders;
 import org.usfirst.frc.team3786.robot.subsystems.GearServo;
 
@@ -59,7 +59,8 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getServoMoveButton().whenPressed(ServoMove.getInstance());
 		UIConfig.getInstance().getGearLoadedButton().whenPressed(GearLoaded.getInstance());
 		UIConfig.getInstance().getPegPositionButton().whenPressed(MoveGearArmPosition.getInstance());
-		//UIConfig.getInstance().getGearArmTopButton().whenPressed(GearArmTopPosition.getInstance());
+		UIConfig.getInstance().getGearArmTopButton().whenPressed(GearArmTopPosition.getInstance());
+		UIConfig.getInstance().getGearArmBottomButton().whenPressed(GearArmBottomPosition.getInstance());
 		
 		chooser.addDefault("Do Nothing", new DoNothing());
 		chooser.addObject("Auto Test", new AutoTest());
@@ -152,11 +153,12 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
 		//Camera.getInstance().pollCamera();
-		SmartDashboard.putNumber("Gyro X", Gyroscope.getInstance().getX());
 		SmartDashboard.putBoolean("Gear is loaded", GearArm.getInstance().getIsLoaded());
 		SmartDashboard.putString("Gear Arm Drive Mode", GearArm.getInstance().getMode());
 		SmartDashboard.putNumber("Test Rangefinder Voltage", Rangefinders.getInstance().getTestVoltage());
 		SmartDashboard.putNumber("Window Motor Voltage", GearArm.getInstance().getVoltage());
+		SmartDashboard.putBoolean("Top Limit", GearArm.getInstance().getTopLimitSwitch());
+		SmartDashboard.putBoolean("Bottom Limit", GearArm.getInstance().getBottomLimitSwitch());
 		
 	}
 
