@@ -9,9 +9,13 @@ public class CompetitionConfig extends RobotConfig {
 
 	private static final int LEFT_DRIVE_MOTOR = 1;
 	
-	private static final int RIGHT_DRIVE_MOTOR = 8;
+	private static final int RIGHT_DRIVE_MOTOR = 2;
 	
 	private static final int GEAR_ARM_MOTOR = 3;
+	
+	private static final int WINCH_MOTOR = 4;
+	
+	private static final int WINCH_DEPLOY_MOTOR = 5;
 			
 	public static GearTargetFinder gearTargetFinder = new GearTargetFinder();
 	
@@ -31,6 +35,18 @@ public class CompetitionConfig extends RobotConfig {
 	@Override
 	public int getGearArmMotor() {
 		return GEAR_ARM_MOTOR;
+	}
+
+
+	@Override
+	public int getWinchMotor() {
+		return WINCH_MOTOR;
+	}
+
+
+	@Override
+	public int getWinchDeployMotor() {
+		return WINCH_DEPLOY_MOTOR;
 	}
 
 }

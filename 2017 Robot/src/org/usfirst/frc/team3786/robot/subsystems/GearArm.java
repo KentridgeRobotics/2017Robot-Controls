@@ -49,7 +49,7 @@ public class GearArm extends Subsystem {
 		
 
 	}
-	
+		
 	public void setSpeed(double speed) {
 		if(_currentType == DriveType.MANUAL)
 			windowMotor.set(speed);

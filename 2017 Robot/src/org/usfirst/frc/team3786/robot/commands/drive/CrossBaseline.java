@@ -1,7 +1,21 @@
 package org.usfirst.frc.team3786.robot.commands.drive;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.opencv.core.MatOfPoint;
+import org.usfirst.frc.team3786.robot.config.CompetitionConfig;
+import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
+import org.usfirst.frc.team3786.robot.utility.ContourReport;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
+enum WhichSide
+{
+	LEFT,
+	RIGHT,
+	WHO_KNOWS
+}
 /**
  *
  */
@@ -17,11 +31,30 @@ public class CrossBaseline extends CommandGroup {
 		return new AutonomousDrive(distance*robotDegreesPerDistance, distance*robotDegreesPerDistance);
 	}
 
-	double getPositionOfGearTarget() {
-		return 0.0;
-		//Come back here
+	WhichSide getPositionOfGearTarget() {
+		GearTargetFinder gtf = CompetitionConfig.gearTargetFinder;
+		ArrayList<MatOfPoint> matlist = gtf.runVisionThread();
+		List<ContourReport> contourList = gtf.extractContourReports(matlist);
+		int contoursCenter = 0; 
+		if (contourList.size() == 0)
+		{
+			return WhichSide.WHO_KNOWS;
+		}
+		for (ContourReport contour : contourList)
+		{
+			contoursCenter += contour.getCenterX();
+		}
+		contoursCenter /= contourList.size();
+		
+		if (contoursCenter <= 320) {
+			return WhichSide.LEFT;
+		}
+		else {
+			return WhichSide.RIGHT;
+		}
 	}
-
+	
+	
 	public CrossBaseline() {
 		// Add Commands here:
 		// e.g. addSequential(new Command1());
@@ -40,16 +73,21 @@ public class CrossBaseline extends CommandGroup {
 		// a CommandGroup containing them would require both the chassis and the
 		// arm.
 
-		double gearTargetPosition = getPositionOfGearTarget();
+		WhichSide whichSide = getPositionOfGearTarget();
 		addSequential(DriveRobot (2.0));
 
-		if (gearTargetPosition > 0) {
+		if (whichSide == WhichSide.RIGHT) {
+			// The targets are mostly off to the right, so we should turn left
 			addSequential(RotateRobot (-45.0));
-
+		}
+		else if (whichSide == WhichSide.LEFT) {
+			// The targets are mostly off to the left, so we should turn right
+			addSequential(RotateRobot (45.0));
 		}
 		else {
-			addSequential(RotateRobot (45.0));
+			// Who knows where the targets are? Maybe the way ahead is clear. YOLO.
 		}
 		addSequential(DriveRobot (10.0));
 	}
+	
 }
