@@ -25,13 +25,21 @@ public class ArcadeDrive extends UIConfig {
 		return leftStick.getX();
 	}
 	
+	private double leftOut() {
+		return throttle() + turn();
+	}
+	
+	private double rightOut() {
+		return throttle() - turn();
+	}
+	
 	private double skim(double v) {
-		  if (v > 1.0)
-		    return -((v - 1.0) * GAIN);
-		  else if (v < -1.0)
-		    return -((v + 1.0) * GAIN);
-		  return 0;
-		}
+		if (v > 1.0)
+			return -((v - 1.0) * GAIN);
+		else if (v < -1.0)
+			return -((v + 1.0) * GAIN);
+		return 0;
+	}
 	
 	@Override
 	public Joystick getLeftStick() {
@@ -50,12 +58,12 @@ public class ArcadeDrive extends UIConfig {
 
 	@Override
 	public double getLeftDrive() {
-		return throttle() + turn() + skim(getRightDrive());
+		return leftOut() + skim(leftOut());
 	}
 
 	@Override
 	public double getRightDrive() {
-		return throttle() - turn() + skim(getLeftDrive());
+		return rightOut() + skim(rightOut());
 	}
 
 	@Override
