@@ -1,6 +1,5 @@
 package org.usfirst.frc.team3786.robot.vision;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.opencv.core.MatOfPoint;
@@ -29,7 +28,7 @@ public class VisionUtil {
 
 	public static WhichSide getPositionOfGearTarget() {
 		GearTargetFinder gtf = CompetitionConfig.gearTargetFinder;
-		ArrayList<MatOfPoint> matlist = gtf.runVisionThread();
+		List<MatOfPoint> matlist = gtf.runVisionThread();
 		List<ContourReport> contourList = gtf.extractContourReports(matlist);
 		int contoursCenter = 0; 
 		if (contourList.size() == 0)
