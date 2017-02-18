@@ -1,34 +1,27 @@
 
 package org.usfirst.frc.team3786.robot;
 
-import org.usfirst.frc.team3786.robot.commands.auto.CrossBaseline;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
 import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearArmBottomPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearArmTopPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearLoaded;
-import org.usfirst.frc.team3786.robot.commands.grabber.MoveGearArmManual;
 import org.usfirst.frc.team3786.robot.commands.grabber.MoveGearArmPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoMove;
-import org.usfirst.frc.team3786.robot.commands.test.ServoClose;
 import org.usfirst.frc.team3786.robot.config.Camera;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
+import org.usfirst.frc.team3786.robot.subsystems.BNO055;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
+import org.usfirst.frc.team3786.robot.subsystems.GearServo;
 import org.usfirst.frc.team3786.robot.subsystems.Rangefinders;
 import org.usfirst.frc.team3786.robot.vision.FinderOfRange;
-import org.usfirst.frc.team3786.robot.subsystems.GearServo;
 
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -43,6 +36,7 @@ public class Robot extends IterativeRobot {
 
 	public Camera camera;
 	public static DisplayData displayData;
+	//private static BNO055 imu;
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -62,7 +56,9 @@ public class Robot extends IterativeRobot {
 		chooser.addDefault("Do Nothing", new DoNothing());
 		// chooser.addObject("Autonomous baseline crosser", new CrossBaseline());
 		
-		//Gyroscope.getInstance();
+		//imu = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
+			  //BNO055.vector_type_t.VECTOR_EULER);
+		
 		//UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
 		//cam.setResolution(1280, 720);
 		//chooser.addObject("My Auto", new MyAutoCommand());
@@ -150,7 +146,7 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
 		//Camera.getInstance().pollCamera();
-		//SmartDashboard.putNumber("Gyro X", Gyroscope.getInstance().getX());
+		//SmartDashboard.putNumber("Gyro X", imu.getVector()[0]);
 		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().getDriveType());
 		SmartDashboard.putBoolean("Servo is closed", GearServo.getInstance().getIsClosed());
 		SmartDashboard.putBoolean("Gear is loaded", GearArm.getInstance().getIsLoaded());

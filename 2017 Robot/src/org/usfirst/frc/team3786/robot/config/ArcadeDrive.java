@@ -26,7 +26,6 @@ public class ArcadeDrive extends UIConfig {
 	}
 	
 	private double skim(double v) {
-		  // gain determines how much to skim off the top
 		  if (v > 1.0)
 		    return -((v - 1.0) * GAIN);
 		  else if (v < -1.0)
@@ -41,7 +40,7 @@ public class ArcadeDrive extends UIConfig {
 
 	@Override
 	public Joystick getRightStick() {
-		return null;
+		return leftStick;
 	}
 
 	@Override
