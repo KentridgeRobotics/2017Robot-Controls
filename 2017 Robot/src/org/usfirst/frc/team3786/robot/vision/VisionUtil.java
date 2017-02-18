@@ -1,5 +1,11 @@
 package org.usfirst.frc.team3786.robot.vision;
 
+import java.util.List;
+
+import org.opencv.core.MatOfPoint;
+import org.usfirst.frc.team3786.robot.config.CompetitionConfig;
+import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
+
 //Utility class to calculate distances and angles using measurements
 //in Pixels and coordinates.
 public class VisionUtil {
@@ -18,6 +24,29 @@ public class VisionUtil {
 	public static double angleOfTarget(double width, double height) {
 		double actualWidth = (height * 2.0) / 5.0;
 		return Math.toDegrees(Math.acos(width/actualWidth));
+	}
+
+	public static WhichSide getPositionOfGearTarget() {
+		GearTargetFinder gtf = CompetitionConfig.gearTargetFinder;
+		List<MatOfPoint> matlist = gtf.runVisionThread();
+		List<ContourReport> contourList = gtf.extractContourReports(matlist);
+		int contoursCenter = 0; 
+		if (contourList.size() == 0)
+		{
+			return WhichSide.WHO_KNOWS;
+		}
+		for (ContourReport contour : contourList)
+		{
+			contoursCenter += contour.getCenterX();
+		}
+		contoursCenter /= contourList.size();
+		
+		if (contoursCenter <= 320) {
+			return WhichSide.LEFT;
+		}
+		else {
+			return WhichSide.RIGHT;
+		}
 	}
 	
 }

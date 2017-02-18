@@ -41,13 +41,12 @@ public class GripPipeline implements VisionPipeline {
 	/**
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
 	 */
-	@Override	
-	public void process(Mat source0) {
+	@Override	public void process(Mat source0) {
 		// Step HSL_Threshold0:
 		Mat hslThresholdInput = source0;
-		double[] hslThresholdHue = {0.0, 180.0};
+		double[] hslThresholdHue = {79.31654676258992, 146.66666666666666};
 		double[] hslThresholdSaturation = {199.50539568345323, 255.0};
-		double[] hslThresholdLuminance = {0.0, 255.0};
+		double[] hslThresholdLuminance = {158.22841726618705, 255.0};
 		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
 		// Step Mask0:
@@ -64,31 +63,23 @@ public class GripPipeline implements VisionPipeline {
 		ArrayList<MatOfPoint> filterContoursContours = findContoursOutput;
 		double filterContoursMinArea = 100.0;
 		double filterContoursMinPerimeter = 0.0;
-		double filterContoursMinWidth = 20.0;
-		double filterContoursMaxWidth = 200.0;
-		double filterContoursMinHeight = 20.0;
+		double filterContoursMinWidth = 10.0;
+		double filterContoursMaxWidth = 500.0;
+		double filterContoursMinHeight = 10.0;
 		double filterContoursMaxHeight = 500.0;
 		double[] filterContoursSolidity = {87.23021582733813, 100};
 		double filterContoursMaxVertices = 43.0;
 		double filterContoursMinVertices = 0.0;
-		double filterContoursMinRatio = 0.2;
+		double filterContoursMinRatio = 0.3;
 		double filterContoursMaxRatio = 3.0;
 		filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, filterContoursOutput);
 
 		// Step Convex_Hulls0:
 		ArrayList<MatOfPoint> convexHullsContours = filterContoursOutput;
 		convexHulls(convexHullsContours, convexHullsOutput);
-		displayOutputs();
+
 	}
 
-	//Display Output
-	public void displayOutputs() {
-		System.err.println("Size of FindContoursOutput: " + findContoursOutput.size());
-		System.err.println("Size of FilterContoursOutput: " + filterContoursOutput.size());
-		System.err.println("Size of convexHullsOutput: " + convexHullsOutput.size());
-		System.err.println("hslThresholdOutput: /n   Width: " + hslThresholdOutput.width() + "/n   Height: " + hslThresholdOutput.height());
-	}
-	
 	/**
 	 * This method is a generated getter for the output of a HSL_Threshold.
 	 * @return Mat output from HSL_Threshold.

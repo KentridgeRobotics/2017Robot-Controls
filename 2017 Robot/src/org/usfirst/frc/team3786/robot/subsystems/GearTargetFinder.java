@@ -58,15 +58,15 @@ public class GearTargetFinder extends Subsystem {
     
     //Callable method to run Vision Thread on seperate Thread
     //return ArrayList of MatOfPoint
-    public ArrayList<MatOfPoint> runVisionThread() {
-    	System.err.println("Callable called");
+    public List<MatOfPoint> runVisionThread() {
+    	System.err.println("runVisionThread called");
     	GripPipeline grip = new GripPipeline();
     	
         Mat source = new Mat();
         cvSink.grabFrame(source);
       	        
         grip.process(source);
-		ArrayList<MatOfPoint> convexHulls = grip.convexHullsOutput();
+		List<MatOfPoint> convexHulls = grip.convexHullsOutput();
 		
 		return convexHulls;    	
     }
@@ -110,7 +110,7 @@ public class GearTargetFinder extends Subsystem {
     */
         
     //Return List of ContourReports
-    public List<ContourReport> extractContourReports(ArrayList<MatOfPoint> contourMap) {
+    public List<ContourReport> extractContourReports(List<MatOfPoint> contourMap) {
     	List<ContourReport> contourReports = new ArrayList<ContourReport>();
     	System.err.println("Size of Contour Map: " + contourMap.size());
     	for(MatOfPoint matOfPoint : contourMap) {

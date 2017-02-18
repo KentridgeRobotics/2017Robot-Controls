@@ -45,7 +45,6 @@ public class Robot extends IterativeRobot {
 	public static DisplayData displayData;
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -60,7 +59,7 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getGearArmBottomButton().whenPressed(GearArmBottomPosition.getInstance());
 		
 		chooser.addDefault("Do Nothing", new DoNothing());
-		// chooser.addObject("Autonomous baseline crosser", new CrossBaseline());
+		chooser.addObject("Autonomous baseline crosser", new CrossBaseline());
 		
 		//Gyroscope.getInstance();
 		//UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
@@ -111,7 +110,7 @@ public class Robot extends IterativeRobot {
 		 * = new MyAutoCommand(); break; case "Default Auto": default:
 		 * autonomousCommand = new ExampleCommand(); break; }
 		 */
-
+		
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
 			autonomousCommand.start();

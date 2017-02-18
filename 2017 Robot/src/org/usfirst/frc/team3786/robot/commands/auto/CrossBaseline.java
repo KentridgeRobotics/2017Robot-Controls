@@ -1,61 +1,36 @@
 package org.usfirst.frc.team3786.robot.commands.auto;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.opencv.core.MatOfPoint;
 import org.usfirst.frc.team3786.robot.commands.drive.AutonomousDrive;
-import org.usfirst.frc.team3786.robot.config.CompetitionConfig;
-import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
-import org.usfirst.frc.team3786.robot.vision.ContourReport;
+import org.usfirst.frc.team3786.robot.vision.VisionUtil;
+import org.usfirst.frc.team3786.robot.vision.WhichSide;
 
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.ConditionalCommand;
 
-enum WhichSide
-{
-	LEFT,
-	RIGHT,
-	WHO_KNOWS
-}
+
 /**
  *
  */
 public class CrossBaseline extends CommandGroup {
-	static final double robotRotationsPerWheelRotation = (220.0/180.0);
-	static final double robotDegreesPerDistance = (5.9528082612573013834882986734396);
-
+	/** when turning both wheels in opposite directions, how many degrees
+	 * of robot turn are in a degree of wheel turn
+	 */
+	static final double wheelRotationDegreesPerRobotTurnDegree = (180.0/220.0);
+	static final double wheelDegreesPerInch = (5.9528082612573013834882986734396);
+	
 	public AutonomousDrive RotateRobot (double degrees) {
-		return new AutonomousDrive(-degrees*robotRotationsPerWheelRotation, degrees*robotRotationsPerWheelRotation);
+		return new AutonomousDrive(-degrees*wheelRotationDegreesPerRobotTurnDegree, degrees*wheelRotationDegreesPerRobotTurnDegree);
 	}
-
+	/**
+	 * 
+	 * @param distance
+	 * @return
+	 */
 	public AutonomousDrive DriveRobot (double distance) {
-		return new AutonomousDrive(distance*robotDegreesPerDistance, distance*robotDegreesPerDistance);
+		return new AutonomousDrive(distance*wheelDegreesPerInch, distance*wheelDegreesPerInch);
 	}
 
-	WhichSide getPositionOfGearTarget() {
-		GearTargetFinder gtf = CompetitionConfig.gearTargetFinder;
-		ArrayList<MatOfPoint> matlist = gtf.runVisionThread();
-		List<ContourReport> contourList = gtf.extractContourReports(matlist);
-		int contoursCenter = 0; 
-		if (contourList.size() == 0)
-		{
-			return WhichSide.WHO_KNOWS;
-		}
-		for (ContourReport contour : contourList)
-		{
-			contoursCenter += contour.getCenterX();
-		}
-		contoursCenter /= contourList.size();
-		
-		if (contoursCenter <= 320) {
-			return WhichSide.LEFT;
-		}
-		else {
-			return WhichSide.RIGHT;
-		}
-	}
-	
-	
 	public CrossBaseline() {
 		// Add Commands here:
 		// e.g. addSequential(new Command1());
@@ -74,21 +49,36 @@ public class CrossBaseline extends CommandGroup {
 		// a CommandGroup containing them would require both the chassis and the
 		// arm.
 
-		WhichSide whichSide = getPositionOfGearTarget();
-		addSequential(DriveRobot (2.0));
-
-		if (whichSide == WhichSide.RIGHT) {
-			// The targets are mostly off to the right, so we should turn left
-			addSequential(RotateRobot (-45.0));
-		}
-		else if (whichSide == WhichSide.LEFT) {
-			// The targets are mostly off to the left, so we should turn right
-			addSequential(RotateRobot (45.0));
-		}
-		else {
-			// Who knows where the targets are? Maybe the way ahead is clear. YOLO.
-		}
-		addSequential(DriveRobot (10.0));
+		// Go forward far enough to not bump into the back wall when we rotate
+		addSequential(DriveRobot (18.0));
+		// Rotate
+		// onTrue condition is to turn left, onFalse is to turn right.
+		addSequential(new MaybeTurn(RotateRobot(-30.0), RotateRobot(30.0)));
+		
+		// Drive forward until we're across the baseline
+		addSequential(DriveRobot (120.0));
 	}
 	
+	class MaybeTurn extends ConditionalCommand
+	{
+		
+		public MaybeTurn(Command onTrue, Command onFalse) {
+			super(onTrue, onFalse);
+		}
+
+		// Returns true if the target is to the RIGHT!
+		@Override
+		protected boolean condition() {
+			WhichSide whichSide = VisionUtil.getPositionOfGearTarget();
+			if (whichSide == WhichSide.RIGHT)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
+	}
 }
