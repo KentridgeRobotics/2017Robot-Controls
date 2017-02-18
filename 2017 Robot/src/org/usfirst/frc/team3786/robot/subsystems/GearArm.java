@@ -8,6 +8,7 @@ import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -23,6 +24,8 @@ public class GearArm extends Subsystem {
 	private static DriveType _currentType;
 	
 	private boolean isLoaded;
+	private boolean isClosed;
+	
 	
 	public static GearArm getInstance() {
 		if(instance == null)
@@ -31,6 +34,8 @@ public class GearArm extends Subsystem {
 	}
 
 	CANTalon windowMotor;
+	Servo servo;
+	
 	
 	
 	public GearArm() {
@@ -47,9 +52,16 @@ public class GearArm extends Subsystem {
 		windowMotor.setI(0.0);
 		windowMotor.setD(0.0);
 		
+		servo = new Servo(0);
+		if(servo.getPosition() > .5)
+			isClosed = false;
+		else
+			isClosed = true;	
 
 	}
-		
+	
+	
+	//arm methods
 	public void setSpeed(double speed) {
 		if(_currentType != DriveType.MANUAL)
 			_currentType = DriveType.MANUAL;
@@ -92,6 +104,22 @@ public class GearArm extends Subsystem {
 	public boolean getBottomLimitSwitch() {
 		return windowMotor.isRevLimitSwitchClosed();
 	}
+	
+	//servo methods
+    public void open() {
+    	servo.set(.75);
+    	isClosed = false;
+    }
+    public void close() {
+    	servo.set(0);
+    	isClosed = true;
+    }
+    
+    public boolean getIsClosed() {
+    	return isClosed;
+    }
+
+	
 	
     public void initDefaultCommand() {
     	setDefaultCommand(MoveGearArmManual.getInstance());

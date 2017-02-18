@@ -49,6 +49,8 @@ public class WinchMove extends Command {
     		Winch.getInstance().setSpeed(-1);
     	else if (_driveMode == Mode.DOWN)
     		Winch.getInstance().setSpeed(1);
+    	else
+    		Winch.getInstance().setSpeed(0);
 
     }
 

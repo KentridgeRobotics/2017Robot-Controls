@@ -1,7 +1,7 @@
 package org.usfirst.frc.team3786.robot.commands.grabber;
 
 import org.usfirst.frc.team3786.robot.Robot;
-import org.usfirst.frc.team3786.robot.subsystems.GearServo;
+import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -19,16 +19,16 @@ public class ServoMove extends Command {
 
 	
     public ServoMove() {
-		requires(GearServo.getInstance());
+		requires(GearArm.getInstance());
 		setTimeout(.01);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if(GearServo.getInstance().getIsClosed())
-    		GearServo.getInstance().open();
+    	if(GearArm.getInstance().getIsClosed())
+    		GearArm.getInstance().open();
     	else
-    		GearServo.getInstance().close();
+    		GearArm.getInstance().close();
     }
 
     // Called repeatedly when this Command is scheduled to run

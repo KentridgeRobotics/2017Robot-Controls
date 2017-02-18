@@ -81,7 +81,8 @@ public class DriveTrain extends Subsystem {
 		leftDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		leftDriveMotor.reverseSensor(true);
 		leftDriveMotor.configNominalOutputVoltage(+0f, -0f);
-		leftDriveMotor.configPeakOutputVoltage(+6f, -6f);
+		leftDriveMotor.configPeakOutputVoltage(+12f, -12f);
+		
 		leftDriveMotor.setF(0.0);
 		leftDriveMotor.setP(0.25);
 		leftDriveMotor.setI(0.0);
@@ -91,7 +92,8 @@ public class DriveTrain extends Subsystem {
 		rightDriveMotor.changeControlMode(TalonControlMode.Position);
 		rightDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		rightDriveMotor.configNominalOutputVoltage(+0f, -0f);
-		rightDriveMotor.configPeakOutputVoltage(+6f, -6f);
+		rightDriveMotor.configPeakOutputVoltage(+12f, -12f);
+		
 		rightDriveMotor.setF(0.0);
 		rightDriveMotor.setP(0.25);
 		rightDriveMotor.setI(0.0);

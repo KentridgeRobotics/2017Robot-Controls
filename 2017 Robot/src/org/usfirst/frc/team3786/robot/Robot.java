@@ -18,7 +18,6 @@ import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 import org.usfirst.frc.team3786.robot.subsystems.Rangefinders;
 import org.usfirst.frc.team3786.robot.vision.FinderOfRange;
-import org.usfirst.frc.team3786.robot.subsystems.GearServo;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -164,7 +163,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Gyro Calibration", imu.isCalibrated());
 		
 		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().getDriveType());
-		SmartDashboard.putBoolean("Servo is closed", GearServo.getInstance().getIsClosed());
+		SmartDashboard.putBoolean("Servo is closed", GearArm.getInstance().getIsClosed());
 		SmartDashboard.putBoolean("Gear is loaded", GearArm.getInstance().getIsLoaded());
 		SmartDashboard.putString("Gear Arm Drive Mode", GearArm.getInstance().getMode());
 		SmartDashboard.putNumber("Test Rangefinder Voltage", Rangefinders.getInstance().getTestVoltage());
