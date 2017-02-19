@@ -18,7 +18,7 @@ public class CrossBaseline extends CommandGroup {
 	 */
 	static final double lengthOfRobotInches = 30.0;
 	public static final double wheelRotationDegreesPerRobotTurnDegree = (180.0/220.0);
-	public static final double wheelDegreesPerInch = (5.9528082612573013834882986734396);
+	public static final double wheelDegreesPerInch = 5.953;
 	static final double inchesToBaseline = 12.0 * 7.0 + 9.25;
 	static final double inchesToDrive = 2.0 * inchesToBaseline / Math.sqrt(3.0);
 
@@ -41,13 +41,13 @@ public class CrossBaseline extends CommandGroup {
 		// arm.
 
 		// Go forward far enough to not bump into the back wall when we rotate
-		addSequential(AutonomousDrive.DriveRobot (lengthOfRobotInches));
+		addSequential(AutonomousDrive.DriveRobot(lengthOfRobotInches));
 		// Rotate
 		// onTrue condition is to turn left, onFalse is to turn right.
 		addSequential(new MaybeTurn(AutonomousDrive.RotateRobot(-30.0), AutonomousDrive.RotateRobot(30.0)));
 		
 		// Drive forward until we're across the baseline
-		addSequential(AutonomousDrive.DriveRobot (inchesToDrive));
+		addSequential(AutonomousDrive.DriveRobot(inchesToDrive));
 	}
 	
 	class MaybeTurn extends ConditionalCommand
