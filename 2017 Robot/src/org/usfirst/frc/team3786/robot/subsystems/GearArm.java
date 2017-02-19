@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3786.robot.subsystems;
 
 import org.usfirst.frc.team3786.robot.commands.grabber.MoveGearArmManual;
-import org.usfirst.frc.team3786.robot.commands.grabber.MoveGearArmPosition;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 
 import com.ctre.CANTalon;
@@ -23,7 +22,6 @@ public class GearArm extends Subsystem {
 	}
 	private static DriveType _currentType;
 	
-	private boolean isLoaded;
 	private boolean isClosed;
 	
 	
@@ -39,7 +37,6 @@ public class GearArm extends Subsystem {
 	
 	
 	public GearArm() {
-		isLoaded = false;
 		windowMotor = new CANTalon(RobotConfig.getInstance().getGearArmMotor());
 		windowMotor.enableLimitSwitch(true, true);
 		windowMotor.setFeedbackDevice(FeedbackDevice.AnalogPot);
