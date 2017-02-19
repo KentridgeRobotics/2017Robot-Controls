@@ -25,19 +25,18 @@ public class AutoPlaceAGear extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
+    	// Commands we want to run
+    	// Command 1. Run the vision process to get a list of MatOfPoints, get the ContourReports, 
+    	// convert the ContourReports into TargetPositions, and convert the TargetPositions 
+    	// into RobotActions
     	
-    	// 0. Run the vision process to get a list of MatOfPoints
+    	// Command 2. For each RobotAction, either turn or drive.
+    	    	
+    	// Command 3. A ConditionalCommand. If the condition is true, then
+    	// run a new instance of AutoPlaceAGear.
     	
-    	// 1. Get the ContourReports
-    	
-    	// 2. Convert the ContourReports into TargetPositions
-    	
-    	// 3. Convert TargetPositions into RobotActions
-    	
-    	// 4. For each RobotAction, either turn or drive.
-    	
-    	// 5. See if we're close enough.
-    	
-    	// 6. If we're close enough, place a gear, otherwise start the process again at step 1.
+    	// 4. If we're close enough, place a gear, otherwise start the process again at step 1.
     }
+    
+    
 }

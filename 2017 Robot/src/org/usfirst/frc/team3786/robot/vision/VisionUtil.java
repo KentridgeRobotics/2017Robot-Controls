@@ -30,6 +30,11 @@ public class VisionUtil {
 		GearTargetFinder gtf = CompetitionConfig.gearTargetFinder;
 		List<MatOfPoint> matlist = gtf.runVisionThread();
 		List<ContourReport> contourList = gtf.extractContourReports(matlist);
+		System.err.println("getPositionOfGearTarget finds:");
+		for (ContourReport contour : contourList)
+		{
+			System.err.println("    contour: "+contour);
+		}
 		int contoursCenter = 0; 
 		if (contourList.size() == 0)
 		{

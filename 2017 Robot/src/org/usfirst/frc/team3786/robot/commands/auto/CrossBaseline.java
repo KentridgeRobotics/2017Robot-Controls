@@ -61,6 +61,7 @@ public class CrossBaseline extends CommandGroup {
 		@Override
 		protected boolean condition() {
 			WhichSide whichSide = VisionUtil.getPositionOfGearTarget();
+			System.err.println("Position of gear target: "+whichSide);
 			if (whichSide == WhichSide.RIGHT)
 			{
 				return true;
