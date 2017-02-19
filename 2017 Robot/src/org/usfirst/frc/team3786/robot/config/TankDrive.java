@@ -39,15 +39,11 @@ public class TankDrive extends UIConfig {
 	@Override
 	public double getLeftDrive() {
 		leftOut = -(leftStick.getY());
-		SmartDashboard.putNumber("Left Stick", leftOut);
-		SmartDashboard.putNumber("Left Encoder", DriveTrain.getInstance().getLeftEncoder());
-		SmartDashboard.putNumber("Left Velocity", DriveTrain.getInstance().getLeftVelocity());
 		return Math.pow(leftOut, 2) * (Math.abs(leftOut)/leftOut);
 	}
 	@Override
 	public double getRightDrive() {
 		rightOut = rightStick.getY();
-		SmartDashboard.putNumber("Right Stick", rightOut);
 		return Math.pow(rightOut, 2) * (Math.abs(rightOut)/rightOut);
 	}
 	@Override

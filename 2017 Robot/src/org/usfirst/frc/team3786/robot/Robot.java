@@ -8,7 +8,6 @@ import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearArmBottomPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearArmTopPosition;
-import org.usfirst.frc.team3786.robot.commands.grabber.GearLoaded;
 import org.usfirst.frc.team3786.robot.commands.grabber.MoveGearArmPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoMove;
 import org.usfirst.frc.team3786.robot.config.Camera;
@@ -54,7 +53,6 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		Drive.getInstance();
 		UIConfig.getInstance().getServoMoveButton().whenPressed(ServoMove.getInstance());
-		UIConfig.getInstance().getGearLoadedButton().whenPressed(GearLoaded.getInstance());
 		UIConfig.getInstance().getPegPositionButton().whenPressed(MoveGearArmPosition.getInstance());
 		UIConfig.getInstance().getGearArmTopButton().whenPressed(GearArmTopPosition.getInstance());
 		UIConfig.getInstance().getGearArmBottomButton().whenPressed(GearArmBottomPosition.getInstance());
@@ -130,7 +128,13 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Left Encoder", DriveTrain.getInstance().getLeftEncoder());
+		SmartDashboard.putNumber("Left Velocity", DriveTrain.getInstance().getLeftVelocity());
 		SmartDashboard.putNumber("Left Voltage", DriveTrain.getInstance().getLeftMotorOutput());
+		
+		SmartDashboard.putNumber("Right Encoder", DriveTrain.getInstance().getRightEncoder());
+		SmartDashboard.putNumber("Right Velocity", DriveTrain.getInstance().getRightVelocity());
+		SmartDashboard.putNumber("Right Voltage", DriveTrain.getInstance().getRightMotorOutput());
+
 	}
 
 	@Override
@@ -162,9 +166,18 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putBoolean("Gyro Calibration", imu.isCalibrated());
 		
+		SmartDashboard.putNumber("Left Encoder", DriveTrain.getInstance().getLeftEncoder());
+		SmartDashboard.putNumber("Left Velocity", DriveTrain.getInstance().getLeftVelocity());
+		SmartDashboard.putNumber("Left Voltage", DriveTrain.getInstance().getLeftMotorOutput());
+		
+		SmartDashboard.putNumber("Right Encoder", DriveTrain.getInstance().getRightEncoder());
+		SmartDashboard.putNumber("Right Velocity", DriveTrain.getInstance().getRightVelocity());
+		SmartDashboard.putNumber("Right Voltage", DriveTrain.getInstance().getRightMotorOutput());
+
+		
+		
 		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().getDriveType());
 		SmartDashboard.putBoolean("Servo is closed", GearArm.getInstance().getIsClosed());
-		SmartDashboard.putBoolean("Gear is loaded", GearArm.getInstance().getIsLoaded());
 		SmartDashboard.putString("Gear Arm Drive Mode", GearArm.getInstance().getMode());
 		SmartDashboard.putNumber("Test Rangefinder Voltage", Rangefinders.getInstance().getTestVoltage());
 		SmartDashboard.putNumber("Test Rangefinder Distance", FinderOfRange.rangeForVoltage(Rangefinders.getInstance().getTestVoltage()));

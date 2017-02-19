@@ -88,12 +88,6 @@ public class GearArm extends Subsystem {
 		_currentType = DriveType.MANUAL;
 		windowMotor.changeControlMode(TalonControlMode.PercentVbus);
 	}
-	public boolean getIsLoaded() {
-		return isLoaded;
-	}
-	public void setIsLoaded(boolean b) {
-		isLoaded = b;
-	}
 	public String getMode() {
 		return _currentType.toString();
 	}
