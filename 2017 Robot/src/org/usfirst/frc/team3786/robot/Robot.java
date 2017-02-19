@@ -3,6 +3,7 @@ package org.usfirst.frc.team3786.robot;
 
 import org.usfirst.frc.team3786.robot.commands.auto.CrossBaseline;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
+import org.usfirst.frc.team3786.robot.commands.auto.DriveForward;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
 import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
@@ -56,8 +57,9 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchUpButton().whileHeld(WinchMove.getUpInstance());
 		UIConfig.getInstance().getWinchUpButton().whenReleased(WinchMove.getStopInstance());
 		
-		chooser.addDefault("Do Nothing", new DoNothing());
-		chooser.addObject("Autonomous baseline crosser", new CrossBaseline());
+		//chooser.addDefault("Do Nothing", new DoNothing());
+		//chooser.addDefault("Autonomous baseline crosser", new CrossBaseline());
+		chooser.addDefault("Drive Forward", new DriveForward());
 		
 		imu = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
 			  BNO055.vector_type_t.VECTOR_EULER);

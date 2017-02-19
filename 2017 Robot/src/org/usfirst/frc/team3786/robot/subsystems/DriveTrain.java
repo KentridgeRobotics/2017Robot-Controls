@@ -50,7 +50,7 @@ public class DriveTrain extends Subsystem {
     public void setPosition(double leftPos, double rightPos) {
     	if(_currentType == DriveType.POSITION) {
         	leftDriveMotor.setEncPosition(0);
-        	leftDriveMotor.set(leftPos);
+        	leftDriveMotor.set(-leftPos);
         	rightDriveMotor.setEncPosition(0);
         	rightDriveMotor.set(rightPos);
     	}
@@ -79,7 +79,7 @@ public class DriveTrain extends Subsystem {
     	leftDriveMotor.enableBrakeMode(true);
 		leftDriveMotor.changeControlMode(TalonControlMode.Position);
 		leftDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		leftDriveMotor.reverseSensor(true);
+		//leftDriveMotor.reverseSensor(true);
 		leftDriveMotor.configNominalOutputVoltage(+0f, -0f);
 		leftDriveMotor.configPeakOutputVoltage(+12f, -12f);
 		
