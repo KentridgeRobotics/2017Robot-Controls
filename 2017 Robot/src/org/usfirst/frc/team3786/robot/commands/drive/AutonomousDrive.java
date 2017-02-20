@@ -13,7 +13,7 @@ public class AutonomousDrive extends Command {
 	private double rightEncoderTicks;
 	private boolean isDone = false;
 	
-	static final double encoderRotationsPerWheelRotation = 17.0 / 3.0;
+	static final double encoderRotationsPerWheelRotation = /*17.0 / 3.0*/ 1.0;
 	//static final double wheelDegreesFwdAndBackPerRobotDegree = ?;
 	// LeftRotation and RightRotation is the # degrees to go forwards (negative is backwards)
     public AutonomousDrive(double leftRotation, double rightRotation) {
