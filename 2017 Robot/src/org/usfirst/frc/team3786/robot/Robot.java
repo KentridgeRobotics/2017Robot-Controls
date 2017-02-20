@@ -11,6 +11,7 @@ import org.usfirst.frc.team3786.robot.commands.grabber.GearArmBottomPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearArmTopPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.MoveGearArmPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoMove;
+import org.usfirst.frc.team3786.robot.commands.test.ZeroEncoders;
 import org.usfirst.frc.team3786.robot.config.Camera;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
 import org.usfirst.frc.team3786.robot.subsystems.BNO055;
@@ -56,6 +57,7 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchDownButton().whenReleased(WinchMove.getStopInstance());
 		UIConfig.getInstance().getWinchUpButton().whileHeld(WinchMove.getUpInstance());
 		UIConfig.getInstance().getWinchUpButton().whenReleased(WinchMove.getStopInstance());
+		UIConfig.getInstance().getTestButton().whenPressed(ZeroEncoders.getInstance());
 		
 		//chooser.addDefault("Do Nothing", new DoNothing());
 		//chooser.addObject("Autonomous baseline crosser", new CrossBaseline());
