@@ -57,7 +57,7 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchDownButton().whenReleased(WinchMove.getStopInstance());
 		UIConfig.getInstance().getWinchUpButton().whileHeld(WinchMove.getUpInstance());
 		UIConfig.getInstance().getWinchUpButton().whenReleased(WinchMove.getStopInstance());
-		UIConfig.getInstance().getTestButton().whenPressed(ZeroEncoders.getInstance());
+		//UIConfig.getInstance().getTestButton().whenPressed(ZeroEncoders.getInstance());
 		
 		//chooser.addDefault("Do Nothing", new DoNothing());
 		//chooser.addObject("Autonomous baseline crosser", new CrossBaseline());
@@ -70,7 +70,9 @@ public class Robot extends IterativeRobot {
 		//chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		displayData = new DisplayData();
+		System.err.println("Adding display data");
 		SmartDashboard.putData("Display Data", displayData);
+		UIConfig.getInstance().getTestButton().whenPressed(displayData);
 		//SmartDashboard.putBoolean("Connected", !Gyroscope.getInstance().isConnected());
 		
 		SmartDashboard.putData(Scheduler.getInstance());
@@ -133,6 +135,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Right Velocity", DriveTrain.getInstance().getRightVelocity());
 		SmartDashboard.putNumber("Right Voltage", DriveTrain.getInstance().getRightMotorOutput());
 
+		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().getDriveType());
 	}
 
 	@Override

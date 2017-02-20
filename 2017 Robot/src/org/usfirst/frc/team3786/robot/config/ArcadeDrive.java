@@ -20,11 +20,11 @@ public class ArcadeDrive extends UIConfig {
 
 	
 	private double throttle() {
-		return -leftStick.getX();
+		return leftStick.getX();
 	}
 
 	private double turn() {
-		return leftStick.getY();
+		return -leftStick.getY();
 	}
 	
 	private double leftOut() {

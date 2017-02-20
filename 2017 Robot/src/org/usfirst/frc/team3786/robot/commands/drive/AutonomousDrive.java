@@ -39,6 +39,8 @@ public class AutonomousDrive extends Command {
     	if (Math.abs(leftEncoderTicks) <= Math.abs(currentLeftEncoder)) {
     		if (Math.abs(rightEncoderTicks) <= Math.abs(currentRightEncoder)) {
     			System.err.println("ALL DONE WITH AUTONOMOUS!!!");
+    			DriveTrain.getInstance().stopLeftMotor();
+    			DriveTrain.getInstance().stopRightMotor();
     			isDone = true;
     		}
     	}
@@ -54,6 +56,8 @@ public class AutonomousDrive extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	DriveTrain.getInstance().enableLeftMotor();
+    	DriveTrain.getInstance().enableRightMotor();
     }
 
     // Called when another command which requires one or more of the same

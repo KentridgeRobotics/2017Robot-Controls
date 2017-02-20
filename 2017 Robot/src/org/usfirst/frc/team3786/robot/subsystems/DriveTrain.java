@@ -34,6 +34,10 @@ public class DriveTrain extends Subsystem {
 	public DriveTrain() {
 		leftDriveMotor = new CANTalon(RobotConfig.getInstance().getLeftDriveMotor());
 		rightDriveMotor = new CANTalon(RobotConfig.getInstance().getRightDriveMotor());
+		leftDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		rightDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+
+
 		_currentType = DriveType.SPEED;
 
 	}
@@ -50,11 +54,24 @@ public class DriveTrain extends Subsystem {
     public void setPosition(double leftPos, double rightPos) {
     	if(_currentType == DriveType.POSITION) {
         	leftDriveMotor.setEncPosition(0);
-        	leftDriveMotor.set(leftPos);
+        	leftDriveMotor.set(-leftPos);
         	rightDriveMotor.setEncPosition(0);
         	rightDriveMotor.set(rightPos);
     	}
 
+    }
+    
+    public void stopLeftMotor() {
+    	leftDriveMotor.disableControl();
+    }
+    public void enableLeftMotor() {
+    	leftDriveMotor.enableControl();
+    }
+    public void stopRightMotor() {
+    	rightDriveMotor.disableControl();
+    }
+    public void enableRightMotor() {
+    	rightDriveMotor.enableControl();
     }
     
     public int getLeftEncoder() {
@@ -77,14 +94,14 @@ public class DriveTrain extends Subsystem {
     }
     
     public void setPositionDrive() {
-    	if(_currentType != DriveType.POSITION) {
+    	//if(_currentType != DriveType.POSITION) {
     	
     	_currentType = DriveType.POSITION;
     	
     	leftDriveMotor.enableBrakeMode(true);
 		leftDriveMotor.changeControlMode(TalonControlMode.Position);
-		leftDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		leftDriveMotor.reverseSensor(true);
+		//leftDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		//leftDriveMotor.reverseSensor(true);
 		leftDriveMotor.configNominalOutputVoltage(+0f, -0f);
 		leftDriveMotor.configPeakOutputVoltage(+12f, -12f);
 		
@@ -93,9 +110,11 @@ public class DriveTrain extends Subsystem {
 		leftDriveMotor.setI(0.0);
 		leftDriveMotor.setD(0.0);
 		
+		//leftDriveMotor.configEncoderCodesPerRev(360);
+		
 		rightDriveMotor.enableBrakeMode(true);
 		rightDriveMotor.changeControlMode(TalonControlMode.Position);
-		rightDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		//rightDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		rightDriveMotor.configNominalOutputVoltage(+0f, -0f);
 		rightDriveMotor.configPeakOutputVoltage(+12f, -12f);
 		
@@ -104,7 +123,9 @@ public class DriveTrain extends Subsystem {
 		rightDriveMotor.setI(0.0);
 		rightDriveMotor.setD(0.0);
 		
-    	}
+		//rightDriveMotor.configEncoderCodesPerRev(360);
+		
+    	//}
 
     }
     
