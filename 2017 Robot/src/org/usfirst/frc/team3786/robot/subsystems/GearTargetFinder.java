@@ -52,7 +52,7 @@ public class GearTargetFinder extends Subsystem {
     	camera = CameraServer.getInstance().startAutomaticCapture();
         camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
     	cvSink = CameraServer.getInstance().getVideo();
-    	cvSource = CameraServer.getInstance().putVideo("MyOutput", IMG_WIDTH, IMG_HEIGHT);
+//    	cvSource = CameraServer.getInstance().putVideo("MyOutput", IMG_WIDTH, IMG_HEIGHT);
     	
     }
     
