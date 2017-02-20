@@ -43,9 +43,9 @@ public class RobotActionGenerator {
 					return Collections.emptyList();
 				}
 			}
-			if(Math.abs(pos1.getTargetDirectionAngleDegrees() - pos2.getTargetDirectionAngleDegrees()) > 45.0) {
+			if(Math.abs(pos1.getTargetDirectionDegrees() - pos2.getTargetDirectionDegrees()) > 45.0) {
 				System.err.println("Exceeds Error Margin for direction To Target...");
-				if(Double.isNaN(pos1.getTargetDirectionAngleDegrees() - pos2.getTargetDirectionAngleDegrees())) {
+				if(Double.isNaN(pos1.getTargetDirectionDegrees() - pos2.getTargetDirectionDegrees())) {
 					return Collections.emptyList();
 				}
 			}
@@ -55,14 +55,15 @@ public class RobotActionGenerator {
 			}
 			
 			TargetPosition targetMidpoint = new TargetPosition(
-					(pos1.getTargetDirectionAngleDegrees() + pos2.getTargetDirectionAngleDegrees()) / 2,
+					(pos1.getTargetDirectionDegrees() + pos2.getTargetDirectionDegrees()) / 2,
 					(pos1.getDistanceToTargetInInches() + pos2.getDistanceToTargetInInches()) / 2,
 					(pos1.getTargetFaceAngleDegrees() + pos2.getTargetFaceAngleDegrees()) / 2);
 			
 			// If we're not pointing straight at the target, turn towards it.
-			if(targetMidpoint.getTargetDirectionAngleDegrees() < -1.0 || targetMidpoint.getTargetDirectionAngleDegrees() > 1.0){
-				listOfActions.add(RobotAction.createTurn(targetMidpoint.getTargetDirectionAngleDegrees()));
+			if(targetMidpoint.getTargetDirectionDegrees() < -1.0 || targetMidpoint.getTargetDirectionDegrees() > 1.0){
+				listOfActions.add(RobotAction.createTurn(targetMidpoint.getTargetDirectionDegrees()));
 			} 	
+			
 			if(targetMidpoint.getTargetFaceAngleDegrees() < -1.0 || targetMidpoint.getTargetFaceAngleDegrees() > 1.0){
 				listOfActions.add(RobotAction.createTurn(targetMidpoint.getTargetFaceAngleDegrees()));
 				listOfActions.add(RobotAction.createDrive((targetMidpoint.getDistanceToTargetInInches() / 2) / Math.cos(Math.toRadians(targetMidpoint.getTargetFaceAngleDegrees()))));
@@ -88,8 +89,8 @@ public class RobotActionGenerator {
 			List<RobotAction> listOfActions = new ArrayList<RobotAction>();
 			TargetPosition tempPos = targetPosition.get(0);
 			
-			if(tempPos.getTargetDirectionAngleDegrees() < -1.0 || tempPos.getTargetDirectionAngleDegrees() > 1.0){
-				listOfActions.add(RobotAction.createTurn(tempPos.getTargetDirectionAngleDegrees()));
+			if(tempPos.getTargetDirectionDegrees() < -1.0 || tempPos.getTargetDirectionDegrees() > 1.0){
+				listOfActions.add(RobotAction.createTurn(tempPos.getTargetDirectionDegrees()));
 			} 	
 			if(tempPos.getTargetFaceAngleDegrees() < -1.0 || tempPos.getTargetFaceAngleDegrees() > 1.0){
 				listOfActions.add(RobotAction.createTurn(tempPos.getTargetFaceAngleDegrees()));
