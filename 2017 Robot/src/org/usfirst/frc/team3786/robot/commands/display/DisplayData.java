@@ -19,25 +19,29 @@ public class DisplayData extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(CompetitionConfig.gearTargetFinder);
-    	System.err.println("Created display data");
+    
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	try {
-    		System.err.println("Initializing display data");
-    		List<ContourReport> matList = CompetitionConfig.gearTargetFinder.extractContourReports(CompetitionConfig.gearTargetFinder.runVisionThread());
-    		CompetitionConfig.gearTargetFinder.displayContourReports(matList);
-    		CompetitionConfig.gearTargetFinder.displayTargetPositions(CompetitionConfig.gearTargetFinder.extractListOfTargetPosition(matList));
-    		System.err.println("Display data initialized");
+    		List<ContourReport> contours = CompetitionConfig.gearTargetFinder.extractContourReports(CompetitionConfig.gearTargetFinder.runVisionThread());
+    		CompetitionConfig.gearTargetFinder.displayContourReports(contours);
+    		List<TargetPosition> targetPositions = CompetitionConfig.gearTargetFinder.extractListOfTargetPosition(contours);
+    		CompetitionConfig.gearTargetFinder.displayTargetPositions(targetPositions);
+    		List<RobotAction> robotActions = RobotActionGenerator.extractActions(targetPositions);
+    		System.err.println("Size of robots actions: "+robotActions.size());
+    		for (RobotAction action : robotActions)
+    		{
+    			System.err.println("Action: "+action);
+    		}
     	}catch(Exception e) {
-    		System.err.println("Exception: " + e);
+    		System.out.println("Exception: " + e);
     	}
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.err.println("Executing display data");
     }
 
     // Make this return true when this Command no longer needs to run execute()
