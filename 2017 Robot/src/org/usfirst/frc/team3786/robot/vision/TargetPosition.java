@@ -3,28 +3,28 @@ package org.usfirst.frc.team3786.robot.vision;
 
 //Collection of Data to organize Target Position 
 public class TargetPosition {
-	private double _angleToTargetInDegrees;
+	private double _targetDirectionAngleDegrees;
 	private double _distanceToTargetInInches;
-	private double _angleOfTargetInDegrees;
+	private double _targetFaceAngleDegrees;
 	
 	//Constructor
 	public TargetPosition(double toTargetAngle, double distanceToTarget, double ofTargetAngle) {
-		_angleToTargetInDegrees = toTargetAngle;
+		_targetDirectionAngleDegrees = toTargetAngle;
 		_distanceToTargetInInches = distanceToTarget;
-		_angleOfTargetInDegrees = ofTargetAngle;
+		_targetFaceAngleDegrees = ofTargetAngle;
 	}	
 	
 	
 	public String toString() {
-		return "Angle to Target: " + _angleToTargetInDegrees + "\nDistance to Target: " + _distanceToTargetInInches + "\nAngle of Target in Degrees: " + _angleOfTargetInDegrees;
+		return "Direction to Target: " + _targetDirectionAngleDegrees + "\nDistance to Target: " + _distanceToTargetInInches + "\nTarget face angle in Degrees: " + _targetFaceAngleDegrees;
 	}
 	
 	//return values
-	public double getAngleOfTargetInDegrees() {
-		return _angleOfTargetInDegrees;
+	public double getTargetFaceAngleDegrees() {
+		return _targetFaceAngleDegrees;
 	}
-	public double getAngleToTargetInDegrees() {
-		return _angleToTargetInDegrees;
+	public double getTargetDirectionAngleDegrees() {
+		return _targetDirectionAngleDegrees;
 	}
 	public double getDistanceToTargetInInches() {
 		return _distanceToTargetInInches;
