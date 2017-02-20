@@ -7,11 +7,11 @@ public class ArcadeDrive extends UIConfig {
 	private Joystick leftStick = new Joystick(0);
 	private Joystick xbox = new Joystick(2);
 	private JoystickButton testButton = new JoystickButton(xbox, 6);
-	private JoystickButton servoButton = new JoystickButton(xbox, 1);
-	private JoystickButton gearArmTopButton = new JoystickButton(xbox, 2);
-	private JoystickButton gearArmBottomButton = new JoystickButton(xbox, 4);
+	private JoystickButton servoButton = new JoystickButton(xbox, 3);
+	private JoystickButton gearArmTopButton = new JoystickButton(xbox, 4);
+	private JoystickButton gearArmBottomButton = new JoystickButton(xbox, 1);
 	private JoystickButton gearLoadedButton = new JoystickButton(xbox, 5);
-	private JoystickButton pegPositionButton = new JoystickButton(xbox, 3);
+	private JoystickButton pegPositionButton = new JoystickButton(xbox, 2);
 	private JoystickButton winchUpButton = new JoystickButton(xbox, 8);
 	private JoystickButton winchDownButton = new JoystickButton(xbox, 7);
 	private final double PEG_POSITION = 165;
