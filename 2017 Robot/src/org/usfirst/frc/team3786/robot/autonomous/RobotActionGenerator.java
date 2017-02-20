@@ -26,7 +26,6 @@ public class RobotActionGenerator {
 		{
 			return Collections.emptyList();
 		}
-		
 	}
 	
 	//Requires Two TargetPositions
@@ -38,43 +37,39 @@ public class RobotActionGenerator {
 			TargetPosition pos1 = listOfPos.get(0);
 			TargetPosition pos2 = listOfPos.get(1);
 			//Display Outliers
-			if(Math.abs(pos1.getTargetFaceAngleDegrees() - pos2.getTargetFaceAngleDegrees()) > 10.0) {
-				System.err.println("Exceeds Error Margin for Angle Of Target...");
+			if(Math.abs(pos1.getTargetFaceAngleDegrees() - pos2.getTargetFaceAngleDegrees()) > 20.0) {
+				System.err.println("Exceeds Error Margin for Angle Of Target face...");
 				if(Double.isNaN(pos1.getTargetFaceAngleDegrees() - pos2.getTargetFaceAngleDegrees())) {
 					return Collections.emptyList();
 				}
 			}
-			if(Math.abs(pos1.getTargetDirectionAngleDegrees() - pos2.getTargetDirectionAngleDegrees()) > 10.0) {
-				System.err.println("Exceeds Error Margin for Angle To Target...");
+			if(Math.abs(pos1.getTargetDirectionAngleDegrees() - pos2.getTargetDirectionAngleDegrees()) > 45.0) {
+				System.err.println("Exceeds Error Margin for direction To Target...");
 				if(Double.isNaN(pos1.getTargetDirectionAngleDegrees() - pos2.getTargetDirectionAngleDegrees())) {
 					return Collections.emptyList();
 				}
 			}
-			if(Math.abs(pos1.getDistanceToTargetInInches() - pos2.getDistanceToTargetInInches()) > 10.0) {
+			if(Math.abs(pos1.getDistanceToTargetInInches() - pos2.getDistanceToTargetInInches()) > 18.0) {
 				System.err.println("Exceeds Error Margin for Distance To Target...");
 				
 			}
 			
-			TargetPosition tempPos = new TargetPosition(
+			TargetPosition targetMidpoint = new TargetPosition(
 					(pos1.getTargetDirectionAngleDegrees() + pos2.getTargetDirectionAngleDegrees()) / 2,
 					(pos1.getDistanceToTargetInInches() + pos2.getDistanceToTargetInInches()) / 2,
 					(pos1.getTargetFaceAngleDegrees() + pos2.getTargetFaceAngleDegrees()) / 2);
-			if(tempPos.getTargetDirectionAngleDegrees() < -1.0 || tempPos.getTargetDirectionAngleDegrees() > 1.0){
-				listOfActions.add(new RobotAction(tempPos.getTargetDirectionAngleDegrees(), 0));
+			
+			// If we're not pointing straight at the target, turn towards it.
+			if(targetMidpoint.getTargetDirectionAngleDegrees() < -1.0 || targetMidpoint.getTargetDirectionAngleDegrees() > 1.0){
+				listOfActions.add(RobotAction.createTurn(targetMidpoint.getTargetDirectionAngleDegrees()));
 			} 	
-			if(tempPos.getTargetFaceAngleDegrees() < -1.0 || tempPos.getTargetFaceAngleDegrees() > 1.0){
-				listOfActions.add(new RobotAction(tempPos.getTargetFaceAngleDegrees(), 0));
-				listOfActions.add(new RobotAction(0, 
-						(tempPos.getDistanceToTargetInInches() / 2) / Math.cos(Math.toRadians(tempPos.getTargetFaceAngleDegrees()))
-						));
-				listOfActions.add(new RobotAction(
-						-(90 - tempPos.getTargetFaceAngleDegrees()) * 2
-						, 0));
-				listOfActions.add(new RobotAction(0, 
-						(tempPos.getDistanceToTargetInInches() / 2) / Math.cos(Math.toRadians(tempPos.getTargetFaceAngleDegrees()))
-						));
+			if(targetMidpoint.getTargetFaceAngleDegrees() < -1.0 || targetMidpoint.getTargetFaceAngleDegrees() > 1.0){
+				listOfActions.add(RobotAction.createTurn(targetMidpoint.getTargetFaceAngleDegrees()));
+				listOfActions.add(RobotAction.createDrive((targetMidpoint.getDistanceToTargetInInches() / 2) / Math.cos(Math.toRadians(targetMidpoint.getTargetFaceAngleDegrees()))));
+				listOfActions.add(RobotAction.createTurn(-(90 - targetMidpoint.getTargetFaceAngleDegrees()) * 2));
+				listOfActions.add(RobotAction.createDrive((targetMidpoint.getDistanceToTargetInInches() / 2) / Math.cos(Math.toRadians(targetMidpoint.getTargetFaceAngleDegrees()))));
 			} else {
-				listOfActions.add(new RobotAction(0, tempPos.getDistanceToTargetInInches()));
+				listOfActions.add(RobotAction.createDrive(targetMidpoint.getDistanceToTargetInInches()));
 			}
 			return listOfActions;
 		} else {
@@ -94,18 +89,14 @@ public class RobotActionGenerator {
 			TargetPosition tempPos = targetPosition.get(0);
 			
 			if(tempPos.getTargetDirectionAngleDegrees() < -1.0 || tempPos.getTargetDirectionAngleDegrees() > 1.0){
-				listOfActions.add(new RobotAction(tempPos.getTargetDirectionAngleDegrees(), 0));
+				listOfActions.add(RobotAction.createTurn(tempPos.getTargetDirectionAngleDegrees()));
 			} 	
 			if(tempPos.getTargetFaceAngleDegrees() < -1.0 || tempPos.getTargetFaceAngleDegrees() > 1.0){
-				listOfActions.add(new RobotAction(tempPos.getTargetFaceAngleDegrees(), 0));
-				listOfActions.add(new RobotAction(0, 
-						(tempPos.getDistanceToTargetInInches() / 2) / Math.cos(Math.toRadians(tempPos.getTargetFaceAngleDegrees()))
-						));
-				listOfActions.add(new RobotAction(
-						-(90 - tempPos.getTargetFaceAngleDegrees()) * 2
-						, 0));
+				listOfActions.add(RobotAction.createTurn(tempPos.getTargetFaceAngleDegrees()));
+				listOfActions.add(RobotAction.createDrive((tempPos.getDistanceToTargetInInches() / 2) / Math.cos(Math.toRadians(tempPos.getTargetFaceAngleDegrees()))));
+				listOfActions.add(RobotAction.createTurn(-(90 - tempPos.getTargetFaceAngleDegrees()) * 2));
 			} else {
-				listOfActions.add(new RobotAction(0, tempPos.getDistanceToTargetInInches()));
+				listOfActions.add(RobotAction.createDrive(tempPos.getDistanceToTargetInInches()));
 			}
 			return listOfActions;
 		} else {

@@ -6,7 +6,18 @@ import org.usfirst.frc.team3786.robot.commands.drive.AutonomousDrive;
 public class RobotAction {
 	double angleToTurnDegrees;
 	double distanceToDriveInches;
-	public RobotAction(double toTurn, double toDrive) {
+	
+	public static RobotAction createTurn(double toTurn)
+	{
+		return new RobotAction(toTurn, 0.0);
+	}
+	
+	public static RobotAction createDrive(double toDrive)
+	{
+		return new RobotAction(0.0, toDrive);
+	}
+	
+	private RobotAction(double toTurn, double toDrive) {
 		angleToTurnDegrees = toTurn;
 		distanceToDriveInches = toDrive;
 	}
