@@ -9,8 +9,6 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class AutonomousDrive extends Command {
-	private double myLeftRotation;
-	private double myRightRotation;
 	private double leftEncoderTicks;
 	private double rightEncoderTicks;
 	private boolean isDone = false;
@@ -22,8 +20,7 @@ public class AutonomousDrive extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(DriveTrain.getInstance());
-    	myLeftRotation = leftRotation;
-    	myRightRotation = rightRotation;
+    	System.err.println("Starting autonomous drive: left=" + leftRotation + " right=" + rightRotation);
     	leftEncoderTicks = leftRotation * encoderRotationsPerWheelRotation;
     	rightEncoderTicks = rightRotation * encoderRotationsPerWheelRotation;
     }
