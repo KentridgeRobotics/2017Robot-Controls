@@ -58,8 +58,8 @@ public class GearTargetFinder extends Subsystem {
     
     // Get recognized targets from the camera as processed by the Grip pipeline.
     // Returns List of MatOfPoint
-    public List<MatOfPoint> runVisionThread() {
-    	System.err.println("runVisionThread called");
+    public List<MatOfPoint> acquireVisionInput() {
+    	System.err.println("acquireVisionInput called");
     	GripPipeline grip = new GripPipeline();
     	
         Mat source = new Mat();

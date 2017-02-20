@@ -59,7 +59,7 @@ public class RobotActionGenerator {
 					(pos1.getDistanceToTargetInInches() + pos2.getDistanceToTargetInInches()) / 2,
 					(pos1.getTargetFaceAngleDegrees() + pos2.getTargetFaceAngleDegrees()) / 2);
 			
-			// If we're not pointing straight at the target, turn towards it.
+			// If we're not pointing straight at the target, turn towards it. This orients the robot.
 			if(targetMidpoint.getTargetDirectionDegrees() < -1.0 || targetMidpoint.getTargetDirectionDegrees() > 1.0){
 				listOfActions.add(RobotAction.createTurn(targetMidpoint.getTargetDirectionDegrees()));
 			} 	

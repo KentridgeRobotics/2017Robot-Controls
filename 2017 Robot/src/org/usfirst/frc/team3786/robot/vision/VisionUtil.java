@@ -28,7 +28,7 @@ public class VisionUtil {
 
 	public static WhichSide getPositionOfGearTarget() {
 		GearTargetFinder gtf = CompetitionConfig.gearTargetFinder;
-		List<MatOfPoint> matlist = gtf.runVisionThread();
+		List<MatOfPoint> matlist = gtf.acquireVisionInput();
 		List<ContourReport> contourList = gtf.extractContourReports(matlist);
 		System.err.println("getPositionOfGearTarget finds:");
 		for (ContourReport contour : contourList)

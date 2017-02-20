@@ -25,7 +25,7 @@ public class DisplayData extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	try {
-    		List<ContourReport> contours = CompetitionConfig.gearTargetFinder.extractContourReports(CompetitionConfig.gearTargetFinder.runVisionThread());
+    		List<ContourReport> contours = CompetitionConfig.gearTargetFinder.extractContourReports(CompetitionConfig.gearTargetFinder.acquireVisionInput());
     		CompetitionConfig.gearTargetFinder.displayContourReports(contours);
     		List<TargetPosition> targetPositions = CompetitionConfig.gearTargetFinder.extractListOfTargetPosition(contours);
     		CompetitionConfig.gearTargetFinder.displayTargetPositions(targetPositions);
