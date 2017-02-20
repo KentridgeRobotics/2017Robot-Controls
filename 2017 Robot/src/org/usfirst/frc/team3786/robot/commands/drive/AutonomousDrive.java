@@ -34,8 +34,9 @@ public class AutonomousDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (leftEncoderTicks == DriveTrain.getInstance().getLeftEncoder()) {
-    		if (rightEncoderTicks == DriveTrain.getInstance().getRightEncoder()) {
+    	if (Math.abs(leftEncoderTicks) <= Math.abs(DriveTrain.getInstance().getLeftEncoder())) {
+    		if (Math.abs(rightEncoderTicks) <= Math.abs(DriveTrain.getInstance().getRightEncoder())) {
+    			System.err.println("ALL DONE WITH AUTONOMOUS!!!");
     			isDone = true;
     		}
     	}
