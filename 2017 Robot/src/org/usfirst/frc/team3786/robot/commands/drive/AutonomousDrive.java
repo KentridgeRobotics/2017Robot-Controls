@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3786.robot.commands.drive;
 
-import org.usfirst.frc.team3786.robot.commands.auto.CrossBaseline;
+import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -67,7 +67,7 @@ public class AutonomousDrive extends Command {
     }
 
 	public static AutonomousDrive RotateRobot(double degrees) {
-		return new AutonomousDrive(-degrees*CrossBaseline.wheelRotationDegreesPerRobotTurnDegree, degrees*CrossBaseline.wheelRotationDegreesPerRobotTurnDegree);
+		return new AutonomousDrive(-degrees*RobotConfig.wheelRotationDegreesPerRobotTurnDegree, degrees*RobotConfig.wheelRotationDegreesPerRobotTurnDegree);
 	}
 
 	/**
@@ -76,6 +76,6 @@ public class AutonomousDrive extends Command {
 	 * @return
 	 */
 	public static AutonomousDrive DriveRobot(double distance) {
-		return new AutonomousDrive(distance*CrossBaseline.wheelDegreesPerInch, distance*CrossBaseline.wheelDegreesPerInch);
+		return new AutonomousDrive(distance*RobotConfig.wheelDegreesPerInch, distance*RobotConfig.wheelDegreesPerInch);
 	}
 }

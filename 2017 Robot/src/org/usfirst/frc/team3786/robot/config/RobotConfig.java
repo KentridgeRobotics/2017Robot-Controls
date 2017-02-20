@@ -15,6 +15,13 @@ public abstract class RobotConfig {
 			instance = new CompetitionConfig();
 		return instance;
 	}
+
+	/** when turning both wheels in opposite directions, how many degrees
+	 * of robot turn are in a degree of wheel turn
+	 */
+	public static final double lengthOfRobotInches = 30.0;
+	public static final double wheelRotationDegreesPerRobotTurnDegree = (180.0/220.0);
+	public static final double wheelDegreesPerInch = 5.953;
 	
 	public abstract int getLeftDriveMotor();
 	

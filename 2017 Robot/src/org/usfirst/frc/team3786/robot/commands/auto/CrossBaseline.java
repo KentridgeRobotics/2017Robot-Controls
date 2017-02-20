@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3786.robot.commands.auto;
 
 import org.usfirst.frc.team3786.robot.commands.drive.AutonomousDrive;
+import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.vision.VisionUtil;
 import org.usfirst.frc.team3786.robot.vision.WhichSide;
 
@@ -13,13 +14,7 @@ import edu.wpi.first.wpilibj.command.ConditionalCommand;
  *
  */
 public class CrossBaseline extends CommandGroup {
-	/** when turning both wheels in opposite directions, how many degrees
-	 * of robot turn are in a degree of wheel turn
-	 */
-	static final double lengthOfRobotInches = 30.0;
-	public static final double wheelRotationDegreesPerRobotTurnDegree = (180.0/220.0);
-	public static final double wheelDegreesPerInch = 5.953;
-	static final double inchesToBaseline = 12.0 * 7.0 + 9.25;
+	public static final double inchesToBaseline = 12.0 * 7.0 + 9.25;
 	static final double inchesToDrive = 2.0 * inchesToBaseline / Math.sqrt(3.0);
 
 	public CrossBaseline() {
@@ -41,7 +36,7 @@ public class CrossBaseline extends CommandGroup {
 		// arm.
 
 		// Go forward far enough to not bump into the back wall when we rotate
-		addSequential(AutonomousDrive.DriveRobot(lengthOfRobotInches));
+		addSequential(AutonomousDrive.DriveRobot(RobotConfig.lengthOfRobotInches));
 		// Rotate
 		// onTrue condition is to turn left, onFalse is to turn right.
 		addSequential(new MaybeTurn(AutonomousDrive.RotateRobot(-30.0), AutonomousDrive.RotateRobot(30.0)));
