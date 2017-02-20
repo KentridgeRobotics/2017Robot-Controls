@@ -14,6 +14,21 @@ import org.usfirst.frc.team3786.robot.vision.VisionUtil;
 
 public class RobotActionGenerator {
 	
+	public static List<RobotAction> extractActions(List<TargetPosition> listOfPos)
+	{
+		if (listOfPos.size() == 2) {
+			return extractListOfActionFromTwoTargetPosition(listOfPos);
+		}
+		else if (listOfPos.size() == 1) {
+			return extractListOfActionsFromSingleTargetPosition(listOfPos);
+		}
+		else
+		{
+			return Collections.emptyList();
+		}
+		
+	}
+	
 	//Requires Two TargetPositions
 	//Creates A List Of actions based on the Target Position
 	//Most Likely Only used in the case where the Robot is Directly facing Target. 
