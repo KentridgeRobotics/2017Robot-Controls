@@ -53,7 +53,7 @@ public class AutonomousDrive extends Command {
     			return;
     		}
     	}
-    	DriveTrain.getInstance().setPosition(leftEncoderTicks, rightEncoderTicks);
+//    	DriveTrain.getInstance().setPosition(leftEncoderTicks, rightEncoderTicks);
     	System.err.println("WANT LEFT: " + leftEncoderTicks + " ACTUAL LEFT: " + currentLeftEncoder + " WANT RIGHT: " + rightEncoderTicks + " ACTUAL RIGHT: " + currentRightEncoder);
 //    	System.err.println("CURRENT LEFT IS " + currentLeftEncoder + " RIGHT IS " + currentRightEncoder);
     		
