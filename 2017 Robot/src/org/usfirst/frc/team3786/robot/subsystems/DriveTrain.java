@@ -34,8 +34,9 @@ public class DriveTrain extends Subsystem {
 	public DriveTrain() {
 		leftDriveMotor = new CANTalon(RobotConfig.getInstance().getLeftDriveMotor());
 		rightDriveMotor = new CANTalon(RobotConfig.getInstance().getRightDriveMotor());
-		//leftDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		//rightDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		leftDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		rightDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+
 
 
 		_currentType = DriveType.SPEED;
@@ -49,6 +50,10 @@ public class DriveTrain extends Subsystem {
         	leftDriveMotor.set(leftSpeed);
         	rightDriveMotor.set(rightSpeed);
     	}
+    }
+    
+    public String dontLieToMe() {
+    	return leftDriveMotor.getControlMode().toString() + " " + rightDriveMotor.getControlMode().toString();
     }
     public void setPosition(double leftPos, double rightPos) {
     	if(_currentType == DriveType.POSITION) {
@@ -97,22 +102,27 @@ public class DriveTrain extends Subsystem {
     	
     	_currentType = DriveType.POSITION;
     	
+    	zeroEncoders();
+    	
     	leftDriveMotor.enableBrakeMode(true);
 		leftDriveMotor.changeControlMode(TalonControlMode.Position);
 		//leftDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		//leftDriveMotor.reverseSensor(true);
+		leftDriveMotor.reverseSensor(true);
+		//leftDriveMotor.reverseOutput(true);
 		leftDriveMotor.configNominalOutputVoltage(+0f, -0f);
 		leftDriveMotor.configPeakOutputVoltage(+12f, -12f);
 		
 		leftDriveMotor.setF(0.0);
-		leftDriveMotor.setP(0.1);
+		leftDriveMotor.setP(.4);
 		leftDriveMotor.setI(0.0);
-		leftDriveMotor.setD(0.0);
+		leftDriveMotor.setD(0.0001);
+		leftDriveMotor.enableControl();
 		
 		//leftDriveMotor.setProfile(0);
+	
+		//leftDriveMotor.configEncoderCodesPerRev(360);
 		
-		leftDriveMotor.configEncoderCodesPerRev(360);
-		
+		rightDriveMotor.reverseSensor(true);
 		rightDriveMotor.enableBrakeMode(true);
 		rightDriveMotor.changeControlMode(TalonControlMode.Position);
 		//rightDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
@@ -120,13 +130,14 @@ public class DriveTrain extends Subsystem {
 		rightDriveMotor.configPeakOutputVoltage(+12f, -12f);
 		
 		rightDriveMotor.setF(0.0);
-		rightDriveMotor.setP(0.1);
+		rightDriveMotor.setP(.4);
 		rightDriveMotor.setI(0.0);
-		rightDriveMotor.setD(0.0);
+		rightDriveMotor.setD(0.0001);
+		rightDriveMotor.enableControl();
 		
 		//rightDriveMotor.setProfile(0);
 		
-		rightDriveMotor.configEncoderCodesPerRev(360);
+		//rightDriveMotor.configEncoderCodesPerRev(360);
 		
     	//}
 

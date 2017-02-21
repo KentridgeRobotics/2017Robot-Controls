@@ -137,7 +137,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Right Velocity", DriveTrain.getInstance().getRightVelocity());
 		SmartDashboard.putNumber("Right Voltage", DriveTrain.getInstance().getRightMotorOutput());
 
-		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().getDriveType());
+		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().dontLieToMe());
 	}
 
 	@Override
