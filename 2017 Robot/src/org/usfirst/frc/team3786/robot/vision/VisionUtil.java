@@ -28,7 +28,12 @@ public class VisionUtil {
 
 	public static WhichSide getPositionOfGearTarget() {
 		GearTargetFinder gtf = CompetitionConfig.gearTargetFinder;
-		List<MatOfPoint> matlist = gtf.acquireVisionInput();
+		
+		List<MatOfPoint> matlist = null;
+		while ((matlist = gtf.acquireVisionInput()) == null)
+		{
+			System.err.println("CAn't get input!!!");
+		}
 		if (matlist == null)
 		{
 			System.err.println("ERROR: getPositionOfGearTarget: no matlist");

@@ -53,8 +53,13 @@ public class GearTargetFinder extends Subsystem {
     	GripPipeline grip = new GripPipeline();
     	
         Mat source = new Mat();
-        cvSink.grabFrame(source);
-
+        long result = cvSink.grabFrame(source);
+        if (result == 0)
+        {
+        	// There was an error!
+        	System.err.println("ERROR: acquireVisionInput failed: "+cvSink.getError());
+        	return null;
+        }
         grip.process(source);
 		List<MatOfPoint> convexHulls = grip.convexHullsOutput();
 		
