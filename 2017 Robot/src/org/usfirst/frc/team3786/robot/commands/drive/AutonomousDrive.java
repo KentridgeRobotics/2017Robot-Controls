@@ -39,7 +39,9 @@ public class AutonomousDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double tolerance = 100;
+    	
+    	// Add some kind of windowed average to make sure we don't overshoot.
+    	double tolerance = 40.0;
     	double currentLeftEncoder = DriveTrain.getInstance().getLeftEncoder();
     	double currentRightEncoder = DriveTrain.getInstance().getRightEncoder();
     	
@@ -49,6 +51,7 @@ public class AutonomousDrive extends Command {
     			return;
     		}
     	}
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -29,7 +29,16 @@ public class VisionUtil {
 	public static WhichSide getPositionOfGearTarget() {
 		GearTargetFinder gtf = CompetitionConfig.gearTargetFinder;
 		List<MatOfPoint> matlist = gtf.acquireVisionInput();
+		if (matlist == null)
+		{
+			System.err.println("ERROR: getPositionOfGearTarget: no matlist");
+			return WhichSide.WHO_KNOWS;
+		}
 		List<ContourReport> contourList = gtf.extractContourReports(matlist);
+		if (contourList == null)
+		{
+			System.err.println("ERROR: getPositionOfGearTarget: no contourList");
+		}
 		System.err.println("getPositionOfGearTarget finds:");
 		for (ContourReport contour : contourList)
 		{
