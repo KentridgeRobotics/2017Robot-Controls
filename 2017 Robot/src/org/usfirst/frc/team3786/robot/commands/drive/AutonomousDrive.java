@@ -39,24 +39,16 @@ public class AutonomousDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	double tolerance = 100;
     	double currentLeftEncoder = DriveTrain.getInstance().getLeftEncoder();
     	double currentRightEncoder = DriveTrain.getInstance().getRightEncoder();
     	
-    	if (Math.abs(leftEncoderTicks) <= Math.abs(currentLeftEncoder)) {
-    		System.err.println("YO, LEFT IS DONE!!!");
-    		if (Math.abs(rightEncoderTicks) <= Math.abs(currentRightEncoder)) {
-    			System.err.println("ALL DONE WITH AUTONOMOUS!!!");
-//    			DriveTrain.getInstance().stopLeftMotor();
- //   			DriveTrain.getInstance().stopRightMotor();
+    	if (Math.abs(leftEncoderTicks) <= (Math.abs(currentLeftEncoder) + tolerance)) {
+    		if (Math.abs(rightEncoderTicks) <= (Math.abs(currentRightEncoder) + tolerance)) {
     			isDone = true;
     			return;
     		}
     	}
-//    	DriveTrain.getInstance().setPosition(leftEncoderTicks, rightEncoderTicks);
-    	System.err.println("WANT LEFT: " + leftEncoderTicks + " ACTUAL LEFT: " + currentLeftEncoder + " WANT RIGHT: " + rightEncoderTicks + " ACTUAL RIGHT: " + currentRightEncoder);
-//    	System.err.println("CURRENT LEFT IS " + currentLeftEncoder + " RIGHT IS " + currentRightEncoder);
-    		
-    	// Check on the DriveTrain's getLeftEncoder and getRightEncoder to see if they're at or past the set point.
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -66,8 +58,7 @@ public class AutonomousDrive extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	DriveTrain.getInstance().enableLeftMotor();
-    	DriveTrain.getInstance().enableRightMotor();
+    
     }
 
     // Called when another command which requires one or more of the same
