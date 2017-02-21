@@ -3,11 +3,6 @@ package org.usfirst.frc.team3786.robot.subsystems;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-//import java.util.concurrent.Callable;
-//import java.util.concurrent.ExecutionException;
-//import java.util.concurrent.ExecutorService;
-//import java.util.concurrent.Executors;
-//import java.util.concurrent.Future;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -35,9 +30,6 @@ public class GearTargetFinder extends Subsystem {
 	private int IMG_HEIGHT = 480;
 	
 	//Fixed ThreadPool for Running Image through Pipeline
-	UsbCamera camera;
-	CvSink cvSink;
-	CvSource cvSource;
 	//ExecutorService executorService = Executors.newFixedThreadPool(1);
 	
 	//Default Command
@@ -48,23 +40,21 @@ public class GearTargetFinder extends Subsystem {
 	}
     
     //Constructor
-    public GearTargetFinder() {
-    	camera = CameraServer.getInstance().startAutomaticCapture();
-        camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
-    	cvSink = CameraServer.getInstance().getVideo();
-//    	cvSource = CameraServer.getInstance().putVideo("MyOutput", IMG_WIDTH, IMG_HEIGHT);
-    	
+    public GearTargetFinder() {    	
     }
     
     // Get recognized targets from the camera as processed by the Grip pipeline.
     // Returns List of MatOfPoint
     public List<MatOfPoint> acquireVisionInput() {
     	System.err.println("acquireVisionInput called");
+    	UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
+    	CvSink cvSink = CameraServer.getInstance().getVideo();
     	GripPipeline grip = new GripPipeline();
     	
         Mat source = new Mat();
         cvSink.grabFrame(source);
-      	        
+
         grip.process(source);
 		List<MatOfPoint> convexHulls = grip.convexHullsOutput();
 		
