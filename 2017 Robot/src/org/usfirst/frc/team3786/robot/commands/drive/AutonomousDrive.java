@@ -16,7 +16,6 @@ public class AutonomousDrive extends Command {
 	
 	private boolean isDone = false;
 	
-	static final double encoderRotationsPerWheelRotation = /*17.0 / 3.0*/ 1.0;
 	//static final double wheelDegreesFwdAndBackPerRobotDegree = ?;
 	// LeftRotation and RightRotation is the # degrees to go forwards (negative is backwards)
     public AutonomousDrive(double leftRotation, double rightRotation) {
@@ -24,8 +23,8 @@ public class AutonomousDrive extends Command {
         // eg. requires(chassis);
     	requires(DriveTrain.getInstance());
     	System.err.println("Starting autonomous drive: left=" + leftRotation + " right=" + rightRotation);
-    	leftEncoderTicks = leftRotation * encoderRotationsPerWheelRotation;
-    	rightEncoderTicks = rightRotation * encoderRotationsPerWheelRotation;
+    	leftEncoderTicks = leftRotation * RobotConfig.encoderRotationsPerWheelRotation;
+    	rightEncoderTicks = rightRotation * RobotConfig.encoderRotationsPerWheelRotation;
     	prevLeftEncoderTicks = 0.0;
     	prevRightEncoderTicks = 0.0;
     }
