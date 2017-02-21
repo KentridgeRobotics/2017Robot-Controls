@@ -8,6 +8,8 @@ import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -21,6 +23,10 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	private DriveType _currentType;
+	
+//	SendableChooser<Double> pValue = new SendableChooser<Double>();
+//	SendableChooser<Double> dValue = new SendableChooser<Double>();
+
 	
 	public static DriveTrain getInstance() {
 		if(instance == null)
@@ -37,13 +43,36 @@ public class DriveTrain extends Subsystem {
 		leftDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		rightDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 
+		
+//		pValue.addDefault(".5", .5);
+//		pValue.addObject(".4", .4);
+//		pValue.addObject(".3", .3);
+//		pValue.addObject(".2", .2);
+//		pValue.addObject(".1", .1);
+//		
+//		dValue.addDefault(".0001", .0001);
+//		dValue.addObject(".0005", .0005);
+//		dValue.addObject(".001", .001);
+//		dValue.addObject(".005", .005);
+//		dValue.addObject(".1", .1);
+//		
+//		SmartDashboard.putData("P Value", pValue);
+//		SmartDashboard.putData("D Value", dValue);
+//		
+		SmartDashboard.putNumber("PValue", .5);
+		SmartDashboard.putNumber("DValue", .0001);
+		
+
 
 
 		_currentType = DriveType.SPEED;
 
 	}
 	
-    
+    public void giveValues() {
+    	SmartDashboard.putNumber("P Value:", leftDriveMotor.getP());
+    	SmartDashboard.putNumber("D Value:", leftDriveMotor.getD());
+    }
     
     public void setSpeed(double leftSpeed, double rightSpeed) {
     	if(_currentType == DriveType.SPEED) {
@@ -97,6 +126,79 @@ public class DriveTrain extends Subsystem {
     	rightDriveMotor.setEncPosition(0);
     }
     
+    public void setVelocityDrive() {
+		leftDriveMotor.reverseSensor(true);
+		leftDriveMotor.enableBrakeMode(true);
+    	leftDriveMotor.setPID(.5, 0, .01, 0, 0, 24.0, 0);
+    	leftDriveMotor.enableControl();
+		rightDriveMotor.reverseSensor(true);
+		rightDriveMotor.enableBrakeMode(true);
+    	rightDriveMotor.setPID(.5, 0, .01, 0, 0, 24.0, 0);
+    	rightDriveMotor.enableControl();
+    	
+		leftDriveMotor.configNominalOutputVoltage(+0f, -0f);
+		leftDriveMotor.configPeakOutputVoltage(+12f, -12f);
+		
+		rightDriveMotor.configNominalOutputVoltage(+0f, -0f);
+		rightDriveMotor.configPeakOutputVoltage(+12f, -12f);
+
+
+    	
+    }
+    
+//    public void setPositionDrive() {
+//    	//if(_currentType != DriveType.POSITION) {
+//    	
+//    	_currentType = DriveType.POSITION;
+//    	
+//    	zeroEncoders();
+//    	
+//    	leftDriveMotor.enableBrakeMode(true);
+//		leftDriveMotor.changeControlMode(TalonControlMode.Position);
+//		//leftDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+//		leftDriveMotor.reverseSensor(true);
+//		//leftDriveMotor.reverseOutput(true);
+//		leftDriveMotor.configNominalOutputVoltage(+0f, -0f);
+//		leftDriveMotor.configPeakOutputVoltage(+12f, -12f);
+//		
+//		leftDriveMotor.setF(0.0);
+//		//leftDriveMotor.setP(SmartDashboard.getNumber("PValue", .5));
+//		leftDriveMotor.setP(.05);
+//		leftDriveMotor.setI(0.0);
+//		leftDriveMotor.setD(0.0);
+//		//leftDriveMotor.setD(SmartDashboard.getNumber("DValue", .5));
+//		leftDriveMotor.enableControl();
+//		
+//		//leftDriveMotor.setProfile(0);
+//	
+//		//leftDriveMotor.configEncoderCodesPerRev(360);
+//		
+//		rightDriveMotor.reverseSensor(true);
+//		rightDriveMotor.enableBrakeMode(true);
+//		rightDriveMotor.changeControlMode(TalonControlMode.Position);
+//		//rightDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+//		rightDriveMotor.configNominalOutputVoltage(+0f, -0f);
+//		rightDriveMotor.configPeakOutputVoltage(+12f, -12f);
+//		
+//		rightDriveMotor.setF(0.0);
+//		//rightDriveMotor.setP(SmartDashboard.getNumber("PValue", .5));
+//		rightDriveMotor.setP(.05);
+//		rightDriveMotor.setI(0.0);
+//		rightDriveMotor.setD(0.0);
+//		//rightDriveMotor.setD(SmartDashboard.getNumber("DValue", .5));
+//		rightDriveMotor.enableControl();
+//		
+//		//rightDriveMotor.setProfile(0);
+//		
+//		//rightDriveMotor.configEncoderCodesPerRev(360);
+//		
+//    	//}
+//
+//    }
+    public void getLoopError() {
+    	System.out.println("Left: " + leftDriveMotor.getClosedLoopError());
+    	System.out.println("Right: " + rightDriveMotor.getClosedLoopError());
+    }
     public void setPositionDrive() {
     	//if(_currentType != DriveType.POSITION) {
     	
@@ -112,10 +214,8 @@ public class DriveTrain extends Subsystem {
 		leftDriveMotor.configNominalOutputVoltage(+0f, -0f);
 		leftDriveMotor.configPeakOutputVoltage(+12f, -12f);
 		
-		leftDriveMotor.setF(0.0);
-		leftDriveMotor.setP(.4);
-		leftDriveMotor.setI(0.0);
-		leftDriveMotor.setD(0.0001);
+    	leftDriveMotor.setPID(.5, 0.0, .6, 0, 200, 24.0, 0);
+		//leftDriveMotor.setD(SmartDashboard.getNumber("DValue", .5));
 		leftDriveMotor.enableControl();
 		
 		//leftDriveMotor.setProfile(0);
@@ -126,13 +226,12 @@ public class DriveTrain extends Subsystem {
 		rightDriveMotor.enableBrakeMode(true);
 		rightDriveMotor.changeControlMode(TalonControlMode.Position);
 		//rightDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		
+    	rightDriveMotor.setPID(.5, 0.0, .6, 0, 200, 24.0, 0);
+
 		rightDriveMotor.configNominalOutputVoltage(+0f, -0f);
 		rightDriveMotor.configPeakOutputVoltage(+12f, -12f);
 		
-		rightDriveMotor.setF(0.0);
-		rightDriveMotor.setP(.4);
-		rightDriveMotor.setI(0.0);
-		rightDriveMotor.setD(0.0001);
 		rightDriveMotor.enableControl();
 		
 		//rightDriveMotor.setProfile(0);
@@ -142,6 +241,7 @@ public class DriveTrain extends Subsystem {
     	//}
 
     }
+
     
     public double getLeftMotorOutput() {
     	return leftDriveMotor.getOutputVoltage();
@@ -152,6 +252,11 @@ public class DriveTrain extends Subsystem {
     
     public String getDriveType() {
     	return _currentType.toString();
+    }
+    
+    public void setBrake() {
+    	leftDriveMotor.enableBrakeMode(true);
+    	rightDriveMotor.enableBrakeMode(true);
     }
         
     public void setSpeedDrive() {

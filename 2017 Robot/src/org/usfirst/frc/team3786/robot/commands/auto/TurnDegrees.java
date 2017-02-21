@@ -2,29 +2,24 @@ package org.usfirst.frc.team3786.robot.commands.auto;
 
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class GoForward extends Command {
+public class TurnDegrees extends Command {
 
-    public GoForward() {
+    public TurnDegrees() {
     	requires(DriveTrain.getInstance());
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	DriveTrain.getInstance().setVelocityDrive();
-    	DriveTrain.getInstance().zeroEncoders();
-    	DriveTrain.getInstance().setPosition(16320, 16320);
-    	
+    	DriveTrain.getInstance().setPositionDrive();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

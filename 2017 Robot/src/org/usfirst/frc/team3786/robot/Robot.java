@@ -5,6 +5,7 @@ import org.usfirst.frc.team3786.robot.commands.auto.CrossBaseline;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
 import org.usfirst.frc.team3786.robot.commands.auto.GoForward;
 import org.usfirst.frc.team3786.robot.commands.auto.RotateWheelsTest;
+import org.usfirst.frc.team3786.robot.commands.auto.VelocityAuto;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
 import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
@@ -41,7 +42,7 @@ public class Robot extends IterativeRobot {
 	public static DisplayData displayData;
 	private static BNO055 imu;
 	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
+	SendableChooser<Command> chooser = new SendableChooser<Command>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -63,7 +64,9 @@ public class Robot extends IterativeRobot {
 		//chooser.addDefault("Do Nothing", new DoNothing());
 		//chooser.addObject("Autonomous baseline crosser", new CrossBaseline());
 		chooser.addDefault("Rotate wheels", new RotateWheelsTest());
+		chooser.addObject("Cross Baseline", new CrossBaseline());
 		chooser.addObject("Go Forward", new GoForward());
+		chooser.addObject("Velocity Test", new VelocityAuto(8160, 8160));
 		imu = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
 			  BNO055.vector_type_t.VECTOR_EULER);
 		
@@ -78,6 +81,7 @@ public class Robot extends IterativeRobot {
 		//SmartDashboard.putBoolean("Connected", !Gyroscope.getInstance().isConnected());
 		
 		SmartDashboard.putData(Scheduler.getInstance());
+		//SmartDashboard.putData(DriveTrain.getInstance());
 		
 	}
 
@@ -94,6 +98,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		DriveTrain.getInstance().giveValues();
 	}
 
 	/**
@@ -138,6 +143,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Right Voltage", DriveTrain.getInstance().getRightMotorOutput());
 
 		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().dontLieToMe());
+		
+		DriveTrain.getInstance().getLoopError();
 	}
 
 	@Override
