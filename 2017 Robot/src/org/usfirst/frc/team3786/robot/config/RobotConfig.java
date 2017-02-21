@@ -24,6 +24,9 @@ public abstract class RobotConfig {
 	public static final double wheelDegreesPerInch = (19.5 * Math.PI) / 360.0;
 	public static final double encoderRotationsPerWheelRotation = 8160.0 / 360.0;
 	
+	public static final int potentiometerTop = 5;
+	public static final int potentiometerBottom = 585;
+	
 	public abstract int getLeftDriveMotor();
 	
 	public abstract int getRightDriveMotor();

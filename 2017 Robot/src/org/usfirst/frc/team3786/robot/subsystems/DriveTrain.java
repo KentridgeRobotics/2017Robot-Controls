@@ -61,6 +61,8 @@ public class DriveTrain extends Subsystem {
 //		
 		SmartDashboard.putNumber("PValue", .5);
 		SmartDashboard.putNumber("DValue", .0001);
+//		SmartDashboard.putData("Left Motor", leftDriveMotor);
+//		SmartDashboard.putData("Right Motor", rightDriveMotor);
 		
 
 
@@ -81,9 +83,6 @@ public class DriveTrain extends Subsystem {
     	}
     }
     
-    public String dontLieToMe() {
-    	return leftDriveMotor.getControlMode().toString() + " " + rightDriveMotor.getControlMode().toString();
-    }
     public void setPosition(double leftPos, double rightPos) {
     	if(_currentType == DriveType.POSITION) {
         	//leftDriveMotor.setEncPosition(0);
@@ -125,27 +124,7 @@ public class DriveTrain extends Subsystem {
     	leftDriveMotor.setEncPosition(0);
     	rightDriveMotor.setEncPosition(0);
     }
-    
-    public void setVelocityDrive() {
-		leftDriveMotor.reverseSensor(true);
-		leftDriveMotor.enableBrakeMode(true);
-    	leftDriveMotor.setPID(.5, 0, .01, 0, 0, 24.0, 0);
-    	leftDriveMotor.enableControl();
-		rightDriveMotor.reverseSensor(true);
-		rightDriveMotor.enableBrakeMode(true);
-    	rightDriveMotor.setPID(.5, 0, .01, 0, 0, 24.0, 0);
-    	rightDriveMotor.enableControl();
-    	
-		leftDriveMotor.configNominalOutputVoltage(+0f, -0f);
-		leftDriveMotor.configPeakOutputVoltage(+12f, -12f);
-		
-		rightDriveMotor.configNominalOutputVoltage(+0f, -0f);
-		rightDriveMotor.configPeakOutputVoltage(+12f, -12f);
-
-
-    	
-    }
-    
+        
 //    public void setPositionDrive() {
 //    	//if(_currentType != DriveType.POSITION) {
 //    	
@@ -206,38 +185,25 @@ public class DriveTrain extends Subsystem {
     	
     	zeroEncoders();
     	
+    	leftDriveMotor.reverseSensor(true);
     	leftDriveMotor.enableBrakeMode(true);
-		leftDriveMotor.changeControlMode(TalonControlMode.Position);
-		//leftDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		leftDriveMotor.reverseSensor(true);
-		//leftDriveMotor.reverseOutput(true);
+    	leftDriveMotor.changeControlMode(TalonControlMode.Position);
 		leftDriveMotor.configNominalOutputVoltage(+0f, -0f);
 		leftDriveMotor.configPeakOutputVoltage(+12f, -12f);
 		
-    	leftDriveMotor.setPID(.5, 0.0, .6, 0, 200, 24.0, 0);
-		//leftDriveMotor.setD(SmartDashboard.getNumber("DValue", .5));
+    	leftDriveMotor.setPID(SmartDashboard.getNumber("PValue", .5), 0.0, SmartDashboard.getNumber("DValue", .6), 0, 200, 24.0, 0);
 		leftDriveMotor.enableControl();
-		
-		//leftDriveMotor.setProfile(0);
-	
-		//leftDriveMotor.configEncoderCodesPerRev(360);
 		
 		rightDriveMotor.reverseSensor(true);
 		rightDriveMotor.enableBrakeMode(true);
 		rightDriveMotor.changeControlMode(TalonControlMode.Position);
-		//rightDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		
-    	rightDriveMotor.setPID(.5, 0.0, .6, 0, 200, 24.0, 0);
-
 		rightDriveMotor.configNominalOutputVoltage(+0f, -0f);
 		rightDriveMotor.configPeakOutputVoltage(+12f, -12f);
+
 		
+    	rightDriveMotor.setPID(SmartDashboard.getNumber("PValue", .5), 0.0, SmartDashboard.getNumber("DValue", .6), 0, 200, 24.0, 0);
 		rightDriveMotor.enableControl();
-		
-		//rightDriveMotor.setProfile(0);
-		
-		//rightDriveMotor.configEncoderCodesPerRev(360);
-		
+				
     	//}
 
     }

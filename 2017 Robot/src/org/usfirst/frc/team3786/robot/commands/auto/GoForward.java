@@ -16,7 +16,7 @@ public class GoForward extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	DriveTrain.getInstance().setVelocityDrive();
+    	DriveTrain.getInstance().setPositionDrive();
     	DriveTrain.getInstance().zeroEncoders();
     	DriveTrain.getInstance().setPosition(16320, 16320);
     	

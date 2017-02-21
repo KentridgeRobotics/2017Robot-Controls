@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3786.robot.commands.grabber;
 
+import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -20,6 +21,7 @@ public class GearArmTopPosition extends Command {
 
     public GearArmTopPosition() {
     	requires(GearArm.getInstance());
+    	setTimeout(2);
     }
 
     // Called just before this Command runs the first time
@@ -38,14 +40,13 @@ public class GearArmTopPosition extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return GearArm.getInstance().getTopLimitSwitch();
+        return (GearArm.getInstance().getTopLimitSwitch() || (GearArm.getInstance().getPosition() <= RobotConfig.potentiometerTop));
     }
 
     // Called once after isFinished returns true
     protected void end() {
     	GearArm.getInstance().setSpeed(0);
-    	GearArm.getInstance().setPositionDrive();
-    	//not sure if this is necessary, but right now operating on the assumption that we want to default to position drive at all times
+    	MoveGearArmManual.getInstance();
     }
 
     // Called when another command which requires one or more of the same

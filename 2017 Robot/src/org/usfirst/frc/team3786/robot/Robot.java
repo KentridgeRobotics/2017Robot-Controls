@@ -5,13 +5,14 @@ import org.usfirst.frc.team3786.robot.commands.auto.CrossBaseline;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
 import org.usfirst.frc.team3786.robot.commands.auto.GoForward;
 import org.usfirst.frc.team3786.robot.commands.auto.RotateWheelsTest;
+import org.usfirst.frc.team3786.robot.commands.auto.TurnDegrees;
 import org.usfirst.frc.team3786.robot.commands.auto.VelocityAuto;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
 import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearArmBottomPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearArmTopPosition;
-import org.usfirst.frc.team3786.robot.commands.grabber.MoveGearArmPosition;
+import org.usfirst.frc.team3786.robot.commands.grabber.GearArmLoadPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoMove;
 import org.usfirst.frc.team3786.robot.commands.test.ZeroEncoders;
 import org.usfirst.frc.team3786.robot.config.Camera;
@@ -42,7 +43,8 @@ public class Robot extends IterativeRobot {
 	public static DisplayData displayData;
 	private static BNO055 imu;
 	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<Command>();
+	SendableChooser<Command> autoChooser;
+	SendableChooser<Command> newChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -52,7 +54,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		Drive.getInstance();
 		UIConfig.getInstance().getServoMoveButton().whenPressed(ServoMove.getInstance());
-		UIConfig.getInstance().getPegPositionButton().whenPressed(MoveGearArmPosition.getInstance());
+		UIConfig.getInstance().getPegPositionButton().whenPressed(GearArmLoadPosition.getInstance());
 		UIConfig.getInstance().getGearArmTopButton().whenPressed(GearArmTopPosition.getInstance());
 		UIConfig.getInstance().getGearArmBottomButton().whenPressed(GearArmBottomPosition.getInstance());
 		UIConfig.getInstance().getWinchDownButton().whileHeld(WinchMove.getDownInstance());
@@ -61,19 +63,19 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchUpButton().whenReleased(WinchMove.getStopInstance());
 		UIConfig.getInstance().getTestButton().whenPressed(ZeroEncoders.getInstance());
 		
-		//chooser.addDefault("Do Nothing", new DoNothing());
-		//chooser.addObject("Autonomous baseline crosser", new CrossBaseline());
-		chooser.addDefault("Rotate wheels", new RotateWheelsTest());
-		chooser.addObject("Cross Baseline", new CrossBaseline());
-		chooser.addObject("Go Forward", new GoForward());
-		chooser.addObject("Velocity Test", new VelocityAuto(8160, 8160));
+		autoChooser = new SendableChooser<Command>();
+		newChooser = new SendableChooser<Command>();
+		//newChooser.addDefault("Test", new DoNothing());
+		newChooser.addObject("Rotate wheels", new RotateWheelsTest());
+		newChooser.addObject("Cross Baseline", new CrossBaseline());
+		newChooser.addObject("Go Forward", new GoForward());
+		newChooser.addObject("Velocity Test", new VelocityAuto(8160, 8160));
+		newChooser.addDefault("Turn 90", new TurnDegrees(90));
 		imu = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
 			  BNO055.vector_type_t.VECTOR_EULER);
 		
-		//UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
-		//cam.setResolution(1280, 720);
-		//chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
+		//SmartDashboard.putData("Auto mode", autoChooser);
+		SmartDashboard.putData("Auto Mode", newChooser);
 		displayData = new DisplayData();
 		System.err.println("Adding display data");
 		SmartDashboard.putData("Display Data", displayData);
@@ -99,6 +101,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		DriveTrain.getInstance().giveValues();
+		SmartDashboard.putData("Auto mode", newChooser);
 	}
 
 	/**
@@ -114,7 +117,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
+		autonomousCommand = autoChooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -142,7 +145,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Right Velocity", DriveTrain.getInstance().getRightVelocity());
 		SmartDashboard.putNumber("Right Voltage", DriveTrain.getInstance().getRightMotorOutput());
 
-		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().dontLieToMe());
+		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().getDriveType());
 		
 		DriveTrain.getInstance().getLoopError();
 	}
@@ -194,7 +197,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Window Motor Voltage", GearArm.getInstance().getVoltage());
 		SmartDashboard.putBoolean("Top Limit", GearArm.getInstance().getTopLimitSwitch());
 		SmartDashboard.putBoolean("Bottom Limit", GearArm.getInstance().getBottomLimitSwitch());
-		
 		
 	}
 

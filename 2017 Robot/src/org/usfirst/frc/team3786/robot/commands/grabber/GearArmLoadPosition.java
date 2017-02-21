@@ -9,17 +9,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class MoveGearArmPosition extends Command {
+public class GearArmLoadPosition extends Command {
 
-	private static MoveGearArmPosition instance;
+	private static GearArmLoadPosition instance;
 	
-	public static MoveGearArmPosition getInstance() {
+	public static GearArmLoadPosition getInstance() {
 		if(instance == null) 
-			instance = new MoveGearArmPosition();
+			instance = new GearArmLoadPosition();
 		return instance;
 	}
 	
-    public MoveGearArmPosition() {
+    public GearArmLoadPosition() {
     	requires(GearArm.getInstance());
     }
 
@@ -36,10 +36,11 @@ public class MoveGearArmPosition extends Command {
     }
 
     protected boolean isFinished() {
-        return false;
+        return (UIConfig.getInstance().getXbox().getPOV(0) == 0 || UIConfig.getInstance().getXbox().getPOV(0) == 180);
     }
 
     protected void end() {
+    	MoveGearArmManual.getInstance();
     }
 
     protected void interrupted() {
