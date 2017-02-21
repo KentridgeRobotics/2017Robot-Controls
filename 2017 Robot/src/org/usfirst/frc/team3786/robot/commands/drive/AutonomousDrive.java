@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.command.Command;
 public class AutonomousDrive extends Command {
 	private double leftEncoderTicks;
 	private double rightEncoderTicks;
+	private double prevLeftEncoderTicks;
+	private double prevRightEncoderTicks;
+	
 	private boolean isDone = false;
 	
 	static final double encoderRotationsPerWheelRotation = /*17.0 / 3.0*/ 1.0;
@@ -23,11 +26,14 @@ public class AutonomousDrive extends Command {
     	System.err.println("Starting autonomous drive: left=" + leftRotation + " right=" + rightRotation);
     	leftEncoderTicks = leftRotation * encoderRotationsPerWheelRotation;
     	rightEncoderTicks = rightRotation * encoderRotationsPerWheelRotation;
+    	prevLeftEncoderTicks = 0.0;
+    	prevRightEncoderTicks = 0.0;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	DriveTrain.getInstance().setPositionDrive();
+    	DriveTrain.getInstance().zeroEncoders();
     	DriveTrain.getInstance().setPosition(leftEncoderTicks, rightEncoderTicks);
     	// Call the methods in DriveTrain to set the mode and set position
     }
@@ -36,18 +42,20 @@ public class AutonomousDrive extends Command {
     protected void execute() {
     	double currentLeftEncoder = DriveTrain.getInstance().getLeftEncoder();
     	double currentRightEncoder = DriveTrain.getInstance().getRightEncoder();
+    	
     	if (Math.abs(leftEncoderTicks) <= Math.abs(currentLeftEncoder)) {
+    		System.err.println("YO, LEFT IS DONE!!!");
     		if (Math.abs(rightEncoderTicks) <= Math.abs(currentRightEncoder)) {
     			System.err.println("ALL DONE WITH AUTONOMOUS!!!");
 //    			DriveTrain.getInstance().stopLeftMotor();
  //   			DriveTrain.getInstance().stopRightMotor();
     			isDone = true;
+    			return;
     		}
     	}
-    	double leftDistanceToGo = leftEncoderTicks - currentLeftEncoder;
-    	double rightDistanceToGo = rightEncoderTicks - currentRightEncoder;
-    	DriveTrain.getInstance().setPosition(leftDistanceToGo, rightDistanceToGo);
-    	System.err.println("CURRENT LEFT IS " + currentLeftEncoder + " RIGHT IS " + currentRightEncoder);
+    	DriveTrain.getInstance().setPosition(leftEncoderTicks, rightEncoderTicks);
+    	System.err.println("WANT LEFT: " + leftEncoderTicks + " ACTUAL LEFT: " + currentLeftEncoder + " WANT RIGHT: " + rightEncoderTicks + " ACTUAL RIGHT: " + currentRightEncoder);
+//    	System.err.println("CURRENT LEFT IS " + currentLeftEncoder + " RIGHT IS " + currentRightEncoder);
     		
     	// Check on the DriveTrain's getLeftEncoder and getRightEncoder to see if they're at or past the set point.
     }

@@ -26,7 +26,7 @@ public class RotateWheelsTest extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new AutonomousDrive(360.0, 360.0));
+    	addSequential(new AutonomousDrive(1.0, 1.0));
     	//addSequential(new AutonomousDrive(-1000.0, -1000.0));
     }
 }
