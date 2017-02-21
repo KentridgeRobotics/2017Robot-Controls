@@ -24,7 +24,7 @@ public class ArcadeDrive extends UIConfig {
 	}
 
 	private double turn() {
-		return -leftStick.getY();
+		return leftStick.getY();
 	}
 	
 	private double leftOut() {

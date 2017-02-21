@@ -34,8 +34,8 @@ public class DriveTrain extends Subsystem {
 	public DriveTrain() {
 		leftDriveMotor = new CANTalon(RobotConfig.getInstance().getLeftDriveMotor());
 		rightDriveMotor = new CANTalon(RobotConfig.getInstance().getRightDriveMotor());
-		leftDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		rightDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		//leftDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		//rightDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 
 
 		_currentType = DriveType.SPEED;
@@ -50,12 +50,11 @@ public class DriveTrain extends Subsystem {
         	rightDriveMotor.set(rightSpeed);
     	}
     }
-    
     public void setPosition(double leftPos, double rightPos) {
     	if(_currentType == DriveType.POSITION) {
-        	leftDriveMotor.setEncPosition(0);
+        	//leftDriveMotor.setEncPosition(0);
         	leftDriveMotor.set(-leftPos);
-        	rightDriveMotor.setEncPosition(0);
+        	//rightDriveMotor.setEncPosition(0);
         	rightDriveMotor.set(rightPos);
     	}
 
@@ -106,11 +105,13 @@ public class DriveTrain extends Subsystem {
 		leftDriveMotor.configPeakOutputVoltage(+12f, -12f);
 		
 		leftDriveMotor.setF(0.0);
-		leftDriveMotor.setP(0.25);
+		leftDriveMotor.setP(0.1);
 		leftDriveMotor.setI(0.0);
 		leftDriveMotor.setD(0.0);
 		
-		//leftDriveMotor.configEncoderCodesPerRev(360);
+		//leftDriveMotor.setProfile(0);
+		
+		leftDriveMotor.configEncoderCodesPerRev(360);
 		
 		rightDriveMotor.enableBrakeMode(true);
 		rightDriveMotor.changeControlMode(TalonControlMode.Position);
@@ -119,11 +120,13 @@ public class DriveTrain extends Subsystem {
 		rightDriveMotor.configPeakOutputVoltage(+12f, -12f);
 		
 		rightDriveMotor.setF(0.0);
-		rightDriveMotor.setP(0.25);
+		rightDriveMotor.setP(0.1);
 		rightDriveMotor.setI(0.0);
 		rightDriveMotor.setD(0.0);
 		
-		//rightDriveMotor.configEncoderCodesPerRev(360);
+		//rightDriveMotor.setProfile(0);
+		
+		rightDriveMotor.configEncoderCodesPerRev(360);
 		
     	//}
 

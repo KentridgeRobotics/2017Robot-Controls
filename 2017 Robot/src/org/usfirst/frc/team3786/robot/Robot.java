@@ -3,6 +3,7 @@ package org.usfirst.frc.team3786.robot;
 
 import org.usfirst.frc.team3786.robot.commands.auto.CrossBaseline;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
+import org.usfirst.frc.team3786.robot.commands.auto.GoForward;
 import org.usfirst.frc.team3786.robot.commands.auto.RotateWheelsTest;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
 import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
@@ -57,11 +58,12 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchDownButton().whenReleased(WinchMove.getStopInstance());
 		UIConfig.getInstance().getWinchUpButton().whileHeld(WinchMove.getUpInstance());
 		UIConfig.getInstance().getWinchUpButton().whenReleased(WinchMove.getStopInstance());
-		//UIConfig.getInstance().getTestButton().whenPressed(ZeroEncoders.getInstance());
+		UIConfig.getInstance().getTestButton().whenPressed(ZeroEncoders.getInstance());
 		
 		//chooser.addDefault("Do Nothing", new DoNothing());
 		//chooser.addObject("Autonomous baseline crosser", new CrossBaseline());
 		chooser.addDefault("Rotate wheels", new RotateWheelsTest());
+		chooser.addObject("Go Forward", new GoForward());
 		imu = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
 			  BNO055.vector_type_t.VECTOR_EULER);
 		
@@ -72,7 +74,7 @@ public class Robot extends IterativeRobot {
 		displayData = new DisplayData();
 		System.err.println("Adding display data");
 		SmartDashboard.putData("Display Data", displayData);
-		UIConfig.getInstance().getTestButton().whenPressed(displayData);
+		//UIConfig.getInstance().getTestButton().whenPressed(displayData);
 		//SmartDashboard.putBoolean("Connected", !Gyroscope.getInstance().isConnected());
 		
 		SmartDashboard.putData(Scheduler.getInstance());
