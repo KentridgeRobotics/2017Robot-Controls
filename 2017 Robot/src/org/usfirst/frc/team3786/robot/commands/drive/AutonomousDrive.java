@@ -39,11 +39,14 @@ public class AutonomousDrive extends Command {
     	if (Math.abs(leftEncoderTicks) <= Math.abs(currentLeftEncoder)) {
     		if (Math.abs(rightEncoderTicks) <= Math.abs(currentRightEncoder)) {
     			System.err.println("ALL DONE WITH AUTONOMOUS!!!");
-    			DriveTrain.getInstance().stopLeftMotor();
-    			DriveTrain.getInstance().stopRightMotor();
+//    			DriveTrain.getInstance().stopLeftMotor();
+ //   			DriveTrain.getInstance().stopRightMotor();
     			isDone = true;
     		}
     	}
+    	double leftDistanceToGo = leftEncoderTicks - currentLeftEncoder;
+    	double rightDistanceToGo = rightEncoderTicks - currentRightEncoder;
+    	DriveTrain.getInstance().setPosition(leftDistanceToGo, rightDistanceToGo);
     	System.err.println("CURRENT LEFT IS " + currentLeftEncoder + " RIGHT IS " + currentRightEncoder);
     		
     	// Check on the DriveTrain's getLeftEncoder and getRightEncoder to see if they're at or past the set point.
