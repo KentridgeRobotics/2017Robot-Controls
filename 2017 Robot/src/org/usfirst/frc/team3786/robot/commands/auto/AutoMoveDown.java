@@ -1,31 +1,23 @@
 package org.usfirst.frc.team3786.robot.commands.auto;
 
-import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class TurnDegrees extends Command {
+public class AutoMoveDown extends Command {
 
-	private double angle;
-	
-    public TurnDegrees(double ang) {
-    	requires(DriveTrain.getInstance());
-    	angle = ang;
+    public AutoMoveDown() {
+    	requires(GearArm.getInstance());
+    	setTimeout(.35);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	DriveTrain.getInstance().setPositionDrive();
-    	DriveTrain.getInstance().setP(.35);
-    	DriveTrain.getInstance().setD(.5);
-    	double distance = ((angle/45) * (114.75/360.0 * 8160));
-    	if(angle > 0)
-    		DriveTrain.getInstance().setPosition(distance, -distance);
-    	else
-    		DriveTrain.getInstance().setPosition(-distance, distance);
+    	GearArm.getInstance().setManualDrive();
+    	GearArm.getInstance().setSpeed(-.2);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -34,11 +26,12 @@ public class TurnDegrees extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	GearArm.getInstance().setSpeed(0);
     }
 
     // Called when another command which requires one or more of the same

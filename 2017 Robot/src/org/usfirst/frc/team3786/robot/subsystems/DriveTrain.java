@@ -59,8 +59,8 @@ public class DriveTrain extends Subsystem {
 //		SmartDashboard.putData("P Value", pValue);
 //		SmartDashboard.putData("D Value", dValue);
 //		
-		SmartDashboard.putNumber("PValue", .5);
-		SmartDashboard.putNumber("DValue", .0001);
+		SmartDashboard.putNumber("Set P Value", .5);
+		SmartDashboard.putNumber("Set D Value", .6);
 //		SmartDashboard.putData("Left Motor", leftDriveMotor);
 //		SmartDashboard.putData("Right Motor", rightDriveMotor);
 		
@@ -120,6 +120,13 @@ public class DriveTrain extends Subsystem {
     	return rightDriveMotor.getEncVelocity();
     }
     
+//    public void setPD() {
+//    	leftDriveMotor.setP(SmartDashboard.getNumber("Set P Value", .5));
+//    	rightDriveMotor.setP(SmartDashboard.getNumber("Set P Value", .5));
+//    	leftDriveMotor.setD(SmartDashboard.getNumber("Set D Value", .6));
+//    	rightDriveMotor.setD(SmartDashboard.getNumber("Set D Value", .6));
+//    }
+    
     public void zeroEncoders() {
     	leftDriveMotor.setEncPosition(0);
     	rightDriveMotor.setEncPosition(0);
@@ -174,6 +181,20 @@ public class DriveTrain extends Subsystem {
 //    	//}
 //
 //    }
+    
+    public void setP(double p) {
+    	leftDriveMotor.setP(p);
+    	rightDriveMotor.setP(p);
+    }
+    public void setI(double i) {
+    	leftDriveMotor.setI(i);
+    	rightDriveMotor.setI(i);
+    }
+    public void setD(double d) {
+    	leftDriveMotor.setD(d);
+    	rightDriveMotor.setD(d);
+    }
+    
     public void getLoopError() {
     	System.out.println("Left: " + leftDriveMotor.getClosedLoopError());
     	System.out.println("Right: " + rightDriveMotor.getClosedLoopError());
@@ -191,7 +212,8 @@ public class DriveTrain extends Subsystem {
 		leftDriveMotor.configNominalOutputVoltage(+0f, -0f);
 		leftDriveMotor.configPeakOutputVoltage(+12f, -12f);
 		
-    	leftDriveMotor.setPID(SmartDashboard.getNumber("PValue", .5), 0.0, SmartDashboard.getNumber("DValue", .6), 0, 200, 24.0, 0);
+    	//leftDriveMotor.setPID(SmartDashboard.getNumber("PValue", .5), 0.0, SmartDashboard.getNumber("DValue", .6), 0, 200, 24.0, 0);
+		leftDriveMotor.setPID(.35, 0.0, .75, 0, 200, 24.0, 0);
 		leftDriveMotor.enableControl();
 		
 		rightDriveMotor.reverseSensor(true);
@@ -201,7 +223,8 @@ public class DriveTrain extends Subsystem {
 		rightDriveMotor.configPeakOutputVoltage(+12f, -12f);
 
 		
-    	rightDriveMotor.setPID(SmartDashboard.getNumber("PValue", .5), 0.0, SmartDashboard.getNumber("DValue", .6), 0, 200, 24.0, 0);
+    	//rightDriveMotor.setPID(SmartDashboard.getNumber("PValue", .5), 0.0, SmartDashboard.getNumber("DValue", .6), 0, 200, 24.0, 0);
+		rightDriveMotor.setPID(.35, 0.0, .75, 0, 200, 24.0, 0);
 		rightDriveMotor.enableControl();
 				
     	//}

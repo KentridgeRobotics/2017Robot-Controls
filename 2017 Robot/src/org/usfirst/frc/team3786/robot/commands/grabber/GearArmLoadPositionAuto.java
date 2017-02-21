@@ -9,22 +9,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class GearArmLoadPosition extends Command {
+public class GearArmLoadPositionAuto extends Command {
 
-	private static GearArmLoadPosition instance;
+	private static GearArmLoadPositionAuto instance;
 	
-	public static GearArmLoadPosition getInstance() {
+	public static GearArmLoadPositionAuto getInstance() {
 		if(instance == null) 
-			instance = new GearArmLoadPosition();
+			instance = new GearArmLoadPositionAuto();
 		return instance;
 	}
 	
-    public GearArmLoadPosition() {
+    public GearArmLoadPositionAuto() {
     	requires(GearArm.getInstance());
     	setTimeout(1.75);
     }
 
     protected void initialize() {
+    	GearArm.getInstance().open();
     	GearArm.getInstance().setPositionDrive();
     	if(GearArm.getInstance().getPosition() > UIConfig.getInstance().getPegPosition())
     		GearArm.getInstance().setPosition(-UIConfig.getInstance().getPegPosition()+20);
@@ -37,11 +38,11 @@ public class GearArmLoadPosition extends Command {
     }
 
     protected boolean isFinished() {
-        return (UIConfig.getInstance().getXbox().getPOV(0) == 0 || UIConfig.getInstance().getXbox().getPOV(0) == 180);
+        return (isTimedOut() && GearArm.getInstance().getVoltage() < 1.1);
     }
 
     protected void end() {
-    	MoveGearArmManual.getInstance();
+    	//ServoMove.getInstance();
     }
 
     protected void interrupted() {

@@ -66,10 +66,10 @@ public class Robot extends IterativeRobot {
 		autoChooser = new SendableChooser<Command>();
 		newChooser = new SendableChooser<Command>();
 		//newChooser.addDefault("Test", new DoNothing());
-		newChooser.addObject("Rotate wheels", new RotateWheelsTest());
+		//newChooser.addDefault("Rotate wheels", new RotateWheelsTest());
 		newChooser.addObject("Cross Baseline", new CrossBaseline());
 		newChooser.addObject("Go Forward", new GoForward());
-		newChooser.addObject("Velocity Test", new VelocityAuto(8160, 8160));
+		//newChooser.addObject("Velocity Test", new VelocityAuto(8160, 8160));
 		newChooser.addDefault("Turn 90", new TurnDegrees(90));
 		imu = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
 			  BNO055.vector_type_t.VECTOR_EULER);
@@ -101,7 +101,8 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		DriveTrain.getInstance().giveValues();
-		SmartDashboard.putData("Auto mode", newChooser);
+		//DriveTrain.getInstance().setPD();
+		//SmartDashboard.putData("Auto mode", newChooser);
 	}
 
 	/**
@@ -117,7 +118,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = autoChooser.getSelected();
+		autonomousCommand = newChooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
