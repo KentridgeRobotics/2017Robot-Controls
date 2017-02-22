@@ -8,6 +8,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
+import org.usfirst.frc.team3786.robot.Robot;
 import org.usfirst.frc.team3786.robot.vision.ContourReport;
 import org.usfirst.frc.team3786.robot.vision.GripPipeline;
 import org.usfirst.frc.team3786.robot.vision.TargetPosition;
@@ -47,7 +48,7 @@ public class GearTargetFinder extends Subsystem {
     // Returns List of MatOfPoint
     public List<MatOfPoint> acquireVisionInput() {
     	System.err.println("acquireVisionInput called");
-    	UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+    	UsbCamera camera = Robot.usbCamera;
         camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
     	CvSink cvSink = CameraServer.getInstance().getVideo();
     	GripPipeline grip = new GripPipeline();
@@ -66,6 +67,29 @@ public class GearTargetFinder extends Subsystem {
 		return convexHulls;    	
     }
     
+    public boolean isRobotInPosition() {
+    	UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
+    	CvSink cvSink = CameraServer.getInstance().getVideo();
+    	GripPipeline grip = new GripPipeline();
+    	
+        Mat source = new Mat();
+        long result = cvSink.grabFrame(source);
+        if (result == 0)
+        {
+        	// There was an error!
+        	System.err.println("ERROR: acquireVisionInput failed: "+cvSink.getError());
+        	return false;
+        }
+        grip.process(source);
+		List<TargetPosition> targetPositions = extractListOfTargetPosition(findObjectiveContourReport(extractContourReports(grip.convexHullsOutput()), WhichDirection.UNKNOWN));
+		
+		if(targetPositions.size() == 2) {
+			return true;
+		} else {
+			return false;
+		}
+    }
     /*public Callable<ArrayList<MatOfPoint>> callVisionThread() {	
     	return new Callable<ArrayList<MatOfPoint>>() {
 			@Override
@@ -147,8 +171,12 @@ public class GearTargetFinder extends Subsystem {
     			} else if(Math.abs(contourReports.get(2).getCenterX() - contourReports.get(3).getCenterX()) < contourReports.get(2).getHeight() * 2.5) {
     				contourReports.remove(0);
     				contourReports.remove(0);
+    			} else if(Math.abs(contourReports.get(1).getCenterX() - contourReports.get(2).getCenterX()) < contourReports.get(1).getHeight() * 2.5) {
+    				contourReports.remove(3);
+    				contourReports.remove(0);
     			} else {
     				System.err.println("Doesn't have an ideal target");
+    				contourReports.clear();
     			}
     			break;
     		case 3: 
@@ -156,6 +184,9 @@ public class GearTargetFinder extends Subsystem {
     				contourReports.remove(2); 
     			}else if (Math.abs(contourReports.get(1).getCenterX() - contourReports.get(2).getCenterX()) < contourReports.get(1).getHeight() * 2.5) {
     				contourReports.remove(0);
+    			} else {
+    				System.err.println("Doesn't have an ideal target");
+    				contourReports.clear();
     			}
     			break;
     		case 2:
