@@ -41,7 +41,9 @@ public class CrossBaseline extends CommandGroup {
 		// Rotate
 		//addSequential(new TurnDegrees(90.0));
 		// onTrue condition is to turn left, onFalse is to turn right.
-//		addSequential(new MaybeTurn(new TurnDegrees(-90.0), new TurnDegrees(90.0)));
+		addSequential(new MaybeTurn(new TurnDegrees(-90.0), new TurnDegrees(90.0), this));
+		addSequential(AutonomousDrive.DriveRobot(RobotConfig.lengthOfRobotInches));
+		addSequential(AutonomousDrive.DriveRobot(-RobotConfig.lengthOfRobotInches));
 		
 		// Drive forward until we're across the baseline
 		//addSequential(AutonomousDrive.DriveRobot(inchesToDrive));
@@ -50,8 +52,11 @@ public class CrossBaseline extends CommandGroup {
 	class MaybeTurn extends ConditionalCommand
 	{
 		
-		public MaybeTurn(Command onTrue, Command onFalse) {
+		private CommandGroup myParentCommand;
+		
+		public MaybeTurn(Command onTrue, Command onFalse, CommandGroup parentCommand) {
 			super(onTrue, onFalse);
+			myParentCommand = parentCommand;
 		}
 
 		// Returns true if the target is to the RIGHT!
@@ -63,8 +68,14 @@ public class CrossBaseline extends CommandGroup {
 			{
 				return true;
 			}
+			else if (whichSide == WhichSide.LEFT)
+			{
+				return false;
+			}
 			else
 			{
+				System.err.println("Woo! Let's cancel!");
+				myParentCommand.cancel();
 				return false;
 			}
 		}
