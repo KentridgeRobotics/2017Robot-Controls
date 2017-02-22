@@ -21,7 +21,7 @@ public abstract class RobotConfig {
 	 */
 	public static final double lengthOfRobotInches = 30.0;
 	public static final double wheelRotationDegreesPerRobotTurnDegree = (180.0/220.0);
-	public static final double wheelDegreesPerInch = (19.5 * Math.PI) / 360.0;
+	public static final double wheelDegreesPerInch = 360.0 / (19.5 * Math.PI);
 	public static final double encoderRotationsPerWheelRotation = 8160.0 / 360.0;
 	
 	public static final int potentiometerTop = 5;

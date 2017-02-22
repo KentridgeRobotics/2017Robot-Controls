@@ -39,10 +39,10 @@ public class CrossBaseline extends CommandGroup {
 		addSequential(AutonomousDrive.DriveRobot(RobotConfig.lengthOfRobotInches));
 		// Rotate
 		// onTrue condition is to turn left, onFalse is to turn right.
-		addSequential(new MaybeTurn(AutonomousDrive.RotateRobot(-30.0), AutonomousDrive.RotateRobot(30.0)));
+		//addSequential(new MaybeTurn(AutonomousDrive.RotateRobot(-30.0), AutonomousDrive.RotateRobot(30.0)));
 		
 		// Drive forward until we're across the baseline
-		addSequential(AutonomousDrive.DriveRobot(inchesToDrive));
+		//addSequential(AutonomousDrive.DriveRobot(inchesToDrive));
 	}
 	
 	class MaybeTurn extends ConditionalCommand
