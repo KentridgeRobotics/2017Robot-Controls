@@ -34,7 +34,7 @@ public class AutonomousDrive extends Command {
     protected void initialize() {
     	DriveTrain.getInstance().setPositionDrive();
     	DriveTrain.getInstance().zeroEncoders();
-    	DriveTrain.getInstance().setPosition(leftEncoderTicks, rightEncoderTicks);
+    	DriveTrain.getInstance().setPosition(-leftEncoderTicks, -rightEncoderTicks);
     	// Call the methods in DriveTrain to set the mode and set position
     }
 
