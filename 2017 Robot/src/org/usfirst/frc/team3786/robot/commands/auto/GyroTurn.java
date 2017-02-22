@@ -12,9 +12,12 @@ import edu.wpi.first.wpilibj.command.Command;
 public class GyroTurn extends Command {
 	
 	private double startX;
+	private double endX;
 	private double leftSpeed;
 	private double rightSpeed;
 	private double angle;
+	private boolean isDone;
+	//private double tolerance = 5;
 
     public GyroTurn(double ang) {
     	requires(DriveTrain.getInstance());
@@ -24,6 +27,7 @@ public class GyroTurn extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	DriveTrain.getInstance().setSpeedDrive();
+    	DriveTrain.getInstance().setBrake();
     	startX = RobotConfig.gyro.getVector()[0];
     	if(angle < 0) {
     		leftSpeed = -.25;
@@ -34,19 +38,23 @@ public class GyroTurn extends Command {
     		rightSpeed = -.25;
     	}    	
     	DriveTrain.getInstance().setSpeed(-leftSpeed, rightSpeed);
+    	endX = startX + angle;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	if(RobotConfig.gyro.getVector()[0] >= endX)
+    		isDone = true;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return isDone;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	DriveTrain.getInstance().setSpeed(0, 0);
     }
 
     // Called when another command which requires one or more of the same

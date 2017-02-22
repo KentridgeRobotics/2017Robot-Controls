@@ -4,6 +4,7 @@ package org.usfirst.frc.team3786.robot;
 import org.usfirst.frc.team3786.robot.commands.auto.CrossBaseline;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
 import org.usfirst.frc.team3786.robot.commands.auto.GoForward;
+import org.usfirst.frc.team3786.robot.commands.auto.GyroTurnTest;
 import org.usfirst.frc.team3786.robot.commands.auto.RotateWheelsTest;
 import org.usfirst.frc.team3786.robot.commands.auto.TurnDegrees;
 import org.usfirst.frc.team3786.robot.commands.auto.VelocityAuto;
@@ -16,6 +17,7 @@ import org.usfirst.frc.team3786.robot.commands.grabber.GearArmLoadPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoMove;
 import org.usfirst.frc.team3786.robot.commands.test.ZeroEncoders;
 import org.usfirst.frc.team3786.robot.config.Camera;
+import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
 import org.usfirst.frc.team3786.robot.subsystems.BNO055;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
@@ -43,7 +45,6 @@ public class Robot extends IterativeRobot {
 	public static DisplayData displayData;
 	//private static BNO055 imu;
 	Command autonomousCommand;
-	SendableChooser<Command> autoChooser;
 	SendableChooser<Command> newChooser;
 
 	/**
@@ -63,11 +64,11 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchUpButton().whenReleased(WinchMove.getStopInstance());
 		UIConfig.getInstance().getTestButton().whenPressed(ZeroEncoders.getInstance());
 		
-		autoChooser = new SendableChooser<Command>();
 		newChooser = new SendableChooser<Command>();
 		//newChooser.addDefault("Test", new DoNothing());
 		//newChooser.addDefault("Rotate wheels", new RotateWheelsTest());
-		newChooser.addDefault("Cross Baseline", new CrossBaseline());
+		newChooser.addDefault("Gyro Test", new GyroTurnTest());
+		//newChooser.addDefault("Cross Baseline", new CrossBaseline());
 		newChooser.addObject("Go Forward", new GoForward());
 		//newChooser.addObject("Velocity Test", new VelocityAuto(8160, 8160));
 		//newChooser.addDefault("Turn 90", new TurnDegrees(90));
@@ -172,9 +173,9 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
 		//Camera.getInstance().pollCamera();
-//		SmartDashboard.putNumber("Gyro X", imu.getVector()[0]);
-//		SmartDashboard.putNumber("Gyro Y", imu.getVector()[1]);
-//		SmartDashboard.putNumber("Gyro Z", imu.getVector()[2]);
+		SmartDashboard.putNumber("Gyro X", RobotConfig.gyro.getVector()[0]);
+		SmartDashboard.putNumber("Gyro Y", RobotConfig.gyro.getVector()[1]);
+		SmartDashboard.putNumber("Gyro Z", RobotConfig.gyro.getVector()[2]);
 //		
 //		SmartDashboard.putBoolean("Gyro Calibration", imu.isCalibrated());
 		
