@@ -3,6 +3,8 @@ package org.usfirst.frc.team3786.robot.vision;
 import java.util.List;
 
 import org.opencv.core.MatOfPoint;
+import org.usfirst.frc.team3786.robot.autonomous.RobotAction;
+import org.usfirst.frc.team3786.robot.autonomous.RobotActionGenerator;
 import org.usfirst.frc.team3786.robot.config.CompetitionConfig;
 import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
 
@@ -32,7 +34,7 @@ public class VisionUtil {
 		List<MatOfPoint> matlist = null;
 		while ((matlist = gtf.acquireVisionInput()) == null)
 		{
-			System.err.println("CAn't get input!!!");
+			System.err.println("Can't get input!!!");
 		}
 		if (matlist == null)
 		{
@@ -65,6 +67,18 @@ public class VisionUtil {
 		}
 		else {
 			return WhichSide.RIGHT;
+		}
+	}
+	
+	public static List<RobotAction> getActionToGearTarget() {
+		GearTargetFinder gtf = CompetitionConfig.gearTargetFinder;
+		
+		List<TargetPosition> tarPosList = gtf.extractListOfTargetPosition(gtf.findObjectiveContourReport(gtf.extractContourReports(gtf.acquireVisionInput()), WhichDirection.UNKNOWN)) ;
+		
+		if(tarPosList.size() == 2) {
+			return RobotActionGenerator.extractListOfActionFromTwoTargetPosition(tarPosList);
+		}else {
+			return RobotActionGenerator.extractListOfActionsFromSingleTargetPosition(tarPosList);
 		}
 	}
 	

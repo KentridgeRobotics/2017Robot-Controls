@@ -1,17 +1,29 @@
 package org.usfirst.frc.team3786.robot.commands.auto;
 
+import java.util.List;
+
+import org.usfirst.frc.team3786.robot.autonomous.RobotAction;
+import org.usfirst.frc.team3786.robot.vision.VisionUtil;
+
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.ConditionalCommand;
 
 /**
  *
  */
 public class AutoPlaceAGear extends CommandGroup {
-
-    public AutoPlaceAGear() {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
+    public AutoPlaceAGear() {       
+        List<RobotAction> listOfAction = VisionUtil.getActionToGearTarget();
+        
+        
+        for(RobotAction robotAction : listOfAction) {
+        	addSequential(robotAction.toAutonomousDrive());
+        	
+        }
+        
+        
+        
 
         // To run multiple commands at the same time,
         // use addParallel()
@@ -36,6 +48,22 @@ public class AutoPlaceAGear extends CommandGroup {
     	// run a new instance of AutoPlaceAGear.
     	
     	// 4. If we're close enough, place a gear, otherwise start the process again at step 1.
+        
+        class doContinueDrive extends ConditionalCommand {
+
+			public doContinueDrive(Command onTrue, Command onFalse) {
+				super(onTrue, onFalse);
+				// TODO Auto-generated constructor stub
+			}
+
+			@Override
+			protected boolean condition() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+        	
+        }
+        
     }
     
     

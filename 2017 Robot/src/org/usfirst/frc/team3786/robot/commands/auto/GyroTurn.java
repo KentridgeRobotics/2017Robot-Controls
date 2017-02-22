@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class GyroTurn extends Command {
 	
+	private static double _tolerance = 0.2;
+	
 	private double startX;
 	private double endX;
 	private double leftSpeed;
@@ -29,7 +31,7 @@ public class GyroTurn extends Command {
     	DriveTrain.getInstance().setSpeedDrive();
     	DriveTrain.getInstance().setBrake();
     	startX = RobotConfig.gyro.getVector()[0];
-    	if(angle < 0) {
+    	if(angle < startX) {
     		leftSpeed = -.25;
     		rightSpeed = .25;
     	}
