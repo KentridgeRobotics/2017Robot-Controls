@@ -1,5 +1,11 @@
 package org.usfirst.frc.team3786.robot.commands.auto;
 
+import java.util.List;
+
+import org.usfirst.frc.team3786.robot.autonomous.RobotAction;
+import org.usfirst.frc.team3786.robot.subsystems.MatOfPoint;
+import org.usfirst.frc.team3786.robot.vision.VisionUtil;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -8,10 +14,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoPlaceAGear extends CommandGroup {
 
     public AutoPlaceAGear() {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
+        addSequential(new Command());
+        addSequential(new Command());
+        
+        List<RobotAction> listOfAction = VisionUtil.getActionToGearTarget();
+        
 
         // To run multiple commands at the same time,
         // use addParallel()

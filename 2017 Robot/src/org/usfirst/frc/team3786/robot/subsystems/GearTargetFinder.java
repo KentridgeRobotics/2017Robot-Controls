@@ -179,7 +179,7 @@ public class GearTargetFinder extends Subsystem {
     						if(640 - contourReports.get(0).getCenterX() < 640 - contourReports.get(0).getCenterX()) {
     							contourReport.remove(0);
     						} else {
-    							
+    							contourReport.remove(1);
     						}
     						break;
     					default:
