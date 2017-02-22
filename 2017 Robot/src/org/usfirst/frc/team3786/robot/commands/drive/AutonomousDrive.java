@@ -1,5 +1,8 @@
 package org.usfirst.frc.team3786.robot.commands.drive;
 
+import java.awt.Robot;
+
+import org.usfirst.frc.team3786.robot.autonomous.RobotAction;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 
@@ -16,8 +19,20 @@ public class AutonomousDrive extends Command {
 	
 	private boolean isDone = false;
 	
+
+	//Drive from List of Current Robot Actions
+	public AutonomousDrive() {
+		if(RobotAction.currentListOfActions.size() > 0) {
+			RobotAction.currentListOfActions.get(0).toAutonomousDrive();
+			RobotAction.currentListOfActions.remove(0);
+		} else {
+			System.err.println("No Current Actions to do");
+		}
+	}
+	
 	//static final double wheelDegreesFwdAndBackPerRobotDegree = ?;
 	// LeftRotation and RightRotation is the # degrees to go forwards (negative is backwards)
+	// Drive with Current Values
     public AutonomousDrive(double leftRotation, double rightRotation) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);

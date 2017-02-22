@@ -1,11 +1,16 @@
 package org.usfirst.frc.team3786.robot.autonomous;
 
+import java.util.List;
+
 import org.usfirst.frc.team3786.robot.commands.drive.AutonomousDrive;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 
 public class RobotAction {
 	double angleToTurnDegrees;
 	double distanceToDriveInches;
+	
+	//Current List of Robot Actions
+	public static List<RobotAction> currentListOfActions;
 	
 	public static RobotAction createTurn(double toTurn)
 	{
@@ -29,6 +34,10 @@ public class RobotAction {
 			return "Drive " + distanceToDriveInches + " inches";
 		}
 		
+	}
+	
+	public static void updatelistOfActions(List<RobotAction> list) {
+		currentListOfActions = list;
 	}
 	
 	public AutonomousDrive toAutonomousDrive () {
