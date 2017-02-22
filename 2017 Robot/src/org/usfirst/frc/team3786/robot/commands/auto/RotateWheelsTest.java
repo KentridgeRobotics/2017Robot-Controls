@@ -30,11 +30,12 @@ public class RotateWheelsTest extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	addParallel(GearArmLoadPositionAuto.getInstance());
-    	addSequential(new AutonomousDrive(360.0, 360.0));
-    	addSequential(ServoMoveAuto.getInstance());
-    	addParallel(new AutonomousDrive(-10, -10));
-    	addSequential(new AutoMoveDown());
-    	addSequential(new AutonomousDrive(-180, -180));
+    	//addSequential(new AutonomousDrive(360.0, 360.0));
+    	addSequential(AutonomousDrive.DriveRobot(61.0));
+//    	addSequential(ServoMoveAuto.getInstance());
+//    	addParallel(new AutonomousDrive(-10, -10));
+//    	addSequential(new AutoMoveDown());
+//    	addSequential(new AutonomousDrive(-180, -180));
     	//addSequential(new AutonomousDrive(-1000.0, -1000.0));
     }
 }

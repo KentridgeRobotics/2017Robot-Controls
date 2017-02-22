@@ -12,12 +12,14 @@ public class TurnDegrees extends Command {
 	private double angle;
 	
     public TurnDegrees(double ang) {
+    	System.err.println("Created TurnDegrees for "+ang);
     	requires(DriveTrain.getInstance());
     	angle = ang;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	System.err.println("Init TurnDegrees");
     	DriveTrain.getInstance().setPositionDrive();
     	DriveTrain.getInstance().setP(.35);
     	DriveTrain.getInstance().setD(.5);

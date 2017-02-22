@@ -41,17 +41,18 @@ public class AutonomousDrive extends Command {
     protected void execute() {
     	
     	// Add some kind of windowed average to make sure we don't overshoot.
-    	double tolerance = 40.0;
+    	double tolerance = 20.0;
     	double currentLeftEncoder = DriveTrain.getInstance().getLeftEncoder();
     	double currentRightEncoder = DriveTrain.getInstance().getRightEncoder();
-    	
-    	if (Math.abs(leftEncoderTicks) <= (Math.abs(currentLeftEncoder) + tolerance)) {
+    	System.err.println("LIMIT = "+ Math.abs(rightEncoderTicks) + " curr = "+(Math.abs(currentRightEncoder) + tolerance));
+//    	if (Math.abs(leftEncoderTicks) <= (Math.abs(currentLeftEncoder) - tolerance)) {
     		if (Math.abs(rightEncoderTicks) <= (Math.abs(currentRightEncoder) + tolerance)) {
     			isDone = true;
+    			System.err.println("ALL DONE WITH AUTONOMOUS DRIVE");
     			return;
     		}
-    	}
-    	
+ //   	}
+  
     }
 
     // Make this return true when this Command no longer needs to run execute()
