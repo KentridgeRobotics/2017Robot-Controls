@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class GyroTurn extends Command {
 	
+	private static double _tolerance = 0.2;
+	
 	private double startX;
 	private double leftSpeed;
 	private double rightSpeed;
@@ -25,7 +27,7 @@ public class GyroTurn extends Command {
     protected void initialize() {
     	DriveTrain.getInstance().setSpeedDrive();
     	startX = RobotConfig.gyro.getVector()[0];
-    	if(angle < 0) {
+    	if(angle < startX) {
     		leftSpeed = -.25;
     		rightSpeed = .25;
     	}
@@ -42,7 +44,7 @@ public class GyroTurn extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return (RobotConfig.gyro.getVector()[0] == angle + _tolerance) || (RobotConfig.gyro.getVector()[0] == angle - _tolerance);
     }
 
     // Called once after isFinished returns true
