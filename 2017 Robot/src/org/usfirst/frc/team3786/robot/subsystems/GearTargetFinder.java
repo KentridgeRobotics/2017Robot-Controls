@@ -8,6 +8,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
+import org.usfirst.frc.team3786.robot.Robot;
 import org.usfirst.frc.team3786.robot.vision.ContourReport;
 import org.usfirst.frc.team3786.robot.vision.GripPipeline;
 import org.usfirst.frc.team3786.robot.vision.TargetPosition;
@@ -47,7 +48,7 @@ public class GearTargetFinder extends Subsystem {
     // Returns List of MatOfPoint
     public List<MatOfPoint> acquireVisionInput() {
     	System.err.println("acquireVisionInput called");
-    	UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+    	UsbCamera camera = Robot.usbCamera;
         camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
     	CvSink cvSink = CameraServer.getInstance().getVideo();
     	GripPipeline grip = new GripPipeline();
