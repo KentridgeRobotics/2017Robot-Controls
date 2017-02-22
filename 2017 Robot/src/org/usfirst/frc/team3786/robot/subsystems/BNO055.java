@@ -65,6 +65,7 @@ import edu.wpi.first.wpilibj.Timer;
  *
  */
 public class BNO055 {
+		
 	//Tread variables
 	private java.util.Timer executor;
 	private static final long THREAD_PERIOD = 20; //ms - max poll rate on sensor.

@@ -27,6 +27,7 @@ public class AutonomousDrive extends Command {
     	rightEncoderTicks = rightRotation * RobotConfig.encoderRotationsPerWheelRotation;
     	prevLeftEncoderTicks = 0.0;
     	prevRightEncoderTicks = 0.0;
+    	setTimeout(.35);
     }
 
     // Called just before this Command runs the first time
@@ -46,12 +47,14 @@ public class AutonomousDrive extends Command {
     	double currentRightEncoder = DriveTrain.getInstance().getRightEncoder();
     	System.err.println("LIMIT = "+ Math.abs(rightEncoderTicks) + " curr = "+(Math.abs(currentRightEncoder) + tolerance));
 //    	if (Math.abs(leftEncoderTicks) <= (Math.abs(currentLeftEncoder) - tolerance)) {
-    		if (Math.abs(rightEncoderTicks) <= (Math.abs(currentRightEncoder) + tolerance)) {
-    			isDone = true;
-    			System.err.println("ALL DONE WITH AUTONOMOUS DRIVE");
-    			return;
-    		}
+//    		if (Math.abs(rightEncoderTicks) <= (Math.abs(currentRightEncoder) + tolerance)) {
+//    			isDone = true;
+//    			System.err.println("ALL DONE WITH AUTONOMOUS DRIVE");
+//    			return;
+//    		}
  //   	}
+    	if(isTimedOut() && Math.abs(DriveTrain.getInstance().getRightVelocity()) <= .6)
+    		isDone = true;
   
     }
 

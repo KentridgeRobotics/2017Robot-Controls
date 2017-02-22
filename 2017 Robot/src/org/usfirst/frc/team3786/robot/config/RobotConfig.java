@@ -1,4 +1,7 @@
 package org.usfirst.frc.team3786.robot.config;
+
+import org.usfirst.frc.team3786.robot.subsystems.BNO055;
+
 /**
  * Abstract class to hold all the values needed for the electronics.
  * 
@@ -26,6 +29,9 @@ public abstract class RobotConfig {
 	
 	public static final int potentiometerTop = 5;
 	public static final int potentiometerBottom = 585;
+	
+	public static BNO055 gyro = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
+				  BNO055.vector_type_t.VECTOR_EULER);
 	
 	public abstract int getLeftDriveMotor();
 	

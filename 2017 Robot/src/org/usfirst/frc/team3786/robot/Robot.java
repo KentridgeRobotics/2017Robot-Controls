@@ -41,7 +41,7 @@ public class Robot extends IterativeRobot {
 
 	public Camera camera;
 	public static DisplayData displayData;
-	private static BNO055 imu;
+	//private static BNO055 imu;
 	Command autonomousCommand;
 	SendableChooser<Command> autoChooser;
 	SendableChooser<Command> newChooser;
@@ -67,12 +67,10 @@ public class Robot extends IterativeRobot {
 		newChooser = new SendableChooser<Command>();
 		//newChooser.addDefault("Test", new DoNothing());
 		//newChooser.addDefault("Rotate wheels", new RotateWheelsTest());
-		newChooser.addObject("Cross Baseline", new CrossBaseline());
+		newChooser.addDefault("Cross Baseline", new CrossBaseline());
 		newChooser.addObject("Go Forward", new GoForward());
 		//newChooser.addObject("Velocity Test", new VelocityAuto(8160, 8160));
-		newChooser.addDefault("Turn 90", new TurnDegrees(90));
-		imu = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
-			  BNO055.vector_type_t.VECTOR_EULER);
+		//newChooser.addDefault("Turn 90", new TurnDegrees(90));
 		
 		//SmartDashboard.putData("Auto mode", autoChooser);
 		SmartDashboard.putData("Auto Mode", newChooser);
@@ -174,11 +172,11 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
 		//Camera.getInstance().pollCamera();
-		SmartDashboard.putNumber("Gyro X", imu.getVector()[0]);
-		SmartDashboard.putNumber("Gyro Y", imu.getVector()[1]);
-		SmartDashboard.putNumber("Gyro Z", imu.getVector()[2]);
-		
-		SmartDashboard.putBoolean("Gyro Calibration", imu.isCalibrated());
+//		SmartDashboard.putNumber("Gyro X", imu.getVector()[0]);
+//		SmartDashboard.putNumber("Gyro Y", imu.getVector()[1]);
+//		SmartDashboard.putNumber("Gyro Z", imu.getVector()[2]);
+//		
+//		SmartDashboard.putBoolean("Gyro Calibration", imu.isCalibrated());
 		
 		SmartDashboard.putNumber("Left Encoder", DriveTrain.getInstance().getLeftEncoder());
 		SmartDashboard.putNumber("Left Velocity", DriveTrain.getInstance().getLeftVelocity());
