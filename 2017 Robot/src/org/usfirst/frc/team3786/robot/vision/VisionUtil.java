@@ -73,7 +73,7 @@ public class VisionUtil {
 	public static List<RobotAction> getActionToGearTarget() {
 		GearTargetFinder gtf = CompetitionConfig.gearTargetFinder;
 		
-		List<TargetPosition> tarPosList = gtf.findObjectiveContourReport(gtf.extractContourReports(gtf.acquireVisionInput()), WhichDirection.UNKNOWN);
+		List<TargetPosition> tarPosList = gtf.extractListOfTargetPosition(gtf.findObjectiveContourReport(gtf.extractContourReports(gtf.acquireVisionInput()), WhichDirection.UNKNOWN)) ;
 		
 		if(tarPosList.size() == 2) {
 			return RobotActionGenerator.extractListOfActionFromTwoTargetPosition(tarPosList);
