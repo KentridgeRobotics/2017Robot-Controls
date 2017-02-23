@@ -18,12 +18,16 @@ public class AutonomousDrive extends Command {
 	private double prevRightEncoderTicks;
 	
 	private boolean isDone = false;
-	private boolean useActionFromList;
 	
 
 	//Drive from List of Current Robot Actions
 	public AutonomousDrive() {
-		useActionFromList = true;
+		if(RobotAction.currentListOfActions.size() > 0) {
+			RobotAction.currentListOfActions.get(0).toAutonomousDrive();
+			RobotAction.currentListOfActions.remove(0);
+		} else {
+			System.err.println("No Current Actions to do");
+		}
 	}
 	
 	//static final double wheelDegreesFwdAndBackPerRobotDegree = ?;
@@ -44,14 +48,6 @@ public class AutonomousDrive extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if(useActionFromList) {
-    		if(RobotAction.currentListOfActions.size() > 0) {
-				RobotAction.currentListOfActions.get(0).toAutonomousDrive();
-				RobotAction.currentListOfActions.remove(0);
-			} else {
-				System.err.println("No Current Actions to do");
-			}
-    	}
     	DriveTrain.getInstance().setPositionDrive();
     	DriveTrain.getInstance().zeroEncoders();
     	DriveTrain.getInstance().setPosition(leftEncoderTicks, rightEncoderTicks);
