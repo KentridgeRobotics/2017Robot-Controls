@@ -35,12 +35,12 @@ public class TankDrive extends UIConfig {
 	}
 	@Override
 	public double getLeftDrive() {
-		leftOut = -(leftStick.getY());
+		leftOut = (leftStick.getY());
 		return Math.pow(leftOut, 2) * (Math.abs(leftOut)/leftOut);
 	}
 	@Override
 	public double getRightDrive() {
-		rightOut = rightStick.getY();
+		rightOut = -rightStick.getY();
 		return Math.pow(rightOut, 2) * (Math.abs(rightOut)/rightOut);
 	}
 	@Override

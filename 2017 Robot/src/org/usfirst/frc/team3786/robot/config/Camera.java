@@ -13,7 +13,7 @@ public class Camera {
 			instance = new Camera("VISION/ContourReport");
 		return instance;
 	}
-		
+	
 	private NetworkTable table;
 	
 	private String KEY;

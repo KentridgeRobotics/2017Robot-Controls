@@ -30,7 +30,8 @@ public class GyroTurn extends Command {
     protected void initialize() {
     	DriveTrain.getInstance().setSpeedDrive();
     	DriveTrain.getInstance().setBrake();
-    	if(angle < 0) {
+    	startX = RobotConfig.gyro.getVector()[0];
+    	if(angle < startX) {
     		leftSpeed = -.25;
     		rightSpeed = .25;
     	}
@@ -39,7 +40,6 @@ public class GyroTurn extends Command {
     		rightSpeed = -.25;
     	}    	
     	DriveTrain.getInstance().setSpeed(-leftSpeed, rightSpeed);
-    	startX = RobotConfig.gyro.getVector()[0];
     	endX = startX + angle;
     }
 

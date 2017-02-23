@@ -16,7 +16,7 @@ public class ArcadeDrive extends UIConfig {
 	private JoystickButton winchDownButton = new JoystickButton(xbox, 7);
 	private final double PEG_POSITION = 165;
 	
-	private final double GAIN = 1.2;
+	private final double GAIN = .5;
 
 	
 	private double throttle() {

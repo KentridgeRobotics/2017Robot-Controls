@@ -12,6 +12,5 @@ public class GyroTurnTest extends CommandGroup {
     public GyroTurnTest() {
     	addSequential(new AutonomousDrive(360,360));
     	addSequential(new GyroTurn(90));
-    	//addSequential(new GyroTurn(-180));
     }
 }

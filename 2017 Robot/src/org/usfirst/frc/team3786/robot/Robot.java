@@ -67,16 +67,16 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getTestButton().whenPressed(ZeroEncoders.getInstance());
 		usbCamera = CameraServer.getInstance().startAutomaticCapture();
 		newChooser = new SendableChooser<Command>();
-		newChooser.addDefault("Do Nothing", new DoNothing());
+		//newChooser.addDefault("Test", new DoNothing());
 		//newChooser.addDefault("Rotate wheels", new RotateWheelsTest());
-		newChooser.addObject("Gyro Test", new GyroTurnTest());
+		newChooser.addDefault("Gyro Test", new GyroTurnTest());
 		//newChooser.addDefault("Cross Baseline", new CrossBaseline());
-		//newChooser.addObject("Go Forward", new GoForward());
+		newChooser.addObject("Go Forward", new GoForward());
 		//newChooser.addObject("Velocity Test", new VelocityAuto(8160, 8160));
 		//newChooser.addDefault("Turn 90", new TurnDegrees(90));
 		
 		//SmartDashboard.putData("Auto mode", autoChooser);
-		SmartDashboard.putData("Auto mode", newChooser);
+		SmartDashboard.putData("Auto Mode", newChooser);
 		displayData = new DisplayData();
 		System.err.println("Adding display data");
 		SmartDashboard.putData("Display Data", displayData);
