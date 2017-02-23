@@ -32,6 +32,7 @@ public class AutonomousDrive extends Command {
     public AutonomousDrive(double leftRotation, double rightRotation) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	useActionFromList = false;
     	requires(DriveTrain.getInstance());
     	System.err.println("Starting autonomous drive: left=" + leftRotation + " right=" + rightRotation);
     	leftEncoderTicks = leftRotation * RobotConfig.encoderRotationsPerWheelRotation;

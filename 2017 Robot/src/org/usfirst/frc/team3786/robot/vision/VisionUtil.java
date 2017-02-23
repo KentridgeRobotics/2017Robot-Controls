@@ -70,16 +70,11 @@ public class VisionUtil {
 		}
 	}
 	
-	public static List<RobotAction> getActionToGearTarget() {
+	public static List<TargetPosition> getTargetPositionToGearTarget() {
 		GearTargetFinder gtf = CompetitionConfig.gearTargetFinder;
 		
-		List<TargetPosition> tarPosList = gtf.extractListOfTargetPosition(gtf.findObjectiveContourReport(gtf.extractContourReports(gtf.acquireVisionInput()), WhichDirection.UNKNOWN)) ;
+		return gtf.extractListOfTargetPosition(gtf.findObjectiveContourReport(gtf.extractContourReports(gtf.acquireVisionInput()), WhichDirection.UNKNOWN)) ;
 		
-		if(tarPosList.size() == 2) {
-			return RobotActionGenerator.extractListOfActionFromTwoTargetPosition(tarPosList);
-		}else {
-			return RobotActionGenerator.extractListOfActionsFromSingleTargetPosition(tarPosList);
-		}
 	}
 	
 }
