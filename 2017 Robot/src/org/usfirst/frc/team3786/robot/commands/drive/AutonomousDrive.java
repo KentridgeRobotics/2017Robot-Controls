@@ -1,5 +1,8 @@
 package org.usfirst.frc.team3786.robot.commands.drive;
 
+import java.awt.Robot;
+
+import org.usfirst.frc.team3786.robot.autonomous.RobotAction;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 
@@ -15,12 +18,21 @@ public class AutonomousDrive extends Command {
 	private double prevRightEncoderTicks;
 	
 	private boolean isDone = false;
+	private boolean useActionFromList;
+	
+
+	//Drive from List of Current Robot Actions
+	public AutonomousDrive() {
+		useActionFromList = true;
+	}
 	
 	//static final double wheelDegreesFwdAndBackPerRobotDegree = ?;
 	// LeftRotation and RightRotation is the # degrees to go forwards (negative is backwards)
+	// Drive with Current Values
     public AutonomousDrive(double leftRotation, double rightRotation) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	useActionFromList = false;
     	requires(DriveTrain.getInstance());
     	System.err.println("Starting autonomous drive: left=" + leftRotation + " right=" + rightRotation);
     	leftEncoderTicks = leftRotation * RobotConfig.encoderRotationsPerWheelRotation;
@@ -32,9 +44,17 @@ public class AutonomousDrive extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if(useActionFromList) {
+    		if(RobotAction.currentListOfActions.size() > 0) {
+				RobotAction.currentListOfActions.get(0).toAutonomousDrive();
+				RobotAction.currentListOfActions.remove(0);
+			} else {
+				System.err.println("No Current Actions to do");
+			}
+    	}
     	DriveTrain.getInstance().setPositionDrive();
     	DriveTrain.getInstance().zeroEncoders();
-    	DriveTrain.getInstance().setPosition(-leftEncoderTicks, -rightEncoderTicks);
+    	DriveTrain.getInstance().setPosition(leftEncoderTicks, rightEncoderTicks);
     	// Call the methods in DriveTrain to set the mode and set position
     }
 
