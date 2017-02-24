@@ -71,9 +71,9 @@ public class Robot extends IterativeRobot {
 		//newChooser.addDefault("Rotate wheels", new RotateWheelsTest());
 		newChooser.addObject("Gyro Test", new GyroTurnTest());
 		//newChooser.addDefault("Cross Baseline", new CrossBaseline());
-		//newChooser.addObject("Go Forward", new GoForward());
+		newChooser.addObject("Go Forward", new GoForward());
 		//newChooser.addObject("Velocity Test", new VelocityAuto(8160, 8160));
-		//newChooser.addDefault("Turn 90", new TurnDegrees(90));
+		newChooser.addObject("Turn 90", new TurnDegrees(90));
 		
 		//SmartDashboard.putData("Auto mode", autoChooser);
 		SmartDashboard.putData("Auto mode", newChooser);
@@ -101,7 +101,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		DriveTrain.getInstance().giveValues();
+		//DriveTrain.getInstance().giveValues();
 		//DriveTrain.getInstance().setPD();
 		//SmartDashboard.putData("Auto mode", newChooser);
 	}
@@ -149,7 +149,9 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().getDriveType());
 		
-		DriveTrain.getInstance().getLoopError();
+		//System.err.println("Gyro Heading" + RobotConfig.gyro.getHeading());
+		
+		//DriveTrain.getInstance().getLoopError();
 	}
 
 	@Override
