@@ -95,7 +95,7 @@ public class AutonomousDrive extends Command {
     }
 
 	public static AutonomousDrive RotateRobot(double degrees) {
-		return new AutonomousDrive(-degrees*RobotConfig.wheelRotationDegreesPerRobotTurnDegree, degrees*RobotConfig.wheelRotationDegreesPerRobotTurnDegree);
+		return new AutonomousDrive(RobotConfig.leftWheelMultiplier *-degrees*RobotConfig.wheelRotationDegreesPerRobotTurnDegree, RobotConfig.rightWheelMultiplier* degrees*RobotConfig.wheelRotationDegreesPerRobotTurnDegree);
 	}
 
 	/**
@@ -104,6 +104,6 @@ public class AutonomousDrive extends Command {
 	 * @return
 	 */
 	public static AutonomousDrive DriveRobot(double distance) {
-		return new AutonomousDrive(distance*RobotConfig.wheelDegreesPerInch, distance*RobotConfig.wheelDegreesPerInch);
+		return new AutonomousDrive(RobotConfig.leftWheelMultiplier * distance*RobotConfig.wheelDegreesPerInch, RobotConfig.rightWheelMultiplier* distance*RobotConfig.wheelDegreesPerInch);
 	}
 }

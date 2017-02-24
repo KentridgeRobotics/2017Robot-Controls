@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team3786.robot;
 
+import org.opencv.core.Mat;
 import org.usfirst.frc.team3786.robot.commands.auto.CrossBaseline;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
 import org.usfirst.frc.team3786.robot.commands.auto.GoForward;
@@ -25,6 +26,8 @@ import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 import org.usfirst.frc.team3786.robot.subsystems.Rangefinders;
 import org.usfirst.frc.team3786.robot.vision.FinderOfRange;
 
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -49,6 +52,7 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser<Command> newChooser;
 	public static UsbCamera usbCamera;
+	Mat cameraStream = new Mat();
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -163,9 +167,6 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		DriveTrain.getInstance().setSpeedDrive();
-		
-		
-
 		
 	}
 

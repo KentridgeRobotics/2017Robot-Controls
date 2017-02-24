@@ -16,7 +16,7 @@ public class ArcadeDrive extends UIConfig {
 	private JoystickButton winchDownButton = new JoystickButton(xbox, 7);
 	private final double PEG_POSITION = 165;
 	
-	private final double GAIN = .5;
+	private final double GAIN = 1.2;
 
 	
 	private double throttle() {
@@ -24,7 +24,7 @@ public class ArcadeDrive extends UIConfig {
 	}
 
 	private double turn() {
-		return leftStick.getY();
+		return -leftStick.getY();
 	}
 	
 	private double leftOut() {

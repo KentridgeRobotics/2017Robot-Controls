@@ -30,6 +30,10 @@ public abstract class RobotConfig {
 	public static final int potentiometerTop = 5;
 	public static final int potentiometerBottom = 585;
 	
+	//for problems caused due to not knowing if test robot is backwards or not
+	public static final int leftWheelMultiplier = -1;
+	public static final int rightWheelMultiplier = -1;
+	
 	public static BNO055 gyro = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
 				  BNO055.vector_type_t.VECTOR_EULER);
 	
