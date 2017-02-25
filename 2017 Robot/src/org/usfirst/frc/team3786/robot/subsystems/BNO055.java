@@ -68,7 +68,7 @@ public class BNO055 {
 		
 	//Tread variables
 	private java.util.Timer executor;
-	private static final long THREAD_PERIOD = 200; //ms - max poll rate on sensor.
+	private static final long THREAD_PERIOD = 100; //ms - max poll rate on sensor.
 	
 	public static final byte BNO055_ADDRESS_A = 0x28;
 	public static final byte BNO055_ADDRESS_B = 0x29;

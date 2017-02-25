@@ -1,7 +1,5 @@
 package org.usfirst.frc.team3786.robot.config;
 
-import org.usfirst.frc.team3786.robot.subsystems.BNO055;
-
 /**
  * Abstract class to hold all the values needed for the electronics.
  * 
@@ -15,7 +13,7 @@ public abstract class RobotConfig {
 	
 	public static RobotConfig getInstance() {
 		if(instance == null)
-			instance = new CompetitionConfig();
+			instance = new PracticeConfig();
 		return instance;
 	}
 
@@ -34,8 +32,6 @@ public abstract class RobotConfig {
 	public static final int leftWheelMultiplier = -1;
 	public static final int rightWheelMultiplier = -1;
 	
-	public static BNO055 gyro;
-	
 	public abstract int getLeftDriveMotor();
 	
 	public abstract int getRightDriveMotor();
@@ -45,5 +41,11 @@ public abstract class RobotConfig {
 	public abstract int getWinchMotor();
 	
 	public abstract int getWinchDeployMotor();
+	
+	public abstract double getTurnSpeed();
+	
+	public abstract double getDriveMaxVoltageRamp();
+	
+	public abstract double getDriveP();
 		
 }

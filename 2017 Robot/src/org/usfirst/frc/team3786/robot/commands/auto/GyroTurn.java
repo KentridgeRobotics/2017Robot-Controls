@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3786.robot.commands.auto;
 
+import org.usfirst.frc.team3786.robot.Robot;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.subsystems.BNO055;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
@@ -21,13 +22,13 @@ public class GyroTurn extends Command {
 	private boolean isDone;
 	private boolean isBackwards;
 	
-	BNO055 gyro;
+	//BNO055 gyro;
 
     public GyroTurn(double ang) {
     	requires(DriveTrain.getInstance());
     	angle = ang;
-    	gyro = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
-  			   BNO055.vector_type_t.VECTOR_EULER);
+    //	gyro = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
+  		//	   BNO055.vector_type_t.VECTOR_EULER);
     }
 
     // Called just before this Command runs the first time
@@ -46,14 +47,14 @@ public class GyroTurn extends Command {
     		isBackwards = true;
     	}    	
     	DriveTrain.getInstance().setSpeed(-leftSpeed, rightSpeed);
-    	startX = gyro.getHeading();
+    	startX = Robot.gyro.getHeading();
     	endX = startX + angle;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println("Calibrated " + gyro.isCalibrated() + " | Start X " + startX + " | End X " + endX +" | Current X " + gyro.getHeading());
-    	if((gyro.getHeading() >= endX && !isBackwards) || (gyro.getHeading() <= endX && isBackwards)) {
+    	System.out.println("Calibrated " + Robot.gyro.isCalibrated() + " | Start X " + startX + " | End X " + endX +" | Current X " + Robot.gyro.getHeading());
+    	if((Robot.gyro.getHeading() >= endX && !isBackwards) || (Robot.gyro.getHeading() <= endX && isBackwards)) {
     		isDone = true;
     		DriveTrain.getInstance().setSpeed(0, 0);
     	}

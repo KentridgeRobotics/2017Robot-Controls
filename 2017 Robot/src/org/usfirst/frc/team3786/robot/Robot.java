@@ -18,7 +18,6 @@ import org.usfirst.frc.team3786.robot.commands.grabber.GearArmLoadPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoMove;
 import org.usfirst.frc.team3786.robot.commands.test.ZeroEncoders;
 import org.usfirst.frc.team3786.robot.config.Camera;
-import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
 import org.usfirst.frc.team3786.robot.subsystems.BNO055;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
@@ -53,6 +52,7 @@ public class Robot extends IterativeRobot {
 	SendableChooser<Command> newChooser;
 	public static UsbCamera usbCamera;
 	Mat cameraStream = new Mat();
+	public static BNO055 gyro;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -70,13 +70,13 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchUpButton().whenReleased(WinchMove.getStopInstance());
 		UIConfig.getInstance().getTestButton().whenPressed(ZeroEncoders.getInstance());
 		usbCamera = CameraServer.getInstance().startAutomaticCapture();
-		RobotConfig.gyro = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
+		Robot.gyro = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
 				  BNO055.vector_type_t.VECTOR_EULER);
 		newChooser = new SendableChooser<Command>();
 		//newChooser.addDefault("Test", new DoNothing());
 		//newChooser.addDefault("Rotate wheels", new RotateWheelsTest());
-		newChooser.addDefault("Gyro Test", new GyroTurnTest());
-		//newChooser.addDefault("Cross Baseline", new CrossBaseline());
+		//newChooser.addDefault("Gyro Test", new GyroTurnTest());
+		newChooser.addDefault("Cross Baseline", new CrossBaseline());
 		newChooser.addObject("Go Forward", new GoForward());
 		//newChooser.addObject("Velocity Test", new VelocityAuto(8160, 8160));
 		newChooser.addObject("Turn 90", new TurnDegrees(90));
@@ -180,9 +180,9 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
 		//Camera.getInstance().pollCamera();
-		SmartDashboard.putNumber("Gyro X", RobotConfig.gyro.getVector()[0]);
-		SmartDashboard.putNumber("Gyro Y", RobotConfig.gyro.getVector()[1]);
-		SmartDashboard.putNumber("Gyro Z", RobotConfig.gyro.getVector()[2]);
+		SmartDashboard.putNumber("Gyro X", Robot.gyro.getVector()[0]);
+		SmartDashboard.putNumber("Gyro Y", Robot.gyro.getVector()[1]);
+		SmartDashboard.putNumber("Gyro Z", Robot.gyro.getVector()[2]);
 //		
 //		SmartDashboard.putBoolean("Gyro Calibration", imu.isCalibrated());
 		

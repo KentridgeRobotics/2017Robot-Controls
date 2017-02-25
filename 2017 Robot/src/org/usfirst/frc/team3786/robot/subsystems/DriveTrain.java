@@ -213,7 +213,7 @@ public class DriveTrain extends Subsystem {
 		leftDriveMotor.configPeakOutputVoltage(+12f, -12f);
 		
     	//leftDriveMotor.setPID(SmartDashboard.getNumber("PValue", .5), 0.0, SmartDashboard.getNumber("DValue", .6), 0, 200, 24.0, 0);
-		leftDriveMotor.setPID(.35, 0.0, .75, 0, 200, 24.0, 0);
+		leftDriveMotor.setPID(RobotConfig.getInstance().getDriveP(), 0.0, .75, 0, 200, RobotConfig.getInstance().getDriveMaxVoltageRamp(), 0);
 		leftDriveMotor.enableControl();
 		
 		rightDriveMotor.reverseSensor(true);
@@ -224,7 +224,7 @@ public class DriveTrain extends Subsystem {
 
 		
     	//rightDriveMotor.setPID(SmartDashboard.getNumber("PValue", .5), 0.0, SmartDashboard.getNumber("DValue", .6), 0, 200, 24.0, 0);
-		rightDriveMotor.setPID(.35, 0.0, .75, 0, 200, 24.0, 0);
+		rightDriveMotor.setPID(RobotConfig.getInstance().getDriveP(), 0.0, .75, 0, 200, RobotConfig.getInstance().getDriveMaxVoltageRamp(), 0);
 		rightDriveMotor.enableControl();
 				
     	//}
