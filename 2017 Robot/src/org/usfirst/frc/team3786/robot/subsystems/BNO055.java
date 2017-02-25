@@ -68,18 +68,17 @@ public class BNO055 {
 		
 	//Tread variables
 	private java.util.Timer executor;
-	private static final long THREAD_PERIOD = 100; //ms - max poll rate on sensor.
+	private static final long THREAD_PERIOD = 50; //ms - max poll rate on sensor.
 	
 	public static final byte BNO055_ADDRESS_A = 0x28;
 	public static final byte BNO055_ADDRESS_B = 0x29;
 	public static final int BNO055_ID = 0xA0;
 
-	private static BNO055 instance;
 	
-	private static I2C imu;
-	private static int _mode;
-	private static opmode_t requestedMode; //user requested mode of operation.
-	private static vector_type_t requestedVectorType;
+	private I2C imu;
+	private int _mode;
+	private opmode_t requestedMode; //user requested mode of operation.
+	private vector_type_t requestedVectorType;
 	
 	//State machine variables
 	private volatile int state = 0;
@@ -356,11 +355,9 @@ public class BNO055 {
 	 */
 	public static BNO055 getInstance(opmode_t mode, vector_type_t vectorType,
 			I2C.Port port, byte address) {
-		if(instance == null) {
-			instance = new BNO055(port, address);
-		}
-		requestedMode = mode;
-		requestedVectorType = vectorType;
+		BNO055 instance = new BNO055(port, address);
+		instance.requestedMode = mode;
+		instance.requestedVectorType = vectorType;
 		return instance;
 	}
 
@@ -385,8 +382,8 @@ public class BNO055 {
 	private void update() {
 		currentTime = Timer.getFPGATimestamp(); //seconds
 		if(!initialized) {
-//			System.out.println("State: " + state + ".  curr: " + currentTime
-//					+ ", next: " + nextTime);
+			System.err.println("State: " + state + ".  curr: " + currentTime
+					+ ", next: " + nextTime);
 			
 			//Step through process of initializing the sensor in a non-
 			//  blocking manner. This sequence of events follows the process
@@ -470,6 +467,7 @@ public class BNO055 {
 				break;
 			default:
 				//Should never get here - Fail safe
+				System.err.println("SOMETHING BAD HAPPENNED!!!!!!!!!");
 				initialized = false;
 			}
 		} else {
@@ -540,7 +538,7 @@ public class BNO055 {
 		
 		//Update position vectors
 		xyz = pos;
-		System.err.println("BNOOOOO!!!! x="+xyz[0]+" y="+xyz[1]+" z="+xyz[2]);
+		//System.err.println("BNOOOOO!!!! x="+xyz[0]+" y="+xyz[1]+" z="+xyz[2]);
 	}
 	
 	/**
@@ -682,7 +680,7 @@ public class BNO055 {
 	 * @return true if calibration is complete for all sensors required for the
 	 *   mode the sensor is currently operating in. 
 	 */
-	public boolean isCalibrated() {
+	private boolean isCalibrated() {
 		boolean retVal = true;
 		
 		//Per Table 3-3

@@ -57,14 +57,28 @@ public class PracticeConfig extends RobotConfig {
 	@Override
 	public double getDriveMaxVoltageRamp() {
 		// TODO Auto-generated method stub
-		return 12.0;
+		return 18.0;
 	}
 
 
 	@Override
 	public double getDriveP() {
 		// TODO Auto-generated method stub
-		return .05;
+		return .1;
+	}
+
+
+	@Override
+	public double getLeftEncoderTickFactor() {
+		// TODO Auto-generated method stub
+		return 0.8;
+	}
+
+
+	@Override
+	public double getRightEncoderTickFactor() {
+		// TODO Auto-generated method stub
+		return 1.0;
 	}
 	
 

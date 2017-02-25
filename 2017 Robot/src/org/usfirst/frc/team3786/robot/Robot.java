@@ -3,6 +3,7 @@ package org.usfirst.frc.team3786.robot;
 
 import org.opencv.core.Mat;
 import org.usfirst.frc.team3786.robot.commands.auto.CrossBaseline;
+import org.usfirst.frc.team3786.robot.commands.auto.DisplayNextTarget;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
 import org.usfirst.frc.team3786.robot.commands.auto.GoForward;
 import org.usfirst.frc.team3786.robot.commands.auto.GyroTurnTest;
@@ -18,6 +19,7 @@ import org.usfirst.frc.team3786.robot.commands.grabber.GearArmLoadPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoMove;
 import org.usfirst.frc.team3786.robot.commands.test.ZeroEncoders;
 import org.usfirst.frc.team3786.robot.config.Camera;
+import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
 import org.usfirst.frc.team3786.robot.subsystems.BNO055;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
@@ -50,9 +52,8 @@ public class Robot extends IterativeRobot {
 	//private static BNO055 imu;
 	Command autonomousCommand;
 	SendableChooser<Command> newChooser;
-	public static UsbCamera usbCamera;
-	Mat cameraStream = new Mat();
-	public static BNO055 gyro;
+	
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -69,9 +70,7 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchUpButton().whileHeld(WinchMove.getUpInstance());
 		UIConfig.getInstance().getWinchUpButton().whenReleased(WinchMove.getStopInstance());
 		UIConfig.getInstance().getTestButton().whenPressed(ZeroEncoders.getInstance());
-		usbCamera = CameraServer.getInstance().startAutomaticCapture();
-		Robot.gyro = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
-				  BNO055.vector_type_t.VECTOR_EULER);
+		RobotConfig.getInstance().initialize();
 		newChooser = new SendableChooser<Command>();
 		//newChooser.addDefault("Test", new DoNothing());
 		//newChooser.addDefault("Rotate wheels", new RotateWheelsTest());
@@ -126,7 +125,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		autonomousCommand = newChooser.getSelected();
-
+		SmartDashboard.putData(Scheduler.getInstance());
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -155,6 +154,9 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().getDriveType());
 		
+		SmartDashboard.putNumber("Target distance", DisplayNextTarget.distance);
+		SmartDashboard.putNumber("Target direction", DisplayNextTarget.direction);
+		SmartDashboard.putNumber("Target face angle", DisplayNextTarget.faceAngle);
 		//System.err.println("Gyro Heading" + RobotConfig.gyro.getHeading());
 		
 		//DriveTrain.getInstance().getLoopError();
@@ -180,9 +182,9 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
 		//Camera.getInstance().pollCamera();
-		SmartDashboard.putNumber("Gyro X", Robot.gyro.getVector()[0]);
-		SmartDashboard.putNumber("Gyro Y", Robot.gyro.getVector()[1]);
-		SmartDashboard.putNumber("Gyro Z", Robot.gyro.getVector()[2]);
+		SmartDashboard.putNumber("Gyro X", RobotConfig.getInstance().GetGyro().getVector()[0]);
+		SmartDashboard.putNumber("Gyro Y", RobotConfig.getInstance().GetGyro().getVector()[1]);
+		SmartDashboard.putNumber("Gyro Z", RobotConfig.getInstance().GetGyro().getVector()[2]);
 //		
 //		SmartDashboard.putBoolean("Gyro Calibration", imu.isCalibrated());
 		

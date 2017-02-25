@@ -69,6 +69,20 @@ public class CompetitionConfig extends RobotConfig {
 		// TODO Auto-generated method stub
 		return .35;
 	}
+
+
+	@Override
+	public double getLeftEncoderTickFactor() {
+		// TODO Auto-generated method stub
+		return 1.0;
+	}
+
+
+	@Override
+	public double getRightEncoderTickFactor() {
+		// TODO Auto-generated method stub
+		return 1.0;
+	}
 	
 	
 

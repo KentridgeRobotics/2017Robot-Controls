@@ -1,9 +1,12 @@
 package org.usfirst.frc.team3786.robot.commands.auto;
 
+import java.util.List;
+
 import org.usfirst.frc.team3786.robot.Robot;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.subsystems.BNO055;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team3786.robot.vision.TargetPosition;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -21,18 +24,23 @@ public class GyroTurn extends Command {
 	private double angle;
 	private boolean isDone;
 	private boolean isBackwards;
+	private List<TargetPosition> targetPositions = null;
 	
-	//BNO055 gyro;
-
     public GyroTurn(double ang) {
     	requires(DriveTrain.getInstance());
     	angle = ang;
-    //	gyro = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
-  		//	   BNO055.vector_type_t.VECTOR_EULER);
     }
 
+    public GyroTurn(List<TargetPosition> targetPositions) {
+    	requires(DriveTrain.getInstance());
+    	this.targetPositions = targetPositions;
+    }
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if ((targetPositions != null) && (targetPositions.size() != 0))
+    	{
+    		angle = targetPositions.get(0).getTargetDirectionDegrees();
+    	}
     	System.err.println("Initiailized turn " + angle);
     	DriveTrain.getInstance().setSpeedDrive();
     	DriveTrain.getInstance().setBrake();
@@ -47,14 +55,14 @@ public class GyroTurn extends Command {
     		isBackwards = true;
     	}    	
     	DriveTrain.getInstance().setSpeed(-leftSpeed, rightSpeed);
-    	startX = Robot.gyro.getHeading();
+    	startX = RobotConfig.getInstance().GetGyro().getHeading();
     	endX = startX + angle;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println("Calibrated " + Robot.gyro.isCalibrated() + " | Start X " + startX + " | End X " + endX +" | Current X " + Robot.gyro.getHeading());
-    	if((Robot.gyro.getHeading() >= endX && !isBackwards) || (Robot.gyro.getHeading() <= endX && isBackwards)) {
+//    	System.out.println("Calibrated " + RobotConfig.getInstance().GetGyro().isCalibrated() + " | Start X " + startX + " | End X " + endX +" | Current X " + RobotConfig.getInstance().GetGyro().getHeading());
+    	if((RobotConfig.getInstance().GetGyro().getHeading() >= endX && !isBackwards) || (RobotConfig.getInstance().GetGyro().getHeading() <= endX && isBackwards)) {
     		isDone = true;
     		DriveTrain.getInstance().setSpeed(0, 0);
     	}
