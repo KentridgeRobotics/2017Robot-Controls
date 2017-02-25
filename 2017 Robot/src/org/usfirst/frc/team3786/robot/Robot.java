@@ -70,6 +70,8 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchUpButton().whenReleased(WinchMove.getStopInstance());
 		UIConfig.getInstance().getTestButton().whenPressed(ZeroEncoders.getInstance());
 		usbCamera = CameraServer.getInstance().startAutomaticCapture();
+		RobotConfig.gyro = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
+				  BNO055.vector_type_t.VECTOR_EULER);
 		newChooser = new SendableChooser<Command>();
 		//newChooser.addDefault("Test", new DoNothing());
 		//newChooser.addDefault("Rotate wheels", new RotateWheelsTest());

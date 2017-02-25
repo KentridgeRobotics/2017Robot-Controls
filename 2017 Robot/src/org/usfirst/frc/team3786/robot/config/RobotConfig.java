@@ -34,8 +34,7 @@ public abstract class RobotConfig {
 	public static final int leftWheelMultiplier = -1;
 	public static final int rightWheelMultiplier = -1;
 	
-	public static BNO055 gyro = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
-				  BNO055.vector_type_t.VECTOR_EULER);
+	public static BNO055 gyro;
 	
 	public abstract int getLeftDriveMotor();
 	

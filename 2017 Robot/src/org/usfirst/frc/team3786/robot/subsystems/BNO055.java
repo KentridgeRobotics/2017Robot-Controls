@@ -68,7 +68,7 @@ public class BNO055 {
 		
 	//Tread variables
 	private java.util.Timer executor;
-	private static final long THREAD_PERIOD = 20; //ms - max poll rate on sensor.
+	private static final long THREAD_PERIOD = 200; //ms - max poll rate on sensor.
 	
 	public static final byte BNO055_ADDRESS_A = 0x28;
 	public static final byte BNO055_ADDRESS_B = 0x29;
@@ -540,6 +540,7 @@ public class BNO055 {
 		
 		//Update position vectors
 		xyz = pos;
+		System.err.println("BNOOOOO!!!! x="+xyz[0]+" y="+xyz[1]+" z="+xyz[2]);
 	}
 	
 	/**
