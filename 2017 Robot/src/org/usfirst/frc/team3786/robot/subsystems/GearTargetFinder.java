@@ -59,7 +59,6 @@ public class GearTargetFinder extends Subsystem {
     	System.err.println("acquireVisionInput called");
     	//UsbCamera camera = Robot.usbCamera;
        // camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
-    	CvSink cvSink = CameraServer.getInstance().getVideo();
     	CvSink cvSink = RobotConfig.getInstance().GetCvSink();
     	GripPipeline grip = new GripPipeline();
     	

@@ -3,6 +3,7 @@ package org.usfirst.frc.team3786.robot;
 
 import org.opencv.core.Mat;
 import org.usfirst.frc.team3786.robot.commands.auto.CrossBaseline;
+import org.usfirst.frc.team3786.robot.commands.auto.DisplayNextTarget;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
 import org.usfirst.frc.team3786.robot.commands.auto.GoForward;
 import org.usfirst.frc.team3786.robot.commands.auto.GyroTurnTest;
