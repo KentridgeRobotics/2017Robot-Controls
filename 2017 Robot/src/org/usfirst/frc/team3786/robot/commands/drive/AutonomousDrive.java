@@ -1,10 +1,12 @@
 package org.usfirst.frc.team3786.robot.commands.drive;
 
-import java.awt.Robot;
+
+import java.util.List;
 
 import org.usfirst.frc.team3786.robot.autonomous.RobotAction;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team3786.robot.vision.TargetPosition;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -14,18 +16,21 @@ import edu.wpi.first.wpilibj.command.Command;
 public class AutonomousDrive extends Command {
 	private double leftEncoderTicks;
 	private double rightEncoderTicks;
-	private double prevLeftEncoderTicks;
-	private double prevRightEncoderTicks;
-	
+	private double leftRotation;
+	private double rightRotation;
 	private boolean isDone = false;
 	private boolean useActionFromList;
-	
+	private List<TargetPosition> targetPositions;
 
 	//Drive from List of Current Robot Actions
 	public AutonomousDrive() {
 		useActionFromList = true;
 	}
 	
+	public AutonomousDrive(List<TargetPosition> targetPositions) {
+		this.targetPositions = targetPositions;
+    	requires(DriveTrain.getInstance());
+	}
 	//static final double wheelDegreesFwdAndBackPerRobotDegree = ?;
 	// LeftRotation and RightRotation is the # degrees to go forwards (negative is backwards)
 	// Drive with Current Values
@@ -34,12 +39,8 @@ public class AutonomousDrive extends Command {
         // eg. requires(chassis);
     	useActionFromList = false;
     	requires(DriveTrain.getInstance());
-    	System.err.println("Starting autonomous drive: left=" + leftRotation + " right=" + rightRotation);
-    	leftEncoderTicks = leftRotation * RobotConfig.encoderRotationsPerWheelRotation;
-    	rightEncoderTicks = rightRotation * RobotConfig.encoderRotationsPerWheelRotation;
-    	prevLeftEncoderTicks = 0.0;
-    	prevRightEncoderTicks = 0.0;
-    	setTimeout(.35);
+    	this.leftRotation = leftRotation;
+    	this.rightRotation = rightRotation;
     }
 
     // Called just before this Command runs the first time
@@ -52,6 +53,15 @@ public class AutonomousDrive extends Command {
 				System.err.println("No Current Actions to do");
 			}
     	}
+    	else if (targetPositions != null) {
+    		TargetPosition targetPosition = targetPositions.get(0);
+    		leftRotation = -targetPosition.getDistanceToTargetInInches() * RobotConfig.wheelDegreesPerInch * RobotConfig.AreYouFeelingLuckyPunk;
+    		rightRotation = leftRotation;
+    	}
+    	System.err.println("Starting autonomous drive: left=" + leftRotation + " right=" + rightRotation);
+    	leftEncoderTicks = leftRotation * RobotConfig.encoderRotationsPerWheelRotation * RobotConfig.getInstance().getLeftEncoderTickFactor();
+    	rightEncoderTicks = rightRotation * RobotConfig.encoderRotationsPerWheelRotation * RobotConfig.getInstance().getRightEncoderTickFactor();
+    	setTimeout(.35);
     	DriveTrain.getInstance().setPositionDrive();
     	DriveTrain.getInstance().zeroEncoders();
     	DriveTrain.getInstance().setPosition(leftEncoderTicks, rightEncoderTicks);
@@ -65,7 +75,7 @@ public class AutonomousDrive extends Command {
     	double tolerance = 20.0;
     	double currentLeftEncoder = DriveTrain.getInstance().getLeftEncoder();
     	double currentRightEncoder = DriveTrain.getInstance().getRightEncoder();
-    	System.err.println("LIMIT = "+ Math.abs(rightEncoderTicks) + " curr = "+(Math.abs(currentRightEncoder) + tolerance));
+    	//System.err.println("LIMIT = "+ Math.abs(rightEncoderTicks) + " curr = "+(Math.abs(currentRightEncoder) + tolerance));
 //    	if (Math.abs(leftEncoderTicks) <= (Math.abs(currentLeftEncoder) - tolerance)) {
 //    		if (Math.abs(rightEncoderTicks) <= (Math.abs(currentRightEncoder) + tolerance)) {
 //    			isDone = true;

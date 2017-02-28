@@ -2,10 +2,7 @@ package org.usfirst.frc.team3786.robot.config;
 
 import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
 
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.CameraServer;
-
-public class CompetitionConfig extends RobotConfig {
+public class PracticeConfig extends RobotConfig {
 
 	private static final int LEFT_DRIVE_MOTOR = 1;
 	
@@ -53,28 +50,28 @@ public class CompetitionConfig extends RobotConfig {
 	@Override
 	public double getTurnSpeed() {
 		// TODO Auto-generated method stub
-		return 0.25;
+		return 0.1;
 	}
 
 
 	@Override
 	public double getDriveMaxVoltageRamp() {
 		// TODO Auto-generated method stub
-		return 24.0;
+		return 18.0;
 	}
 
 
 	@Override
 	public double getDriveP() {
 		// TODO Auto-generated method stub
-		return .35;
+		return .1;
 	}
 
 
 	@Override
 	public double getLeftEncoderTickFactor() {
 		// TODO Auto-generated method stub
-		return 1.0;
+		return 0.8;
 	}
 
 
@@ -83,7 +80,6 @@ public class CompetitionConfig extends RobotConfig {
 		// TODO Auto-generated method stub
 		return 1.0;
 	}
-	
 	
 
 }

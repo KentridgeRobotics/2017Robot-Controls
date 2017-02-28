@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team3786.robot;
 
+import org.opencv.core.Mat;
 import org.usfirst.frc.team3786.robot.commands.auto.CrossBaseline;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
 import org.usfirst.frc.team3786.robot.commands.auto.GoForward;
@@ -48,7 +49,7 @@ public class Robot extends IterativeRobot {
 	//private static BNO055 imu;
 	Command autonomousCommand;
 	SendableChooser<Command> newChooser;
-	public static UsbCamera usbCamera;
+	//public static UsbCamera usbCamera;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -66,6 +67,7 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchUpButton().whenReleased(WinchMove.getStopInstance());
 		UIConfig.getInstance().getTestButton().whenPressed(ZeroEncoders.getInstance());
 		//.usbCamera = CameraServer.getInstance().startAutomaticCapture();
+		RobotConfig.getInstance().initialize();
 		newChooser = new SendableChooser<Command>();
 		//newChooser.addDefault("Do Nothing", new DoNothing());
 		//newChooser.addDefault("Rotate wheels", new RotateWheelsTest());
@@ -116,7 +118,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		autonomousCommand = newChooser.getSelected();
-
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -145,6 +146,9 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().getDriveType());
 		
+		SmartDashboard.putNumber("Target distance", DisplayNextTarget.distance);
+		SmartDashboard.putNumber("Target direction", DisplayNextTarget.direction);
+		SmartDashboard.putNumber("Target face angle", DisplayNextTarget.faceAngle);
 		//System.err.println("Gyro Heading" + RobotConfig.gyro.getHeading());
 		
 		//DriveTrain.getInstance().getLoopError();
@@ -170,9 +174,9 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
 		//Camera.getInstance().pollCamera();
-		SmartDashboard.putNumber("Gyro X", RobotConfig.gyro.getVector()[0]);
-		SmartDashboard.putNumber("Gyro Y", RobotConfig.gyro.getVector()[1]);
-		SmartDashboard.putNumber("Gyro Z", RobotConfig.gyro.getVector()[2]);
+		SmartDashboard.putNumber("Gyro X", RobotConfig.getInstance().GetGyro().getVector()[0]);
+		SmartDashboard.putNumber("Gyro Y", RobotConfig.getInstance().GetGyro().getVector()[1]);
+		SmartDashboard.putNumber("Gyro Z", RobotConfig.getInstance().GetGyro().getVector()[2]);
 //		
 //		SmartDashboard.putBoolean("Gyro Calibration", imu.isCalibrated());
 		

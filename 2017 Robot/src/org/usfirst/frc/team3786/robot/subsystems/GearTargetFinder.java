@@ -9,6 +9,7 @@ import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team3786.robot.Robot;
+import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.vision.ContourReport;
 import org.usfirst.frc.team3786.robot.vision.GripPipeline;
 import org.usfirst.frc.team3786.robot.vision.TargetPosition;
@@ -30,7 +31,8 @@ public class GearTargetFinder extends Subsystem {
 	private int IMG_WIDTH = 640;
 	private int IMG_HEIGHT = 480;
 	private static GearTargetFinder instance;
-	
+    Mat source = new Mat();
+
 	//Fixed ThreadPool for Running Image through Pipeline
 	//ExecutorService executorService = Executors.newFixedThreadPool(1);
 	public static GearTargetFinder getInstance(){
@@ -58,9 +60,10 @@ public class GearTargetFinder extends Subsystem {
     	//UsbCamera camera = Robot.usbCamera;
        // camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
     	CvSink cvSink = CameraServer.getInstance().getVideo();
+    	CvSink cvSink = RobotConfig.getInstance().GetCvSink();
     	GripPipeline grip = new GripPipeline();
     	
-        Mat source = new Mat();
+
         long result = cvSink.grabFrame(source);
         if (result == 0)
         {
@@ -69,6 +72,7 @@ public class GearTargetFinder extends Subsystem {
         	return null;
         }
         grip.process(source);
+        System.err.println("GRIP contours"+grip.findContoursOutput().size());
 		List<MatOfPoint> convexHulls = grip.convexHullsOutput();
 		
 		return convexHulls;    	
@@ -80,7 +84,6 @@ public class GearTargetFinder extends Subsystem {
     	CvSink cvSink = CameraServer.getInstance().getVideo();
     	GripPipeline grip = new GripPipeline();
     	
-        Mat source = new Mat();
         long result = cvSink.grabFrame(source);
         if (result == 0)
         {
@@ -259,14 +262,14 @@ public class GearTargetFinder extends Subsystem {
     public void displayContourReports(List<ContourReport> contourReportsList) {
     	System.err.println("Size of ContourReport: " + contourReportsList.size());
     	for(ContourReport report: contourReportsList) {
-    		System.out.println(report);
+    		System.err.println(report);
     	}
     }
     
     public void displayTargetPositions(List<TargetPosition> targetPositionList) {
     	System.err.println("Target Positions: ");
     	for(TargetPosition point: targetPositionList) {
-    		System.out.println(point);
+    		System.err.println(point);
     	}
     }
    
