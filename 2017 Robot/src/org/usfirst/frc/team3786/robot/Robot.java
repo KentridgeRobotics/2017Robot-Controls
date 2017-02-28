@@ -1,7 +1,6 @@
 
 package org.usfirst.frc.team3786.robot;
 
-import org.opencv.core.Mat;
 import org.usfirst.frc.team3786.robot.commands.auto.CrossBaseline;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
 import org.usfirst.frc.team3786.robot.commands.auto.GoForward;
@@ -26,8 +25,6 @@ import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 import org.usfirst.frc.team3786.robot.subsystems.Rangefinders;
 import org.usfirst.frc.team3786.robot.vision.FinderOfRange;
 
-import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -52,7 +49,6 @@ public class Robot extends IterativeRobot {
 	Command autonomousCommand;
 	SendableChooser<Command> newChooser;
 	public static UsbCamera usbCamera;
-	Mat cameraStream = new Mat();
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -69,26 +65,22 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchUpButton().whileHeld(WinchMove.getUpInstance());
 		UIConfig.getInstance().getWinchUpButton().whenReleased(WinchMove.getStopInstance());
 		UIConfig.getInstance().getTestButton().whenPressed(ZeroEncoders.getInstance());
-		usbCamera = CameraServer.getInstance().startAutomaticCapture();
+		//.usbCamera = CameraServer.getInstance().startAutomaticCapture();
 		newChooser = new SendableChooser<Command>();
-		//newChooser.addDefault("Test", new DoNothing());
+		//newChooser.addDefault("Do Nothing", new DoNothing());
 		//newChooser.addDefault("Rotate wheels", new RotateWheelsTest());
-		newChooser.addDefault("Gyro Test", new GyroTurnTest());
+		//newChooser.addObject("Gyro Test", new GyroTurnTest());
 		//newChooser.addDefault("Cross Baseline", new CrossBaseline());
-		newChooser.addObject("Go Forward", new GoForward());
-		//newChooser.addObject("Velocity Test", new VelocityAuto(8160, 8160));
-		newChooser.addObject("Turn 90", new TurnDegrees(90));
+		//newChooser.addObject("Go Forward", new GoForward());
+		//newChooser.addObject("Turn 90", new TurnDegrees(90));
+		newChooser.addDefault("Kyle's try", new RotateWheelsTest());
 		
 		//SmartDashboard.putData("Auto mode", autoChooser);
-		SmartDashboard.putData("Auto Mode", newChooser);
-		displayData = new DisplayData();
-		System.err.println("Adding display data");
-		SmartDashboard.putData("Display Data", displayData);
 		//UIConfig.getInstance().getTestButton().whenPressed(displayData);
 		//SmartDashboard.putBoolean("Connected", !Gyroscope.getInstance().isConnected());
 		
 		SmartDashboard.putData(Scheduler.getInstance());
-		//SmartDashboard.putData(DriveTrain.getInstance());
+		SmartDashboard.putData("Auto Mode", newChooser);
 		
 	}
 

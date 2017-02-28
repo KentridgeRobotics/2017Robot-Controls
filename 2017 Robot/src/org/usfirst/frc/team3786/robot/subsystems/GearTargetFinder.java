@@ -29,10 +29,17 @@ public class GearTargetFinder extends Subsystem {
 	//Temporary Resolution
 	private int IMG_WIDTH = 640;
 	private int IMG_HEIGHT = 480;
+	private static GearTargetFinder instance;
 	
 	//Fixed ThreadPool for Running Image through Pipeline
 	//ExecutorService executorService = Executors.newFixedThreadPool(1);
-	
+	public static GearTargetFinder getInstance(){
+		if(instance == null)
+		{
+			instance = new GearTargetFinder();
+		}
+		return instance;
+	}
 	//Default Command
     @Override
 	protected void initDefaultCommand() {
@@ -48,8 +55,8 @@ public class GearTargetFinder extends Subsystem {
     // Returns List of MatOfPoint
     public List<MatOfPoint> acquireVisionInput() {
     	System.err.println("acquireVisionInput called");
-    	UsbCamera camera = Robot.usbCamera;
-        camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
+    	//UsbCamera camera = Robot.usbCamera;
+       // camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
     	CvSink cvSink = CameraServer.getInstance().getVideo();
     	GripPipeline grip = new GripPipeline();
     	

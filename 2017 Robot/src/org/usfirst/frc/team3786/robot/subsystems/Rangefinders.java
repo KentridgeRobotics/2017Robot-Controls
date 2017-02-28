@@ -25,6 +25,18 @@ public class Rangefinders extends Subsystem {
 	public double getTestVoltage() {
 		return testSharp.getVoltage();
 	}
+public  double getRange(){
+		
+		double y = getTestVoltage();
+		double x;
+		if (y < .5)
+		{
+			return 100;
+		}
+		x = (19 * Math.sqrt(5))/ ((45 * Math.sqrt(5)) - (Math.sqrt(10239 - 950.0 * y)));
+		
+		return x;
+}
 	
     public void initDefaultCommand() {
 
