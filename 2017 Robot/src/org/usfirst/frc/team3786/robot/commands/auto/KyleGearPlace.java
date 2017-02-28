@@ -6,7 +6,7 @@ import org.usfirst.frc.team3786.robot.subsystems.Rangefinders;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ *@author Kahl Smitty
  */
 public class KyleGearPlace extends Command {
 

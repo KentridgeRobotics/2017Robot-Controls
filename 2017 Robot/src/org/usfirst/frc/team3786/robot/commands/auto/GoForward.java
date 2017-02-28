@@ -18,7 +18,7 @@ public class GoForward extends Command {
     protected void initialize() {
     	DriveTrain.getInstance().setPositionDrive();
     	DriveTrain.getInstance().zeroEncoders();
-    	DriveTrain.getInstance().setPosition(16320, 16320);
+    	DriveTrain.getInstance().setPosition(-8160, -8160);
     	
     }
 

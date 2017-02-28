@@ -4,12 +4,12 @@ package org.usfirst.frc.team3786.robot;
 import org.opencv.core.Mat;
 import org.usfirst.frc.team3786.robot.commands.auto.CrossBaseline;
 import org.usfirst.frc.team3786.robot.commands.auto.DisplayNextTarget;
+import org.usfirst.frc.team3786.robot.commands.auto.DistanceByCamera;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
 import org.usfirst.frc.team3786.robot.commands.auto.GoForward;
 import org.usfirst.frc.team3786.robot.commands.auto.GyroTurnTest;
 import org.usfirst.frc.team3786.robot.commands.auto.RotateWheelsTest;
 import org.usfirst.frc.team3786.robot.commands.auto.TurnDegrees;
-import org.usfirst.frc.team3786.robot.commands.auto.VelocityAuto;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
 import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
@@ -70,13 +70,13 @@ public class Robot extends IterativeRobot {
 		//.usbCamera = CameraServer.getInstance().startAutomaticCapture();
 		RobotConfig.getInstance().initialize();
 		newChooser = new SendableChooser<Command>();
-		//newChooser.addDefault("Do Nothing", new DoNothing());
+		newChooser.addDefault("Do Nothing", new DoNothing());
 		//newChooser.addDefault("Rotate wheels", new RotateWheelsTest());
-		//newChooser.addObject("Gyro Test", new GyroTurnTest());
-		//newChooser.addDefault("Cross Baseline", new CrossBaseline());
-		//newChooser.addObject("Go Forward", new GoForward());
-		//newChooser.addObject("Turn 90", new TurnDegrees(90));
-		newChooser.addDefault("Kyle's try", new RotateWheelsTest());
+		newChooser.addObject("Gyro Test", new GyroTurnTest());
+		newChooser.addObject("Cross Baseline", new CrossBaseline());
+		newChooser.addObject("Go Forward", new GoForward());
+		//newChooser.addObject("Distance by Cam", new DistanceByCamera());
+		newChooser.addObject("Kyle's try", new RotateWheelsTest());
 		
 		//SmartDashboard.putData("Auto mode", autoChooser);
 		//UIConfig.getInstance().getTestButton().whenPressed(displayData);
@@ -137,6 +137,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		
+		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
+		
 		SmartDashboard.putNumber("Left Encoder", DriveTrain.getInstance().getLeftEncoder());
 		SmartDashboard.putNumber("Left Velocity", DriveTrain.getInstance().getLeftVelocity());
 		SmartDashboard.putNumber("Left Voltage", DriveTrain.getInstance().getLeftMotorOutput());
