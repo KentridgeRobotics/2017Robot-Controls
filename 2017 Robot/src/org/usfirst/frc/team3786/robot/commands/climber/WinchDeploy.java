@@ -10,14 +10,13 @@ import edu.wpi.first.wpilibj.command.Command;
 public class WinchDeploy extends Command {
 	
 	private enum Mode {
-		MOVE, ENABLE, DISABLE
+		MOVE, STOP
 	}
 	
 	private Mode instanceMode;
 	
 	private static WinchDeploy moveInstance;
-	private static WinchDeploy enableInstance;
-	private static WinchDeploy disableInstance;
+	private static WinchDeploy stopInstance;
 	
 	public static WinchDeploy getMoveInstance() {
 		if(moveInstance == null)
@@ -25,54 +24,35 @@ public class WinchDeploy extends Command {
 		return moveInstance;
 	}
 	
-	public static WinchDeploy getEnableInstance() {
-		if(enableInstance == null)
-			enableInstance = new WinchDeploy(Mode.ENABLE);
-		return enableInstance;
-	}
-	
-	public static WinchDeploy getDisableInstance() {
-		if(disableInstance == null)
-			disableInstance = new WinchDeploy(Mode.DISABLE);
-		return disableInstance;
+	public static WinchDeploy getStopInstance() {
+		if(stopInstance == null)
+			stopInstance = new WinchDeploy(Mode.STOP);
+		return stopInstance;
 	}
 
-	private static boolean isEnabled;
 	
-	private static int count;
-
     public WinchDeploy(Mode m) {
     	requires(Winch.getInstance());
     	instanceMode = m;
     	//isEnabled = false;
     	
-    	if(instanceMode != Mode.MOVE)
-    		setTimeout(.1);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if(instanceMode == Mode.ENABLE)
-    		isEnabled = true;
-    	
-    	if(instanceMode == Mode.DISABLE)
-    		isEnabled = false;
-
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {    	
-    	if(isEnabled && instanceMode == Mode.MOVE)
-    		System.out.println("Now moving");
-    	else
-    		System.out.println("Not moving");
-    	
-
+    	if(instanceMode == Mode.MOVE)
+    		System.out.println("Move");
+    	if(instanceMode == Mode.STOP)
+    		System.out.println("Stop");
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut();
+        return false;
     }
 
     // Called once after isFinished returns true
