@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class ArcadeDrive extends UIConfig {
 	private Joystick leftStick = new Joystick(0);
 	private Joystick xbox = new Joystick(2);
-	private JoystickButton testButton = new JoystickButton(xbox, 6);
 	private JoystickButton servoButton = new JoystickButton(xbox, 3);
 	private JoystickButton gearArmTopButton = new JoystickButton(xbox, 4);
 	private JoystickButton gearArmBottomButton = new JoystickButton(xbox, 1);
@@ -68,12 +67,7 @@ public class ArcadeDrive extends UIConfig {
 	public double getRightDrive() {
 		return rightOut() + skim(rightOut());
 	}
-
-	@Override
-	public JoystickButton getTestButton() {
-		return testButton;
-	}
-
+	
 	@Override
 	public JoystickButton getServoMoveButton() {
 		return servoButton;

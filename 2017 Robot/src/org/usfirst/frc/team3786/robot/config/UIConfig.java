@@ -28,9 +28,7 @@ public abstract class UIConfig {
 	public abstract double getLeftDrive();
 	
 	public abstract double getRightDrive();
-	
-	public abstract JoystickButton getTestButton();
-		
+			
 	public abstract JoystickButton getServoMoveButton();
 		
 	public abstract JoystickButton getPegPositionButton();

@@ -10,6 +10,7 @@ import org.usfirst.frc.team3786.robot.commands.auto.GoForward;
 import org.usfirst.frc.team3786.robot.commands.auto.GyroTurnTest;
 import org.usfirst.frc.team3786.robot.commands.auto.RotateWheelsTest;
 import org.usfirst.frc.team3786.robot.commands.auto.TurnDegrees;
+import org.usfirst.frc.team3786.robot.commands.climber.WinchDeploy;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
 import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
@@ -66,7 +67,9 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchDownButton().whenReleased(WinchMove.getStopInstance());
 		UIConfig.getInstance().getWinchUpButton().whileHeld(WinchMove.getUpInstance());
 		UIConfig.getInstance().getWinchUpButton().whenReleased(WinchMove.getStopInstance());
-		UIConfig.getInstance().getTestButton().whenPressed(ZeroEncoders.getInstance());
+		UIConfig.getInstance().getWinchDeployMoveButton().whileHeld(WinchDeploy.getMoveInstance());
+		UIConfig.getInstance().getWinchDeployEnableButton().whileHeld(WinchDeploy.getEnableInstance());
+		UIConfig.getInstance().getWinchDeployEnableButton().whenReleased(WinchDeploy.getDisableInstance());
 		//.usbCamera = CameraServer.getInstance().startAutomaticCapture();
 		RobotConfig.getInstance().initialize();
 		newChooser = new SendableChooser<Command>();

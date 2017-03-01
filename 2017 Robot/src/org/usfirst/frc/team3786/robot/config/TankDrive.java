@@ -7,7 +7,6 @@ public class TankDrive extends UIConfig {
 	private Joystick leftStick = new Joystick(0);
 	private Joystick rightStick = new Joystick(1);
 	private Joystick xbox = new Joystick(2);
-	private JoystickButton testButton = new JoystickButton(xbox, 6);
 	private JoystickButton servoButton = new JoystickButton(xbox, 3);
 	private JoystickButton gearArmTopButton = new JoystickButton(xbox, 4);
 	private JoystickButton gearArmBottomButton = new JoystickButton(xbox, 1);
@@ -43,10 +42,6 @@ public class TankDrive extends UIConfig {
 	public double getRightDrive() {
 		rightOut = rightStick.getY();
 		return Math.pow(rightOut, 2) * (Math.abs(rightOut)/rightOut);
-	}
-	@Override
-	public JoystickButton getTestButton() {
-		return testButton;
 	}
 	@Override
 	public JoystickButton getServoMoveButton() {
