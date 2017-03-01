@@ -32,9 +32,7 @@ public abstract class UIConfig {
 	public abstract JoystickButton getTestButton();
 		
 	public abstract JoystickButton getServoMoveButton();
-	
-	public abstract JoystickButton getGearLoadedButton();
-	
+		
 	public abstract JoystickButton getPegPositionButton();
 	
 	public abstract double getPegPosition();
@@ -46,6 +44,10 @@ public abstract class UIConfig {
 	public abstract JoystickButton getWinchUpButton();
 	
 	public abstract JoystickButton getWinchDownButton();
+	
+	public abstract JoystickButton getWinchDeployMoveButton();
+	
+	public abstract JoystickButton getWinchDeployEnableButton();
 
 		
 	

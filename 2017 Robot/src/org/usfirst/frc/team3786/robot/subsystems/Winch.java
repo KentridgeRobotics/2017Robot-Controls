@@ -20,13 +20,19 @@ public class Winch extends Subsystem {
 	}
 	
 	CANTalon winchMotor;
+	CANTalon winchDeployMotor;
 	
 	public Winch() {
 		winchMotor = new CANTalon(RobotConfig.getInstance().getWinchMotor());
+		winchDeployMotor = new CANTalon(RobotConfig.getInstance().getWinchDeployMotor());
 	}
 	
-	public void setSpeed(double pos) {
-		winchMotor.set(pos);
+	public void setSpeed(double speed) {
+		winchMotor.set(speed);
+	}
+	
+	public void setDeploySpeed(double speed) {
+		winchDeployMotor.set(speed);
 	}
 		
 

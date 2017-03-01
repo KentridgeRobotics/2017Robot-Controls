@@ -10,10 +10,11 @@ public class ArcadeDrive extends UIConfig {
 	private JoystickButton servoButton = new JoystickButton(xbox, 3);
 	private JoystickButton gearArmTopButton = new JoystickButton(xbox, 4);
 	private JoystickButton gearArmBottomButton = new JoystickButton(xbox, 1);
-	private JoystickButton gearLoadedButton = new JoystickButton(xbox, 5);
 	private JoystickButton pegPositionButton = new JoystickButton(xbox, 2);
 	private JoystickButton winchUpButton = new JoystickButton(xbox, 8);
 	private JoystickButton winchDownButton = new JoystickButton(xbox, 7);
+	private JoystickButton winchDeployMoveButton = new JoystickButton(xbox, 5);
+	private JoystickButton winchDeployEnableButton = new JoystickButton(xbox, 6);
 	private final double PEG_POSITION = 165;
 	
 	private final double GAIN = 1.2;
@@ -79,11 +80,6 @@ public class ArcadeDrive extends UIConfig {
 	}
 
 	@Override
-	public JoystickButton getGearLoadedButton() {
-		return gearLoadedButton;
-	}
-
-	@Override
 	public JoystickButton getPegPositionButton() {
 		return pegPositionButton;
 	}
@@ -110,6 +106,15 @@ public class ArcadeDrive extends UIConfig {
 	public JoystickButton getWinchDownButton() {
 		return winchDownButton;
 	}
+	@Override
+	public JoystickButton getWinchDeployMoveButton() {
+		return winchDeployMoveButton;
+	}
+	@Override
+	public JoystickButton getWinchDeployEnableButton() {
+		return winchDeployEnableButton;
+	}
+
 
 
 }

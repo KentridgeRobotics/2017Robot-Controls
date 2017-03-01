@@ -19,7 +19,7 @@ public abstract class RobotConfig {
 	
 	public static RobotConfig getInstance() {
 		if(instance == null)
-			instance = new PracticeConfig();
+			instance = new CompetitionConfig();
 		return instance;
 	}
 	
