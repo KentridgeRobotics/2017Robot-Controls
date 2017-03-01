@@ -45,8 +45,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
-	public Camera camera;
-	public static DisplayData displayData;
+	//public Camera camera;
+//	public static DisplayData displayData;
 	//private static BNO055 imu;
 	Command autonomousCommand;
 	SendableChooser<Command> newChooser;

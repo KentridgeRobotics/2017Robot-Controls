@@ -13,9 +13,6 @@ public class PracticeConfig extends RobotConfig {
 	private static final int WINCH_MOTOR = 4;
 	
 	private static final int WINCH_DEPLOY_MOTOR = 5;
-			
-	public static GearTargetFinder gearTargetFinder = new GearTargetFinder();
-	
 	
 	@Override
 	public int getLeftDriveMotor() {

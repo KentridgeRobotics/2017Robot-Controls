@@ -40,7 +40,7 @@ public abstract class RobotConfig {
 	public CvSink GetCvSink() {
 		if (usbCamera == null)
 		{
-			throw new NullPointerException("FOO!");
+			throw new NullPointerException("usb camera not initialized! Be sure to call initialize.");
 		}
 		return CameraServer.getInstance().getVideo();
 	}

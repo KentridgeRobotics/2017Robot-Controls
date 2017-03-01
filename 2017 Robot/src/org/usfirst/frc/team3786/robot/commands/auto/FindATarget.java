@@ -29,7 +29,7 @@ public class FindATarget extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	GearTargetFinder gtf = CompetitionConfig.gearTargetFinder;
+    	GearTargetFinder gtf = GearTargetFinder.getInstance();
     	List<ContourReport> contourReports = gtf.extractContourReports(gtf.acquireVisionInput());
     	List<ContourReport> objContourReports = gtf.findObjectiveContourReport(contourReports, WhichDirection.MIDDLE_LEFT);
     	List<TargetPosition> targetList = gtf.extractListOfTargetPosition(objContourReports);

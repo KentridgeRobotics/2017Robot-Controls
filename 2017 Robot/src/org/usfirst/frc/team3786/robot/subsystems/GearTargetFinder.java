@@ -26,12 +26,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  Take Inputs from Usb Camera and input into GripPipeline
  Find Distance and Angle of Targets in list. 
  */
-public class GearTargetFinder extends Subsystem {
+public class GearTargetFinder {
 	//Temporary Resolution
 	private int IMG_WIDTH = 640;
 	private int IMG_HEIGHT = 480;
 	private static GearTargetFinder instance;
-    Mat source = new Mat();
 
 	//Fixed ThreadPool for Running Image through Pipeline
 	//ExecutorService executorService = Executors.newFixedThreadPool(1);
@@ -42,13 +41,7 @@ public class GearTargetFinder extends Subsystem {
 		}
 		return instance;
 	}
-	//Default Command
-    @Override
-	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-		
-	}
-    
+
     //Constructor
     private GearTargetFinder() {    	
     }
@@ -59,6 +52,8 @@ public class GearTargetFinder extends Subsystem {
     	System.err.println("acquireVisionInput called");
     	//UsbCamera camera = Robot.usbCamera;
        // camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
+        Mat source = new Mat();
+
     	CvSink cvSink = RobotConfig.getInstance().GetCvSink();
     	GripPipeline grip = new GripPipeline();
     	
@@ -72,17 +67,16 @@ public class GearTargetFinder extends Subsystem {
         }
         grip.process(source);
         System.err.println("GRIP contours"+grip.findContoursOutput().size());
-		List<MatOfPoint> convexHulls = grip.convexHullsOutput();
-		
-		return convexHulls;    	
+		List<MatOfPoint> foundContours = grip.filterContoursOutput();
+		// Let's release the Mat.
+		//source.release();
+		return foundContours;    	
     }
     
     public boolean isRobotInPosition() {
-    	UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
-    	CvSink cvSink = CameraServer.getInstance().getVideo();
+    	CvSink cvSink = RobotConfig.getInstance().GetCvSink();
     	GripPipeline grip = new GripPipeline();
-    	
+    	Mat source = new Mat();
         long result = cvSink.grabFrame(source);
         if (result == 0)
         {
@@ -91,8 +85,9 @@ public class GearTargetFinder extends Subsystem {
         	return false;
         }
         grip.process(source);
-		List<TargetPosition> targetPositions = extractListOfTargetPosition(findObjectiveContourReport(extractContourReports(grip.convexHullsOutput()), WhichDirection.UNKNOWN));
-		
+		List<TargetPosition> targetPositions = extractListOfTargetPosition(findObjectiveContourReport(extractContourReports(grip.filterContoursOutput()), WhichDirection.UNKNOWN));
+		// Release the Mat
+		//source.release();
 		if(targetPositions.size() == 2) {
 			return true;
 		} else {
@@ -160,7 +155,7 @@ public class GearTargetFinder extends Subsystem {
     //Filters List of Contours into one or 
        
     public List<ContourReport> findObjectiveContourReport(List<ContourReport> contourReport, WhichDirection direction) {
-    	List<ContourReport> contourReports = new ArrayList(contourReport);
+    	List<ContourReport> contourReports = new ArrayList<ContourReport>(contourReport);
     	ContourReport temp;
     	for (int i = 0; i < contourReports.size(); i++){
 	    	for (int j = 0; j < contourReports.size(); j++){

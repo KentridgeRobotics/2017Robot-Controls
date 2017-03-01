@@ -28,11 +28,10 @@ import org.opencv.objdetect.*;
 public class GripPipeline implements VisionPipeline {
 
 	//Outputs
-	private Mat hslThresholdOutput = new Mat();
-	private Mat maskOutput = new Mat();
+//	private Mat maskOutput = new Mat();
 	private ArrayList<MatOfPoint> findContoursOutput = new ArrayList<MatOfPoint>();
 	private ArrayList<MatOfPoint> filterContoursOutput = new ArrayList<MatOfPoint>();
-	private ArrayList<MatOfPoint> convexHullsOutput = new ArrayList<MatOfPoint>();
+//	private ArrayList<MatOfPoint> convexHullsOutput = new ArrayList<MatOfPoint>();
 
 	static {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -41,20 +40,24 @@ public class GripPipeline implements VisionPipeline {
 	/**
 	 * This is the primary method that runs the entire pipeline and updates the outputs.
 	 */
-	@Override	public void process(Mat source0) {
+	@Override	
+	public void process(Mat source0) {
 		// Step HSL_Threshold0:
 		Mat hslThresholdInput = source0;
+		Mat hslThresholdOutput = new Mat();
+
 		double[] hslThresholdHue = {79.31654676258992, 146.66666666666666};
 		double[] hslThresholdSaturation = {199.50539568345323, 255.0};
 		double[] hslThresholdLuminance = {158.22841726618705, 255.0};
 		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
-		// Step Mask0:
-		Mat maskInput = source0;
-		Mat maskMask = hslThresholdOutput;
-		mask(maskInput, maskMask, maskOutput);
+//		// Step Mask0:
+//		Mat maskInput = source0;
+//		Mat maskMask = hslThresholdOutput;
+//		mask(maskInput, maskMask, maskOutput);
 
 		// Step Find_Contours0:
+
 		Mat findContoursInput = hslThresholdOutput;
 		boolean findContoursExternalOnly = true;
 		findContours(findContoursInput, findContoursExternalOnly, findContoursOutput);
@@ -73,28 +76,31 @@ public class GripPipeline implements VisionPipeline {
 		double filterContoursMinRatio = 0.3;
 		double filterContoursMaxRatio = 3.0;
 		filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, filterContoursOutput);
-
+		
 		// Step Convex_Hulls0:
-		ArrayList<MatOfPoint> convexHullsContours = filterContoursOutput;
-		convexHulls(convexHullsContours, convexHullsOutput);
-
+//		ArrayList<MatOfPoint> convexHullsContours = filterContoursOutput;
+//		convexHulls(convexHullsContours, convexHullsOutput);
+		
+		// Maybe bogus: Let's throw away some Mats!
+		//hslThresholdOutput.release();
+		
 	}
 
 	/**
 	 * This method is a generated getter for the output of a HSL_Threshold.
 	 * @return Mat output from HSL_Threshold.
 	 */
-	public Mat hslThresholdOutput() {
-		return hslThresholdOutput;
-	}
+	//public Mat hslThresholdOutput() {
+	//	return hslThresholdOutput;
+	//}
 
 	/**
 	 * This method is a generated getter for the output of a Mask.
 	 * @return Mat output from Mask.
 	 */
-	public Mat maskOutput() {
-		return maskOutput;
-	}
+//	public Mat maskOutput() {
+//		return maskOutput;
+//	}
 
 	/**
 	 * This method is a generated getter for the output of a Find_Contours.
@@ -116,9 +122,9 @@ public class GripPipeline implements VisionPipeline {
 	 * This method is a generated getter for the output of a Convex_Hulls.
 	 * @return ArrayList<MatOfPoint> output from Convex_Hulls.
 	 */
-	public ArrayList<MatOfPoint> convexHullsOutput() {
-		return convexHullsOutput;
-	}
+//	public ArrayList<MatOfPoint> convexHullsOutput() {
+//		return convexHullsOutput;
+//	}
 
 
 	/**
@@ -143,11 +149,11 @@ public class GripPipeline implements VisionPipeline {
 	 * @param mask The binary image that is used to filter.
 	 * @param output The image in which to store the output.
 	 */
-	private void mask(Mat input, Mat mask, Mat output) {
-		mask.convertTo(mask, CvType.CV_8UC1);
-		Core.bitwise_xor(output, output, output);
-		input.copyTo(output, mask);
-	}
+//	private void mask(Mat input, Mat mask, Mat output) {
+//		mask.convertTo(mask, CvType.CV_8UC1);
+//		Core.bitwise_xor(output, output, output);
+//		input.copyTo(output, mask);
+//	}
 
 	/**
 	 * Sets the values of pixels in a binary image to their distance to the nearest black pixel.
@@ -225,23 +231,23 @@ public class GripPipeline implements VisionPipeline {
 	 * @param inputContours The contours on which to perform the operation.
 	 * @param outputContours The contours where the output will be stored.
 	 */
-	private void convexHulls(List<MatOfPoint> inputContours,
-		ArrayList<MatOfPoint> outputContours) {
-		final MatOfInt hull = new MatOfInt();
-		outputContours.clear();
-		for (int i = 0; i < inputContours.size(); i++) {
-			final MatOfPoint contour = inputContours.get(i);
-			final MatOfPoint mopHull = new MatOfPoint();
-			Imgproc.convexHull(contour, hull);
-			mopHull.create((int) hull.size().height, 1, CvType.CV_32SC2);
-			for (int j = 0; j < hull.size().height; j++) {
-				int index = (int) hull.get(j, 0)[0];
-				double[] point = new double[] {contour.get(index, 0)[0], contour.get(index, 0)[1]};
-				mopHull.put(j, 0, point);
-			}
-			outputContours.add(mopHull);
-		}
-	}
+//	private void convexHulls(List<MatOfPoint> inputContours,
+//		ArrayList<MatOfPoint> outputContours) {
+//		final MatOfInt hull = new MatOfInt();
+//		outputContours.clear();
+//		for (int i = 0; i < inputContours.size(); i++) {
+//			final MatOfPoint contour = inputContours.get(i);
+//			final MatOfPoint mopHull = new MatOfPoint();
+//			Imgproc.convexHull(contour, hull);
+//			mopHull.create((int) hull.size().height, 1, CvType.CV_32SC2);
+//			for (int j = 0; j < hull.size().height; j++) {
+//				int index = (int) hull.get(j, 0)[0];
+//				double[] point = new double[] {contour.get(index, 0)[0], contour.get(index, 0)[1]};
+//				mopHull.put(j, 0, point);
+//			}
+//			outputContours.add(mopHull);
+//		}
+//	}
 
 
 

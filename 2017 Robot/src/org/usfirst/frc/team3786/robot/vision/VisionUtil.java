@@ -29,7 +29,7 @@ public class VisionUtil {
 	}
 
 	public static WhichSide getPositionOfGearTarget() {
-		GearTargetFinder gtf = CompetitionConfig.gearTargetFinder;
+		GearTargetFinder gtf = GearTargetFinder.getInstance();
 		
 		List<MatOfPoint> matlist = null;
 		while ((matlist = gtf.acquireVisionInput()) == null)
@@ -71,7 +71,7 @@ public class VisionUtil {
 	}
 	
 	public static List<TargetPosition> getTargetPositionToGearTarget() {
-		GearTargetFinder gtf = CompetitionConfig.gearTargetFinder;
+		GearTargetFinder gtf = GearTargetFinder.getInstance();
 		
 		return gtf.extractListOfTargetPosition(gtf.findObjectiveContourReport(gtf.extractContourReports(gtf.acquireVisionInput()), WhichDirection.UNKNOWN)) ;
 		
