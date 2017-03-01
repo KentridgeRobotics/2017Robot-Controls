@@ -50,7 +50,7 @@ public class GearTargetFinder extends Subsystem {
 	}
     
     //Constructor
-    public GearTargetFinder() {    	
+    private GearTargetFinder() {    	
     }
     
     // Get recognized targets from the camera as processed by the Grip pipeline.

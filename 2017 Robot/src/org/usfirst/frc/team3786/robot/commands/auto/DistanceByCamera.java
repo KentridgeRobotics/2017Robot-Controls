@@ -13,10 +13,6 @@ import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
  *
  */
 public class DistanceByCamera extends Command {
-
-//    public DistanceByCamera(GearTargetFinder getInstance) {
-//	} 
-    GearTargetFinder TargetFinder = new GearTargetFinder();
     	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -31,11 +27,11 @@ public class DistanceByCamera extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double Range; 
-    	
-    	List<TargetPosition> TargetList = TargetFinder.extractListOfTargetPosition(TargetFinder.findObjectiveContourReport(TargetFinder.extractContourReports(TargetFinder.acquireVisionInput()), WhichDirection.MIDDLE_LEFT));
-    	TargetPosition Position = TargetList.get(0);
-    	Position.getDistanceToTargetInInches();
-    	System.err.println(Position);
+    	GearTargetFinder targetFinder = GearTargetFinder.getInstance();
+    	List<TargetPosition> targetList = targetFinder.extractListOfTargetPosition(targetFinder.findObjectiveContourReport(targetFinder.extractContourReports(targetFinder.acquireVisionInput()), WhichDirection.MIDDLE_LEFT));
+    	TargetPosition position = targetList.get(0);
+    	position.getDistanceToTargetInInches();
+    	System.err.println(position);
     }
 
     // Make this return true when this Command no longer needs to run execute()
