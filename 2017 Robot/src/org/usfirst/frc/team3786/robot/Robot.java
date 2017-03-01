@@ -70,6 +70,7 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchDeployMoveButton().whileHeld(WinchDeploy.getMoveInstance());
 		UIConfig.getInstance().getWinchDeployEnableButton().whileHeld(WinchDeploy.getEnableInstance());
 		UIConfig.getInstance().getWinchDeployEnableButton().whenReleased(WinchDeploy.getDisableInstance());
+		UIConfig.getInstance().getWinchDeployEnableButton();
 		//.usbCamera = CameraServer.getInstance().startAutomaticCapture();
 		RobotConfig.getInstance().initialize();
 		newChooser = new SendableChooser<Command>();

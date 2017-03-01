@@ -38,34 +38,41 @@ public class WinchDeploy extends Command {
 	}
 
 	private static boolean isEnabled;
-
+	
+	private static int count;
 
     public WinchDeploy(Mode m) {
     	requires(Winch.getInstance());
     	instanceMode = m;
-    	isEnabled = false;
+    	//isEnabled = false;
+    	
+    	if(instanceMode != Mode.MOVE)
+    		setTimeout(.1);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if(instanceMode == Mode.ENABLE)
+    		isEnabled = true;
+    	
+    	if(instanceMode == Mode.DISABLE)
+    		isEnabled = false;
+
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	if(instanceMode == Mode.ENABLE)
-    		isEnabled = true;
-    	else if(instanceMode == Mode.DISABLE)
-    		isEnabled = false;
-    	
-    	if(isEnabled)
+    protected void execute() {    	
+    	if(isEnabled && instanceMode == Mode.MOVE)
     		System.out.println("Now moving");
     	else
     		System.out.println("Not moving");
+    	
+
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true
