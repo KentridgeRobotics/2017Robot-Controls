@@ -84,5 +84,7 @@ public abstract class RobotConfig {
 	public abstract double getLeftEncoderTickFactor();
 	
 	public abstract double getRightEncoderTickFactor();
+	
+	public abstract double getGyroInversionMultiplier(); // Because sometimes we need to use the gyro upside down.
 		
 }

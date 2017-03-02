@@ -28,7 +28,7 @@ public class GyroTurn extends Command {
 	
     public GyroTurn(double ang) {
     	requires(DriveTrain.getInstance());
-    	angle = ang;
+    	angle = ang * RobotConfig.getInstance().getGyroInversionMultiplier();
     }
 
     public GyroTurn(List<TargetPosition> targetPositions) {
@@ -39,7 +39,7 @@ public class GyroTurn extends Command {
     protected void initialize() {
     	if ((targetPositions != null) && (targetPositions.size() != 0))
     	{
-    		angle = targetPositions.get(0).getTargetDirectionDegrees();
+    		angle = targetPositions.get(0).getTargetDirectionDegrees() * RobotConfig.getInstance().getGyroInversionMultiplier();
     	}
     	System.err.println("Initiailized turn " + angle);
     	DriveTrain.getInstance().setSpeedDrive();

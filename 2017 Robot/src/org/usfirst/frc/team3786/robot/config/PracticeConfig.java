@@ -27,6 +27,13 @@ public class PracticeConfig extends RobotConfig {
 
 
 	@Override
+	public double getGyroInversionMultiplier() {
+		// We're mounted upside-up.
+		return 1.0;
+	}
+
+
+	@Override
 	public int getGearArmMotor() {
 		return GEAR_ARM_MOTOR;
 	}
