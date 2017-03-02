@@ -24,9 +24,10 @@ public class Winch extends Subsystem {
 	CANTalon winchMotor;
 	CANTalon winchDeployMotor;
 	
-	public Winch() {
+	private Winch() {
 		winchMotor = new CANTalon(RobotConfig.getInstance().getWinchMotor());
 		winchDeployMotor = new CANTalon(RobotConfig.getInstance().getWinchDeployMotor());
+		winchDeployMotor.enableLimitSwitch(true, true);
 		enabled = false;
 	}
 	
