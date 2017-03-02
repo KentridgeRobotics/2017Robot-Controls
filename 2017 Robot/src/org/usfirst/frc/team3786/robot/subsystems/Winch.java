@@ -46,7 +46,13 @@ public class Winch extends Subsystem {
 	public boolean isEnabled() {
 		return enabled;
 	}
-		
+	public boolean getForwardLimitSwitch() {
+		return winchDeployMotor.isFwdLimitSwitchClosed();
+	}
+	public boolean getReverseLimitSwitch() {
+		return winchDeployMotor.isRevLimitSwitchClosed();
+	}
+	
 
     public void initDefaultCommand() {
     }

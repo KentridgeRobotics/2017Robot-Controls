@@ -13,9 +13,9 @@ public class CompetitionConfig extends RobotConfig {
 	
 	private static final int GEAR_ARM_MOTOR = 3;
 	
-	private static final int WINCH_MOTOR = 4;
+	private static final int WINCH_MOTOR = 5;
 	
-	private static final int WINCH_DEPLOY_MOTOR = 5;
+	private static final int WINCH_DEPLOY_MOTOR = 4;
 				
 	
 	@Override

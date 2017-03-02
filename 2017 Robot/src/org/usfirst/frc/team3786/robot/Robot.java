@@ -27,6 +27,7 @@ import org.usfirst.frc.team3786.robot.subsystems.BNO055;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 import org.usfirst.frc.team3786.robot.subsystems.Rangefinders;
+import org.usfirst.frc.team3786.robot.subsystems.Winch;
 import org.usfirst.frc.team3786.robot.vision.FinderOfRange;
 
 import edu.wpi.cscore.UsbCamera;
@@ -209,6 +210,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Window Motor Voltage", GearArm.getInstance().getVoltage());
 		SmartDashboard.putBoolean("Top Limit", GearArm.getInstance().getTopLimitSwitch());
 		SmartDashboard.putBoolean("Bottom Limit", GearArm.getInstance().getBottomLimitSwitch());
+		SmartDashboard.putBoolean("Winch fwd limit", Winch.getInstance().getForwardLimitSwitch());
+		SmartDashboard.putBoolean("Winch rev limit", Winch.getInstance().getReverseLimitSwitch());
 		
 	}
 
