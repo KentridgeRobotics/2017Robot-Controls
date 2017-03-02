@@ -19,12 +19,15 @@ public class Winch extends Subsystem {
 		return instance;
 	}
 	
+	private boolean enabled;
+	
 	CANTalon winchMotor;
 	CANTalon winchDeployMotor;
 	
 	public Winch() {
 		winchMotor = new CANTalon(RobotConfig.getInstance().getWinchMotor());
 		winchDeployMotor = new CANTalon(RobotConfig.getInstance().getWinchDeployMotor());
+		enabled = false;
 	}
 	
 	public void setSpeed(double speed) {
@@ -33,6 +36,14 @@ public class Winch extends Subsystem {
 	
 	public void setDeploySpeed(double speed) {
 		winchDeployMotor.set(speed);
+	}
+	
+	public void setEnabled(boolean b) {
+		enabled = b;
+	}
+	
+	public boolean isEnabled() {
+		return enabled;
 	}
 		
 

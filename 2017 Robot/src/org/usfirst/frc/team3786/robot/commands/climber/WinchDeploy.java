@@ -10,14 +10,13 @@ import edu.wpi.first.wpilibj.command.Command;
 public class WinchDeploy extends Command {
 	
 	private enum Mode {
-		MOVE, ENABLE, DISABLE
+		MOVE, STOP
 	}
 	
 	private Mode instanceMode;
 	
 	private static WinchDeploy moveInstance;
-	private static WinchDeploy enableInstance;
-	private static WinchDeploy disableInstance;
+	private static WinchDeploy stopInstance;
 	
 	public static WinchDeploy getMoveInstance() {
 		if(moveInstance == null)
@@ -25,25 +24,18 @@ public class WinchDeploy extends Command {
 		return moveInstance;
 	}
 	
-	public static WinchDeploy getEnableInstance() {
-		if(enableInstance == null)
-			enableInstance = new WinchDeploy(Mode.ENABLE);
-		return enableInstance;
+	public static WinchDeploy getStopInstance() {
+		if(stopInstance == null)
+			stopInstance = new WinchDeploy(Mode.STOP);
+		return stopInstance;
 	}
+
 	
-	public static WinchDeploy getDisableInstance() {
-		if(disableInstance == null)
-			disableInstance = new WinchDeploy(Mode.DISABLE);
-		return disableInstance;
-	}
-
-	private static boolean isEnabled;
-
-
     public WinchDeploy(Mode m) {
     	requires(Winch.getInstance());
     	instanceMode = m;
-    	isEnabled = false;
+    	//isEnabled = false;
+    	
     }
 
     // Called just before this Command runs the first time
@@ -51,16 +43,11 @@ public class WinchDeploy extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	if(instanceMode == Mode.ENABLE)
-    		isEnabled = true;
-    	else if(instanceMode == Mode.DISABLE)
-    		isEnabled = false;
-    	
-    	if(isEnabled)
-    		System.out.println("Now moving");
-    	else
-    		System.out.println("Not moving");
+    protected void execute() {    	
+    	if(instanceMode == Mode.MOVE)
+    		System.out.println("Move");
+    	if(instanceMode == Mode.STOP)
+    		System.out.println("Stop");
     }
 
     // Make this return true when this Command no longer needs to run execute()
