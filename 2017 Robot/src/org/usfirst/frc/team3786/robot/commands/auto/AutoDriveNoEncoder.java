@@ -9,8 +9,14 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class AutoDriveNoEncoder extends Command {
 	
-	int leftSpeed, rightSpeed;
-    public AutoDriveNoEncoder(int leftSpeed, int rightSpeed, int time) {
+	double leftSpeed, rightSpeed;
+	/**
+	 * 
+	 * @param leftSpeed left wheel speed
+	 * @param rightSpeed right wheel speed
+	 * @param time Time to drive in seconds
+	 */
+    public AutoDriveNoEncoder(double leftSpeed, double rightSpeed, int time) {
     	requires(DriveTrain.getInstance());
     	setTimeout(time);
     	this.leftSpeed = leftSpeed;
