@@ -77,7 +77,7 @@ public class Robot extends IterativeRobot {
 		RobotConfig.getInstance().initialize();
 		newChooser = new SendableChooser<Command>();
 		newChooser.addDefault("Do Nothing", new DoNothing());
-		//newChooser.addDefault("Rotate wheels", new RotateWheelsTest());
+		//newChooser.addObject("Rotate wheels", new RotateWheelsTest());
 		newChooser.addObject("Gyro Test", new GyroTurnTest());
 		newChooser.addObject("Cross Baseline", new CrossBaseline());
 		newChooser.addObject("Go Forward", new GoForward());
@@ -183,7 +183,6 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
-		//Camera.getInstance().pollCamera();
 		SmartDashboard.putNumber("Gyro X", RobotConfig.getInstance().GetGyro().getVector()[0]);
 		SmartDashboard.putNumber("Gyro Y", RobotConfig.getInstance().GetGyro().getVector()[1]);
 		SmartDashboard.putNumber("Gyro Z", RobotConfig.getInstance().GetGyro().getVector()[2]);

@@ -1,7 +1,5 @@
 package org.usfirst.frc.team3786.robot.config;
 
-import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
-
 public class PracticeConfig extends RobotConfig {
 
 	private static final int LEFT_DRIVE_MOTOR = 1;
