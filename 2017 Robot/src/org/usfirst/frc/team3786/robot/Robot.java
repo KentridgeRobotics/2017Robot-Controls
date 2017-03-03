@@ -70,12 +70,10 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchDownButton().whenReleased(WinchMove.getStopInstance());
 		UIConfig.getInstance().getWinchUpButton().whileHeld(WinchMove.getUpInstance());
 		UIConfig.getInstance().getWinchUpButton().whenReleased(WinchMove.getStopInstance());
-//		UIConfig.getInstance().getWinchDeployMoveButton().whileHeld(WinchDeploy.getMoveInstance());
-//		UIConfig.getInstance().getWinchDeployEnableButton().whileHeld(WinchDeploy.getEnableInstance());
-//		UIConfig.getInstance().getWinchDeployEnableButton().whenReleased(WinchDeploy.getDisableInstance());
 		DeployTrigger.getInstance().whileActive(WinchDeploy.getMoveInstance());
 		DeployTrigger.getInstance().whenInactive(WinchDeploy.getStopInstance());
-		//.usbCamera = CameraServer.getInstance().startAutomaticCapture();
+		UIConfig.getInstance().getWinchDeployReverseButton().whileHeld(WinchDeploy.getReverseInstance());
+		UIConfig.getInstance().getWinchDeployReverseButton().whenReleased(WinchDeploy.getStopInstance());
 		RobotConfig.getInstance().initialize();
 		newChooser = new SendableChooser<Command>();
 		newChooser.addDefault("Do Nothing", new DoNothing());

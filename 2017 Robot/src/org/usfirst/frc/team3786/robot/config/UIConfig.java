@@ -46,6 +46,8 @@ public abstract class UIConfig {
 	public abstract JoystickButton getWinchDeployMoveButton();
 	
 	public abstract JoystickButton getWinchDeployEnableButton();
+	
+	public abstract JoystickButton getWinchDeployReverseButton();
 
 		
 	

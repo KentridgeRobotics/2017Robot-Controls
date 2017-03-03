@@ -16,14 +16,14 @@ public class Rangefinders extends Subsystem {
 		return instance;
 	}
 	
-	AnalogInput testSharp;
+	AnalogInput rangefinder;
 	
 	public Rangefinders() {
-		testSharp = new AnalogInput(1);
+		rangefinder = new AnalogInput(0);
 	}
 	
 	public double getTestVoltage() {
-		return testSharp.getVoltage();
+		return rangefinder.getVoltage();
 	}
 public  double getRange(){
 		

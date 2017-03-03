@@ -10,13 +10,14 @@ import edu.wpi.first.wpilibj.command.Command;
 public class WinchDeploy extends Command {
 	
 	private enum Mode {
-		MOVE, STOP
+		MOVE, STOP, REVERSE
 	}
 	
 	private Mode instanceMode;
 	
 	private static WinchDeploy moveInstance;
 	private static WinchDeploy stopInstance;
+	private static WinchDeploy reverseInstance;
 	
 	public static WinchDeploy getMoveInstance() {
 		if(moveInstance == null)
@@ -29,6 +30,13 @@ public class WinchDeploy extends Command {
 			stopInstance = new WinchDeploy(Mode.STOP);
 		return stopInstance;
 	}
+	
+	public static WinchDeploy getReverseInstance() {
+		if(reverseInstance == null)
+			reverseInstance = new WinchDeploy(Mode.REVERSE);
+		return reverseInstance;
+	}
+
 
 	
     public WinchDeploy(Mode m) {
@@ -44,10 +52,18 @@ public class WinchDeploy extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {    	
-    	if(instanceMode == Mode.MOVE)
+    	if(instanceMode == Mode.MOVE) {
     		System.out.println("Move");
-    	if(instanceMode == Mode.STOP)
+    		Winch.getInstance().setDeploySpeed(.5);
+    	}
+    	if(instanceMode == Mode.STOP) {
     		System.out.println("Stop");
+    		Winch.getInstance().setDeploySpeed(0);
+    	}
+    	if(instanceMode == Mode.REVERSE) {
+    		System.out.println("Reverse");
+    		Winch.getInstance().setDeploySpeed(-.5);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
