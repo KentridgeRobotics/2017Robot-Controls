@@ -152,7 +152,7 @@ public class GearTargetFinder {
     
     //Return List of ContourReports Based On Object
     //Returns one or two ContourReport(s)
-    //Filters List of Contours into one or 
+    //Filters List of Contours into one or two
        
     public List<ContourReport> findObjectiveContourReport(List<ContourReport> contourReport, WhichDirection direction) {
     	List<ContourReport> contourReports = new ArrayList<ContourReport>(contourReport);
