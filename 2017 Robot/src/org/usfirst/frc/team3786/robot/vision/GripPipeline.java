@@ -82,7 +82,7 @@ public class GripPipeline implements VisionPipeline {
 //		convexHulls(convexHullsContours, convexHullsOutput);
 		
 		// Maybe bogus: Let's throw away some Mats!
-		//hslThresholdOutput.release();
+		hslThresholdOutput.release();
 		
 	}
 
