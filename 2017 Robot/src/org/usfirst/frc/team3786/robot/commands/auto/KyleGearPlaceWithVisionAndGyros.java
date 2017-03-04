@@ -72,7 +72,7 @@ public class KyleGearPlaceWithVisionAndGyros extends Command {
 						+ targetPositions.get(1).getDistanceToTargetInInches()) * 0.5;
 				targetPosition = new TargetPosition(targetAngle, targetDistance, 0.0);
 				isTargetPositionExact = true;
-				startTheta = RobotConfig.getInstance().GetGyro().getHeading();
+				startTheta = RobotConfig.getInstance().getGyroHeading();
 				endTheta = startTheta + targetPosition.getTargetDirectionDegrees();
 				if (!turnByVisionAlone)
 				{
@@ -86,7 +86,7 @@ public class KyleGearPlaceWithVisionAndGyros extends Command {
 		if (isTurning)
 		{
 			boolean goingUp = (endTheta > startTheta);
-			double currTheta = RobotConfig.getInstance().GetGyro().getHeading();
+			double currTheta = RobotConfig.getInstance().getGyroHeading();
 
 			if (goingUp && currTheta >= endTheta) {
 				isTurning = false;

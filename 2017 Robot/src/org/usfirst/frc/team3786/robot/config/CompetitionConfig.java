@@ -88,6 +88,12 @@ public class CompetitionConfig extends RobotConfig {
 		// TODO Auto-generated method stub
 		return 1.0;
 	}
+
+
+	@Override
+	public double getGyroHeading() {
+		return super.GetGyro().getHeading() * getGyroInversionMultiplier();
+	}
 	
 	
 

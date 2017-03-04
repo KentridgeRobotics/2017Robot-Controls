@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 
 /**
  * Abstract class to hold all the values needed for the electronics.
- * 
+ * <br>
  * Prevents us from having to go and change values in multiple places if we move things.
  * 
  * @author Aaron Weber 2017
@@ -48,7 +48,7 @@ public abstract class RobotConfig {
 	public BNO055 GetGyro() {
 		return gyro;
 	}
-
+	
 
 	/** when turning both wheels in opposite directions, how many degrees
 	 * of robot turn are in a degree of wheel turn
@@ -86,5 +86,7 @@ public abstract class RobotConfig {
 	public abstract double getRightEncoderTickFactor();
 	
 	public abstract double getGyroInversionMultiplier(); // Because sometimes we need to use the gyro upside down.
-		
+	
+	public abstract double getGyroHeading();
+
 }
