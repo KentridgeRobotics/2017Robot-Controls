@@ -65,9 +65,13 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		Drive.getInstance();
 		UIConfig.getInstance().getServoMoveButton().whenPressed(ServoMove.getInstance());
+		//Gear arm commands that use potentiometor and/or limits, 
+		//Disabled because potentiometer and limits are not working on the robot 
+		/*
 		UIConfig.getInstance().getPegPositionButton().whenPressed(GearArmLoadPosition.getInstance());
 		UIConfig.getInstance().getGearArmTopButton().whenPressed(GearArmTopPosition.getInstance());
 		UIConfig.getInstance().getGearArmBottomButton().whenPressed(GearArmBottomPosition.getInstance());
+		*/
 		UIConfig.getInstance().getWinchDownButton().whileHeld(WinchMove.getDownInstance());
 		UIConfig.getInstance().getWinchDownButton().whenReleased(WinchMove.getStopInstance());
 		UIConfig.getInstance().getWinchUpButton().whileHeld(WinchMove.getUpInstance());
@@ -82,7 +86,7 @@ public class Robot extends IterativeRobot {
 		//newChooser.addObject("Rotate wheels", new RotateWheelsTest());
 		//newChooser.addObject("Gyro Test", new GyroTurnTest());
 		//newChooser.addObject("Cross Baseline", new CrossBaseline());
-		newChooser.addDefault("Go Forward", new AutoDriveNoEncoder(.5,-.5, 6.28));
+		newChooser.addDefault("Go Forward", new AutoDriveNoEncoder(.5,-.5, 5));
 		//newChooser.addObject("Distance by Cam", new DistanceByCamera());
 		newChooser.addObject("Gear Auto with vision", new RotateWheelsTest());
 		newChooser.addObject("Gear Auto no vision", new RotateWheelsTestNoVision());

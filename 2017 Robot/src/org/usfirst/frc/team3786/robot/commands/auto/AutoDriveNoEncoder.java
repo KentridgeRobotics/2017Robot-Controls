@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3786.robot.commands.auto;
 
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -19,6 +20,7 @@ public class AutoDriveNoEncoder extends Command {
 	 */
     public AutoDriveNoEncoder(double leftSpeed, double rightSpeed, double time) {
     	requires(DriveTrain.getInstance());
+    	requires(GearArm.getInstance());
     	setTimeout(time);
     	this.leftSpeed = leftSpeed;
     	this.rightSpeed = rightSpeed;
@@ -26,6 +28,7 @@ public class AutoDriveNoEncoder extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	GearArm.getInstance().close();
     	DriveTrain.getInstance().setSpeed(leftSpeed, rightSpeed);
     	DriveTrain.getInstance().setCoast();
     }
