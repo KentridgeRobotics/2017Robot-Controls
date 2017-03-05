@@ -37,12 +37,12 @@ public class TankDrive extends UIConfig {
 	@Override
 	public double getLeftDrive() {
 		leftOut = -(leftStick.getY());
-		return Math.pow(leftOut, 2) * (Math.abs(leftOut)/leftOut);
+		return Math.pow(leftOut, 3) /** (Math.abs(leftOut)/leftOut)*/;
 	}
 	@Override
 	public double getRightDrive() {
 		rightOut = rightStick.getY();
-		return Math.pow(rightOut, 2) * (Math.abs(rightOut)/rightOut);
+		return Math.pow(rightOut, 3) /** (Math.abs(rightOut)/rightOut)*/;
 	}
 	@Override
 	public JoystickButton getServoMoveButton() {

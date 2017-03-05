@@ -13,7 +13,7 @@ public abstract class UIConfig {
 	
 	public static UIConfig getInstance() {
 		if(instance == null)
-			instance = new ArcadeDrive();
+			instance = new TankDrive();
 		return instance;
 	}
 	

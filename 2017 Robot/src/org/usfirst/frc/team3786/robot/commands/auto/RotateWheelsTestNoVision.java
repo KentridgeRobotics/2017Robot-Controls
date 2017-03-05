@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class RotateWheelsTest extends CommandGroup {
+public class RotateWheelsTestNoVision extends CommandGroup {
 
-    public RotateWheelsTest() {	
+    public RotateWheelsTestNoVision() {	
     	
 		requires(Rangefinders.getInstance());
     	
@@ -43,12 +43,12 @@ public class RotateWheelsTest extends CommandGroup {
     	
 					// try number 2
 		
-		addSequential (new ServoOpen());
-		addSequential (new KyleGearPlaceWithVisionAndGyros(true, false));
-		addSequential ( new ArmDown());
-		addSequential (new KyleGearPlaceCloser());
 		addSequential (new ServoClose());
-		addParallel (new AutoDriveNoEncoder(-.5,.5, 1.5));
+		addSequential (new KyleGearPlace());
+		addSequential (new ArmDown());
+		addSequential (new KyleGearPlaceCloser());
+		addSequential (new ServoOpen());
+		addParallel (new AutoDriveNoEncoder(-.25,.25, 2));
 		addSequential(new ArmDownMore());
 		addSequential(new ArmUp());
 		

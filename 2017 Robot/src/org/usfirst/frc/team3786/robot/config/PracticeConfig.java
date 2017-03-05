@@ -12,6 +12,8 @@ public class PracticeConfig extends RobotConfig {
 	
 	private static final int WINCH_DEPLOY_MOTOR = 5;
 	
+	private static final int LOAD_POSITION = 165;
+	
 	@Override
 	public int getLeftDriveMotor() {
 		return LEFT_DRIVE_MOTOR;
@@ -87,6 +89,13 @@ public class PracticeConfig extends RobotConfig {
 	@Override
 	public double getGyroHeading() {
 		return super.GetGyro().getHeading() * getGyroInversionMultiplier();
-	}	
+	}
+
+
+	@Override
+	public double getLoadPosition() {
+		return LOAD_POSITION;
+	}
+
 
 }

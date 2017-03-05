@@ -54,7 +54,7 @@ public class WinchDeploy extends Command {
     protected void execute() {    	
     	if(instanceMode == Mode.MOVE) {
     		System.out.println("Move");
-    		Winch.getInstance().setDeploySpeed(.5);
+    		Winch.getInstance().setDeploySpeed(.75);
     	}
     	if(instanceMode == Mode.STOP) {
     		System.out.println("Stop");
@@ -62,7 +62,7 @@ public class WinchDeploy extends Command {
     	}
     	if(instanceMode == Mode.REVERSE) {
     		System.out.println("Reverse");
-    		Winch.getInstance().setDeploySpeed(-.5);
+    		Winch.getInstance().setDeploySpeed(-.75);
     	}
     }
 

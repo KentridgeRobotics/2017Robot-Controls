@@ -19,7 +19,7 @@ public class ArmDown extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	GearArm.getInstance().setPositionDrive();
-    	GearArm.getInstance().setPosition(-325);
+    	GearArm.getInstance().setPosition(-500);
     }
 
     // Called repeatedly when this Command is scheduled to run

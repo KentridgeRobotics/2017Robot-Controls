@@ -2,6 +2,7 @@
 package org.usfirst.frc.team3786.robot;
 
 import org.opencv.core.Mat;
+import org.usfirst.frc.team3786.robot.commands.auto.AutoDriveNoEncoder;
 import org.usfirst.frc.team3786.robot.commands.auto.CrossBaseline;
 import org.usfirst.frc.team3786.robot.commands.auto.DisplayNextTarget;
 import org.usfirst.frc.team3786.robot.commands.auto.DistanceByCamera;
@@ -9,6 +10,7 @@ import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
 import org.usfirst.frc.team3786.robot.commands.auto.GoForward;
 import org.usfirst.frc.team3786.robot.commands.auto.GyroTurnTest;
 import org.usfirst.frc.team3786.robot.commands.auto.RotateWheelsTest;
+import org.usfirst.frc.team3786.robot.commands.auto.RotateWheelsTestNoVision;
 import org.usfirst.frc.team3786.robot.commands.auto.TurnDegrees;
 import org.usfirst.frc.team3786.robot.commands.climber.DeployTrigger;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchDeploy;
@@ -74,15 +76,16 @@ public class Robot extends IterativeRobot {
 		DeployTrigger.getInstance().whenInactive(WinchDeploy.getStopInstance());
 		UIConfig.getInstance().getWinchDeployReverseButton().whileHeld(WinchDeploy.getReverseInstance());
 		UIConfig.getInstance().getWinchDeployReverseButton().whenReleased(WinchDeploy.getStopInstance());
-		RobotConfig.getInstance().initialize();
+		RobotConfig.getInstance().initialize();	
 		newChooser = new SendableChooser<Command>();
-		newChooser.addDefault("Do Nothing", new DoNothing());
+		newChooser.addObject("Do Nothing", new DoNothing());
 		//newChooser.addObject("Rotate wheels", new RotateWheelsTest());
-		newChooser.addObject("Gyro Test", new GyroTurnTest());
-		newChooser.addObject("Cross Baseline", new CrossBaseline());
-		newChooser.addObject("Go Forward", new GoForward());
+		//newChooser.addObject("Gyro Test", new GyroTurnTest());
+		//newChooser.addObject("Cross Baseline", new CrossBaseline());
+		newChooser.addObject("Go Forward", new AutoDriveNoEncoder(1.0,-1.0, 2.5));
 		//newChooser.addObject("Distance by Cam", new DistanceByCamera());
-		newChooser.addObject("Kyle's try", new RotateWheelsTest());
+		//newChooser.addObject("Gear Auto with vision", new RotateWheelsTest());
+		newChooser.addDefault("Gear Auto no vision", new RotateWheelsTestNoVision());
 		
 		//SmartDashboard.putData("Auto mode", autoChooser);
 		//UIConfig.getInstance().getTestButton().whenPressed(displayData);
@@ -159,6 +162,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Target distance", DisplayNextTarget.distance);
 		SmartDashboard.putNumber("Target direction", DisplayNextTarget.direction);
 		SmartDashboard.putNumber("Target face angle", DisplayNextTarget.faceAngle);
+		
+		
 		//System.err.println("Gyro Heading" + RobotConfig.gyro.getHeading());
 		
 		//DriveTrain.getInstance().getLoopError();
@@ -209,6 +214,10 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Bottom Limit", GearArm.getInstance().getBottomLimitSwitch());
 		SmartDashboard.putBoolean("Winch fwd limit", Winch.getInstance().getForwardLimitSwitch());
 		SmartDashboard.putBoolean("Winch rev limit", Winch.getInstance().getReverseLimitSwitch());
+		
+		SmartDashboard.putNumber("Left Out", UIConfig.getInstance().getLeftDrive());
+		SmartDashboard.putNumber("Right Out", UIConfig.getInstance().getRightDrive());
+
 		
 	}
 

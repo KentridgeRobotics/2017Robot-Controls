@@ -16,6 +16,8 @@ public class CompetitionConfig extends RobotConfig {
 	private static final int WINCH_MOTOR = 5;
 	
 	private static final int WINCH_DEPLOY_MOTOR = 4;
+	
+	private static final int LOAD_POSITION = 335;
 				
 	
 	@Override
@@ -93,6 +95,12 @@ public class CompetitionConfig extends RobotConfig {
 	@Override
 	public double getGyroHeading() {
 		return super.GetGyro().getHeading() * getGyroInversionMultiplier();
+	}
+
+
+	@Override
+	public double getLoadPosition() {
+		return LOAD_POSITION;
 	}
 	
 	

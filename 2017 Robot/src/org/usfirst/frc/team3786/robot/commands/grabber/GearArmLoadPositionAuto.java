@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3786.robot.commands.grabber;
 
+import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 
@@ -27,10 +28,10 @@ public class GearArmLoadPositionAuto extends Command {
     protected void initialize() {
     	GearArm.getInstance().open();
     	GearArm.getInstance().setPositionDrive();
-    	if(GearArm.getInstance().getPosition() > UIConfig.getInstance().getPegPosition())
-    		GearArm.getInstance().setPosition(-UIConfig.getInstance().getPegPosition()+20);
+    	if(GearArm.getInstance().getPosition() > RobotConfig.getInstance().getLoadPosition())
+    		GearArm.getInstance().setPosition(-RobotConfig.getInstance().getLoadPosition()+20);
     	else
-    		GearArm.getInstance().setPosition(-UIConfig.getInstance().getPegPosition() - 35);
+    		GearArm.getInstance().setPosition(-RobotConfig.getInstance().getLoadPosition() - 35);
     }
 
     protected void execute() {

@@ -37,9 +37,9 @@ public class KyleGearPlaceCloser extends Command {
     
     System.err.println(volts);
     
-    if (volts < 1)
+    if (volts < .7)
     {
-    	DriveTrain.getInstance().setSpeed(.2, -.2);
+    	DriveTrain.getInstance().setSpeed(.2, -.3);
     	hasDriven = true;
     }
 //    if (volts >= .6 && volts <= .8 ){
@@ -51,7 +51,7 @@ public class KyleGearPlaceCloser extends Command {
 //    
 //    	DriveTrain.getInstance().setSpeed(.25, -.25);
 //    }
-    if(volts >= 1 && hasDriven == true)
+    if(volts >= .7 && hasDriven == true)
     {
     	DriveTrain.getInstance().setSpeed(0,0);
     isDone = true;

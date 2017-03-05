@@ -88,5 +88,7 @@ public abstract class RobotConfig {
 	public abstract double getGyroInversionMultiplier(); // Because sometimes we need to use the gyro upside down.
 	
 	public abstract double getGyroHeading();
+	
+	public abstract double getLoadPosition();
 
 }

@@ -12,11 +12,11 @@ public class AutoDriveNoEncoder extends Command {
 	double leftSpeed, rightSpeed;
 	/**
 	 * 
-	 * @param leftSpeed left wheel speed
-	 * @param rightSpeed right wheel speed
+	 * @param leftSpeed left wheel speed (positive to go forward)
+	 * @param rightSpeed right wheel speed (negative to go forward)
 	 * @param time Time to drive in seconds
 	 */
-    public AutoDriveNoEncoder(double leftSpeed, double rightSpeed, int time) {
+    public AutoDriveNoEncoder(double leftSpeed, double rightSpeed, double time) {
     	requires(DriveTrain.getInstance());
     	setTimeout(time);
     	this.leftSpeed = leftSpeed;

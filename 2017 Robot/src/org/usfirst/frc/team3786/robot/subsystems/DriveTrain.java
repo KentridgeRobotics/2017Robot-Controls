@@ -251,9 +251,11 @@ public class DriveTrain extends Subsystem {
     public void setSpeedDrive() {
     	_currentType = DriveType.SPEED;
     	leftDriveMotor.changeControlMode(TalonControlMode.PercentVbus);
-    	leftDriveMotor.enableBrakeMode(false);
+    	//leftDriveMotor.enableBrakeMode(false);
+    	leftDriveMotor.enableBrakeMode(true);
     	rightDriveMotor.changeControlMode(TalonControlMode.PercentVbus);
-    	rightDriveMotor.enableBrakeMode(false);
+    	//rightDriveMotor.enableBrakeMode(false);
+    	rightDriveMotor.enableBrakeMode(true);
     }
     
     public void initDefaultCommand() {

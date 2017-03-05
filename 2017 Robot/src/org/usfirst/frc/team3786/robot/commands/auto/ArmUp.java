@@ -18,8 +18,8 @@ public class ArmUp extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	GearArm.getInstance().setPositionDrive();
-    	GearArm.getInstance().setPosition(-50);
+    	GearArm.getInstance().setManualDrive();
+    	GearArm.getInstance().setSpeed(.5);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -29,7 +29,7 @@ public class ArmUp extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (isTimedOut() && GearArm.getInstance().getVoltage() < 1.1);
+        return (isTimedOut() || GearArm.getInstance().getTopLimitSwitch());
     }
 
     // Called once after isFinished returns true
