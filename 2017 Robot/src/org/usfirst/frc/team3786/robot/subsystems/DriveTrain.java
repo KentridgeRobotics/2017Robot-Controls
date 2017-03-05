@@ -59,8 +59,8 @@ public class DriveTrain extends Subsystem {
 //		SmartDashboard.putData("P Value", pValue);
 //		SmartDashboard.putData("D Value", dValue);
 //		
-		SmartDashboard.putNumber("Set P Value", .5);
-		SmartDashboard.putNumber("Set D Value", .6);
+//		SmartDashboard.putNumber("Set P Value", .5);
+//		SmartDashboard.putNumber("Set D Value", .6);
 //		SmartDashboard.putData("Left Motor", leftDriveMotor);
 //		SmartDashboard.putData("Right Motor", rightDriveMotor);
 		
@@ -246,6 +246,11 @@ public class DriveTrain extends Subsystem {
     public void setBrake() {
     	leftDriveMotor.enableBrakeMode(true);
     	rightDriveMotor.enableBrakeMode(true);
+    }
+    
+    public void setCoast() {
+    	leftDriveMotor.enableBrakeMode(false);
+    	rightDriveMotor.enableBrakeMode(false);
     }
         
     public void setSpeedDrive() {

@@ -2,6 +2,7 @@ package org.usfirst.frc.team3786.robot.commands.auto;
 
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -13,11 +14,12 @@ public class ArmDown extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(GearArm.getInstance());
-    	setTimeout(1.75);
+    	setTimeout(2.75);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Timer.delay(1);
     	GearArm.getInstance().setPositionDrive();
     	GearArm.getInstance().setPosition(-500);
     }

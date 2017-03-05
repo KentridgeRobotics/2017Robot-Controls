@@ -44,7 +44,7 @@ public class RotateWheelsTestNoVision extends CommandGroup {
 					// try number 2
 		
 		addSequential (new ServoClose());
-		addSequential (new KyleGearPlace());
+		addParallel (new KyleGearPlace());
 		addSequential (new ArmDown());
 		addSequential (new KyleGearPlaceCloser());
 		addSequential (new ServoOpen());

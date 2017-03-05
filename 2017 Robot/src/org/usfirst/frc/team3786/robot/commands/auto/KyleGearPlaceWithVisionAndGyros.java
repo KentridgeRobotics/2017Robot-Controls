@@ -19,7 +19,7 @@ public class KyleGearPlaceWithVisionAndGyros extends Command {
 	private final boolean useVision;
 	private final static double ANGLE_TOLERANCE = 0.5;
 	private int executeCountBeforeVisionFix = 0;
-	private static final int MAX_EXECUTES_BEFORE_VISION_FIX = 10;
+	private static final int MAX_EXECUTES_BEFORE_VISION_FIX = 40;
 	private boolean hasDriven = false;
 	private boolean isTurning = false;
 	private double startTheta;
@@ -63,6 +63,7 @@ public class KyleGearPlaceWithVisionAndGyros extends Command {
 			List<TargetPosition> targetPositions = VisionUtil.getTargetPositionToGearTarget();
 			if (targetPositions.size() == 1) {
 				targetPosition = targetPositions.get(0);
+				System.err.println("Target position not exact!");
 				isTargetPositionExact = false;
 			} else if (targetPositions.size() == 2) {
 				// We must have 2 positions, so we're going straight in!
@@ -73,10 +74,11 @@ public class KyleGearPlaceWithVisionAndGyros extends Command {
 				targetPosition = new TargetPosition(targetAngle, targetDistance, 0.0);
 				isTargetPositionExact = true;
 				startTheta = RobotConfig.getInstance().getGyroHeading();
-				endTheta = startTheta + targetPosition.getTargetDirectionDegrees();
+				endTheta = startTheta + targetPosition.getTargetDirectionDegrees() - 3.0;
 				if (!turnByVisionAlone)
 				{
 					isTurning = true;
+					System.err.println("We want to turn using vision: startTheta="+startTheta+" endTheta="+endTheta);
 					executeCountBeforeVisionFix = MAX_EXECUTES_BEFORE_VISION_FIX;
 					return;
 				}
@@ -125,7 +127,7 @@ public class KyleGearPlaceWithVisionAndGyros extends Command {
 				executeCountBeforeVisionFix = MAX_EXECUTES_BEFORE_VISION_FIX;
 			}
 
-		} else if (volts < .8) {
+		} else if (volts < .5) {
 			// No vision, no need to turn. Let's drive!
 			DriveTrain.getInstance().setSpeed(.2, -.2);
 			hasDriven = true;
@@ -139,7 +141,7 @@ public class KyleGearPlaceWithVisionAndGyros extends Command {
 		//
 		// DriveTrain.getInstance().setSpeed(.25, -.25);
 		// }
-		else if (volts >= .8 && hasDriven == true) {
+		else if (volts >= .5 && hasDriven == true) {
 			// Or just stop.
 			DriveTrain.getInstance().setSpeed(0, 0);
 			isDone = true;

@@ -26,6 +26,22 @@ public abstract class RobotConfig {
 	private UsbCamera usbCamera = null;
 	private BNO055 gyro = null;
 	
+	public void setCameraResolution(int w, int h)
+	{
+		if (usbCamera != null)
+		{
+			usbCamera.setResolution(w,  h);
+		}
+	}
+	
+	public void setCameraFrameRate(int fps)
+	{
+		if (usbCamera != null)
+		{
+			usbCamera.setFPS(fps);
+		}
+	}
+	
 	public void initialize()
 	{		
 		if (usbCamera == null) {

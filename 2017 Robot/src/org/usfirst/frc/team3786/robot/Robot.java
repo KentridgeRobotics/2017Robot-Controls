@@ -82,9 +82,9 @@ public class Robot extends IterativeRobot {
 		//newChooser.addObject("Rotate wheels", new RotateWheelsTest());
 		//newChooser.addObject("Gyro Test", new GyroTurnTest());
 		//newChooser.addObject("Cross Baseline", new CrossBaseline());
-		newChooser.addObject("Go Forward", new AutoDriveNoEncoder(1.0,-1.0, 2.5));
+		newChooser.addObject("Go Forward", new AutoDriveNoEncoder(1.0,-1.0, 3.0));
 		//newChooser.addObject("Distance by Cam", new DistanceByCamera());
-		//newChooser.addObject("Gear Auto with vision", new RotateWheelsTest());
+		newChooser.addObject("Gear Auto with vision", new RotateWheelsTest());
 		newChooser.addDefault("Gear Auto no vision", new RotateWheelsTestNoVision());
 		
 		//SmartDashboard.putData("Auto mode", autoChooser);
@@ -178,7 +178,9 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		DriveTrain.getInstance().setSpeedDrive();
-		
+		GearArm.getInstance().setManualDrive();
+		RobotConfig.getInstance().setCameraResolution(320, 240);
+		RobotConfig.getInstance().setCameraFrameRate(15);
 	}
 
 	/**
