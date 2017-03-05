@@ -238,6 +238,12 @@ public class DriveTrain extends Subsystem {
     public double getRightMotorOutput() {
     	return rightDriveMotor.getOutputVoltage();
     }
+    public double getLeftCurrent() {
+    	return leftDriveMotor.getOutputCurrent();
+    }
+    public double getRightCurrent() {
+    	return rightDriveMotor.getOutputCurrent();
+    }
     
     public String getDriveType() {
     	return _currentType.toString();

@@ -82,10 +82,10 @@ public class Robot extends IterativeRobot {
 		//newChooser.addObject("Rotate wheels", new RotateWheelsTest());
 		//newChooser.addObject("Gyro Test", new GyroTurnTest());
 		//newChooser.addObject("Cross Baseline", new CrossBaseline());
-		newChooser.addObject("Go Forward", new AutoDriveNoEncoder(.5,-.5, 6.28));
+		newChooser.addDefault("Go Forward", new AutoDriveNoEncoder(.5,-.5, 6.28));
 		//newChooser.addObject("Distance by Cam", new DistanceByCamera());
 		newChooser.addObject("Gear Auto with vision", new RotateWheelsTest());
-		newChooser.addDefault("Gear Auto no vision", new RotateWheelsTestNoVision());
+		newChooser.addObject("Gear Auto no vision", new RotateWheelsTestNoVision());
 		
 		//SmartDashboard.putData("Auto mode", autoChooser);
 		//UIConfig.getInstance().getTestButton().whenPressed(displayData);
@@ -162,6 +162,9 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Target distance", DisplayNextTarget.distance);
 		SmartDashboard.putNumber("Target direction", DisplayNextTarget.direction);
 		SmartDashboard.putNumber("Target face angle", DisplayNextTarget.faceAngle);
+		
+		SmartDashboard.putNumber("Left Current", DriveTrain.getInstance().getLeftCurrent());
+		SmartDashboard.putNumber("Right Current", DriveTrain.getInstance().getRightCurrent());
 		
 		
 		//System.err.println("Gyro Heading" + RobotConfig.gyro.getHeading());
