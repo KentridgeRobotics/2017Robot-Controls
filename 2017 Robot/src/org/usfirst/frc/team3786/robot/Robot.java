@@ -82,7 +82,7 @@ public class Robot extends IterativeRobot {
 		//newChooser.addObject("Rotate wheels", new RotateWheelsTest());
 		//newChooser.addObject("Gyro Test", new GyroTurnTest());
 		//newChooser.addObject("Cross Baseline", new CrossBaseline());
-		newChooser.addObject("Go Forward", new AutoDriveNoEncoder(1.0,-1.0, 3.0));
+		newChooser.addObject("Go Forward", new AutoDriveNoEncoder(.5,-.5, 6.28));
 		//newChooser.addObject("Distance by Cam", new DistanceByCamera());
 		newChooser.addObject("Gear Auto with vision", new RotateWheelsTest());
 		newChooser.addDefault("Gear Auto no vision", new RotateWheelsTestNoVision());
