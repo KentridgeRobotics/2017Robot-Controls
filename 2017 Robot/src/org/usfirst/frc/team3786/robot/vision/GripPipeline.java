@@ -32,7 +32,7 @@ public class GripPipeline implements VisionPipeline {
 	private ArrayList<MatOfPoint> findContoursOutput = new ArrayList<MatOfPoint>();
 	private ArrayList<MatOfPoint> filterContoursOutput = new ArrayList<MatOfPoint>();
 //	private ArrayList<MatOfPoint> convexHullsOutput = new ArrayList<MatOfPoint>();
-
+	private Mat workingMat = new Mat();
 	static {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	}
@@ -44,7 +44,7 @@ public class GripPipeline implements VisionPipeline {
 	public void process(Mat source0) {
 		// Step HSL_Threshold0:
 		Mat hslThresholdInput = source0;
-		Mat hslThresholdOutput = new Mat();
+		Mat hslThresholdOutput = workingMat;
 
 		double[] hslThresholdHue = {79.31654676258992, 146.66666666666666};
 		double[] hslThresholdSaturation = {199.50539568345323, 255.0};
@@ -80,9 +80,7 @@ public class GripPipeline implements VisionPipeline {
 		// Step Convex_Hulls0:
 //		ArrayList<MatOfPoint> convexHullsContours = filterContoursOutput;
 //		convexHulls(convexHullsContours, convexHullsOutput);
-		
-		// Maybe bogus: Let's throw away some Mats!
-		hslThresholdOutput.release();
+
 		
 	}
 
@@ -164,7 +162,7 @@ public class GripPipeline implements VisionPipeline {
 	 */
 	private void findContours(Mat input, boolean externalOnly,
 		List<MatOfPoint> contours) {
-		Mat hierarchy = new Mat();
+		Mat hierarchy = workingMat;
 		contours.clear();
 		int mode;
 		if (externalOnly) {

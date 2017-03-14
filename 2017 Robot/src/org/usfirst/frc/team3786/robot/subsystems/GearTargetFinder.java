@@ -31,6 +31,7 @@ public class GearTargetFinder {
 	private int IMG_WIDTH = 640;
 	private int IMG_HEIGHT = 480;
 	private static GearTargetFinder instance;
+	private Mat workingMat = new Mat();
 
 	//Fixed ThreadPool for Running Image through Pipeline
 	//ExecutorService executorService = Executors.newFixedThreadPool(1);
@@ -52,10 +53,12 @@ public class GearTargetFinder {
     	System.err.println("acquireVisionInput called");
     	//UsbCamera camera = Robot.usbCamera;
        // camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
-        Mat source = new Mat();
+    	List<MatOfPoint> foundContours = Collections.emptyList();
+    	try {
+        Mat source = workingMat;
 
     	CvSink cvSink = RobotConfig.getInstance().GetCvSink();
-    	GripPipeline grip = new GripPipeline();
+    	GripPipeline grip = RobotConfig.getInstance().GetGripPipeline();
     	
 
         long result = cvSink.grabFrame(source);
@@ -67,16 +70,19 @@ public class GearTargetFinder {
         }
         grip.process(source);
         System.err.println("GRIP contours"+grip.findContoursOutput().size());
-		List<MatOfPoint> foundContours = grip.filterContoursOutput();
-		// Let's release the Mat.
-		//source.release();
-		return foundContours;    	
+		foundContours = grip.filterContoursOutput();
+    	}
+		catch (Exception ex) {
+			System.err.println("ERROR IN ACQUIRE VISION INPUT "+ex);
+			ex.printStackTrace(System.err);
+		}
+		return foundContours;
     }
     
     public boolean isRobotInPosition() {
     	CvSink cvSink = RobotConfig.getInstance().GetCvSink();
-    	GripPipeline grip = new GripPipeline();
-    	Mat source = new Mat();
+    	GripPipeline grip = RobotConfig.getInstance().GetGripPipeline();
+    	Mat source = workingMat;
         long result = cvSink.grabFrame(source);
         if (result == 0)
         {
@@ -135,16 +141,22 @@ public class GearTargetFinder {
     //Return List of ContourReports
     public List<ContourReport> extractContourReports(List<MatOfPoint> contourMap) {
     	List<ContourReport> contourReports = new ArrayList<ContourReport>();
-    	System.err.println("Size of Contour Map: " + contourMap.size());
-    	for(MatOfPoint matOfPoint : contourMap) {
-    		System.err.println("Mat Of Point Found");
-    		Rect r = Imgproc.boundingRect(matOfPoint);
-    		contourReports.add(new ContourReport(
-    			r.x + (r.width / 2),
-    			r.y + (r.height / 2),
-    			r.width,
-    			r.height
-    		));
+    	try {
+    		System.err.println("Size of Contour Map: " + contourMap.size());
+    		for(MatOfPoint matOfPoint : contourMap) {
+    			System.err.println("Mat Of Point Found");
+    			Rect r = Imgproc.boundingRect(matOfPoint);
+    			contourReports.add(new ContourReport(
+    					r.x + (r.width / 2),
+    					r.y + (r.height / 2),
+    					r.width,
+    					r.height
+    					));
+    		}
+    	}
+    	catch (Exception ex) {
+    		System.err.println("ERROR IN EXTRACT CONTOUR REPORTS LIST "+ex);
+    		ex.printStackTrace(System.err);
     	}
     	return contourReports;
     }

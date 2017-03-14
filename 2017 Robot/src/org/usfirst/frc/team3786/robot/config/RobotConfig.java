@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3786.robot.config;
 
 import org.usfirst.frc.team3786.robot.subsystems.BNO055;
+import org.usfirst.frc.team3786.robot.vision.GripPipeline;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.UsbCamera;
@@ -25,6 +26,7 @@ public abstract class RobotConfig {
 	
 	private UsbCamera usbCamera = null;
 	private BNO055 gyro = null;
+	private GripPipeline gripPipeline = null;
 	
 	public void setCameraResolution(int w, int h)
 	{
@@ -62,9 +64,18 @@ public abstract class RobotConfig {
 	}
 	
 	public BNO055 GetGyro() {
+		if (gyro == null) {
+			throw new NullPointerException("Gyro not initialized. Be sure to call initialize");
+		}
 		return gyro;
 	}
 	
+	public GripPipeline GetGripPipeline() {
+		if (gripPipeline == null) {
+			throw new NullPointerException("GripPipeline not initialized. Be sure to call initialize");
+		}
+		return gripPipeline;
+	}
 
 	/** when turning both wheels in opposite directions, how many degrees
 	 * of robot turn are in a degree of wheel turn
