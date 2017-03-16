@@ -16,6 +16,7 @@ import org.usfirst.frc.team3786.robot.commands.climber.DeployTrigger;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchDeploy;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
 import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
+import org.usfirst.frc.team3786.robot.commands.display.DisplayTargetSolution;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearArmBottomPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearArmTopPosition;
@@ -35,6 +36,7 @@ import org.usfirst.frc.team3786.robot.vision.FinderOfRange;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -80,6 +82,9 @@ public class Robot extends IterativeRobot {
 		DeployTrigger.getInstance().whenInactive(WinchDeploy.getStopInstance());
 		UIConfig.getInstance().getWinchDeployReverseButton().whileHeld(WinchDeploy.getReverseInstance());
 		UIConfig.getInstance().getWinchDeployReverseButton().whenReleased(WinchDeploy.getStopInstance());
+		
+		JoystickButton testButton = new JoystickButton(UIConfig.getInstance().getLeftStick(), 11);
+		testButton.whenPressed(new DisplayTargetSolution());
 		RobotConfig.getInstance().initialize();	
 		newChooser = new SendableChooser<Command>();
 		newChooser.addObject("Do Nothing", new DoNothing());
@@ -186,8 +191,8 @@ public class Robot extends IterativeRobot {
 		DriveTrain.getInstance().setVelocityDrive();
 		DriveTrain.getInstance().setCoast();
 		GearArm.getInstance().setManualDrive();
-		RobotConfig.getInstance().setCameraResolution(320, 240);
-		RobotConfig.getInstance().setCameraFrameRate(15);
+		RobotConfig.getInstance().setCameraResolution(640, 480);
+		RobotConfig.getInstance().setCameraFrameRate(10);
 	}
 
 	/**
