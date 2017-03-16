@@ -167,8 +167,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Target direction", DisplayNextTarget.direction);
 		SmartDashboard.putNumber("Target face angle", DisplayNextTarget.faceAngle);
 		
-		SmartDashboard.putNumber("Left Current", DriveTrain.getInstance().getLeftCurrent());
-		SmartDashboard.putNumber("Right Current", DriveTrain.getInstance().getRightCurrent());
 		
 		
 		//System.err.println("Gyro Heading" + RobotConfig.gyro.getHeading());
@@ -184,7 +182,9 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		DriveTrain.getInstance().setSpeedDrive();
+//		DriveTrain.getInstance().setSpeedDrive();
+		DriveTrain.getInstance().setVelocityDrive();
+		DriveTrain.getInstance().setCoast();
 		GearArm.getInstance().setManualDrive();
 		RobotConfig.getInstance().setCameraResolution(320, 240);
 		RobotConfig.getInstance().setCameraFrameRate(15);
@@ -206,10 +206,15 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Left Encoder", DriveTrain.getInstance().getLeftEncoder());
 		SmartDashboard.putNumber("Left Velocity", DriveTrain.getInstance().getLeftVelocity());
 		SmartDashboard.putNumber("Left Voltage", DriveTrain.getInstance().getLeftMotorOutput());
+		SmartDashboard.putNumber("Left Closed Loop Error", DriveTrain.getInstance().getLeftLoopError());
+		SmartDashboard.putNumber("Left Stick Out", UIConfig.getInstance().getLeftDrive());
 		
 		SmartDashboard.putNumber("Right Encoder", DriveTrain.getInstance().getRightEncoder());
 		SmartDashboard.putNumber("Right Velocity", DriveTrain.getInstance().getRightVelocity());
 		SmartDashboard.putNumber("Right Voltage", DriveTrain.getInstance().getRightMotorOutput());
+		
+		SmartDashboard.putNumber("Left Current", DriveTrain.getInstance().getLeftCurrent());
+		SmartDashboard.putNumber("Right Current", DriveTrain.getInstance().getRightCurrent());
 
 		
 		

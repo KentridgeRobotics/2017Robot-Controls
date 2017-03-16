@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3786.robot.subsystems;
 
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
+import org.usfirst.frc.team3786.robot.commands.drive.DriveVelocity;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 
 import com.ctre.CANTalon;
@@ -19,7 +20,7 @@ public class DriveTrain extends Subsystem {
 	public static DriveTrain instance;
 	
 	private enum DriveType {
-		POSITION, SPEED
+		POSITION, SPEED, VELOCITY
 	}
 	
 	private DriveType _currentType;
@@ -131,56 +132,6 @@ public class DriveTrain extends Subsystem {
     	leftDriveMotor.setEncPosition(0);
     	rightDriveMotor.setEncPosition(0);
     }
-        
-//    public void setPositionDrive() {
-//    	//if(_currentType != DriveType.POSITION) {
-//    	
-//    	_currentType = DriveType.POSITION;
-//    	
-//    	zeroEncoders();
-//    	
-//    	leftDriveMotor.enableBrakeMode(true);
-//		leftDriveMotor.changeControlMode(TalonControlMode.Position);
-//		//leftDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-//		leftDriveMotor.reverseSensor(true);
-//		//leftDriveMotor.reverseOutput(true);
-//		leftDriveMotor.configNominalOutputVoltage(+0f, -0f);
-//		leftDriveMotor.configPeakOutputVoltage(+12f, -12f);
-//		
-//		leftDriveMotor.setF(0.0);
-//		//leftDriveMotor.setP(SmartDashboard.getNumber("PValue", .5));
-//		leftDriveMotor.setP(.05);
-//		leftDriveMotor.setI(0.0);
-//		leftDriveMotor.setD(0.0);
-//		//leftDriveMotor.setD(SmartDashboard.getNumber("DValue", .5));
-//		leftDriveMotor.enableControl();
-//		
-//		//leftDriveMotor.setProfile(0);
-//	
-//		//leftDriveMotor.configEncoderCodesPerRev(360);
-//		
-//		rightDriveMotor.reverseSensor(true);
-//		rightDriveMotor.enableBrakeMode(true);
-//		rightDriveMotor.changeControlMode(TalonControlMode.Position);
-//		//rightDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-//		rightDriveMotor.configNominalOutputVoltage(+0f, -0f);
-//		rightDriveMotor.configPeakOutputVoltage(+12f, -12f);
-//		
-//		rightDriveMotor.setF(0.0);
-//		//rightDriveMotor.setP(SmartDashboard.getNumber("PValue", .5));
-//		rightDriveMotor.setP(.05);
-//		rightDriveMotor.setI(0.0);
-//		rightDriveMotor.setD(0.0);
-//		//rightDriveMotor.setD(SmartDashboard.getNumber("DValue", .5));
-//		rightDriveMotor.enableControl();
-//		
-//		//rightDriveMotor.setProfile(0);
-//		
-//		//rightDriveMotor.configEncoderCodesPerRev(360);
-//		
-//    	//}
-//
-//    }
     
     public void setP(double p) {
     	leftDriveMotor.setP(p);
@@ -199,6 +150,11 @@ public class DriveTrain extends Subsystem {
     	System.out.println("Left: " + leftDriveMotor.getClosedLoopError());
     	System.out.println("Right: " + rightDriveMotor.getClosedLoopError());
     }
+    
+    public double getLeftLoopError() {
+    	return leftDriveMotor.getClosedLoopError();
+    }
+    
     public void setPositionDrive() {
     	//if(_currentType != DriveType.POSITION) {
     	
@@ -229,6 +185,29 @@ public class DriveTrain extends Subsystem {
 				
     	//}
 
+    }
+    
+    public void setVelocityDrive() {
+    	_currentType = DriveType.VELOCITY;
+    	
+    	leftDriveMotor.changeControlMode(TalonControlMode.Speed);
+		leftDriveMotor.configNominalOutputVoltage(+0f, -0f);
+		leftDriveMotor.configPeakOutputVoltage(+12f, -12f);
+		leftDriveMotor.setPID(10, 0, 0);
+		leftDriveMotor.setF(20);
+    	
+    	rightDriveMotor.changeControlMode(TalonControlMode.Speed);
+		rightDriveMotor.configNominalOutputVoltage(+0f, -0f);
+		rightDriveMotor.configPeakOutputVoltage(+12f, -12f);
+		rightDriveMotor.setPID(0, 0, 0, 1, 0, 0, 0);
+
+    }
+    
+    public void setVelocity(double leftVelocity, double rightVelocity) {
+    	if(_currentType != DriveType.VELOCITY)
+    		this.setVelocityDrive();
+    	leftDriveMotor.set(leftVelocity * 100.0);
+    	rightDriveMotor.set(rightVelocity * 100.0);
     }
 
     
@@ -270,7 +249,8 @@ public class DriveTrain extends Subsystem {
     }
     
     public void initDefaultCommand() {
-    	setDefaultCommand(Drive.getInstance());  	
+//    	setDefaultCommand(Drive.getInstance());  	
+    	setDefaultCommand(DriveVelocity.getInstance());
     }
 }
 
