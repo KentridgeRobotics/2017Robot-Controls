@@ -53,6 +53,9 @@ public abstract class RobotConfig {
 		if (gyro == null) {
 			gyro = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS, BNO055.vector_type_t.VECTOR_EULER);
 		}
+		if (gripPipeline == null) {
+			gripPipeline = new GripPipeline();
+		}
 	}
 	
 	public CvSink GetCvSink() {
@@ -65,14 +68,14 @@ public abstract class RobotConfig {
 	
 	public BNO055 GetGyro() {
 		if (gyro == null) {
-			throw new NullPointerException("Gyro not initialized. Be sure to call initialize");
+			initialize();
 		}
 		return gyro;
 	}
 	
 	public GripPipeline GetGripPipeline() {
 		if (gripPipeline == null) {
-			throw new NullPointerException("GripPipeline not initialized. Be sure to call initialize");
+			initialize();
 		}
 		return gripPipeline;
 	}

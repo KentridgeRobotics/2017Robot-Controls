@@ -40,7 +40,7 @@ public class TankDrive extends UIConfig {
 		//return Math.pow(leftOut, 2) * (Math.abs(leftOut)/leftOut);
 		
 		//rounding for velocity testing
-		return Math.round(leftOut);
+		return /*Math.round*/(leftOut);
 	}
 	@Override
 	public double getRightDrive() {

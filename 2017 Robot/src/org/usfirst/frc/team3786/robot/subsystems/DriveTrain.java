@@ -193,7 +193,7 @@ public class DriveTrain extends Subsystem {
     	leftDriveMotor.changeControlMode(TalonControlMode.Speed);
 		leftDriveMotor.configNominalOutputVoltage(+0f, -0f);
 		leftDriveMotor.configPeakOutputVoltage(+12f, -12f);
-		leftDriveMotor.setPID(10, 0, 0);
+		leftDriveMotor.setPID(0, 0, 0);
 		leftDriveMotor.setF(20);
     	
     	rightDriveMotor.changeControlMode(TalonControlMode.Speed);
