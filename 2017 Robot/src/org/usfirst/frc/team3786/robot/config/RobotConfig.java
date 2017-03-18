@@ -24,47 +24,16 @@ public abstract class RobotConfig {
 		return instance;
 	}
 	
-	private UsbCamera usbCamera = null;
 	private BNO055 gyro = null;
-	private GripPipeline gripPipeline = null;
 	
-	public void setCameraResolution(int w, int h)
-	{
-		if (usbCamera != null)
-		{
-			usbCamera.setResolution(w,  h);
-		}
-	}
-	
-	public void setCameraFrameRate(int fps)
-	{
-		if (usbCamera != null)
-		{
-			usbCamera.setFPS(fps);
-		}
-	}
 	
 	public void initialize()
 	{		
-		if (usbCamera == null) {
-			usbCamera = CameraServer.getInstance().startAutomaticCapture();
-			usbCamera.setResolution(640, 480);
-		}
 		if (gyro == null) {
 			gyro = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS, BNO055.vector_type_t.VECTOR_EULER);
 		}
-		if (gripPipeline == null) {
-			gripPipeline = new GripPipeline();
-		}
 	}
 	
-	public CvSink GetCvSink() {
-		if (usbCamera == null)
-		{
-			throw new NullPointerException("usb camera not initialized! Be sure to call initialize.");
-		}
-		return CameraServer.getInstance().getVideo();
-	}
 	
 	public BNO055 GetGyro() {
 		if (gyro == null) {
@@ -73,12 +42,6 @@ public abstract class RobotConfig {
 		return gyro;
 	}
 	
-	public GripPipeline GetGripPipeline() {
-		if (gripPipeline == null) {
-			initialize();
-		}
-		return gripPipeline;
-	}
 
 	/** when turning both wheels in opposite directions, how many degrees
 	 * of robot turn are in a degree of wheel turn

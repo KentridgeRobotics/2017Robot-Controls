@@ -8,6 +8,7 @@ import org.usfirst.frc.team3786.robot.config.CompetitionConfig;
 import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
 import org.usfirst.frc.team3786.robot.vision.ContourReport;
 import org.usfirst.frc.team3786.robot.vision.TargetPosition;
+import org.usfirst.frc.team3786.robot.vision.VisionUtil;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -25,9 +26,7 @@ public class DisplayData extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	try {
-    		List<ContourReport> contours = GearTargetFinder.getInstance().extractContourReports(GearTargetFinder.getInstance().acquireVisionInput());
-    		GearTargetFinder.getInstance().displayContourReports(contours);
-    		List<TargetPosition> targetPositions = GearTargetFinder.getInstance().extractListOfTargetPosition(contours);
+    		List<TargetPosition> targetPositions =VisionUtil.getTargetPositionToGearTarget();
     		GearTargetFinder.getInstance().displayTargetPositions(targetPositions);
     		List<RobotAction> robotActions = RobotActionGenerator.extractActions(targetPositions);
     		System.err.println("Size of robots actions: "+robotActions.size());

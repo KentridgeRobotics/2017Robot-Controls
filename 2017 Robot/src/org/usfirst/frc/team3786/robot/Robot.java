@@ -15,7 +15,6 @@ import org.usfirst.frc.team3786.robot.commands.auto.TurnDegrees;
 import org.usfirst.frc.team3786.robot.commands.climber.DeployTrigger;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchDeploy;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
-import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
 import org.usfirst.frc.team3786.robot.commands.display.DisplayTargetSolution;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearArmBottomPosition;
@@ -32,6 +31,7 @@ import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 import org.usfirst.frc.team3786.robot.subsystems.Rangefinders;
 import org.usfirst.frc.team3786.robot.subsystems.Winch;
 import org.usfirst.frc.team3786.robot.vision.FinderOfRange;
+import org.usfirst.frc.team3786.robot.vision.NoNameRobotVision;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -57,6 +57,7 @@ public class Robot extends IterativeRobot {
 //	public static DisplayData displayData;
 	//private static BNO055 imu;
 	Command autonomousCommand;
+	Thread robotVisionThread = null;
 	SendableChooser<Command> newChooser;
 	//public static UsbCamera usbCamera;
 	/**
@@ -102,6 +103,7 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putData(Scheduler.getInstance());
 		SmartDashboard.putData("Auto Mode", newChooser);
+		robotVisionThread = NoNameRobotVision.getRobotVisionThread();
 		
 	}
 
@@ -191,8 +193,6 @@ public class Robot extends IterativeRobot {
 		DriveTrain.getInstance().setVelocityDrive();
 		DriveTrain.getInstance().setCoast();
 		GearArm.getInstance().setManualDrive();
-		RobotConfig.getInstance().setCameraResolution(640, 480);
-		RobotConfig.getInstance().setCameraFrameRate(10);
 	}
 
 	/**

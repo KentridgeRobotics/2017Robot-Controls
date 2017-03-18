@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
 import org.usfirst.frc.team3786.robot.vision.TargetPosition;
+import org.usfirst.frc.team3786.robot.vision.VisionUtil;
 import org.usfirst.frc.team3786.robot.vision.WhichDirection;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -28,7 +29,7 @@ public class DistanceByCamera extends Command {
     protected void execute() {
     	double Range; 
     	GearTargetFinder targetFinder = GearTargetFinder.getInstance();
-    	List<TargetPosition> targetList = targetFinder.extractListOfTargetPosition(targetFinder.findObjectiveContourReport(targetFinder.extractContourReports(targetFinder.acquireVisionInput()), WhichDirection.MIDDLE_LEFT));
+    	List<TargetPosition> targetList = VisionUtil.getTargetPositionToGearTarget();
     	TargetPosition position = targetList.get(0);
     	position.getDistanceToTargetInInches();
     	System.err.println(position);
