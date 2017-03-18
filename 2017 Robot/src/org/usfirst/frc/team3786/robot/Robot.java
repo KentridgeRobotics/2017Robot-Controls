@@ -12,6 +12,7 @@ import org.usfirst.frc.team3786.robot.commands.auto.GyroTurnTest;
 import org.usfirst.frc.team3786.robot.commands.auto.RotateWheelsTest;
 import org.usfirst.frc.team3786.robot.commands.auto.RotateWheelsTestNoVision;
 import org.usfirst.frc.team3786.robot.commands.auto.TurnDegrees;
+import org.usfirst.frc.team3786.robot.commands.auto.UpdateTargetDisplay;
 import org.usfirst.frc.team3786.robot.commands.climber.DeployTrigger;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchDeploy;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
@@ -88,6 +89,7 @@ public class Robot extends IterativeRobot {
 		testButton.whenPressed(new DisplayTargetSolution());
 		RobotConfig.getInstance().initialize();	
 		newChooser = new SendableChooser<Command>();
+		newChooser.addObject("Update target display", UpdateTargetDisplay.getInstance());
 		newChooser.addObject("Do Nothing", new DoNothing());
 		//newChooser.addObject("Rotate wheels", new RotateWheelsTest());
 		//newChooser.addObject("Gyro Test", new GyroTurnTest());

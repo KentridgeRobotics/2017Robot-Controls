@@ -31,7 +31,7 @@ public class GripPipeline implements VisionPipeline {
 //	private Mat maskOutput = new Mat();
 	private ArrayList<MatOfPoint> findContoursOutput = new ArrayList<MatOfPoint>();
 	private ArrayList<MatOfPoint> filterContoursOutput = new ArrayList<MatOfPoint>();
-//	private ArrayList<MatOfPoint> convexHullsOutput = new ArrayList<MatOfPoint>();
+	private ArrayList<MatOfPoint> convexHullsOutput = new ArrayList<MatOfPoint>();
 	private Mat workingMat = new Mat();
 	static {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -46,9 +46,9 @@ public class GripPipeline implements VisionPipeline {
 		Mat hslThresholdInput = source0;
 		Mat hslThresholdOutput = workingMat;
 
-		double[] hslThresholdHue = {79.31654676258992, 146.66666666666666};
-		double[] hslThresholdSaturation = {199.50539568345323, 255.0};
-		double[] hslThresholdLuminance = {158.22841726618705, 255.0};
+		double[] hslThresholdHue = {72.8, 93.6};
+		double[] hslThresholdSaturation = {213.2, 255.0};
+		double[] hslThresholdLuminance = {169.7, 255.0};
 		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
 //		// Step Mask0:
@@ -61,18 +61,23 @@ public class GripPipeline implements VisionPipeline {
 		Mat findContoursInput = hslThresholdOutput;
 		boolean findContoursExternalOnly = true;
 		findContours(findContoursInput, findContoursExternalOnly, findContoursOutput);
+		
+		// Step Convex_Hulls0:
+		ArrayList<MatOfPoint> convexHullsContours = findContoursOutput;
+		convexHulls(convexHullsContours, convexHullsOutput);
+
 
 		// Step Filter_Contours0:
-		ArrayList<MatOfPoint> filterContoursContours = findContoursOutput;
+		ArrayList<MatOfPoint> filterContoursContours = convexHullsOutput;
 		double filterContoursMinArea = 100.0;
-		double filterContoursMinPerimeter = 0.0;
+		double filterContoursMinPerimeter = 30.0;
 		double filterContoursMinWidth = 10.0;
-		double filterContoursMaxWidth = 500.0;
-		double filterContoursMinHeight = 10.0;
-		double filterContoursMaxHeight = 500.0;
-		double[] filterContoursSolidity = {87.23021582733813, 100};
-		double filterContoursMaxVertices = 43.0;
-		double filterContoursMinVertices = 0.0;
+		double filterContoursMaxWidth = 150.0;
+		double filterContoursMinHeight = 40.0;
+		double filterContoursMaxHeight = 450.0;
+		double[] filterContoursSolidity = {93.5, 100};
+		double filterContoursMaxVertices = 15.0;
+		double filterContoursMinVertices = 4.0;
 		double filterContoursMinRatio = 0.3;
 		double filterContoursMaxRatio = 3.0;
 		filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, filterContoursOutput);
@@ -229,23 +234,23 @@ public class GripPipeline implements VisionPipeline {
 	 * @param inputContours The contours on which to perform the operation.
 	 * @param outputContours The contours where the output will be stored.
 	 */
-//	private void convexHulls(List<MatOfPoint> inputContours,
-//		ArrayList<MatOfPoint> outputContours) {
-//		final MatOfInt hull = new MatOfInt();
-//		outputContours.clear();
-//		for (int i = 0; i < inputContours.size(); i++) {
-//			final MatOfPoint contour = inputContours.get(i);
-//			final MatOfPoint mopHull = new MatOfPoint();
-//			Imgproc.convexHull(contour, hull);
-//			mopHull.create((int) hull.size().height, 1, CvType.CV_32SC2);
-//			for (int j = 0; j < hull.size().height; j++) {
-//				int index = (int) hull.get(j, 0)[0];
-//				double[] point = new double[] {contour.get(index, 0)[0], contour.get(index, 0)[1]};
-//				mopHull.put(j, 0, point);
-//			}
-//			outputContours.add(mopHull);
-//		}
-//	}
+	private void convexHulls(List<MatOfPoint> inputContours,
+		ArrayList<MatOfPoint> outputContours) {
+		final MatOfInt hull = new MatOfInt();
+		outputContours.clear();
+		for (int i = 0; i < inputContours.size(); i++) {
+			final MatOfPoint contour = inputContours.get(i);
+			final MatOfPoint mopHull = new MatOfPoint();
+			Imgproc.convexHull(contour, hull);
+			mopHull.create((int) hull.size().height, 1, CvType.CV_32SC2);
+			for (int j = 0; j < hull.size().height; j++) {
+				int index = (int) hull.get(j, 0)[0];
+				double[] point = new double[] {contour.get(index, 0)[0], contour.get(index, 0)[1]};
+				mopHull.put(j, 0, point);
+			}
+			outputContours.add(mopHull);
+		}
+	}
 
 
 

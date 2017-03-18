@@ -78,7 +78,7 @@ public class NoNameRobotVision implements Runnable {
 			if (contourReports != null) {
 				for (ContourReport contourReport : contourReports)
 				{
-					Imgproc.rectangle(mat,  new Point(contourReport.getLeftX(), contourReport.getTopY()), new Point(contourReport.getRightX(), contourReport.getBottomY()), new Scalar(255, 255, 255), 5);
+					Imgproc.rectangle(mat,  new Point(contourReport.getLeftX(), contourReport.getTopY()), new Point(contourReport.getRightX(), contourReport.getBottomY()), new Scalar(124, 252, 0), 5);
 				}
 			}
 			// Whatever you want to put out to the screen, do it here.
