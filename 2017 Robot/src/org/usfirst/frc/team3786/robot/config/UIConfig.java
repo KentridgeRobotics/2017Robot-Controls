@@ -33,7 +33,7 @@ public abstract class UIConfig {
 		
 	public abstract JoystickButton getPegPositionButton();
 	
-	public abstract double getPegPosition();
+	//public abstract double getPegPosition();
 	
 	public abstract JoystickButton getGearArmTopButton();
 	

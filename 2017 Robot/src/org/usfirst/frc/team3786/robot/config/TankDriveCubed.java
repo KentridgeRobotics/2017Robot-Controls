@@ -16,7 +16,7 @@ public class TankDriveCubed extends UIConfig {
 	private JoystickButton winchDeployMoveButton = new JoystickButton(xbox, 5);
 	private JoystickButton winchDeployEnableButton = new JoystickButton(xbox, 6);
 	private JoystickButton winchDeployReverseButton = new JoystickButton(leftStick, 7);
-	private final double PEG_POSITION = 165;
+//	private final double PEG_POSITION = 165;
 
 
 	
@@ -52,10 +52,10 @@ public class TankDriveCubed extends UIConfig {
 	public JoystickButton getPegPositionButton() {
 		return pegPositionButton;
 	}
-	@Override
-	public double getPegPosition() {
-		return PEG_POSITION;
-	}
+//	@Override
+//	public double getPegPosition() {
+//		return PEG_POSITION;
+//	}
 	@Override
 	public JoystickButton getGearArmTopButton() {
 		return gearArmTopButton;

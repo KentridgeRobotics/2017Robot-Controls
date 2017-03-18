@@ -24,6 +24,7 @@ import org.usfirst.frc.team3786.robot.commands.grabber.GearArmLoadPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoMove;
 import org.usfirst.frc.team3786.robot.commands.test.ZeroEncoders;
 import org.usfirst.frc.team3786.robot.config.Camera;
+import org.usfirst.frc.team3786.robot.config.GyroDrive;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
 import org.usfirst.frc.team3786.robot.subsystems.BNO055;
@@ -193,6 +194,8 @@ public class Robot extends IterativeRobot {
 		GearArm.getInstance().setManualDrive();
 		RobotConfig.getInstance().setCameraResolution(640, 480);
 		RobotConfig.getInstance().setCameraFrameRate(10);
+		
+		GyroDrive.initTime();
 	}
 
 	/**

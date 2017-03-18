@@ -3,7 +3,8 @@ package org.usfirst.frc.team3786.robot.config;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-public class ArcadeDrive extends UIConfig {
+public class GyroDrive extends UIConfig {
+	
 	private Joystick leftStick = new Joystick(0);
 	private Joystick xbox = new Joystick(2);
 	private JoystickButton servoButton = new JoystickButton(xbox, 3);
@@ -16,33 +17,25 @@ public class ArcadeDrive extends UIConfig {
 	private JoystickButton winchDeployEnableButton = new JoystickButton(xbox, 6);
 	private JoystickButton winchDeployReverseButton = new JoystickButton(leftStick, 7);
 	
-	private final double GAIN = 1.2;
-
+	private static double lastTimeMillis;
 	
-	private double throttle() {
-		return leftStick.getX();
+	public static void initTime() {
+		lastTimeMillis = System.currentTimeMillis();
+	}
+	
+	
+	private double getVelocity() {
+		return leftStick.getY();
+	}
+	
+	private double getTurn() {
+		double turn = 0;
+		double angularVelocity = leftStick.getX();
+		double deltaTime = System.currentTimeMillis() - lastTimeMillis;
+		
+		return turn;
 	}
 
-	private double turn() {
-		return -leftStick.getY();
-	}
-	
-	private double leftOut() {
-		return throttle() + turn();
-	}
-	
-	private double rightOut() {
-		return throttle() - turn();
-	}
-	
-	private double skim(double v) {
-		if (v > 1.0)
-			return -((v - 1.0) * GAIN);
-		else if (v < -1.0)
-			return -((v + 1.0) * GAIN);
-		return 0;
-	}
-	
 	@Override
 	public Joystick getLeftStick() {
 		return leftStick;
@@ -60,14 +53,14 @@ public class ArcadeDrive extends UIConfig {
 
 	@Override
 	public double getLeftDrive() {
-		return leftOut() + skim(leftOut());
+		return 0;
 	}
 
 	@Override
 	public double getRightDrive() {
-		return rightOut() + skim(rightOut());
+		return 0;
 	}
-	
+
 	@Override
 	public JoystickButton getServoMoveButton() {
 		return servoButton;
@@ -87,18 +80,22 @@ public class ArcadeDrive extends UIConfig {
 	public JoystickButton getGearArmBottomButton() {
 		return gearArmBottomButton;
 	}
+
 	@Override
 	public JoystickButton getWinchUpButton() {
 		return winchUpButton;
 	}
+
 	@Override
 	public JoystickButton getWinchDownButton() {
 		return winchDownButton;
 	}
+
 	@Override
 	public JoystickButton getWinchDeployMoveButton() {
 		return winchDeployMoveButton;
 	}
+
 	@Override
 	public JoystickButton getWinchDeployEnableButton() {
 		return winchDeployEnableButton;
@@ -108,7 +105,5 @@ public class ArcadeDrive extends UIConfig {
 	public JoystickButton getWinchDeployReverseButton() {
 		return winchDeployReverseButton;
 	}
-
-
 
 }
