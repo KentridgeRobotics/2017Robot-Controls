@@ -1,7 +1,10 @@
 package org.usfirst.frc.team3786.robot.config;
 
+import org.usfirst.frc.team3786.robot.commands.drive.DriveGyro;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 
 public class GyroDrive extends UIConfig {
 	
@@ -17,23 +20,45 @@ public class GyroDrive extends UIConfig {
 	private JoystickButton winchDeployEnableButton = new JoystickButton(xbox, 6);
 	private JoystickButton winchDeployReverseButton = new JoystickButton(leftStick, 7);
 	
-	private static double lastTimeMillis;
+	private double lastTimeMillis;
+	private double maxAngularVelocity = 360; //max angular velocity in deg/s
+	private double Pturn = 1;
 	
-	public static void initTime() {
-		lastTimeMillis = System.currentTimeMillis();
+//	public static void initTime() {
+//		lastTimeMillis = System.currentTimeMillis();
+//	}
+	
+	@Override
+	public double getVelocity() {
+		return -leftStick.getY();
+	}
+	@Override
+	public double getTurn() {
+//		double currHeading = RobotConfig.getInstance().getGyroHeading();
+//		double turn = 0;
+//		double angularVelocity = -testX()/*leftStick.getX()*/ * maxAngularVelocity;
+//		double deltaTime = System.currentTimeMillis() - lastTimeMillis;
+//		lastTimeMillis = System.currentTimeMillis();
+//		double deltaHeading = deltaTime * (angularVelocity / 1000); 
+//		double targetHeading = currHeading + deltaHeading;
+//		double headingError = targetHeading - currHeading;
+//		
+//		turn = headingError * Pturn;
+//		
+//		
+//		
+//		return turn;'
+		return -leftStick.getX();
 	}
 	
-	
-	private double getVelocity() {
-		return leftStick.getY();
+	private double testX() {
+		if(leftStick.getRawButton(1))
+			return (30.0/360.0);
+		else
+			return 0.0;
 	}
-	
-	private double getTurn() {
-		double turn = 0;
-		double angularVelocity = leftStick.getX();
-		double deltaTime = System.currentTimeMillis() - lastTimeMillis;
-		
-		return turn;
+	private double testY() {
+		return -leftStick.getRawAxis(3);
 	}
 
 	@Override
@@ -53,12 +78,16 @@ public class GyroDrive extends UIConfig {
 
 	@Override
 	public double getLeftDrive() {
-		return 0;
+		System.err.println("~~~~~Left Velocity: " + (getVelocity() - getTurn()) +"~~~~~");
+		System.err.println("Left Turn: " + -getTurn());
+		return (getVelocity() - getTurn()) * .5;
 	}
 
 	@Override
 	public double getRightDrive() {
-		return 0;
+		System.err.println("~~~~~Right Velocity: " + (getVelocity() + getTurn())+"~~~~~");
+		System.err.println("Right Turn: " + getTurn());
+		return -(getVelocity() + getTurn()) * .5;
 	}
 
 	@Override
@@ -104,6 +133,10 @@ public class GyroDrive extends UIConfig {
 	@Override
 	public JoystickButton getWinchDeployReverseButton() {
 		return winchDeployReverseButton;
+	}
+	@Override
+	public Command getDefaultDrive() {
+		return DriveGyro.getInstance();
 	}
 
 }

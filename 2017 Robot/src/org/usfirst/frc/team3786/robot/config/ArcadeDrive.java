@@ -1,7 +1,10 @@
 package org.usfirst.frc.team3786.robot.config;
 
+import org.usfirst.frc.team3786.robot.commands.drive.Drive;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 
 public class ArcadeDrive extends UIConfig {
 	private Joystick leftStick = new Joystick(0);
@@ -107,6 +110,11 @@ public class ArcadeDrive extends UIConfig {
 	@Override
 	public JoystickButton getWinchDeployReverseButton() {
 		return winchDeployReverseButton;
+	}
+
+	@Override
+	public Command getDefaultDrive() {
+		return Drive.getInstance();
 	}
 
 

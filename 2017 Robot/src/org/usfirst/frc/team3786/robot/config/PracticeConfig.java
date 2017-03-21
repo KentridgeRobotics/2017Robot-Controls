@@ -28,7 +28,6 @@ public class PracticeConfig extends RobotConfig {
 
 	@Override
 	public double getGyroInversionMultiplier() {
-		// We're mounted upside-up.
 		return 1.0;
 	}
 
@@ -88,7 +87,7 @@ public class PracticeConfig extends RobotConfig {
 
 	@Override
 	public double getGyroHeading() {
-		return super.GetGyro().getHeading() * getGyroInversionMultiplier();
+		return super.getGyro().getHeading() * getGyroInversionMultiplier();
 	}
 
 

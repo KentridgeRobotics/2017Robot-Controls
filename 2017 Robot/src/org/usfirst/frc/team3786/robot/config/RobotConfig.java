@@ -20,7 +20,7 @@ public abstract class RobotConfig {
 	
 	public static RobotConfig getInstance() {
 		if(instance == null)
-			instance = new CompetitionConfig();
+			instance = new PracticeConfig();
 		return instance;
 	}
 	
@@ -66,7 +66,7 @@ public abstract class RobotConfig {
 		return CameraServer.getInstance().getVideo();
 	}
 	
-	public BNO055 GetGyro() {
+	public BNO055 getGyro() {
 		if (gyro == null) {
 			initialize();
 		}

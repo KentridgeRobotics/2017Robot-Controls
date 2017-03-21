@@ -55,14 +55,14 @@ public class GyroTurn extends Command {
     		isBackwards = true;
     	}    	
     	DriveTrain.getInstance().setSpeed(-leftSpeed, rightSpeed);
-    	startX = RobotConfig.getInstance().GetGyro().getHeading();
+    	startX = RobotConfig.getInstance().getGyro().getHeading();
     	endX = startX + angle;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
 //    	System.out.println("Calibrated " + RobotConfig.getInstance().GetGyro().isCalibrated() + " | Start X " + startX + " | End X " + endX +" | Current X " + RobotConfig.getInstance().GetGyro().getHeading());
-    	if((RobotConfig.getInstance().GetGyro().getHeading() >= endX && !isBackwards) || (RobotConfig.getInstance().GetGyro().getHeading() <= endX && isBackwards)) {
+    	if((RobotConfig.getInstance().getGyro().getHeading() >= endX && !isBackwards) || (RobotConfig.getInstance().getGyro().getHeading() <= endX && isBackwards)) {
     		isDone = true;
     		DriveTrain.getInstance().setSpeed(0, 0);
     	}

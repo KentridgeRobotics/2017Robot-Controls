@@ -28,7 +28,6 @@ public class DriveVelocity extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.err.println("Gotta procede at high velocities");
     	DriveTrain.getInstance().setVelocity(UIConfig.getInstance().getLeftDrive(), UIConfig.getInstance().getRightDrive());
     }
 

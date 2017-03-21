@@ -188,14 +188,13 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-//		DriveTrain.getInstance().setSpeedDrive();
-		DriveTrain.getInstance().setVelocityDrive();
+		DriveTrain.getInstance().setSpeedDrive();
+//		DriveTrain.getInstance().setVelocityDrive();
 		DriveTrain.getInstance().setCoast();
 		GearArm.getInstance().setManualDrive();
 		RobotConfig.getInstance().setCameraResolution(640, 480);
 		RobotConfig.getInstance().setCameraFrameRate(10);
 		
-		GyroDrive.initTime();
 	}
 
 	/**
@@ -205,9 +204,9 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
-		SmartDashboard.putNumber("Gyro X", RobotConfig.getInstance().GetGyro().getVector()[0]);
-		SmartDashboard.putNumber("Gyro Y", RobotConfig.getInstance().GetGyro().getVector()[1]);
-		SmartDashboard.putNumber("Gyro Z", RobotConfig.getInstance().GetGyro().getVector()[2]);
+		SmartDashboard.putNumber("Gyro X", RobotConfig.getInstance().getGyro().getVector()[0]);
+		SmartDashboard.putNumber("Gyro Y", RobotConfig.getInstance().getGyro().getVector()[1]);
+		SmartDashboard.putNumber("Gyro Z", RobotConfig.getInstance().getGyro().getVector()[2]);
 //		
 //		SmartDashboard.putBoolean("Gyro Calibration", imu.isCalibrated());
 		

@@ -94,7 +94,7 @@ public class CompetitionConfig extends RobotConfig {
 
 	@Override
 	public double getGyroHeading() {
-		return super.GetGyro().getHeading() * getGyroInversionMultiplier();
+		return super.getGyro().getHeading() * getGyroInversionMultiplier();
 	}
 
 

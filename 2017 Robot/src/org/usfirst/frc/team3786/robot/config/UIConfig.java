@@ -2,6 +2,7 @@ package org.usfirst.frc.team3786.robot.config;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * Abstract class to store all the controls.
@@ -13,15 +14,23 @@ public abstract class UIConfig {
 	
 	public static UIConfig getInstance() {
 		if(instance == null)
-			instance = new TankDrive();
+			instance = new GyroDrive();
 		return instance;
 	}
 	
-	
+	public abstract Command getDefaultDrive();
 	
 	public abstract Joystick getLeftStick();
 	
 	public abstract Joystick getRightStick();
+	
+	public double getTurn() {
+		return 0.0;
+	}
+	
+	public double getVelocity() {
+		return 0.0;
+	}
 	
 	public abstract Joystick getXbox();
 			

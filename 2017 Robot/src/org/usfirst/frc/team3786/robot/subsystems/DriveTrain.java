@@ -3,6 +3,7 @@ package org.usfirst.frc.team3786.robot.subsystems;
 import org.usfirst.frc.team3786.robot.commands.drive.Drive;
 import org.usfirst.frc.team3786.robot.commands.drive.DriveVelocity;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
+import org.usfirst.frc.team3786.robot.config.UIConfig;
 
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
@@ -249,8 +250,8 @@ public class DriveTrain extends Subsystem {
     }
     
     public void initDefaultCommand() {
-//    	setDefaultCommand(Drive.getInstance());  	
-    	setDefaultCommand(DriveVelocity.getInstance());
+    	setDefaultCommand(UIConfig.getInstance().getDefaultDrive());  	
+//    	setDefaultCommand(DriveVelocity.getInstance());
     }
 }
 
