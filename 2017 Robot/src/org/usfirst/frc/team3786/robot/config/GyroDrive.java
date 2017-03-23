@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3786.robot.config;
 
-import org.usfirst.frc.team3786.robot.commands.drive.DriveGyro;
+//import org.usfirst.frc.team3786.robot.commands.drive.DriveGyro;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -136,7 +136,8 @@ public class GyroDrive extends UIConfig {
 	}
 	@Override
 	public Command getDefaultDrive() {
-		return DriveGyro.getInstance();
+		//return DriveGyro.getInstance();
+		return null;
 	}
 
 }

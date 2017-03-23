@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3786.robot.config;
 
-import org.usfirst.frc.team3786.robot.commands.drive.Drive;
+//import org.usfirst.frc.team3786.robot.commands.drive.Drive;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -93,7 +93,8 @@ public class TankDrive extends UIConfig {
 	}
 	@Override
 	public Command getDefaultDrive() {
-		return Drive.getInstance();
+		//return Drive.getInstance();
+		return null;
 	}
 
 

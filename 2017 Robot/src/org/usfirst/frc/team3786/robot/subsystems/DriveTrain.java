@@ -1,7 +1,7 @@
 package org.usfirst.frc.team3786.robot.subsystems;
 
-import org.usfirst.frc.team3786.robot.commands.drive.Drive;
-import org.usfirst.frc.team3786.robot.commands.drive.DriveVelocity;
+//import org.usfirst.frc.team3786.robot.commands.drive.Drive;
+//import org.usfirst.frc.team3786.robot.commands.drive.DriveVelocity;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
 
@@ -40,8 +40,8 @@ public class DriveTrain extends Subsystem {
 	CANTalon rightDriveMotor;
 	
 	public DriveTrain() {
-		leftDriveMotor = new CANTalon(RobotConfig.getInstance().getLeftDriveMotor());
-		rightDriveMotor = new CANTalon(RobotConfig.getInstance().getRightDriveMotor());
+		leftDriveMotor = new CANTalon(/*RobotConfig.getInstance().getLeftDriveMotor()*/ 10);
+		rightDriveMotor = new CANTalon(/*RobotConfig.getInstance().getRightDriveMotor()*/ 10);
 		leftDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		rightDriveMotor.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 
