@@ -30,13 +30,14 @@ public class GyroDriveSubsystem extends PIDSubsystem {
 
     // Initialize your subsystem here
     public GyroDriveSubsystem() {
-    	super("Gyro PID", 0.01, 0.0, 0.0);
+    	super("Gyro PID", 0.001, 0.0, 0.0);
     	leftDriveMotor = new CANTalon(RobotConfig.getInstance().getLeftDriveMotor());
     	rightDriveMotor = new CANTalon(RobotConfig.getInstance().getRightDriveMotor());
     	
     	getPIDController().setAbsoluteTolerance(tolerance);
     	
-    	getPIDController().setInputRange(-180.0, 180.0);
+    	//getPIDController().setInputRange(-180.0, 180.0);
+    	getPIDController().setInputRange(-360.0, 360.0);
     	getPIDController().setOutputRange(-1.0, 1.0);
     	
     	this.setSetpoint(Math.IEEEremainder(RobotConfig.getInstance().getGyroHeading(), 360.0));

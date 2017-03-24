@@ -8,6 +8,7 @@ import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
 
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -32,7 +33,8 @@ public class GearArm extends Subsystem {
 	}
 
 	CANTalon windowMotor;
-	Servo servo;
+	Servo servoLeft;
+	Servo servoRight;
 	
 	
 	
@@ -49,8 +51,9 @@ public class GearArm extends Subsystem {
 		windowMotor.setI(0.0);
 		windowMotor.setD(0.0);
 		
-		servo = new Servo(0);
-		if(servo.getPosition() > .5)
+		servoLeft = new Servo(0);
+		servoRight = new Servo(1);
+		if(servoLeft.getPosition() > .5)
 			isClosed = false;
 		else
 			isClosed = true;	
@@ -98,12 +101,27 @@ public class GearArm extends Subsystem {
 	
 	//servo methods
     public void open() {
-    	servo.set(.75);
+    	servoLeft.set(1.0);
+    	servoRight.set(0.0);
     	isClosed = false;
     }
     public void close() {
-    	servo.set(0);
+    	servoLeft.set(.33);
+    	servoRight.set(.67);
     	isClosed = true;
+    }
+    public boolean servoDance(int reps) {
+    	for(int i = 0; i < reps; i++) {
+        	servoLeft.set(.53);
+        	servoRight.set(.87);
+        	Timer.delay(.5);
+        	servoLeft.set(.13);
+        	servoRight.set(.47);
+        	Timer.delay(.5);
+    	}
+    	servoLeft.set(.33);
+    	servoRight.set(.67);
+    	return true;
     }
     
     public boolean getIsClosed() {

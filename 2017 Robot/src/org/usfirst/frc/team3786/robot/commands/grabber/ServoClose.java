@@ -7,31 +7,28 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ServoMove extends Command {
-	public static ServoMove instance;
+public class ServoClose extends Command {
 	
-	public static ServoMove getInstance() {
+	private static ServoClose instance;
+	
+	public static ServoClose getInstance() {
 		if(instance == null)
-			instance = new ServoMove();
+			instance = new ServoClose();
 		return instance;
 	}
 
-	
-    public ServoMove() {
-		requires(GearArm.getInstance());
-		setTimeout(.01);
+    public ServoClose() {
+    	requires(GearArm.getInstance());
+    	setTimeout(.01);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if(GearArm.getInstance().getIsClosed())
-    		GearArm.getInstance().open();
-    	else
-    		GearArm.getInstance().close();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	GearArm.getInstance().close();
     }
 
     // Make this return true when this Command no longer needs to run execute()
