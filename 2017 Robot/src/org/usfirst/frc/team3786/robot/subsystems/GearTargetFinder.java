@@ -47,41 +47,8 @@ public class GearTargetFinder {
     private GearTargetFinder() {    	
     }
     
-    // Get recognized targets from the camera as processed by the Grip pipeline.
-    // Returns List of MatOfPoint
-    public List<MatOfPoint> acquireVisionInput() {
-    	System.err.println("acquireVisionInput called");
-    	//UsbCamera camera = Robot.usbCamera;
-       // camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
-    	List<MatOfPoint> foundContours = Collections.emptyList();
-    	try {
-        Mat source = workingMat;
-
-    	CvSink cvSink = RobotConfig.getInstance().GetCvSink();
-    	GripPipeline grip = RobotConfig.getInstance().GetGripPipeline();
-    	
-
-        long result = cvSink.grabFrame(source);
-        if (result == 0)
-        {
-        	// There was an error!
-        	System.err.println("ERROR: acquireVisionInput failed: "+cvSink.getError());
-        	return null;
-        }
-        grip.process(source);
-        System.err.println("GRIP contours"+grip.findContoursOutput().size());
-		foundContours = grip.filterContoursOutput();
-    	}
-		catch (Exception ex) {
-			System.err.println("ERROR IN ACQUIRE VISION INPUT "+ex);
-			ex.printStackTrace(System.err);
-		}
-		return foundContours;
-    }
     
-    public boolean isRobotInPosition() {
-    	CvSink cvSink = RobotConfig.getInstance().GetCvSink();
-    	GripPipeline grip = RobotConfig.getInstance().GetGripPipeline();
+    public boolean isRobotInPosition(CvSink cvSink, GripPipeline grip) {
     	Mat source = workingMat;
         long result = cvSink.grabFrame(source);
         if (result == 0)
@@ -100,60 +67,26 @@ public class GearTargetFinder {
 			return false;
 		}
     }
-    /*public Callable<ArrayList<MatOfPoint>> callVisionThread() {	
-    	return new Callable<ArrayList<MatOfPoint>>() {
-			@Override
-			public ArrayList<MatOfPoint> call() throws Exception {
-				// TODO Auto-generated method stub
-				System.err.println("Callable called");
-		    	GripPipeline grip = new GripPipeline();
-		    	
-		        Mat source = new Mat();
-		        cvSink.grabFrame(source);
-		      	        
-		        grip.process(source);
-				ArrayList<MatOfPoint> convexHulls = grip.convexHullsOutput();
-				
-				return convexHulls;
-			}
-    	};
-    	
-    }
-    
-    
-    
-    //Run image through the Grip Pipeline once. 
-    //
-    public List<ContourReport> executeVisionCamera() {
-    	System.err.println("Execute Vision Camera Called ");
-    	try {
-    		Future<ArrayList<MatOfPoint>> futureResult = executorService.submit(callVisionThread());
-    		ArrayList<MatOfPoint> result = futureResult.get();
-    		return extractContourReports(result);
-    	} catch(Exception exc) {
-    		System.err.println("Exception: " + exc);
-    		return null;
-    	}
-    
-    }
-    */
         
     //Return List of ContourReports
     public List<ContourReport> extractContourReports(List<MatOfPoint> contourMap) {
     	List<ContourReport> contourReports = new ArrayList<ContourReport>();
     	try {
-    		System.err.println("Size of Contour Map: " + contourMap.size());
     		for(MatOfPoint matOfPoint : contourMap) {
-    			System.err.println("Mat Of Point Found");
     			Rect r = Imgproc.boundingRect(matOfPoint);
-    			contourReports.add(new ContourReport(
-    					r.x + (r.width / 2),
-    					r.y + (r.height / 2),
-    					r.width,
-    					r.height
-    					));
+    			// We only want contours that look like vision target rectangles.
+    			if (r.height > 1.7 * r.width) 
+    			{
+    				contourReports.add(new ContourReport(
+    						r.x + (r.width / 2),
+    						r.y + (r.height / 2),
+    						r.width,
+    						r.height
+    						));
+    			}
     		}
     	}
+    	
     	catch (Exception ex) {
     		System.err.println("ERROR IN EXTRACT CONTOUR REPORTS LIST "+ex);
     		ex.printStackTrace(System.err);
@@ -161,6 +94,7 @@ public class GearTargetFinder {
     	return contourReports;
     }
     
+
     
     //Return List of ContourReports Based On Object
     //Returns one or two ContourReport(s)

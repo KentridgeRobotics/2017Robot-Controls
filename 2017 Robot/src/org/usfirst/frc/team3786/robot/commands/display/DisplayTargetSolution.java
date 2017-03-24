@@ -35,7 +35,7 @@ public class DisplayTargetSolution extends Command {
     	try {
     		//List<TargetPosition> targetPositions = VisionUtil.getTargetPositionToGearTarget();
     		//SmartDashboard.putNumber("TargetCount", targetPositions.size()); 
-    		List<MatOfPoint> mats = GearTargetFinder.getInstance().acquireVisionInput();
+    		List<MatOfPoint> mats = null;
     		if (mats != null)
     		{
     			SmartDashboard.putNumber("TargetCount", mats.size());
