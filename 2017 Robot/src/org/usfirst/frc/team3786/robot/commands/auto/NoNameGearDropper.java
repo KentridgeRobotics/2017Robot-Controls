@@ -1,28 +1,20 @@
 package org.usfirst.frc.team3786.robot.commands.auto;
 
-import java.util.List;
-
-import org.usfirst.frc.team3786.robot.vision.TargetPosition;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * A command to drop off a gear on a peg.
+ * Prereq: The robot must be in place first!!!! Use NoNameGearNavigator for that.
  */
-public class ClearTargetPosition extends Command {
+public class NoNameGearDropper extends Command {
 
-	List<TargetPosition> targetPositions;
-	boolean isDone = false;
-    public ClearTargetPosition(List<TargetPosition> targetPositions) {
+    public NoNameGearDropper() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	this.targetPositions = targetPositions;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	targetPositions.remove(0);
-    	isDone = true;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -31,7 +23,7 @@ public class ClearTargetPosition extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isDone;
+        return false;
     }
 
     // Called once after isFinished returns true

@@ -2,6 +2,8 @@ package org.usfirst.frc.team3786.robot.commands.auto;
 
 import java.util.List;
 
+import org.usfirst.frc.team3786.robot.autonomous.RobotAction;
+import org.usfirst.frc.team3786.robot.autonomous.RobotActionGenerator;
 import org.usfirst.frc.team3786.robot.vision.TargetPosition;
 import org.usfirst.frc.team3786.robot.vision.VisionUtil;
 
@@ -15,7 +17,7 @@ public class UpdateTargetDisplay extends Command {
 
 	private List<TargetPosition> targetPositions;
 	private static UpdateTargetDisplay instance;
-	
+	private int maxActionCount = 0;
 	public static UpdateTargetDisplay getInstance() {
 		if (instance == null)
 		{
@@ -66,6 +68,26 @@ public class UpdateTargetDisplay extends Command {
     		SmartDashboard.putNumber("Target count", getTargetCount());
     		SmartDashboard.putNumber("TargetDirection", getDirectionTarget0());
     		SmartDashboard.putNumber("TargetDistance", getDistanceTarget0());
+    	}
+    	List<RobotAction> robotActions = RobotActionGenerator.extractActions(targetPositions);
+    	int index = 0;
+    	if (robotActions != null)
+    		if (robotActions.size() > maxActionCount)
+    		{
+    			maxActionCount = robotActions.size();
+    		}
+    	
+    	for (; index < maxActionCount; ++index)
+    	{
+    		String str;
+    		if (index < robotActions.size())
+    		{
+    			str = robotActions.get(index).toString();
+    		}
+    		else {
+    			str = "";
+    		}
+    		SmartDashboard.putString("RobotAction"+index, str);
     	}
     }
 

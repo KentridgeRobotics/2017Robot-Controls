@@ -33,20 +33,13 @@ public class VisionUtil {
 	}
 
 	public static WhichSide getPositionOfGearTarget() {
+		// No, this doesn't work at all. Who knows?
 		return WhichSide.WHO_KNOWS;
 	}
 	
 	public static List<TargetPosition> getTargetPositionToGearTarget() {
-		GearTargetFinder gtf = GearTargetFinder.getInstance();
-		try
-		{
-			List<TargetPosition> targetPositions = NoNameRobotVision.targetPositionQueue.poll(1, TimeUnit.NANOSECONDS);
-			return targetPositions;
-		}
-		catch (InterruptedException ex) {
-			Thread.currentThread().interrupt();
-			return Collections.emptyList();
-		}
+		List<TargetPosition> targetPositions = NoNameRobotVision.getInstance().getTargetPositionList();
+		return targetPositions;
 	}
 	
 }

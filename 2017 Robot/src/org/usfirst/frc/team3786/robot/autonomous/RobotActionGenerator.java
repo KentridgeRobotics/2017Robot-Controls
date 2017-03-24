@@ -1,11 +1,9 @@
 package org.usfirst.frc.team3786.robot.autonomous;
 
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 
 import org.usfirst.frc.team3786.robot.vision.ContourReport;
 import org.usfirst.frc.team3786.robot.vision.GripPipeline;
@@ -16,6 +14,8 @@ public class RobotActionGenerator {
 	
 	public static List<RobotAction> extractActions(List<TargetPosition> listOfPos)
 	{
+		if (listOfPos == null)
+			return Collections.emptyList();
 		if (listOfPos.size() == 2) {
 			return extractListOfActionFromTwoTargetPosition(listOfPos);
 		}

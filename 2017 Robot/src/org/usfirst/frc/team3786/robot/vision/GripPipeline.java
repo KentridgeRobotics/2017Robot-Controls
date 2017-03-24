@@ -26,6 +26,22 @@ import org.opencv.objdetect.*;
 * @author GRIP
 */
 public class GripPipeline implements VisionPipeline {
+	static final double[] hslThresholdHue = {72.8, 93.6};
+	static final double[] hslThresholdSaturation = {213.2, 255.0};
+	static final double[] hslThresholdLuminance = {169.7, 255.0};
+	
+	static final double filterContoursMinArea = 100.0;
+	static final double filterContoursMinPerimeter = 30.0;
+	static final double filterContoursMinWidth = 10.0;
+	static final double filterContoursMaxWidth = 150.0;
+	static final double filterContoursMinHeight = 40.0;
+	static final double filterContoursMaxHeight = 450.0;
+	static final double[] filterContoursSolidity = {93.5, 100};
+	static final double filterContoursMaxVertices = 15.0;
+	static final double filterContoursMinVertices = 4.0;
+	static final double filterContoursMinRatio = 0.3;
+	static final double filterContoursMaxRatio = 3.0;
+
 
 	//Outputs
 //	private Mat maskOutput = new Mat();
@@ -46,9 +62,6 @@ public class GripPipeline implements VisionPipeline {
 		Mat hslThresholdInput = source0;
 		Mat hslThresholdOutput = workingMat;
 
-		double[] hslThresholdHue = {72.8, 93.6};
-		double[] hslThresholdSaturation = {213.2, 255.0};
-		double[] hslThresholdLuminance = {169.7, 255.0};
 		hslThreshold(hslThresholdInput, hslThresholdHue, hslThresholdSaturation, hslThresholdLuminance, hslThresholdOutput);
 
 //		// Step Mask0:
@@ -69,17 +82,6 @@ public class GripPipeline implements VisionPipeline {
 
 		// Step Filter_Contours0:
 		ArrayList<MatOfPoint> filterContoursContours = convexHullsOutput;
-		double filterContoursMinArea = 100.0;
-		double filterContoursMinPerimeter = 30.0;
-		double filterContoursMinWidth = 10.0;
-		double filterContoursMaxWidth = 150.0;
-		double filterContoursMinHeight = 40.0;
-		double filterContoursMaxHeight = 450.0;
-		double[] filterContoursSolidity = {93.5, 100};
-		double filterContoursMaxVertices = 15.0;
-		double filterContoursMinVertices = 4.0;
-		double filterContoursMinRatio = 0.3;
-		double filterContoursMaxRatio = 3.0;
 		filterContours(filterContoursContours, filterContoursMinArea, filterContoursMinPerimeter, filterContoursMinWidth, filterContoursMaxWidth, filterContoursMinHeight, filterContoursMaxHeight, filterContoursSolidity, filterContoursMaxVertices, filterContoursMinVertices, filterContoursMinRatio, filterContoursMaxRatio, filterContoursOutput);
 		
 		// Step Convex_Hulls0:

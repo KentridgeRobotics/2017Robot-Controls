@@ -1,8 +1,11 @@
 package org.usfirst.frc.team3786.robot.vision;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -21,17 +24,28 @@ public class NoNameRobotVision implements Runnable {
 		if (visionThread != null)
 			return visionThread;
 
-		NoNameRobotVision instance = new NoNameRobotVision();
-		Thread thread = new Thread(instance);
+		Thread thread = new Thread(getInstance());
 		thread.setDaemon(true);
 		thread.start();
 		return thread;
 	}
 
+	private static NoNameRobotVision instance;
 	private static Thread visionThread = null;
-	public static final java.util.concurrent.BlockingQueue<List<TargetPosition>> targetPositionQueue = new ArrayBlockingQueue<List<TargetPosition>>(1);
+	private final AtomicReference<List<TargetPosition>> targetPositionsHolder = new AtomicReference<List<TargetPosition>>(Collections.emptyList());
 	private NoNameRobotVision() {
 
+	}
+	public static NoNameRobotVision getInstance()
+	{
+		if (instance == null) {
+			instance = new NoNameRobotVision();
+		}
+		return instance;
+	}
+	
+	public List<TargetPosition> getTargetPositionList() {
+		return targetPositionsHolder.getAndSet(Collections.emptyList()); // We set this to null after retrieving it, so we never return a stale target position.
 	}
 
 	@Override
@@ -53,28 +67,25 @@ public class NoNameRobotVision implements Runnable {
 		// This cannot be 'true'. The program will never exit if it is. This
 		// lets the robot stop this thread when restarting robot code or
 		// deploying.
-		int count = 0;
 		while (!Thread.interrupted()) {
 			// Tell the CvSink to grab a frame from the camera and put it
 			// in the source mat. If there is an error notify the output.
-			System.err.println("Frame count: "+count);
-			++count;
 			if (cvSink.grabFrame(mat) == 0) {
 				// Send the output the error.
 				outputStream.notifyError(cvSink.getError());
 				// skip the rest of the current iteration
 				continue;
 			}
+			// Let's find the target.
 			gripPipeline.process(mat);
 			List<ContourReport> contourReports = gtf.extractContourReports(gripPipeline.filterContoursOutput());
 	    	List<ContourReport> objContourReports = gtf.findObjectiveContourReport(contourReports, WhichDirection.MIDDLE_LEFT);
 	    	List<TargetPosition> targetList = gtf.extractListOfTargetPosition(objContourReports);
 	    	if (targetList != null && !targetList.isEmpty())
 	    	{
-	    		targetPositionQueue.offer(targetList);
+	    		targetPositionsHolder.set(targetList);
 	    	}
-			// Do image processing here...
-//			Imgproc.rectangle(mat, new Point(100, 100), new Point(400, 400), new Scalar(255, 255, 255), 5);
+			// Do image processing here, if you want.
 			if (contourReports != null) {
 				for (ContourReport contourReport : contourReports)
 				{
@@ -85,4 +96,6 @@ public class NoNameRobotVision implements Runnable {
 			outputStream.putFrame(mat);
 		}
 	}
+	
+	
 }

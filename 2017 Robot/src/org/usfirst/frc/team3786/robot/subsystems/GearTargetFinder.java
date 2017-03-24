@@ -74,14 +74,19 @@ public class GearTargetFinder {
     	try {
     		for(MatOfPoint matOfPoint : contourMap) {
     			Rect r = Imgproc.boundingRect(matOfPoint);
-    			contourReports.add(new ContourReport(
-    					r.x + (r.width / 2),
-    					r.y + (r.height / 2),
-    					r.width,
-    					r.height
-    					));
+    			// We only want contours that look like vision target rectangles.
+    			if (r.height > 1.7 * r.width) 
+    			{
+    				contourReports.add(new ContourReport(
+    						r.x + (r.width / 2),
+    						r.y + (r.height / 2),
+    						r.width,
+    						r.height
+    						));
+    			}
     		}
     	}
+    	
     	catch (Exception ex) {
     		System.err.println("ERROR IN EXTRACT CONTOUR REPORTS LIST "+ex);
     		ex.printStackTrace(System.err);
@@ -89,6 +94,7 @@ public class GearTargetFinder {
     	return contourReports;
     }
     
+
     
     //Return List of ContourReports Based On Object
     //Returns one or two ContourReport(s)

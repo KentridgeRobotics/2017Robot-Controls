@@ -3,16 +3,16 @@ package org.usfirst.frc.team3786.robot;
 
 import org.opencv.core.Mat;
 import org.usfirst.frc.team3786.robot.commands.auto.AutoDriveNoEncoder;
-import org.usfirst.frc.team3786.robot.commands.auto.CrossBaseline;
-import org.usfirst.frc.team3786.robot.commands.auto.DisplayNextTarget;
-import org.usfirst.frc.team3786.robot.commands.auto.DistanceByCamera;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
-import org.usfirst.frc.team3786.robot.commands.auto.GoForward;
 import org.usfirst.frc.team3786.robot.commands.auto.GyroTurnTest;
 import org.usfirst.frc.team3786.robot.commands.auto.RotateWheelsTest;
 import org.usfirst.frc.team3786.robot.commands.auto.RotateWheelsTestNoVision;
 import org.usfirst.frc.team3786.robot.commands.auto.TurnDegrees;
 import org.usfirst.frc.team3786.robot.commands.auto.UpdateTargetDisplay;
+import org.usfirst.frc.team3786.robot.commands.auto.obsolete.CrossBaseline;
+import org.usfirst.frc.team3786.robot.commands.auto.obsolete.DisplayNextTarget;
+import org.usfirst.frc.team3786.robot.commands.auto.obsolete.DistanceByCamera;
+import org.usfirst.frc.team3786.robot.commands.auto.obsolete.GoForward;
 import org.usfirst.frc.team3786.robot.commands.climber.DeployTrigger;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchDeploy;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
@@ -153,6 +153,7 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.start();
 	}
 
+
 	/**
 	 * This function is called periodically during autonomous
 	 */
@@ -175,7 +176,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Target distance", DisplayNextTarget.distance);
 		SmartDashboard.putNumber("Target direction", DisplayNextTarget.direction);
 		SmartDashboard.putNumber("Target face angle", DisplayNextTarget.faceAngle);
-		
 		
 		
 		//System.err.println("Gyro Heading" + RobotConfig.gyro.getHeading());
