@@ -18,7 +18,9 @@ import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
 import org.usfirst.frc.team3786.robot.commands.display.DisplayData;
 import org.usfirst.frc.team3786.robot.commands.display.DisplayTargetSolution;
 //import org.usfirst.frc.team3786.robot.commands.drive.Drive;
-import org.usfirst.frc.team3786.robot.commands.drive.DriveGyroTune;
+import org.usfirst.frc.team3786.robot.commands.drive.DriveGyro2;
+import org.usfirst.frc.team3786.robot.commands.drive.GyroTune;
+import org.usfirst.frc.team3786.robot.commands.drive.GyroTurnDegrees;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearArmBottomPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearArmTopPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoClose;
@@ -98,6 +100,15 @@ public class Robot extends IterativeRobot {
 
 		JoystickButton testButton3 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 10);
 		testButton3.whenPressed(ServoDance.getInstance());
+		
+		JoystickButton testButton4 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 9);
+		testButton4.whileHeld(GyroTune.getInstance());
+		
+		JoystickButton testButton5 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 10);
+		testButton5.whileHeld(new GyroTurnDegrees(360.0));
+
+		
+
 
 		
 		RobotConfig.getInstance().initialize();	
@@ -209,7 +220,7 @@ public class Robot extends IterativeRobot {
 		RobotConfig.getInstance().setCameraResolution(640, 480);
 		RobotConfig.getInstance().setCameraFrameRate(10);
 		
-		DriveGyroTune.getInstance().start();
+		DriveGyro2.getInstance().start();
 		
 	}
 
@@ -219,9 +230,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		
-		System.err.println("Gyro Tune is running: " + DriveGyroTune.getInstance().isRunning());
-		
+				
 		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
 //		SmartDashboard.putNumber("Gyro X", RobotConfig.getInstance().getGyro().getVector()[0]);
 //		SmartDashboard.putNumber("Gyro Y", RobotConfig.getInstance().getGyro().getVector()[1]);

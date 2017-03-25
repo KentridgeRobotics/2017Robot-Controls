@@ -48,7 +48,7 @@ public class GyroDrive extends UIConfig {
 //		
 //		
 //		return turn;'
-		return -leftStick.getX();
+		return leftStick.getX();
 	}
 	
 	private double testX() {
