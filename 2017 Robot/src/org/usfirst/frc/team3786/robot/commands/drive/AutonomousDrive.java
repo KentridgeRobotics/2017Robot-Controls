@@ -3,7 +3,7 @@ package org.usfirst.frc.team3786.robot.commands.drive;
 
 import java.util.List;
 
-import org.usfirst.frc.team3786.robot.autonomous.RobotAction;
+import org.usfirst.frc.team3786.robot.commands.auto.obsolete.RobotAction;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3786.robot.vision.TargetPosition;

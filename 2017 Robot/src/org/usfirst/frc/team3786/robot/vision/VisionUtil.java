@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.opencv.core.MatOfPoint;
-import org.usfirst.frc.team3786.robot.autonomous.RobotAction;
-import org.usfirst.frc.team3786.robot.autonomous.RobotActionGenerator;
+import org.usfirst.frc.team3786.robot.commands.auto.obsolete.RobotAction;
+import org.usfirst.frc.team3786.robot.commands.auto.obsolete.RobotActionGenerator;
 import org.usfirst.frc.team3786.robot.config.CompetitionConfig;
 import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
 

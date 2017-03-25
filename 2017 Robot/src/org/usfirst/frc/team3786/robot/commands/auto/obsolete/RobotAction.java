@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3786.robot.autonomous;
+package org.usfirst.frc.team3786.robot.commands.auto.obsolete;
 
 import java.util.List;
 

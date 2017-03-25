@@ -2,8 +2,8 @@ package org.usfirst.frc.team3786.robot.commands.display;
 
 import java.util.List;
 
-import org.usfirst.frc.team3786.robot.autonomous.RobotAction;
-import org.usfirst.frc.team3786.robot.autonomous.RobotActionGenerator;
+import org.usfirst.frc.team3786.robot.commands.auto.obsolete.RobotAction;
+import org.usfirst.frc.team3786.robot.commands.auto.obsolete.RobotActionGenerator;
 import org.usfirst.frc.team3786.robot.config.CompetitionConfig;
 import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
 import org.usfirst.frc.team3786.robot.vision.ContourReport;
