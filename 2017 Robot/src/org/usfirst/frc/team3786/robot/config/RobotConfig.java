@@ -17,7 +17,9 @@ import edu.wpi.first.wpilibj.CameraServer;
  */
 public abstract class RobotConfig {
 	private static RobotConfig instance;
-	
+	public static int IMG_HEIGHT = 480;
+	public static int IMG_WIDTH = 640;
+
 	public static RobotConfig getInstance() {
 		if(instance == null)
 			instance = new PracticeConfig();

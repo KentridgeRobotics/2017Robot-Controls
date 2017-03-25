@@ -13,6 +13,7 @@ import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
+import org.usfirst.frc.team3786.robot.config.RobotConfig;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
@@ -55,12 +56,12 @@ public class NoNameRobotVision implements Runnable {
 		// Get the UsbCamera from CameraServer
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 		// Set the resolution
-		camera.setResolution(640, 480);
+		camera.setResolution(RobotConfig.IMG_WIDTH, RobotConfig.IMG_HEIGHT);
 
 		// Get a CvSink. This will capture Mats from the camera
 		CvSink cvSink = CameraServer.getInstance().getVideo();
 		// Setup a CvSource. This will send images back to the Dashboard
-		CvSource outputStream = CameraServer.getInstance().putVideo("Rectangle", 640, 480);
+		CvSource outputStream = CameraServer.getInstance().putVideo("Rectangle", RobotConfig.IMG_WIDTH, RobotConfig.IMG_HEIGHT);
 
 		// Mats are very memory expensive. Lets reuse this Mat.
 		Mat mat = new Mat();
