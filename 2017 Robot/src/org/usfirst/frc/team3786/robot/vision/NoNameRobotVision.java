@@ -1,13 +1,10 @@
 package org.usfirst.frc.team3786.robot.vision;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.opencv.core.Mat;
@@ -16,7 +13,6 @@ import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
-import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
@@ -36,7 +32,7 @@ public class NoNameRobotVision implements Runnable {
 
 	private static NoNameRobotVision instance;
 	private static Thread visionThread = null;
-	private final AtomicReference<List<TargetPosition>> targetPositionsHolder = new AtomicReference<List<TargetPosition>>(Collections.emptyList());
+	private final AtomicReference<AngleAndDistance> myAngleAndDistance = new AtomicReference<AngleAndDistance>();
 	private NoNameRobotVision() {
 
 	}
@@ -48,10 +44,12 @@ public class NoNameRobotVision implements Runnable {
 		return instance;
 	}
 	
-	public List<TargetPosition> getTargetPositionList() {
-		return targetPositionsHolder.getAndSet(Collections.emptyList()); // We set this to null after retrieving it, so we never return a stale target position.
+	public AngleAndDistance getTargetAngleAndDistance() {
+		return myAngleAndDistance.get(); // I guess we're OK if the position is null.
 	}
-
+	
+	private static final double THICKNESS = 12.0;
+	private static final Scalar COLOR = new Scalar(124, 252, 0);
 	@Override
 	public void run() {
 		// Get the UsbCamera from CameraServer
@@ -67,7 +65,6 @@ public class NoNameRobotVision implements Runnable {
 		// Mats are very memory expensive. Lets reuse this Mat.
 		Mat mat = new Mat();
 		GripPipeline gripPipeline = new GripPipeline();
-		GearTargetFinder gtf = GearTargetFinder.getInstance();
 		// This cannot be 'true'. The program will never exit if it is. This
 		// lets the robot stop this thread when restarting robot code or
 		// deploying.
@@ -82,60 +79,73 @@ public class NoNameRobotVision implements Runnable {
 			}
 			// Let's find the target.
 			gripPipeline.process(mat);
-			List<ContourReport> contourReports = gtf.extractContourReports(gripPipeline.filterContoursOutput());
-	    	List<ContourReport> objContourReports = gtf.findObjectiveContourReport(contourReports, WhichDirection.MIDDLE_LEFT);
-	    	List<TargetPosition> targetList = gtf.extractListOfTargetPosition(objContourReports);
-	    	if (targetList != null && !targetList.isEmpty())
-	    	{
-	    		targetPositionsHolder.set(targetList);
-	    	}
+			AngleAndDistance angleAndDistance = findGearPegLocationBasedOnVisionTargets(gripPipeline.filterContoursOutput());
+	    	myAngleAndDistance.set(angleAndDistance);
 			// Do image processing here, if you want.
-			if (contourReports != null) {
-				for (ContourReport contourReport : contourReports)
-				{
-					Imgproc.rectangle(mat,  new Point(contourReport.getLeftX(), contourReport.getTopY()), new Point(contourReport.getRightX(), contourReport.getBottomY()), new Scalar(124, 252, 0), 5);
-				}
+			if (angleAndDistance != null) {
+				Imgproc.rectangle(mat,  new Point(angleAndDistance.getAvgCenterX()-THICKNESS, angleAndDistance.getAvgCenterY()-THICKNESS), 
+										new Point(angleAndDistance.getAvgCenterX()-THICKNESS, angleAndDistance.getAvgCenterY()-THICKNESS), 
+										COLOR, (int)THICKNESS);
 			}
 			// Whatever you want to put out to the screen, do it here.
 			outputStream.putFrame(mat);
 		}
 	}
 
-	private static class MatOfPointComparator implements Comparator<MatOfPoint>
-	{
-
-		@Override
-		public int compare(MatOfPoint o1, MatOfPoint o2) {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-		
-	}
-	private static void eliminateUnwantedContours(List<MatOfPoint> contours)
+	static final ContourReport[] emptyCrArr = new ContourReport[0];
+	
+	private static List<ContourReport> findBestContours(List<MatOfPoint> contours)
 	{
 		// Find the 2 "best" contours.
 		// What makes them the best?
 		// - They look like tall rectangles
+		if (contours == null)
+		{
+			return Collections.emptyList();
+		}
+		List<ContourReport> contourReports = new ArrayList<ContourReport>(contours.size());
 		for(Iterator<MatOfPoint> iter = contours.iterator(); iter.hasNext();) {
 			MatOfPoint matOfPoint = iter.next();
 			Rect r = Imgproc.boundingRect(matOfPoint);
 			// We only want contours that look like vision target rectangles.
-			if (r.height < 1.6 * r.width) 
+			if (r.height < 1.2 * r.width) 
 			{
 				iter.remove();
 			}
+			else
+			{
+				contourReports.add(new ContourReport(r));
+			}
 		}
-		// - Largest area
-		if (contours.size() > 2)
+		if (contourReports.size() > 2)
 		{
-			MatOfPoint[] matArray = new MatOfPoint[contours.size()];
-		//	MatOfPoint[] sortedMatArray = Arrays.sort(matArray);
+			ContourReport[] crArr;
+			crArr = contourReports.toArray(emptyCrArr);
+			Arrays.sort(crArr);
+			contourReports.clear();
+			contourReports.add(crArr[crArr.length-1]);
+			contourReports.add(crArr[crArr.length-2]);
+			
 		}
+		return contourReports;
 	}
 	
 	private static AngleAndDistance findGearPegLocationBasedOnVisionTargets(List<MatOfPoint> contours)
 	{
-		return new AngleAndDistance(0, 0);
+		List<ContourReport> bestContours = findBestContours(contours);
+		if (bestContours.size() != 2)
+		{
+			// no idea. 
+			return null;
+		}
+		// Let's find the midpoint between the 2
+		double avgCenterX = (bestContours.get(0).getCenterX() + bestContours.get(1).getCenterX()) / 2.0;
+		double avgCenterY = (bestContours.get(0).getCenterY() + bestContours.get(1).getCenterY()) / 2.0;
+		double avgHeight = (bestContours.get(0).getHeight() + bestContours.get(1).getHeight()) / 2.0;
+		double angleInDegrees = VisionUtil.angleToEstimate(avgCenterX);
+		double distanceInInches = VisionUtil.distanceEstimate(avgHeight);
+		
+		return new AngleAndDistance(angleInDegrees, distanceInInches, avgCenterX, avgCenterY);
 	}
 	
 	

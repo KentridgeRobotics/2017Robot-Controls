@@ -38,7 +38,7 @@ public class VisionUtil {
 	}
 	
 	public static List<TargetPosition> getTargetPositionToGearTarget() {
-		List<TargetPosition> targetPositions = NoNameRobotVision.getInstance().getTargetPositionList();
+		List<TargetPosition> targetPositions = Collections.emptyList();
 		return targetPositions;
 	}
 	

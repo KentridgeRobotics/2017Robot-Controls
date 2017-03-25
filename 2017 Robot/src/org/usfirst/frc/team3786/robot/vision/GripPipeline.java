@@ -26,8 +26,8 @@ import org.opencv.objdetect.*;
 * @author GRIP
 */
 public class GripPipeline implements VisionPipeline {
-	static final double[] hslThresholdHue = {72.8, 93.6};
-	static final double[] hslThresholdSaturation = {213.2, 255.0};
+	static final double[] hslThresholdHue = {70.0, 95.0};
+	static final double[] hslThresholdSaturation = {200.0, 255.0};
 	static final double[] hslThresholdLuminance = {169.7, 255.0};
 	
 	static final double filterContoursMinArea = 100.0;
