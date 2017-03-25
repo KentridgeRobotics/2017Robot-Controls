@@ -1,37 +1,24 @@
 package org.usfirst.frc.team3786.robot.commands.auto;
 
-import java.util.List;
-
-import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
-import org.usfirst.frc.team3786.robot.vision.TargetPosition;
-import org.usfirst.frc.team3786.robot.vision.WhichDirection;
-
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
 
 /**
- *
+ * A command to drop off a gear on a peg.
+ * Prereq: The robot must be in place first!!!! Use NoNameGearNavigator for that.
  */
-public class DistanceByCamera extends Command {
-    	
+public class NoNameGearDropper extends Command {
+
+    public NoNameGearDropper() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    
+    }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
-    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double Range; 
-    	GearTargetFinder targetFinder = GearTargetFinder.getInstance();
-    	List<TargetPosition> targetList = targetFinder.extractListOfTargetPosition(targetFinder.findObjectiveContourReport(targetFinder.extractContourReports(targetFinder.acquireVisionInput()), WhichDirection.MIDDLE_LEFT));
-    	TargetPosition position = targetList.get(0);
-    	position.getDistanceToTargetInInches();
-    	System.err.println(position);
     }
 
     // Make this return true when this Command no longer needs to run execute()

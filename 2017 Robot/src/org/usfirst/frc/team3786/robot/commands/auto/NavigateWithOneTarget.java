@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3786.robot.commands.auto;
 
+import org.usfirst.frc.team3786.robot.commands.auto.obsolete.AutoPlaceAGear;
 import org.usfirst.frc.team3786.robot.commands.drive.AutonomousDrive;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;

@@ -1,12 +1,16 @@
 package org.usfirst.frc.team3786.robot.vision;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.opencv.core.MatOfPoint;
 import org.usfirst.frc.team3786.robot.autonomous.RobotAction;
 import org.usfirst.frc.team3786.robot.autonomous.RobotActionGenerator;
 import org.usfirst.frc.team3786.robot.config.CompetitionConfig;
 import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
+
+import edu.wpi.cscore.CvSink;
 
 //Utility class to calculate distances and angles using measurements
 //in Pixels and coordinates.
@@ -29,52 +33,13 @@ public class VisionUtil {
 	}
 
 	public static WhichSide getPositionOfGearTarget() {
-		GearTargetFinder gtf = GearTargetFinder.getInstance();
-		
-		List<MatOfPoint> matlist = null;
-		while ((matlist = gtf.acquireVisionInput()) == null)
-		{
-			System.err.println("Can't get input!!!");
-		}
-		if (matlist == null)
-		{
-			System.err.println("ERROR: getPositionOfGearTarget: no matlist");
-			return WhichSide.WHO_KNOWS;
-		}
-		List<ContourReport> contourList = gtf.extractContourReports(matlist);
-		if (contourList == null)
-		{
-			System.err.println("ERROR: getPositionOfGearTarget: no contourList");
-		}
-		System.err.println("getPositionOfGearTarget finds:");
-		for (ContourReport contour : contourList)
-		{
-			System.err.println("    contour: "+contour);
-		}
-		int contoursCenter = 0; 
-		if (contourList.size() == 0)
-		{
-			return WhichSide.WHO_KNOWS;
-		}
-		for (ContourReport contour : contourList)
-		{
-			contoursCenter += contour.getCenterX();
-		}
-		contoursCenter /= contourList.size();
-		
-		if (contoursCenter <= 320) {
-			return WhichSide.LEFT;
-		}
-		else {
-			return WhichSide.RIGHT;
-		}
+		// No, this doesn't work at all. Who knows?
+		return WhichSide.WHO_KNOWS;
 	}
 	
 	public static List<TargetPosition> getTargetPositionToGearTarget() {
-		GearTargetFinder gtf = GearTargetFinder.getInstance();
-		
-		return gtf.extractListOfTargetPosition(gtf.findObjectiveContourReport(gtf.extractContourReports(gtf.acquireVisionInput()), WhichDirection.UNKNOWN)) ;
-		
+		List<TargetPosition> targetPositions = NoNameRobotVision.getInstance().getTargetPositionList();
+		return targetPositions;
 	}
 	
 }

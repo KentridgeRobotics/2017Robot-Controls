@@ -40,4 +40,18 @@ public class ContourReport {
 	public double getArea() {
 		return _area;
 	}
+	
+	public double getLeftX() {
+		return _centerX - _width/2.0;
+	}
+	public double getTopY() {
+		return _centerY - _height/2.0;
+	}
+	
+	public double getRightX() {
+		return _centerX + _width/2.0;
+	}
+	public double getBottomY() {
+		return _centerY + _height/2.0;
+	}
 }
