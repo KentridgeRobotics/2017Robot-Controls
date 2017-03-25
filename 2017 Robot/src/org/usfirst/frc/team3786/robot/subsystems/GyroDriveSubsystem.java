@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3786.robot.subsystems;
 
+import org.usfirst.frc.team3786.robot.commands.drive.DriveGyro2;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
 
@@ -49,7 +50,7 @@ public class GyroDriveSubsystem extends PIDSubsystem {
     }
 
     public void initDefaultCommand() {
-
+    	this.setDefaultCommand(DriveGyro2.getInstance());
     }
     
 //    public void drive(double leftSpeed, double rightSpeed) {

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3786.robot.commands.auto;
 
+import org.usfirst.frc.team3786.robot.commands.drive.GyroTurnDegrees;
 import org.usfirst.frc.team3786.robot.vision.WhichSide;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -41,11 +42,11 @@ public class NoNamePlaceAGear extends CommandGroup {
     	// Step 2: Maybe turn 60 degrees
     	if (whichSide == WhichSide.LEFT)
     	{
-    		// turn right
+    		addSequential(new GyroTurnDegrees(60));
     	}
     	else if (whichSide == WhichSide.RIGHT)
     	{
-    		// turn left
+    		addSequential(new GyroTurnDegrees(-60));
     	}
     	
     	// Step 3: Go straight to the gear target.
