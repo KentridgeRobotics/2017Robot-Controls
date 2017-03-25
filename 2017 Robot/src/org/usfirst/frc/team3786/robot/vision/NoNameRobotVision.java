@@ -1,6 +1,9 @@
 package org.usfirst.frc.team3786.robot.vision;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -8,7 +11,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
+import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team3786.robot.subsystems.GearTargetFinder;
@@ -20,14 +25,13 @@ import edu.wpi.first.wpilibj.CameraServer;
 
 public class NoNameRobotVision implements Runnable {
 
-	public synchronized static Thread getRobotVisionThread() {
+	public synchronized static void startRobotVisionThread() {
 		if (visionThread != null)
-			return visionThread;
+			return;
 
-		Thread thread = new Thread(getInstance());
-		thread.setDaemon(true);
-		thread.start();
-		return thread;
+		visionThread = new Thread(getInstance());
+		visionThread.setDaemon(true);
+		visionThread.start();
 	}
 
 	private static NoNameRobotVision instance;
@@ -95,6 +99,43 @@ public class NoNameRobotVision implements Runnable {
 			// Whatever you want to put out to the screen, do it here.
 			outputStream.putFrame(mat);
 		}
+	}
+
+	private static class MatOfPointComparator implements Comparator<MatOfPoint>
+	{
+
+		@Override
+		public int compare(MatOfPoint o1, MatOfPoint o2) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		
+	}
+	private static void eliminateUnwantedContours(List<MatOfPoint> contours)
+	{
+		// Find the 2 "best" contours.
+		// What makes them the best?
+		// - They look like tall rectangles
+		for(Iterator<MatOfPoint> iter = contours.iterator(); iter.hasNext();) {
+			MatOfPoint matOfPoint = iter.next();
+			Rect r = Imgproc.boundingRect(matOfPoint);
+			// We only want contours that look like vision target rectangles.
+			if (r.height < 1.6 * r.width) 
+			{
+				iter.remove();
+			}
+		}
+		// - Largest area
+		if (contours.size() > 2)
+		{
+			MatOfPoint[] matArray = new MatOfPoint[contours.size()];
+		//	MatOfPoint[] sortedMatArray = Arrays.sort(matArray);
+		}
+	}
+	
+	private static AngleAndDistance findGearPegLocationBasedOnVisionTargets(List<MatOfPoint> contours)
+	{
+		return new AngleAndDistance(0, 0);
 	}
 	
 	

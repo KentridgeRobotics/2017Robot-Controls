@@ -65,7 +65,6 @@ public class Robot extends IterativeRobot {
 //	public static DisplayData displayData;
 	//private static BNO055 imu;
 	Command autonomousCommand;
-	Thread robotVisionThread = null;
 	SendableChooser<Command> newChooser;
 	//public static UsbCamera usbCamera;
 	/**
@@ -131,7 +130,7 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putData(Scheduler.getInstance());
 		SmartDashboard.putData("Auto Mode", newChooser);
-		robotVisionThread = NoNameRobotVision.getRobotVisionThread();
+		NoNameRobotVision.startRobotVisionThread();
 		
 	}
 

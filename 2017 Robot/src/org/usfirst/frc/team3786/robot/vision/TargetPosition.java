@@ -12,7 +12,7 @@ public class TargetPosition {
 		_targetDirectionDegrees = toTargetAngle;
 		_distanceToTargetInInches = distanceToTarget;
 		_targetFaceAngleDegrees = ofTargetAngle;
-	}	
+	}
 	
 	
 	public String toString() {
