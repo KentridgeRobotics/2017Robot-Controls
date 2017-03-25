@@ -27,7 +27,6 @@ import org.usfirst.frc.team3786.robot.commands.grabber.ServoClose;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoDance;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearArmLoadPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoOpen;
-import org.usfirst.frc.team3786.robot.commands.test.ZeroEncoders;
 import org.usfirst.frc.team3786.robot.config.Camera;
 import org.usfirst.frc.team3786.robot.config.GyroDrive;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
@@ -37,6 +36,7 @@ import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 import org.usfirst.frc.team3786.robot.subsystems.GyroDriveSubsystem;
 import org.usfirst.frc.team3786.robot.subsystems.Rangefinders;
+import org.usfirst.frc.team3786.robot.subsystems.RioAccelerometer;
 import org.usfirst.frc.team3786.robot.subsystems.Winch;
 import org.usfirst.frc.team3786.robot.vision.FinderOfRange;
 import org.usfirst.frc.team3786.robot.vision.NoNameRobotVision;
@@ -107,7 +107,7 @@ public class Robot extends IterativeRobot {
 		testButton4.whileHeld(GyroTune.getInstance());
 		
 		JoystickButton testButton5 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 10);
-		testButton5.whileHeld(new GyroTurnDegrees(360.0));
+		testButton5.whileHeld(new GyroTurnDegrees(90.0));
 
 		
 
@@ -222,7 +222,7 @@ public class Robot extends IterativeRobot {
 //		DriveTrain.getInstance().setCoast();
 //		GearArm.getInstance().setManualDrive();
 		
-		DriveGyro2.getInstance().start();
+		//DriveGyro2.getInstance().start();
 		
 	}
 
@@ -232,8 +232,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-				
-		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
+		
+		SmartDashboard.putNumber("Accelerometer X", RioAccelerometer.getInstance().getX());
+		SmartDashboard.putNumber("Accelerometer Y", RioAccelerometer.getInstance().getY());
+		SmartDashboard.putNumber("Accelerometer Z", RioAccelerometer.getInstance().getZ());
+
+//		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
 //		SmartDashboard.putNumber("Gyro X", RobotConfig.getInstance().getGyro().getVector()[0]);
 //		SmartDashboard.putNumber("Gyro Y", RobotConfig.getInstance().getGyro().getVector()[1]);
 //		SmartDashboard.putNumber("Gyro Z", RobotConfig.getInstance().getGyro().getVector()[2]);
@@ -257,7 +261,7 @@ public class Robot extends IterativeRobot {
 
 		
 		
-		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().getDriveType());
+//		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().getDriveType());
 		SmartDashboard.putBoolean("Servo is closed", GearArm.getInstance().getIsClosed());
 		SmartDashboard.putString("Gear Arm Drive Mode", GearArm.getInstance().getMode());
 		SmartDashboard.putNumber("Test Rangefinder Voltage", Rangefinders.getInstance().getTestVoltage());
@@ -268,8 +272,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Winch fwd limit", Winch.getInstance().getForwardLimitSwitch());
 		SmartDashboard.putBoolean("Winch rev limit", Winch.getInstance().getReverseLimitSwitch());
 		
-		SmartDashboard.putNumber("Left Out", UIConfig.getInstance().getLeftDrive());
-		SmartDashboard.putNumber("Right Out", UIConfig.getInstance().getRightDrive());
+//		SmartDashboard.putNumber("Left Out", UIConfig.getInstance().getLeftDrive());
+//		SmartDashboard.putNumber("Right Out", UIConfig.getInstance().getRightDrive());
 		
 		System.err.println("Gyro Heading" + RobotConfig.getInstance().getGyroHeading());
 
