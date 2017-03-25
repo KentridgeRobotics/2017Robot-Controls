@@ -1,37 +1,20 @@
 
 package org.usfirst.frc.team3786.robot;
 
-import org.opencv.core.Mat;
 import org.usfirst.frc.team3786.robot.commands.auto.AutoDriveNoEncoder;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
-import org.usfirst.frc.team3786.robot.commands.auto.GyroTurnTest;
 import org.usfirst.frc.team3786.robot.commands.auto.RotateWheelsTest;
 import org.usfirst.frc.team3786.robot.commands.auto.RotateWheelsTestNoVision;
-import org.usfirst.frc.team3786.robot.commands.auto.TurnDegrees;
-import org.usfirst.frc.team3786.robot.commands.auto.UpdateTargetDisplay;
-import org.usfirst.frc.team3786.robot.commands.auto.obsolete.CrossBaseline;
-import org.usfirst.frc.team3786.robot.commands.auto.obsolete.DisplayNextTarget;
-import org.usfirst.frc.team3786.robot.commands.auto.obsolete.DistanceByCamera;
-import org.usfirst.frc.team3786.robot.commands.auto.obsolete.GoForward;
 import org.usfirst.frc.team3786.robot.commands.climber.DeployTrigger;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchDeploy;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
-import org.usfirst.frc.team3786.robot.commands.display.DisplayTargetSolution;
-//import org.usfirst.frc.team3786.robot.commands.drive.Drive;
-import org.usfirst.frc.team3786.robot.commands.drive.DriveGyro2;
 import org.usfirst.frc.team3786.robot.commands.drive.GyroTune;
 import org.usfirst.frc.team3786.robot.commands.drive.GyroTurnDegrees;
-import org.usfirst.frc.team3786.robot.commands.grabber.GearArmBottomPosition;
-import org.usfirst.frc.team3786.robot.commands.grabber.GearArmTopPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoClose;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoDance;
-import org.usfirst.frc.team3786.robot.commands.grabber.GearArmLoadPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoOpen;
-import org.usfirst.frc.team3786.robot.config.Camera;
-import org.usfirst.frc.team3786.robot.config.GyroDrive;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
-import org.usfirst.frc.team3786.robot.subsystems.BNO055;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 import org.usfirst.frc.team3786.robot.subsystems.GyroDriveSubsystem;
@@ -41,11 +24,8 @@ import org.usfirst.frc.team3786.robot.subsystems.Winch;
 import org.usfirst.frc.team3786.robot.vision.FinderOfRange;
 import org.usfirst.frc.team3786.robot.vision.NoNameRobotVision;
 
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -108,7 +88,6 @@ public class Robot extends IterativeRobot {
 		
 		RobotConfig.getInstance().initialize();	
 		newChooser = new SendableChooser<Command>();
-		newChooser.addObject("Update target display", UpdateTargetDisplay.getInstance());
 		newChooser.addObject("Do Nothing", new DoNothing());
 		//newChooser.addObject("Rotate wheels", new RotateWheelsTest());
 		//newChooser.addObject("Gyro Test", new GyroTurnTest());
@@ -191,10 +170,6 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Right Voltage", DriveTrain.getInstance().getRightMotorOutput());
 
 		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().getDriveType());
-		
-		SmartDashboard.putNumber("Target distance", DisplayNextTarget.distance);
-		SmartDashboard.putNumber("Target direction", DisplayNextTarget.direction);
-		SmartDashboard.putNumber("Target face angle", DisplayNextTarget.faceAngle);
 		
 		
 		//System.err.println("Gyro Heading" + RobotConfig.gyro.getHeading());

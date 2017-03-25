@@ -1,9 +1,8 @@
-package org.usfirst.frc.team3786.robot.autonomous;
+package org.usfirst.frc.team3786.robot.commands.auto.obsolete;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 
 import org.usfirst.frc.team3786.robot.vision.ContourReport;
 import org.usfirst.frc.team3786.robot.vision.GripPipeline;

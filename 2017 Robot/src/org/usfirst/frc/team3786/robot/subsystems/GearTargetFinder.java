@@ -28,8 +28,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class GearTargetFinder {
 	//Temporary Resolution
-	private int IMG_WIDTH = 640;
-	private int IMG_HEIGHT = 480;
 	private static GearTargetFinder instance;
 	private Mat workingMat = new Mat();
 
@@ -157,7 +155,7 @@ public class GearTargetFinder {
     						contourReports.remove(1);
     						break;
     					case UNKNOWN:
-    						if(640 - contourReports.get(0).getCenterX() < 640 - contourReports.get(0).getCenterX()) {
+    						if(RobotConfig.IMG_WIDTH - contourReports.get(0).getCenterX() < RobotConfig.IMG_WIDTH - contourReports.get(0).getCenterX()) {
     							contourReport.remove(0);
     						} else {
     							contourReport.remove(1);

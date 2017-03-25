@@ -1,22 +1,19 @@
 package org.usfirst.frc.team3786.robot.vision;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.HashMap;
+
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfInt;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.MatOfPoint2f;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
 
 import edu.wpi.first.wpilibj.vision.VisionPipeline;
-
-import org.opencv.core.*;
-import org.opencv.core.Core.*;
-import org.opencv.features2d.FeatureDetector;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.*;
-import org.opencv.objdetect.*;
 
 /**
 * GripPipeline class.
@@ -26,8 +23,8 @@ import org.opencv.objdetect.*;
 * @author GRIP
 */
 public class GripPipeline implements VisionPipeline {
-	static final double[] hslThresholdHue = {72.8, 93.6};
-	static final double[] hslThresholdSaturation = {213.2, 255.0};
+	static final double[] hslThresholdHue = {70.0, 95.0};
+	static final double[] hslThresholdSaturation = {200.0, 255.0};
 	static final double[] hslThresholdLuminance = {169.7, 255.0};
 	
 	static final double filterContoursMinArea = 100.0;

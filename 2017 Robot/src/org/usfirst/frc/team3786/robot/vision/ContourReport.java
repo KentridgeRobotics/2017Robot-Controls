@@ -1,10 +1,27 @@
 package org.usfirst.frc.team3786.robot.vision;
 
+import java.util.Arrays;
 
+import org.opencv.core.Rect;
 
 //Object Class to organize information from GripPipeline
 //
-public class ContourReport {
+public class ContourReport implements Comparable<ContourReport> {
+	@Override
+	public int compareTo(ContourReport other) {
+		if (other._area > this._area)
+		{
+			return -1;
+		}
+		else if (other._area < this._area)
+		{
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+	
 	private double _centerX;
 	private double _centerY;
 	private double _height;
@@ -12,6 +29,15 @@ public class ContourReport {
 	private double _area;
 	
 	//Constructor
+	public ContourReport(Rect r)
+	{
+		this(
+				r.x + (r.width / 2), 
+				r.y + (r.height / 2),
+				r.width,
+				r.height);
+	}
+	
 	public ContourReport(double x, double y, double w, double h) {
 		_centerX = x;
 		_centerY = y;
@@ -53,5 +79,41 @@ public class ContourReport {
 	}
 	public double getBottomY() {
 		return _centerY + _height/2.0;
+	}
+	
+	public static void main(String[] args)
+	{
+		ContourReport small = new ContourReport(1.0, 1.0, 1.0, 1.0);
+		ContourReport medium = new ContourReport(1.0, 1.0, 2.0, 2.0);
+		ContourReport large = new ContourReport(1.0, 1.0, 3.0, 3.0);
+		
+		ContourReport[] reports = new ContourReport[3];
+		reports[0] = medium;
+		reports[1] = large;
+		reports[2] = small;
+		for (int i=0; i<reports.length; ++i)
+		{
+			System.err.println(reports[i]);
+		}
+		
+		Arrays.sort(reports);
+		
+		if (reports[0] != small) {
+			System.err.println("EXPECTED 0 to be small");
+		}
+		if (reports[1] != medium)
+		{
+			System.err.println("Expected 1 to be medium");
+		}
+		if (reports[2] != large)
+		{
+			System.err.println("Expected 2 to be large");
+		}
+		
+		System.err.println("SORTED!!!");
+		for (int i=0; i<reports.length; ++i)
+		{
+			System.err.println(reports[i]);
+		}
 	}
 }
