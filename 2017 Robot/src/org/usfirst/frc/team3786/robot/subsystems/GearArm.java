@@ -53,10 +53,10 @@ public class GearArm extends Subsystem {
 		
 		servoLeft = new Servo(0);
 		servoRight = new Servo(1);
-		if(servoLeft.getPosition() > .5)
-			isClosed = false;
-		else
-			isClosed = true;	
+//		if(servoLeft.getPosition() > .5)
+//			isClosed = false;
+//		else
+//			isClosed = true;	
 
 	}
 	
@@ -101,27 +101,27 @@ public class GearArm extends Subsystem {
 	
 	//servo methods
     public void open() {
-    	servoLeft.set(1.0);
-    	servoRight.set(0.0);
+    	servoLeft.set(0.8);
+    	servoRight.set(0.1);
 //    	servoLeft.set(0.0);
 //    	servoRight.set(1.0);
     	isClosed = false;
     }
     public void close() {
-//    	servoLeft.set(.33);
-//    	servoRight.set(.67);
-    	servoLeft.set(.5);
-    	servoRight.set(.5);
+    	servoLeft.set(.13);
+    	servoRight.set(.77);
+//    	servoLeft.set(.5);
+//    	servoRight.set(.5);
 
     	isClosed = true;
     }
     public boolean servoDance(int reps) {
     	for(int i = 0; i < reps; i++) {
-        	servoLeft.set(.87);
-        	servoRight.set(.53);
+        	servoLeft.set(.23);
+        	servoRight.set(.87);
         	Timer.delay(.5);
-        	servoLeft.set(.47);
-        	servoRight.set(.13);
+        	servoLeft.set(.03);
+        	servoRight.set(.67);
         	Timer.delay(.5);
     	}
     	servoLeft.set(.67);

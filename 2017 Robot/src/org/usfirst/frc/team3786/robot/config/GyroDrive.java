@@ -10,19 +10,20 @@ public class GyroDrive extends UIConfig {
 	
 	private Joystick leftStick = new Joystick(0);
 	private Joystick xbox = new Joystick(2);
-	private JoystickButton servoButton = new JoystickButton(xbox, 3);
+	private JoystickButton invertDriveButton = new JoystickButton(leftStick, 1);
+	private JoystickButton servoOpenButton = new JoystickButton(xbox, 3);
 	private JoystickButton gearArmTopButton = new JoystickButton(xbox, 4);
 	private JoystickButton gearArmBottomButton = new JoystickButton(xbox, 1);
-	private JoystickButton pegPositionButton = new JoystickButton(xbox, 2);
+	private JoystickButton servoCloseButton = new JoystickButton(xbox, 2);
 	private JoystickButton winchUpButton = new JoystickButton(xbox, 8);
 	private JoystickButton winchDownButton = new JoystickButton(xbox, 7);
 	private JoystickButton winchDeployMoveButton = new JoystickButton(xbox, 5);
 	private JoystickButton winchDeployEnableButton = new JoystickButton(xbox, 6);
 	private JoystickButton winchDeployReverseButton = new JoystickButton(leftStick, 7);
 	
-	private double lastTimeMillis;
-	private double maxAngularVelocity = 360; //max angular velocity in deg/s
-	private double Pturn = 1;
+//	private double lastTimeMillis;
+//	private double maxAngularVelocity = 360; //max angular velocity in deg/s
+//	private double Pturn = 1;
 	
 //	public static void initTime() {
 //		lastTimeMillis = System.currentTimeMillis();
@@ -30,7 +31,10 @@ public class GyroDrive extends UIConfig {
 	
 	@Override
 	public double getVelocity() {
-		return -leftStick.getY();
+		if(invertDriveButton.get())
+			return (Math.pow(leftStick.getY(), 2) * (Math.abs(leftStick.getY()) / leftStick.getY()));
+		else
+			return -(Math.pow(leftStick.getY(), 2) * (Math.abs(leftStick.getY()) / leftStick.getY()));
 	}
 	@Override
 	public double getTurn() {
@@ -48,19 +52,9 @@ public class GyroDrive extends UIConfig {
 //		
 //		
 //		return turn;'
-		return leftStick.getX();
+		return Math.pow(leftStick.getX(), 2) * Math.abs(leftStick.getX()) / leftStick.getX();
 	}
 	
-	private double testX() {
-		if(leftStick.getRawButton(1))
-			return (30.0/360.0);
-		else
-			return 0.0;
-	}
-	private double testY() {
-		return -leftStick.getRawAxis(3);
-	}
-
 	@Override
 	public Joystick getLeftStick() {
 		return leftStick;
@@ -89,15 +83,20 @@ public class GyroDrive extends UIConfig {
 		System.err.println("Right Turn: " + getTurn());
 		return -(getVelocity() + getTurn()) * .5;
 	}
-
+	
 	@Override
-	public JoystickButton getServoMoveButton() {
-		return servoButton;
+	public JoystickButton getInvertDriveButton() {
+		return invertDriveButton;
 	}
 
 	@Override
-	public JoystickButton getPegPositionButton() {
-		return pegPositionButton;
+	public JoystickButton getServoOpenButton() {
+		return servoOpenButton;
+	}
+
+	@Override
+	public JoystickButton getServoCloseButton() {
+		return servoCloseButton;
 	}
 
 	@Override

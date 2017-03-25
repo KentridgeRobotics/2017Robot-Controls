@@ -74,14 +74,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		//Drive.getInstance();
-		UIConfig.getInstance().getServoMoveButton().whenPressed(ServoOpen.getInstance());
+		UIConfig.getInstance().getServoOpenButton().whenPressed(ServoOpen.getInstance());
 		//Gear arm commands that use potentiometor and/or limits, 
 		//Disabled because potentiometer and limits are not working on the robot 
-		/*
-		UIConfig.getInstance().getPegPositionButton().whenPressed(GearArmLoadPosition.getInstance());
-		UIConfig.getInstance().getGearArmTopButton().whenPressed(GearArmTopPosition.getInstance());
-		UIConfig.getInstance().getGearArmBottomButton().whenPressed(GearArmBottomPosition.getInstance());
-		*/
+		
+		UIConfig.getInstance().getServoCloseButton().whenPressed(ServoClose.getInstance());
+//		UIConfig.getInstance().getGearArmTopButton().whenPressed(GearArmTopPosition.getInstance());
+//		UIConfig.getInstance().getGearArmBottomButton().whenPressed(GearArmBottomPosition.getInstance());
+		
 		UIConfig.getInstance().getWinchDownButton().whileHeld(WinchMove.getDownInstance());
 		UIConfig.getInstance().getWinchDownButton().whenReleased(WinchMove.getStopInstance());
 		UIConfig.getInstance().getWinchUpButton().whileHeld(WinchMove.getUpInstance());
@@ -93,14 +93,8 @@ public class Robot extends IterativeRobot {
 		
 		
 		
-		JoystickButton testButton = new JoystickButton(UIConfig.getInstance().getLeftStick(), 11);
-		testButton.whenPressed(ServoOpen.getInstance());
-		
-		JoystickButton testButton2 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 12);
-		testButton2.whenPressed(ServoClose.getInstance());
-
-		JoystickButton testButton3 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 10);
-		testButton3.whenPressed(ServoDance.getInstance());
+//		JoystickButton testButton3 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 2);
+//		testButton3.whenPressed(ServoDance.getInstance());
 		
 		JoystickButton testButton4 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 9);
 		testButton4.whileHeld(GyroTune.getInstance());
@@ -130,7 +124,7 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putData(Scheduler.getInstance());
 		SmartDashboard.putData("Auto Mode", newChooser);
-		NoNameRobotVision.startRobotVisionThread();
+		//NoNameRobotVision.startRobotVisionThread();
 		
 	}
 
