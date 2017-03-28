@@ -42,11 +42,11 @@ public class NoNamePlaceAGear extends CommandGroup {
     	// Step 2: Maybe turn 60 degrees
     	if (whichSide == WhichSide.LEFT)
     	{
-    		addSequential(new GyroTurnDegrees(60));
+    		addSequential(new GyroTurnDegrees(60, false));
     	}
     	else if (whichSide == WhichSide.RIGHT)
     	{
-    		addSequential(new GyroTurnDegrees(-60));
+    		addSequential(new GyroTurnDegrees(-60, false));
     	}
     	
     	// Step 3: Go straight to the gear target.

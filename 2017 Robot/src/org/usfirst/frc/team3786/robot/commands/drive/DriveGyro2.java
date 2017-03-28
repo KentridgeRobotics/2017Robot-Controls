@@ -18,10 +18,8 @@ public class DriveGyro2 extends Command {
 		return instance;
 	}
 	
-	private long lastLoopTime;
+//	private long lastLoopTime;
 	
-	private double setPoint = 10.0;
-
     public DriveGyro2() {
     	requires(GyroDriveSubsystem.getInstance());
     }
@@ -29,18 +27,18 @@ public class DriveGyro2 extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	GyroDriveSubsystem.getInstance().enable();
-    	lastLoopTime = System.currentTimeMillis();
+//    	lastLoopTime = System.currentTimeMillis();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	long now = System.currentTimeMillis();
+//    	long now = System.currentTimeMillis();
 //    	if(now >= lastLoopTime + 2000) {
 //    		lastLoopTime = now;
 //    		setPoint = - setPoint;
 //    		GyroDriveSubsystem.getInstance().setSetpointRelative(setPoint);
 //    	}
-    	GyroDriveSubsystem.getInstance().setSetpointRelative(UIConfig.getInstance().getTurn() * 360);
+    	GyroDriveSubsystem.getInstance().setSetpointRelative(UIConfig.getInstance().getTurn() * 180);
     }
 
     // Make this return true when this Command no longer needs to run execute()

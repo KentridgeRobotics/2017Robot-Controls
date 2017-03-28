@@ -75,7 +75,7 @@ public class GyroDriveSubsystem extends PIDSubsystem {
     	rightDriveMotor.enableBrakeMode(false);
     }
     
-    public void tankDrive(double leftSpeed, double rightSpeed) {
+    public void manualDrive(double leftSpeed, double rightSpeed) {
     	leftDriveMotor.set(leftSpeed);
     	rightDriveMotor.set(rightSpeed);
     }

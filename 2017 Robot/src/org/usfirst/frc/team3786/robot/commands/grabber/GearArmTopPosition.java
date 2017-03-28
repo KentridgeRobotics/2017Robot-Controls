@@ -31,7 +31,7 @@ public class GearArmTopPosition extends Command {
 //    	GearArm.getInstance().setPosition(40);
     	//seeing how well just driving until it hits the limit will work
     	GearArm.getInstance().setManualDrive();
-    	GearArm.getInstance().setSpeed(.5);
+    	GearArm.getInstance().setSpeed(.4);
     }
 
     // Called repeatedly when this Command is scheduled to run

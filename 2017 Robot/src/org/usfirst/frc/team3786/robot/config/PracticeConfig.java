@@ -28,7 +28,7 @@ public class PracticeConfig extends RobotConfig {
 
 	@Override
 	public double getGyroInversionMultiplier() {
-		return 1.0;
+		return -1.0;
 	}
 
 

@@ -1,7 +1,7 @@
 package org.usfirst.frc.team3786.robot.commands.auto;
 
-import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
+import org.usfirst.frc.team3786.robot.subsystems.GyroDriveSubsystem;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -19,7 +19,7 @@ public class AutoDriveNoEncoder extends Command {
 	 * @param time Time to drive in seconds
 	 */
     public AutoDriveNoEncoder(double leftSpeed, double rightSpeed, double time) {
-    	requires(DriveTrain.getInstance());
+    	requires(GyroDriveSubsystem.getInstance());
     	requires(GearArm.getInstance());
     	setTimeout(time);
     	this.leftSpeed = leftSpeed;
@@ -29,8 +29,8 @@ public class AutoDriveNoEncoder extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	GearArm.getInstance().close();
-    	DriveTrain.getInstance().setSpeed(leftSpeed, rightSpeed);
-    	DriveTrain.getInstance().setCoast();
+    	GyroDriveSubsystem.getInstance().manualDrive(leftSpeed, rightSpeed);
+    	GyroDriveSubsystem.getInstance().setCoast();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -44,9 +44,9 @@ public class AutoDriveNoEncoder extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	DriveTrain.getInstance().setSpeed(0, 0);
+    	GyroDriveSubsystem.getInstance().manualDrive(0.0, 0.0);
     	Timer.delay(.5);
-    	DriveTrain.getInstance().setBrake();
+    	GyroDriveSubsystem.getInstance().setBrake();
     }
 
     // Called when another command which requires one or more of the same

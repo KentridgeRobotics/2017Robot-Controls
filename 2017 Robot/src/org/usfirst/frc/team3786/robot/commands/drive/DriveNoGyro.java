@@ -8,17 +8,19 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class DriveTank extends Command {
+public class DriveNoGyro extends Command {
 	
-	private static DriveTank instance;
+	private static DriveNoGyro instance;
 	
-	public static DriveTank getInstance() {
+	public static DriveNoGyro getInstance() {
 		if(instance == null)
-			instance = new DriveTank();
+			instance = new DriveNoGyro();
 		return instance;
 	}
+	
+	private double GAIN = 1.2;
 
-    public DriveTank() {
+    public DriveNoGyro() {
     	requires(GyroDriveSubsystem.getInstance());
     }
 
@@ -29,8 +31,23 @@ public class DriveTank extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	GyroDriveSubsystem.getInstance().manualDrive(UIConfig.getInstance().getLeftDrive(), UIConfig.getInstance().getRightDrive());
+    	double throttle = UIConfig.getInstance().getLeftStick().getX();
+    	double turn = -UIConfig.getInstance().getLeftStick().getY();
+    	
+    	double leftOut = throttle - turn;
+    	double rightOut = throttle + turn;
+    	
+    	GyroDriveSubsystem.getInstance().manualDrive((leftOut + skim(leftOut)), (rightOut + skim(rightOut)));
     }
+    
+	private double skim(double v) {
+		if (v > 1.0)
+			return -((v - 1.0) * GAIN);
+		else if (v < -1.0)
+			return -((v + 1.0) * GAIN);
+		return 0;
+	}
+
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

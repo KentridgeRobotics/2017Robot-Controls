@@ -40,7 +40,7 @@ public class GearArmBottomPosition extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (GearArm.getInstance().getBottomLimitSwitch() || (Math.abs(GearArm.getInstance().getPosition()) >= 680));
+        return (GearArm.getInstance().getBottomLimitSwitch()/* || (Math.abs(GearArm.getInstance().getPosition()) >= 680)*/);
     }
 
     // Called once after isFinished returns true

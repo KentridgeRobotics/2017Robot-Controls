@@ -41,15 +41,15 @@ public class GearArm extends Subsystem {
 	public GearArm() {
 		windowMotor = new CANTalon(RobotConfig.getInstance().getGearArmMotor());
 		windowMotor.enableLimitSwitch(true, true);
-		windowMotor.setFeedbackDevice(FeedbackDevice.AnalogPot);
-		windowMotor.changeControlMode(TalonControlMode.Position);
-		windowMotor.configNominalOutputVoltage(+0f, -0f);
-		windowMotor.configPeakOutputVoltage(+12f, -12f);
-		windowMotor.reverseSensor(true);
-		windowMotor.setF(0.0);
-		windowMotor.setP(2.0);
-		windowMotor.setI(0.0);
-		windowMotor.setD(0.0);
+//		windowMotor.setFeedbackDevice(FeedbackDevice.AnalogPot);
+//		windowMotor.changeControlMode(TalonControlMode.Position);
+//		windowMotor.configNominalOutputVoltage(+0f, -0f);
+//		windowMotor.configPeakOutputVoltage(+12f, -12f);
+//		windowMotor.reverseSensor(true);
+//		windowMotor.setF(0.0);
+//		windowMotor.setP(2.0);
+//		windowMotor.setI(0.0);
+//		windowMotor.setD(0.0);
 		
 		servoLeft = new Servo(0);
 		servoRight = new Servo(1);
@@ -69,8 +69,8 @@ public class GearArm extends Subsystem {
 	
 	
 	public void setPosition(double pos) {		
-		if(_currentType == DriveType.POSITION)
-			windowMotor.set(pos);
+//		if(_currentType == DriveType.POSITION)
+//			windowMotor.set(pos);
 	}
 	
 	public double getVoltage() {
@@ -78,11 +78,12 @@ public class GearArm extends Subsystem {
 	}
 		
 	public int getPosition() {
-		return windowMotor.getAnalogInPosition();
+		//return windowMotor.getAnalogInPosition();
+		return -1;
 	}
 	public void setPositionDrive() {
-		_currentType = DriveType.POSITION;
-		windowMotor.changeControlMode(TalonControlMode.Position);
+//		_currentType = DriveType.POSITION;
+//		windowMotor.changeControlMode(TalonControlMode.Position);
 	}
 	public void setManualDrive() {
 		_currentType = DriveType.MANUAL;
@@ -101,15 +102,15 @@ public class GearArm extends Subsystem {
 	
 	//servo methods
     public void open() {
-    	servoLeft.set(0.8);
-    	servoRight.set(0.1);
+    	servoLeft.set(0.5);
+    	servoRight.set(0.5);
 //    	servoLeft.set(0.0);
 //    	servoRight.set(1.0);
     	isClosed = false;
     }
     public void close() {
-    	servoLeft.set(.13);
-    	servoRight.set(.77);
+    	servoLeft.set(0.0);
+    	servoRight.set(1.0);
 //    	servoLeft.set(.5);
 //    	servoRight.set(.5);
 

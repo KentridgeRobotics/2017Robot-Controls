@@ -24,13 +24,9 @@ public abstract class UIConfig {
 	
 	public abstract Joystick getRightStick();
 	
-	public double getTurn() {
-		return 0.0;
-	}
+	public abstract double getTurn();
 	
-	public double getVelocity() {
-		return 0.0;
-	}
+	public abstract double getVelocity();
 	
 	public abstract Joystick getXbox();
 			
@@ -59,6 +55,8 @@ public abstract class UIConfig {
 	public abstract JoystickButton getWinchDeployEnableButton();
 	
 	public abstract JoystickButton getWinchDeployReverseButton();
+	
+	public abstract JoystickButton getStopGyroButton();
 	
 		
 	

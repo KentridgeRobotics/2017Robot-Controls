@@ -3,19 +3,18 @@ package org.usfirst.frc.team3786.robot;
 
 import org.usfirst.frc.team3786.robot.commands.auto.AutoDriveNoEncoder;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
-import org.usfirst.frc.team3786.robot.commands.auto.RotateWheelsTest;
-import org.usfirst.frc.team3786.robot.commands.auto.RotateWheelsTestNoVision;
 import org.usfirst.frc.team3786.robot.commands.climber.DeployTrigger;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchDeploy;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
 import org.usfirst.frc.team3786.robot.commands.drive.GyroTune;
 import org.usfirst.frc.team3786.robot.commands.drive.GyroTurnDegrees;
+import org.usfirst.frc.team3786.robot.commands.grabber.GearArmBottomPosition;
+import org.usfirst.frc.team3786.robot.commands.grabber.GearArmTopPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoClose;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoDance;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoOpen;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
-import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 import org.usfirst.frc.team3786.robot.subsystems.GyroDriveSubsystem;
 import org.usfirst.frc.team3786.robot.subsystems.Rangefinders;
@@ -55,12 +54,12 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		//Drive.getInstance();
 		UIConfig.getInstance().getServoOpenButton().whenPressed(ServoOpen.getInstance());
-		//Gear arm commands that use potentiometor and/or limits, 
+		//Gear arm commands that use potentiometer and/or limits, 
 		//Disabled because potentiometer and limits are not working on the robot 
 		
 		UIConfig.getInstance().getServoCloseButton().whenPressed(ServoClose.getInstance());
-//		UIConfig.getInstance().getGearArmTopButton().whenPressed(GearArmTopPosition.getInstance());
-//		UIConfig.getInstance().getGearArmBottomButton().whenPressed(GearArmBottomPosition.getInstance());
+		UIConfig.getInstance().getGearArmTopButton().whenPressed(GearArmTopPosition.getInstance());
+		UIConfig.getInstance().getGearArmBottomButton().whenPressed(GearArmBottomPosition.getInstance());
 		
 		UIConfig.getInstance().getWinchDownButton().whileHeld(WinchMove.getDownInstance());
 		UIConfig.getInstance().getWinchDownButton().whenReleased(WinchMove.getStopInstance());
@@ -72,15 +71,12 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchDeployReverseButton().whenReleased(WinchDeploy.getStopInstance());
 		
 		
-		
-//		JoystickButton testButton3 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 2);
-//		testButton3.whenPressed(ServoDance.getInstance());
-		
-		JoystickButton testButton4 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 9);
-		testButton4.whileHeld(GyroTune.getInstance());
-		
-		JoystickButton testButton5 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 10);
-		testButton5.whileHeld(new GyroTurnDegrees(90.0));
+				
+//		JoystickButton testButton4 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 9);
+//		testButton4.whileHeld(GyroTune.getInstance());
+//		
+//		JoystickButton testButton5 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 10);
+//		testButton5.whileHeld(new GyroTurnDegrees(90.0, true));
 
 		
 
@@ -94,8 +90,6 @@ public class Robot extends IterativeRobot {
 		//newChooser.addObject("Cross Baseline", new CrossBaseline());
 		newChooser.addDefault("Go Forward", new AutoDriveNoEncoder(.5,-.5, 5));
 		//newChooser.addObject("Distance by Cam", new DistanceByCamera());
-		newChooser.addObject("Gear Auto with vision", new RotateWheelsTest());
-		newChooser.addObject("Gear Auto no vision", new RotateWheelsTestNoVision());
 		
 		//SmartDashboard.putData("Auto mode", autoChooser);
 		//UIConfig.getInstance().getTestButton().whenPressed(displayData);
@@ -159,17 +153,17 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		
-		SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
+		//SmartDashboard.putNumber("Potentiometer", GearArm.getInstance().getPosition());
 		
-		SmartDashboard.putNumber("Left Encoder", DriveTrain.getInstance().getLeftEncoder());
-		SmartDashboard.putNumber("Left Velocity", DriveTrain.getInstance().getLeftVelocity());
-		SmartDashboard.putNumber("Left Voltage", DriveTrain.getInstance().getLeftMotorOutput());
-		
-		SmartDashboard.putNumber("Right Encoder", DriveTrain.getInstance().getRightEncoder());
-		SmartDashboard.putNumber("Right Velocity", DriveTrain.getInstance().getRightVelocity());
-		SmartDashboard.putNumber("Right Voltage", DriveTrain.getInstance().getRightMotorOutput());
-
-		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().getDriveType());
+//		SmartDashboard.putNumber("Left Encoder", DriveTrain.getInstance().getLeftEncoder());
+//		SmartDashboard.putNumber("Left Velocity", DriveTrain.getInstance().getLeftVelocity());
+//		SmartDashboard.putNumber("Left Voltage", DriveTrain.getInstance().getLeftMotorOutput());
+//		
+//		SmartDashboard.putNumber("Right Encoder", DriveTrain.getInstance().getRightEncoder());
+//		SmartDashboard.putNumber("Right Velocity", DriveTrain.getInstance().getRightVelocity());
+//		SmartDashboard.putNumber("Right Voltage", DriveTrain.getInstance().getRightMotorOutput());
+//
+//		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().getDriveType());
 		
 		
 		//System.err.println("Gyro Heading" + RobotConfig.gyro.getHeading());

@@ -39,12 +39,12 @@ public class TankDrive extends UIConfig{
 
 	@Override
 	public double getLeftDrive() {
-		return -Math.pow(leftStick.getY(), 3);
+		return Math.pow(leftStick.getY(), 3);
 	}
 
 	@Override
 	public double getRightDrive() {
-		return Math.pow(rightStick.getY(), 3);	
+		return -Math.pow(rightStick.getY(), 3);	
 	}
 	
 	@Override
@@ -99,6 +99,24 @@ public class TankDrive extends UIConfig{
 	@Override
 	public Command getDefaultDrive() {
 		return DriveTank.getInstance();
+	}
+
+	@Override
+	public double getTurn() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getVelocity() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public JoystickButton getStopGyroButton() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

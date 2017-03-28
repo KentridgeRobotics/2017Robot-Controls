@@ -33,10 +33,14 @@ public class GyroDrive extends UIConfig {
 	
 	@Override
 	public double getVelocity() {
+		double result;
 		if(invertDriveButton.get())
-			return (Math.pow(leftStick.getY(), 2) * (Math.abs(leftStick.getY()) / leftStick.getY()));
+			result = (Math.pow(leftStick.getY(), 3));
 		else
-			return -(Math.pow(leftStick.getY(), 2) * (Math.abs(leftStick.getY()) / leftStick.getY()));
+			result = -(Math.pow(leftStick.getY(), 3));
+		
+		System.err.println("Velocity: " + result);
+		return result;
 	}
 	@Override
 	public double getTurn() {
@@ -54,7 +58,8 @@ public class GyroDrive extends UIConfig {
 //		
 //		
 //		return turn;'
-		return Math.pow(leftStick.getX(), 2) * Math.abs(leftStick.getX()) / leftStick.getX();
+		System.err.println(leftStick.getX());
+		return leftStick.getX();
 	}
 	
 	@Override
@@ -135,6 +140,11 @@ public class GyroDrive extends UIConfig {
 	public Command getDefaultDrive() {
 		return DriveGyro2.getInstance();
 		//return null;
+	}
+	@Override
+	public JoystickButton getStopGyroButton() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
