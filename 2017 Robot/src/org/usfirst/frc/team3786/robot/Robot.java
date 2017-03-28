@@ -191,6 +191,7 @@ public class Robot extends IterativeRobot {
 //		GearArm.getInstance().setManualDrive();
 		
 		//DriveGyro2.getInstance().start();
+		UIConfig.getInstance().getDefaultDrive().start();
 		
 	}
 

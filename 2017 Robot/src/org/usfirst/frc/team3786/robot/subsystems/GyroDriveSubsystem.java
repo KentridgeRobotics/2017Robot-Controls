@@ -50,14 +50,10 @@ public class GyroDriveSubsystem extends PIDSubsystem {
     }
 
     public void initDefaultCommand() {
-    	this.setDefaultCommand(DriveGyro2.getInstance());
+    	//seems like this causes problems by cancelling other commands
+//    	this.setDefaultCommand(DriveGyro2.getInstance());
     }
     
-//    public void drive(double leftSpeed, double rightSpeed) {
-//    	leftDriveMotor.set(leftSpeed);
-//    	rightDriveMotor.set(rightSpeed);
-//    }
-
     protected double returnPIDInput() {
     	return RobotConfig.getInstance().getGyroHeading();
     }
@@ -77,6 +73,15 @@ public class GyroDriveSubsystem extends PIDSubsystem {
     public void setCoast() {
     	leftDriveMotor.enableBrakeMode(false);
     	rightDriveMotor.enableBrakeMode(false);
+    }
+    
+    public void tankDrive(double leftSpeed, double rightSpeed) {
+    	leftDriveMotor.set(leftSpeed);
+    	rightDriveMotor.set(rightSpeed);
+    }
+    
+    public double getError() {
+    	return this.getPIDController().getError();
     }
 
 }

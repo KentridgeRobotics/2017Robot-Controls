@@ -1,18 +1,17 @@
 package org.usfirst.frc.team3786.robot.config;
 
 import org.usfirst.frc.team3786.robot.commands.drive.DriveGyro2;
-
-//import org.usfirst.frc.team3786.robot.commands.drive.DriveGyro;
+import org.usfirst.frc.team3786.robot.commands.drive.DriveTank;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class GyroDrive extends UIConfig {
-	
+public class TankDrive extends UIConfig{
 	private Joystick leftStick = new Joystick(0);
+	private Joystick rightStick = new Joystick(1);
 	private Joystick xbox = new Joystick(2);
-	private JoystickButton invertDriveButton = new JoystickButton(leftStick, 1);
+	//private JoystickButton invertDriveButton = new JoystickButton(leftStick, 1);
 	private JoystickButton servoOpenButton = new JoystickButton(xbox, 3);
 	private JoystickButton gearArmTopButton = new JoystickButton(xbox, 4);
 	private JoystickButton gearArmBottomButton = new JoystickButton(xbox, 1);
@@ -22,41 +21,7 @@ public class GyroDrive extends UIConfig {
 	private JoystickButton winchDeployMoveButton = new JoystickButton(xbox, 5);
 	private JoystickButton winchDeployEnableButton = new JoystickButton(xbox, 6);
 	private JoystickButton winchDeployReverseButton = new JoystickButton(leftStick, 7);
-	
-//	private double lastTimeMillis;
-//	private double maxAngularVelocity = 360; //max angular velocity in deg/s
-//	private double Pturn = 1;
-	
-//	public static void initTime() {
-//		lastTimeMillis = System.currentTimeMillis();
-//	}
-	
-	@Override
-	public double getVelocity() {
-		if(invertDriveButton.get())
-			return (Math.pow(leftStick.getY(), 2) * (Math.abs(leftStick.getY()) / leftStick.getY()));
-		else
-			return -(Math.pow(leftStick.getY(), 2) * (Math.abs(leftStick.getY()) / leftStick.getY()));
-	}
-	@Override
-	public double getTurn() {
-//		double currHeading = RobotConfig.getInstance().getGyroHeading();
-//		double turn = 0;
-//		double angularVelocity = -testX()/*leftStick.getX()*/ * maxAngularVelocity;
-//		double deltaTime = System.currentTimeMillis() - lastTimeMillis;
-//		lastTimeMillis = System.currentTimeMillis();
-//		double deltaHeading = deltaTime * (angularVelocity / 1000); 
-//		double targetHeading = currHeading + deltaHeading;
-//		double headingError = targetHeading - currHeading;
-//		
-//		turn = headingError * Pturn;
-//		
-//		
-//		
-//		return turn;'
-		return Math.pow(leftStick.getX(), 2) * Math.abs(leftStick.getX()) / leftStick.getX();
-	}
-	
+		
 	@Override
 	public Joystick getLeftStick() {
 		return leftStick;
@@ -64,7 +29,7 @@ public class GyroDrive extends UIConfig {
 
 	@Override
 	public Joystick getRightStick() {
-		return leftStick;
+		return rightStick;
 	}
 
 	@Override
@@ -74,17 +39,17 @@ public class GyroDrive extends UIConfig {
 
 	@Override
 	public double getLeftDrive() {
-		return (getVelocity() - getTurn()) * .5;
+		return -Math.pow(leftStick.getY(), 3);
 	}
 
 	@Override
 	public double getRightDrive() {
-		return -(getVelocity() + getTurn()) * .5;
+		return Math.pow(rightStick.getY(), 3);	
 	}
 	
 	@Override
 	public JoystickButton getInvertDriveButton() {
-		return invertDriveButton;
+		return null;
 	}
 
 	@Override
@@ -133,8 +98,7 @@ public class GyroDrive extends UIConfig {
 	}
 	@Override
 	public Command getDefaultDrive() {
-		return DriveGyro2.getInstance();
-		//return null;
+		return DriveTank.getInstance();
 	}
 
 }
