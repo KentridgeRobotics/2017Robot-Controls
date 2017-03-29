@@ -27,6 +27,7 @@ public class DriveGyro2 extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	GyroDriveSubsystem.getInstance().enable();
+    	GyroDriveSubsystem.getInstance().setIsAuto(false);
 //    	lastLoopTime = System.currentTimeMillis();
     }
 

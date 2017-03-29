@@ -39,9 +39,7 @@ public abstract class UIConfig {
 	public abstract JoystickButton getServoOpenButton();
 		
 	public abstract JoystickButton getServoCloseButton();
-	
-	//public abstract double getPegPosition();
-	
+		
 	public abstract JoystickButton getGearArmTopButton();
 	
 	public abstract JoystickButton getGearArmBottomButton();

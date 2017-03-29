@@ -22,6 +22,10 @@ public class GyroDriveSubsystem extends PIDSubsystem {
 		return instance;
 	}
 	
+	private boolean isAuto;
+	private double autoLeft = 0.0;
+	private double autoRight = 0.0;
+	
 	private CANTalon leftDriveMotor;
 	private CANTalon rightDriveMotor;
 	
@@ -61,8 +65,14 @@ public class GyroDriveSubsystem extends PIDSubsystem {
     protected void usePIDOutput(double output) {
     	SmartDashboard.putNumber("PID Output", output);
     	SmartDashboard.putNumber("PID Error", this.getPIDController().getError());
-    	leftDriveMotor.set(-(UIConfig.getInstance().getVelocity() - output));
-    	rightDriveMotor.set((UIConfig.getInstance().getVelocity() + output));
+    	if(isAuto) {
+        	leftDriveMotor.set(-(autoLeft - output));
+        	rightDriveMotor.set((autoRight + output));
+    	}
+    	else {
+	    	leftDriveMotor.set(-(UIConfig.getInstance().getVelocity() - output));
+	    	rightDriveMotor.set((UIConfig.getInstance().getVelocity() + output));
+    	}
     }
     
     public void setBrake() {
@@ -82,6 +92,14 @@ public class GyroDriveSubsystem extends PIDSubsystem {
     
     public double getError() {
     	return this.getPIDController().getError();
+    }
+    
+    public void setIsAuto(boolean b) {
+    	isAuto = b;
+    }
+    public void autoDrive(double left, double right) {
+    	autoLeft = left;
+    	autoRight = right;
     }
 
 }

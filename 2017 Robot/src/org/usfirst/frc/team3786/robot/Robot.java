@@ -8,6 +8,7 @@ import org.usfirst.frc.team3786.robot.commands.climber.WinchDeploy;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
 import org.usfirst.frc.team3786.robot.commands.drive.GyroTune;
 import org.usfirst.frc.team3786.robot.commands.drive.GyroTurnDegrees;
+import org.usfirst.frc.team3786.robot.commands.drive.StopGyroDrive;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearArmBottomPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.GearArmTopPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoClose;
@@ -52,11 +53,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		//Drive.getInstance();
-		UIConfig.getInstance().getServoOpenButton().whenPressed(ServoOpen.getInstance());
-		//Gear arm commands that use potentiometer and/or limits, 
-		//Disabled because potentiometer and limits are not working on the robot 
-		
+		UIConfig.getInstance().getServoOpenButton().whenPressed(ServoOpen.getInstance());		
 		UIConfig.getInstance().getServoCloseButton().whenPressed(ServoClose.getInstance());
 		UIConfig.getInstance().getGearArmTopButton().whenPressed(GearArmTopPosition.getInstance());
 		UIConfig.getInstance().getGearArmBottomButton().whenPressed(GearArmBottomPosition.getInstance());
@@ -69,7 +66,7 @@ public class Robot extends IterativeRobot {
 		DeployTrigger.getInstance().whenInactive(WinchDeploy.getStopInstance());
 		UIConfig.getInstance().getWinchDeployReverseButton().whileHeld(WinchDeploy.getReverseInstance());
 		UIConfig.getInstance().getWinchDeployReverseButton().whenReleased(WinchDeploy.getStopInstance());
-		
+		UIConfig.getInstance().getStopGyroButton().whenPressed(StopGyroDrive.getInstance());
 		
 				
 //		JoystickButton testButton4 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 9);

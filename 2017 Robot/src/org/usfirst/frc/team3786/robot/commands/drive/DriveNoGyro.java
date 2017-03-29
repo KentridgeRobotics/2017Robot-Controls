@@ -38,6 +38,7 @@ public class DriveNoGyro extends Command {
     	double rightOut = throttle + turn;
     	
     	GyroDriveSubsystem.getInstance().manualDrive((leftOut + skim(leftOut)), (rightOut + skim(rightOut)));
+    	
     }
     
 	private double skim(double v) {

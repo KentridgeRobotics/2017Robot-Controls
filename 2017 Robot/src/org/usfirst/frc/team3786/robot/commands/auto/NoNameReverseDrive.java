@@ -1,31 +1,22 @@
-package org.usfirst.frc.team3786.robot.commands.drive;
+package org.usfirst.frc.team3786.robot.commands.auto;
+
+import org.usfirst.frc.team3786.robot.subsystems.GyroDriveSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class StopGyroDrive extends Command {
-	
-	private static StopGyroDrive instance;
-	
-	public static StopGyroDrive getInstance() {
-		if(instance == null)
-			instance = new StopGyroDrive();
-		return instance;
-	}
+public class NoNameReverseDrive extends Command {
 
-    public StopGyroDrive() {
-    	setTimeout(.01);
+    public NoNameReverseDrive(double timeout) {
+    	requires(GyroDriveSubsystem.getInstance());
+    	setTimeout(timeout);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if(DriveGyro2.getInstance().isRunning()) {
-        	DriveGyro2.getInstance().cancel();
-        	DriveNoGyro.getInstance().start();
-        	System.err.println("Gyro Drive stopped");
-    	}
+    	GyroDriveSubsystem.getInstance().autoDrive(-.3, -.3);
     }
 
     // Called repeatedly when this Command is scheduled to run

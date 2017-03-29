@@ -22,6 +22,7 @@ public class GyroDrive extends UIConfig {
 	private JoystickButton winchDeployMoveButton = new JoystickButton(xbox, 5);
 	private JoystickButton winchDeployEnableButton = new JoystickButton(xbox, 6);
 	private JoystickButton winchDeployReverseButton = new JoystickButton(leftStick, 7);
+	private JoystickButton stopGyroButton = new JoystickButton(leftStick, 11);
 	
 //	private double lastTimeMillis;
 //	private double maxAngularVelocity = 360; //max angular velocity in deg/s
@@ -143,8 +144,7 @@ public class GyroDrive extends UIConfig {
 	}
 	@Override
 	public JoystickButton getStopGyroButton() {
-		// TODO Auto-generated method stub
-		return null;
+		return stopGyroButton;
 	}
 
 }

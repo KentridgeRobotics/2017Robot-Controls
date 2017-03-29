@@ -1,6 +1,6 @@
 package org.usfirst.frc.team3786.robot.vision;
 
-class AngleAndDistance
+public class AngleAndDistance
 {
 	private final double angleInDegrees;
 	private final double distanceInInches;

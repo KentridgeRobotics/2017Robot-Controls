@@ -1,6 +1,5 @@
 package org.usfirst.frc.team3786.robot.config;
 
-import org.usfirst.frc.team3786.robot.commands.drive.DriveGyro2;
 import org.usfirst.frc.team3786.robot.commands.drive.DriveTank;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -21,6 +20,7 @@ public class TankDrive extends UIConfig{
 	private JoystickButton winchDeployMoveButton = new JoystickButton(xbox, 5);
 	private JoystickButton winchDeployEnableButton = new JoystickButton(xbox, 6);
 	private JoystickButton winchDeployReverseButton = new JoystickButton(leftStick, 7);
+	private JoystickButton stopGyroButton = new JoystickButton(leftStick, 11);
 		
 	@Override
 	public Joystick getLeftStick() {
@@ -115,8 +115,7 @@ public class TankDrive extends UIConfig{
 
 	@Override
 	public JoystickButton getStopGyroButton() {
-		// TODO Auto-generated method stub
-		return null;
+		return stopGyroButton;
 	}
 
 }
