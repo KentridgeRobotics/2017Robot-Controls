@@ -5,6 +5,7 @@ import org.usfirst.frc.team3786.robot.vision.AngleAndDistance;
 import org.usfirst.frc.team3786.robot.vision.NoNameRobotVision;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *  A command to drive straight toward the target. The target should be lined up "close
@@ -32,6 +33,7 @@ public class NoNameGearNavigator extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	NoNameRobotVision.startRobotVisionThread();
     	displacement = NoNameRobotVision.getInstance().getTargetAngleAndDistance();
     }
 
@@ -43,6 +45,12 @@ public class NoNameGearNavigator extends Command {
     	AngleAndDistance newDisplacement = NoNameRobotVision.getInstance().getTargetAngleAndDistance();
     	if(newDisplacement != null)
     		displacement = newDisplacement;
+    	
+    	
+    	if(displacement != null)
+    		SmartDashboard.putNumber("Auto Distance", displacement.getDistanceInInches());
+    	else
+    		System.err.println("Still null");
     	
     	// Are we lined up on target (within tolerance)? If not, let's line up.
     	if(displacement.getAngleInDegrees() > tolerance)

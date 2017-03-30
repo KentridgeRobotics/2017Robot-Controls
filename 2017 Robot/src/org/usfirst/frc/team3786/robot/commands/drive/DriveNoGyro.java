@@ -31,14 +31,14 @@ public class DriveNoGyro extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double throttle = UIConfig.getInstance().getLeftStick().getX();
-    	double turn = -UIConfig.getInstance().getLeftStick().getY();
+    	double throttle = UIConfig.getInstance().getTurn();
+    	double turn = UIConfig.getInstance().getVelocity();
     	
     	double leftOut = throttle - turn;
     	double rightOut = throttle + turn;
     	
     	GyroDriveSubsystem.getInstance().manualDrive((leftOut + skim(leftOut)), (rightOut + skim(rightOut)));
-    	
+    	System.err.println("Gyro Disabled");
     }
     
 	private double skim(double v) {

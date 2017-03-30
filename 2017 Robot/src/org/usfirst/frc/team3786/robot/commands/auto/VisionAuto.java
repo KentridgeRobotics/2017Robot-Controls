@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class VisionAuto extends CommandGroup {
 
     public VisionAuto() {
-    	addSequential(new ServoClose());
+//    	addSequential(new ServoClose());
     	addSequential(new NoNameGearNavigator());
-    	addSequential(new NoNameGearDropper());
+//    	addSequential(new NoNameGearDropper());
     }
 }

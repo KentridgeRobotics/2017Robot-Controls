@@ -3,6 +3,7 @@ package org.usfirst.frc.team3786.robot;
 
 import org.usfirst.frc.team3786.robot.commands.auto.AutoDriveNoEncoder;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
+import org.usfirst.frc.team3786.robot.commands.auto.VisionAuto;
 import org.usfirst.frc.team3786.robot.commands.climber.DeployTrigger;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchDeploy;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
@@ -14,6 +15,7 @@ import org.usfirst.frc.team3786.robot.commands.grabber.GearArmTopPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoClose;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoDance;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoOpen;
+import org.usfirst.frc.team3786.robot.commands.shooter.ShooterCommand;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
 import org.usfirst.frc.team3786.robot.subsystems.GearArm;
@@ -24,6 +26,7 @@ import org.usfirst.frc.team3786.robot.subsystems.Winch;
 import org.usfirst.frc.team3786.robot.vision.FinderOfRange;
 import org.usfirst.frc.team3786.robot.vision.NoNameRobotVision;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
@@ -70,31 +73,22 @@ public class Robot extends IterativeRobot {
 		
 				
 //		JoystickButton testButton4 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 9);
-//		testButton4.whileHeld(GyroTune.getInstance());
+//		testButton4.whenPressed(new TestCommand());
 //		
 //		JoystickButton testButton5 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 10);
 //		testButton5.whileHeld(new GyroTurnDegrees(90.0, true));
 
 		
-
-
 		
 		RobotConfig.getInstance().initialize();	
 		newChooser = new SendableChooser<Command>();
-		newChooser.addObject("Do Nothing", new DoNothing());
-		//newChooser.addObject("Rotate wheels", new RotateWheelsTest());
-		//newChooser.addObject("Gyro Test", new GyroTurnTest());
-		//newChooser.addObject("Cross Baseline", new CrossBaseline());
-		newChooser.addDefault("Go Forward", new AutoDriveNoEncoder(.5,-.5, 5));
-		//newChooser.addObject("Distance by Cam", new DistanceByCamera());
-		
-		//SmartDashboard.putData("Auto mode", autoChooser);
-		//UIConfig.getInstance().getTestButton().whenPressed(displayData);
-		//SmartDashboard.putBoolean("Connected", !Gyroscope.getInstance().isConnected());
+		newChooser.addDefault("Do Nothing", new DoNothing());
+		newChooser.addObject("Vision Auto", new VisionAuto());
+		newChooser.addObject("Go Forward", new AutoDriveNoEncoder(.5,-.5, 4));
+		newChooser.addObject("Shooter Beta", new ShooterCommand());
 		
 		SmartDashboard.putData(Scheduler.getInstance());
 		SmartDashboard.putData("Auto Mode", newChooser);
-		//NoNameRobotVision.startRobotVisionThread();
 		
 	}
 
