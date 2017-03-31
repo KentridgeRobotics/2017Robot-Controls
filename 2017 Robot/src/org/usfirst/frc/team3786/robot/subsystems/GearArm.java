@@ -100,6 +100,14 @@ public class GearArm extends Subsystem {
 		return windowMotor.isRevLimitSwitchClosed();
 	}
 	
+	public void limitBreak() {
+		windowMotor.enableLimitSwitch(false, false);
+	}
+	
+	public void limitedAccess() {
+		windowMotor.enableLimitSwitch(true, true);
+	}
+	
 	//servo methods
     public void open() {
     	servoLeft.set(0.5);

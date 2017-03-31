@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ControllerGyroDrive extends UIConfig {
+	
+	//Most of the buttons on here need to be mapped out better because I didn't hear anything about this until two days before competition
 	private Joystick driveController = new Joystick(2);
 	private Joystick xbox = new Joystick(0);
 	private JoystickButton invertDriveButton = new JoystickButton(driveController, 1);
@@ -20,6 +22,9 @@ public class ControllerGyroDrive extends UIConfig {
 	private JoystickButton winchDeployEnableButton = new JoystickButton(xbox, 6);
 	private JoystickButton winchDeployReverseButton = new JoystickButton(driveController, 8);
 	private JoystickButton stopGyroButton = new JoystickButton(driveController, 10);
+	private JoystickButton limitBreakButton = new JoystickButton(xbox, 9);
+	private JoystickButton limitEnableButton = new JoystickButton(xbox, 10);
+
 	
 //	private double lastTimeMillis;
 //	private double maxAngularVelocity = 360; //max angular velocity in deg/s
@@ -126,5 +131,12 @@ public class ControllerGyroDrive extends UIConfig {
 	public JoystickButton getStopGyroButton() {
 		return stopGyroButton;
 	}
-
+	@Override
+	public JoystickButton getLimitBreakButton() {
+		return limitBreakButton;
+	}
+	@Override
+	public JoystickButton getLimitEnableButton() {
+		return limitEnableButton;
+	}
 }

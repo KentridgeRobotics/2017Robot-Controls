@@ -23,6 +23,8 @@ public class GyroDrive extends UIConfig {
 	private JoystickButton winchDeployEnableButton = new JoystickButton(xbox, 6);
 	private JoystickButton winchDeployReverseButton = new JoystickButton(leftStick, 7);
 	private JoystickButton stopGyroButton = new JoystickButton(leftStick, 11);
+	private JoystickButton limitBreakButton = new JoystickButton(leftStick, 9);
+	private JoystickButton limitEnableButton = new JoystickButton(leftStick, 10);
 	
 //	private double lastTimeMillis;
 //	private double maxAngularVelocity = 360; //max angular velocity in deg/s
@@ -36,9 +38,9 @@ public class GyroDrive extends UIConfig {
 	public double getVelocity() {
 		double result;
 		if(invertDriveButton.get())
-			result = (Math.pow(leftStick.getY(), 3));
-		else
 			result = -(Math.pow(leftStick.getY(), 3));
+		else
+			result = (Math.pow(leftStick.getY(), 3));
 		
 		System.err.println("Velocity: " + result);
 		return result;
@@ -60,7 +62,7 @@ public class GyroDrive extends UIConfig {
 //		
 //		return turn;'
 		System.err.println(leftStick.getX());
-		return leftStick.getX();
+		return -leftStick.getX();
 	}
 	
 	@Override
@@ -145,6 +147,14 @@ public class GyroDrive extends UIConfig {
 	@Override
 	public JoystickButton getStopGyroButton() {
 		return stopGyroButton;
+	}
+	@Override
+	public JoystickButton getLimitBreakButton() {
+		return limitBreakButton;
+	}
+	@Override
+	public JoystickButton getLimitEnableButton() {
+		return limitEnableButton;
 	}
 
 }

@@ -27,6 +27,7 @@ public class ShooterCommand extends Command {
     protected void initialize() {
     	startTime = System.currentTimeMillis();
     	isDone = false;
+    	ShooterSubsystem.getInstance().startSwipe();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -35,16 +36,16 @@ public class ShooterCommand extends Command {
     	long elapsedTime = now - startTime;
     	if (elapsedTime < initialRevTime)
     	{
-    		ShooterSubsystem.getInstance().fling(1.0);
+    		ShooterSubsystem.getInstance().fling(.55);
     	}
     	else if (elapsedTime < shootFirstSideTime + initialRevTime)
     	{
-    		ShooterSubsystem.getInstance().fling(1.0);
+    		ShooterSubsystem.getInstance().fling(.55);
     		ShooterSubsystem.getInstance().swipe(true);
     	}
     	else if (elapsedTime < shootSecondSideTime + shootFirstSideTime + initialRevTime)
     	{
-    		ShooterSubsystem.getInstance().fling(1.0);
+    		ShooterSubsystem.getInstance().fling(.55);
     		ShooterSubsystem.getInstance().swipe(false);
     		
     	}

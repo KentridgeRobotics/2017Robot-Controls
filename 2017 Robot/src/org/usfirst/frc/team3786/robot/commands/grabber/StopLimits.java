@@ -1,23 +1,30 @@
-package org.usfirst.frc.team3786.robot.commands;
+package org.usfirst.frc.team3786.robot.commands.grabber;
 
-import org.usfirst.frc.team3786.robot.subsystems.ShooterSubsystem;
+import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class TestCommand extends Command {
+public class StopLimits extends Command {
+	
+	private static StopLimits instance;
+	
+	public static StopLimits getInstance() {
+		if(instance == null)
+			instance = new StopLimits();
+		return instance;
+	}
 
-    public TestCommand() {
-    	requires(ShooterSubsystem.getInstance());
-    	setTimeout(5);
+    public StopLimits() {
+    	requires(GearArm.getInstance());
+    	setTimeout(.1);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	ShooterSubsystem.getInstance().fling(.55);
+    	GearArm.getInstance().limitBreak();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -31,7 +38,6 @@ public class TestCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	//ShooterSubsystem.getInstance().fling(0.0);
     }
 
     // Called when another command which requires one or more of the same

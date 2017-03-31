@@ -34,13 +34,17 @@ public class ShooterSubsystem extends Subsystem {
     public void initDefaultCommand() {
     }
     
+    public void startSwipe() {
+    	swiper.set(.5);
+    }
+    
     public void swipe(boolean forward)
     {
     	// Swiper no swiping!
     	if (forward)
-    		swiper.setPosition(1.0);
+    		swiper.setPosition(.75);
     	else
-    		swiper.setPosition(0.0);
+    		swiper.setPosition(.25);
     	
     }
     

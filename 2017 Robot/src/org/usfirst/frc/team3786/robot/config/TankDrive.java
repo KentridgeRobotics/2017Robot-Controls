@@ -21,6 +21,9 @@ public class TankDrive extends UIConfig{
 	private JoystickButton winchDeployEnableButton = new JoystickButton(xbox, 6);
 	private JoystickButton winchDeployReverseButton = new JoystickButton(leftStick, 7);
 	private JoystickButton stopGyroButton = new JoystickButton(leftStick, 11);
+	private JoystickButton limitBreakButton = new JoystickButton(leftStick, 9);
+	private JoystickButton limitEnableButton = new JoystickButton(leftStick, 10);
+
 		
 	@Override
 	public Joystick getLeftStick() {
@@ -116,6 +119,16 @@ public class TankDrive extends UIConfig{
 	@Override
 	public JoystickButton getStopGyroButton() {
 		return stopGyroButton;
+	}
+
+	@Override
+	public JoystickButton getLimitBreakButton() {
+		return limitBreakButton;
+	}
+
+	@Override
+	public JoystickButton getLimitEnableButton() {
+		return limitEnableButton;
 	}
 
 }

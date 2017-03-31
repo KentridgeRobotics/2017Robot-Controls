@@ -14,7 +14,7 @@ public abstract class UIConfig {
 	
 	public static UIConfig getInstance() {
 		if(instance == null)
-			instance = new ControllerGyroDrive();
+			instance = new GyroDrive();
 		return instance;
 	}
 	
@@ -55,6 +55,10 @@ public abstract class UIConfig {
 	public abstract JoystickButton getWinchDeployReverseButton();
 	
 	public abstract JoystickButton getStopGyroButton();
+	
+	public abstract JoystickButton getLimitBreakButton();
+	
+	public abstract JoystickButton getLimitEnableButton();
 	
 		
 	

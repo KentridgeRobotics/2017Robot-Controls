@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team3786.robot;
 
+import org.usfirst.frc.team3786.robot.commands.TestCommand;
 import org.usfirst.frc.team3786.robot.commands.auto.AutoDriveNoEncoder;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
 import org.usfirst.frc.team3786.robot.commands.auto.VisionAuto;
@@ -15,6 +16,8 @@ import org.usfirst.frc.team3786.robot.commands.grabber.GearArmTopPosition;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoClose;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoDance;
 import org.usfirst.frc.team3786.robot.commands.grabber.ServoOpen;
+import org.usfirst.frc.team3786.robot.commands.grabber.StartLimits;
+import org.usfirst.frc.team3786.robot.commands.grabber.StopLimits;
 import org.usfirst.frc.team3786.robot.commands.shooter.ShooterCommand;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
@@ -70,21 +73,22 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchDeployReverseButton().whileHeld(WinchDeploy.getReverseInstance());
 		UIConfig.getInstance().getWinchDeployReverseButton().whenReleased(WinchDeploy.getStopInstance());
 		UIConfig.getInstance().getStopGyroButton().whenPressed(StopGyroDrive.getInstance());
+		UIConfig.getInstance().getLimitBreakButton().whenPressed(StopLimits.getInstance());
+		UIConfig.getInstance().getLimitEnableButton().whenPressed(StartLimits.getInstance());
+		
+//		JoystickButton test = new JoystickButton(UIConfig.getInstance().getLeftStick(), 12);
+//		test.whenPressed(new TestCommand());
+
+		
+
 		
 		NoNameRobotVision.startRobotVisionThread();
-				
-//		JoystickButton testButton4 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 9);
-//		testButton4.whenPressed(new TestCommand());
-//		
-//		JoystickButton testButton5 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 10);
-//		testButton5.whileHeld(new GyroTurnDegrees(90.0, true));
-
 		
 		
 		RobotConfig.getInstance().initialize();	
 		newChooser = new SendableChooser<Command>();
 		newChooser.addDefault("Do Nothing", new DoNothing());
-		newChooser.addObject("Vision Auto", new VisionAuto());
+		newChooser.addObject("Vision Auto (in beta)", new VisionAuto());
 		newChooser.addObject("Go Forward", new AutoDriveNoEncoder(.5,-.5, 4));
 		newChooser.addObject("Shooter Beta", new ShooterCommand());
 		
@@ -132,6 +136,7 @@ public class Robot extends IterativeRobot {
 		 * autonomousCommand = new ExampleCommand(); break; }
 		 */
 
+		
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
 			autonomousCommand.start();

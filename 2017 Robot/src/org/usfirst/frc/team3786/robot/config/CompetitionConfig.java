@@ -29,7 +29,7 @@ public class CompetitionConfig extends RobotConfig {
 	@Override
 	public double getGyroInversionMultiplier() {
 		// We're mounted upside-down
-		return -1.0;
+		return 1.0;
 	}
 
 
