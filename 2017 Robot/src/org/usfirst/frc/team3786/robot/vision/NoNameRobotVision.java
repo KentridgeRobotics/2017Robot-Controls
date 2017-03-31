@@ -83,9 +83,10 @@ public class NoNameRobotVision implements Runnable {
 			gripPipeline.process(mat);
 			AngleAndDistance angleAndDistance = findGearPegLocationBasedOnVisionTargets(gripPipeline.filterContoursOutput());
 	    	myAngleAndDistance.set(angleAndDistance);
-	    	SmartDashboard.putNumber("Distance", angleAndDistance.getDistanceInInches());
 			// Do image processing here, if you want.
 			if (angleAndDistance != null) {
+				SmartDashboard.putNumber("Distance to target", angleAndDistance.getDistanceInInches());
+				SmartDashboard.putNumber("Angle to target", angleAndDistance.getAngleInDegrees());
 				Imgproc.rectangle(mat,  new Point(angleAndDistance.getAvgCenterX()-THICKNESS, angleAndDistance.getAvgCenterY()-THICKNESS), 
 										new Point(angleAndDistance.getAvgCenterX()-THICKNESS, angleAndDistance.getAvgCenterY()-THICKNESS), 
 										COLOR, (int)THICKNESS);
