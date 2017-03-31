@@ -40,8 +40,8 @@ public class MoveGearArmManual extends Command {
 			else
 				GearArm.getInstance().setSpeed(0);
 		    
-		    System.err.println("Bottom limit: " + GearArm.getInstance().getBottomLimitSwitch());
-		    System.err.println("Top limit: " + GearArm.getInstance().getTopLimitSwitch());
+//		    System.err.println("Bottom limit: " + GearArm.getInstance().getBottomLimitSwitch());
+//		    System.err.println("Top limit: " + GearArm.getInstance().getTopLimitSwitch());
 
     }
 

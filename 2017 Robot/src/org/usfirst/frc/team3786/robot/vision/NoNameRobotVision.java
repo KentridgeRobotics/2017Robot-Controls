@@ -19,6 +19,7 @@ import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class NoNameRobotVision implements Runnable {
 
@@ -82,6 +83,7 @@ public class NoNameRobotVision implements Runnable {
 			gripPipeline.process(mat);
 			AngleAndDistance angleAndDistance = findGearPegLocationBasedOnVisionTargets(gripPipeline.filterContoursOutput());
 	    	myAngleAndDistance.set(angleAndDistance);
+	    	SmartDashboard.putNumber("Distance", angleAndDistance.getDistanceInInches());
 			// Do image processing here, if you want.
 			if (angleAndDistance != null) {
 				Imgproc.rectangle(mat,  new Point(angleAndDistance.getAvgCenterX()-THICKNESS, angleAndDistance.getAvgCenterY()-THICKNESS), 

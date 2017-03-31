@@ -71,6 +71,7 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchDeployReverseButton().whenReleased(WinchDeploy.getStopInstance());
 		UIConfig.getInstance().getStopGyroButton().whenPressed(StopGyroDrive.getInstance());
 		
+		NoNameRobotVision.startRobotVisionThread();
 				
 //		JoystickButton testButton4 = new JoystickButton(UIConfig.getInstance().getLeftStick(), 9);
 //		testButton4.whenPressed(new TestCommand());

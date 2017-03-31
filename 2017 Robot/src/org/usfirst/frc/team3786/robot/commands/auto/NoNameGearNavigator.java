@@ -20,8 +20,8 @@ public class NoNameGearNavigator extends Command {
 	
 	private double tolerance = 5.0;
 	
-	private double slowDown = 20.0;
-	private double stop = 12.0;
+	private double slowDown = 50;
+	private double stop = 35;
 	
 	private boolean done;
 	
@@ -33,8 +33,10 @@ public class NoNameGearNavigator extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	NoNameRobotVision.startRobotVisionThread();
+//    	NoNameRobotVision.startRobotVisionThread();
     	displacement = NoNameRobotVision.getInstance().getTargetAngleAndDistance();
+    	//GyroDriveSubsystem.getInstance().setIsAuto(true);
+    	GyroDriveSubsystem.getInstance().disable();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -47,26 +49,36 @@ public class NoNameGearNavigator extends Command {
     		displacement = newDisplacement;
     	
     	
-    	if(displacement != null)
-    		SmartDashboard.putNumber("Auto Distance", displacement.getDistanceInInches());
-    	else
-    		System.err.println("Still null");
+//    	if(displacement != null)
+//    		SmartDashboard.putNumber("Auto Distance", displacement.getDistanceInInches());
+//    	else
+//    		System.err.println("Still null");
     	
-    	// Are we lined up on target (within tolerance)? If not, let's line up.
-    	if(displacement.getAngleInDegrees() > tolerance)
-    		GyroDriveSubsystem.getInstance().setSetpointRelative(displacement.getAngleInDegrees());
+    	if(displacement != null) 
+    	{
     	
-    	// Are we close enough? If not, go forward, scale speed according to vision or rangefinder distance.
-    	// If we are close enough, then we're finished with this command.
-    	if(displacement.getDistanceInInches() <= stop) {
-    		GyroDriveSubsystem.getInstance().autoDrive(0, 0);
-    		done = true;
-    	}
-    	else if(displacement.getDistanceInInches() <= slowDown) {
-    		GyroDriveSubsystem.getInstance().autoDrive(.2, .2);
-    	}
-    	else {
-    		GyroDriveSubsystem.getInstance().autoDrive(.3, .3);
+	    	// Are we lined up on target (within tolerance)? If not, let's line up.
+	//    	if(displacement.getAngleInDegrees() > tolerance)
+	//    		GyroDriveSubsystem.getInstance().setSetpointRelative(displacement.getAngleInDegrees());
+	    	
+	    	// Are we close enough? If not, go forward, scale speed according to vision or rangefinder distance.
+	    	// If we are close enough, then we're finished with this command.
+	    	if(displacement.getDistanceInInches() <= stop) {
+	    		System.err.println("Stopping at " + displacement.getDistanceInInches());
+	    		//GyroDriveSubsystem.getInstance().autoDrive(0, 0);
+	    		GyroDriveSubsystem.getInstance().manualDrive(0.0, 0.0);
+	    		done = true;
+	    	}
+	    	else if(displacement.getDistanceInInches() <= slowDown) {
+	    		System.err.println("Slowing down at " + displacement.getDistanceInInches());
+	    		//GyroDriveSubsystem.getInstance().autoDrive(-.2, -.2);
+	    		GyroDriveSubsystem.getInstance().manualDrive(.2, -.2);
+	    	}
+	    	else {
+	    		System.err.println("Driving normally at " + displacement.getDistanceInInches());
+	    		//GyroDriveSubsystem.getInstance().autoDrive(-.3, -.3);
+	    		GyroDriveSubsystem.getInstance().manualDrive(.3, -.3);
+	    	}
     	}
     }
 

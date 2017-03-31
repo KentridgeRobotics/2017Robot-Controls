@@ -100,6 +100,7 @@ public class GyroDriveSubsystem extends PIDSubsystem {
     public void autoDrive(double left, double right) {
     	autoLeft = left;
     	autoRight = right;
+    	this.setSetpointRelative(0);
     }
 
 }
