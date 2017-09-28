@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>2017robot-controls</name>
+	<name>2017Robot-Controls</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -16,21 +16,5 @@
 		<nature>edu.wpi.first.wpilib.plugins.core.nature.FRCProjectNature</nature>
 	</natures>
 	<variableList>
-		<variable>
-			<name>cscore</name>
-			<value>file:/C:/Users/sn324386/wpilib/java/current/lib/cscore.jar</value>
-		</variable>
-		<variable>
-			<name>networktables</name>
-			<value>file:/C:/Users/sn324386/wpilib/java/current/lib/NetworkTables.jar</value>
-		</variable>
-		<variable>
-			<name>opencv</name>
-			<value>file:/C:/Users/sn324386/wpilib/java/current/lib/opencv.jar</value>
-		</variable>
-		<variable>
-			<name>wpilib</name>
-			<value>file:/C:/Users/sn324386/wpilib/java/current/lib/WPILib.jar</value>
-		</variable>
 	</variableList>
 </projectDescription>
