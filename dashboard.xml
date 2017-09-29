@@ -1,0 +1,129 @@
+<xml version="1.0">
+<dashboard>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="496" y="3"/>
+		<width>855</width>
+		<height>463</height>
+		<property name="Camera Choice" value=""/>
+	</static-widget>
+	<widget field="Right Out" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="374"/>
+	</widget>
+	<widget field="Left Out" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="353"/>
+	</widget>
+	<widget field="Winch rev limit" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="309" y="8"/>
+		<width>100</width>
+		<height>28</height>
+	</widget>
+	<widget field="Winch fwd limit" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="310" y="38"/>
+		<width>102</width>
+		<height>30</height>
+	</widget>
+	<widget field="Target face angle" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="224"/>
+	</widget>
+	<widget field="Target direction" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="203"/>
+	</widget>
+	<widget field="Target distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="182"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="204" y="41"/>
+		<property name="Text" value="Auto Mode"/>
+	</static-widget>
+	<widget field="Scheduler" type="Scheduler" class="edu.wpi.first.smartdashboard.gui.elements.Scheduler">
+		<location x="566" y="208"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="78" y="7"/>
+		<width>52</width>
+		<height>60</height>
+		<property name="Text" value="Connected"/>
+	</static-widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.ConnectionIndicator">
+		<location x="4" y="-1"/>
+		<width>70</width>
+		<height>64</height>
+	</static-widget>
+	<widget field="Right Encoder" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
+		<location x="255" y="466"/>
+		<property name="Font Size" value="20"/>
+	</widget>
+	<widget field="Left Encoder" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
+		<location x="16" y="469"/>
+		<property name="Font Size" value="20"/>
+	</widget>
+	<widget field="Gear Arm Drive Mode" type="String" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
+		<location x="234" y="158"/>
+		<property name="Font Size" value="20"/>
+	</widget>
+	<widget field="Drive Train Mode:" type="String" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
+		<location x="27" y="422"/>
+		<property name="Font Size" value="20"/>
+	</widget>
+	<widget field="Top Limit" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="202" y="201"/>
+		<width>66</width>
+		<height>27</height>
+	</widget>
+	<widget field="Servo is closed" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="299" y="130"/>
+		<width>96</width>
+		<height>24</height>
+	</widget>
+	<widget field="Bottom Limit" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="202" y="231"/>
+		<width>81</width>
+		<height>26</height>
+	</widget>
+	<widget field="Window Motor Voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="272" y="356"/>
+	</widget>
+	<widget field="Test Rangefinder Distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="-1" y="332"/>
+	</widget>
+	<widget field="Test Rangefinder Voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="4" y="300"/>
+	</widget>
+	<widget field="Right Voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="260" y="497"/>
+	</widget>
+	<widget field="Right Velocity" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="259" y="516"/>
+		<height>20</height>
+	</widget>
+	<widget field="Left Voltage" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="113" y="497"/>
+	</widget>
+	<widget field="Left Velocity" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="109" y="518"/>
+		<height>20</height>
+	</widget>
+	<widget field="Gyro Z" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1220" y="180"/>
+	</widget>
+	<widget field="Gyro Y" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1230" y="155"/>
+	</widget>
+	<widget field="Gyro X" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="1235" y="132"/>
+		<height>20</height>
+	</widget>
+	<widget field="Test Selector" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="184" y="158"/>
+	</widget>
+	<widget field="Auto Mode" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="170" y="56"/>
+	</widget>
+	<widget field="Potentiometer" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.SimpleDial">
+		<location x="240" y="197"/>
+		<property name="Upper Limit" value="590.0"/>
+	</widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>
