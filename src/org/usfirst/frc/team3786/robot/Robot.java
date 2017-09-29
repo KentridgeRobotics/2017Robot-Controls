@@ -17,9 +17,6 @@ The VM is configured to automatically run this class, and to call the
  creating this project, you must also update the manifest file in the resource
  directory.*/
 public class Robot extends IterativeRobot {
-	
-	//public static final Drive drive = new Drive();
-	//public static OI oi;
 	Command autonomousCommand;
 	SendableChooser<Command> newChooser;
 	Talon leftMotor, rightMotor;
@@ -104,9 +101,6 @@ public class Robot extends IterativeRobot {
 		//sets the speed of the motors for robot drive
 		leftMotor.setSpeed((v+w)/2);
 		rightMotor.setSpeed(-1*(v-w)/2);
-		
-		//TODO: Implement Drive command/Drive subsystem
-		//DriveCommand
 	}
 
 	/**
