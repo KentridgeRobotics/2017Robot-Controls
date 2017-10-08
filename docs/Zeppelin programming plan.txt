@@ -1,0 +1,69 @@
+﻿Programming tasks to be done.
+
+RoboRio programming (Java)
+
+1. Driving
+    A. Teleop drive
+        - pick a driving mode (tank drive, Xbox controller drive, ?)
+        - Finish this part first, to give drivers as much practice time as possible
+    B. Autonomous drive
+        - Tank drive mode
+        - Get the next action to do from the Raspberry Pi
+                SetSpeed LeftWheel RightWheel (that is, act like we’re using the joystick positions for tank drive)
+                Stop (put on the brakes)
+                Shoot
+                Place gear
+        - Do what the action says.
+
+2. Shooter
+    - Command: shoot!
+    - Subsystem: Set flinger speed
+    - Subsystem: Open ball release servo
+    - Question: How do we know when we’re out of balls?
+
+3. Gear placer
+    - Is there anything to do in the new gear placing design?
+
+4. Climber
+    - Command: Climb
+    - Subsystem: Set climber motor speed
+    - Anything else?
+
+
+Raspberry Pi programming (Python/C++)
+
+1. Autonomous service (Python)
+    - A service that responds to requests from the roboRio
+    - Gets requests and send responses over USB connection
+
+2. Read/write data from USB connection (Python)
+    - roboRio will send a “start autonomsous” command. This lets us turn on expensive (power-consuming) operations only when needed
+    - roboRio will send a “stop autonomous” to turn this stuff off
+    - roboRio will send "get autonomous command" to RasPi, to ask what to do next. Some examples of what RasPi may respond with:
+            SetSpeed leftWheel rightWheel
+            Stop
+            Shoot
+            Place gear
+    - Use JSON for encoding data
+
+3.  Find vision target (C++)
+    - Uses OpenCV image processing
+    - Expose as a function or wrapper that can be called from Python
+    - Find the gear target in the image
+    - Find the ball target in the image
+    - Takes input: which target to find
+    - Returns a result that tells:
+            Width and height of the whole image (camera resolution)
+            Which target it found (or none)
+            Rectangle containing the target (top left, top right, bottom right, bottom left)
+
+4. Figure out target location (Python)
+    - Input: Result from “Find vision target”
+    - Response tells the size of the image (pixels), and gives the location of the target within that image as a rectangle (a list of 4 x/y coordinates, one for each corner)
+    - From the response, figure out the direction and distance to the target.
+    - Returns direction (in RADIANS, with positive being to the right and negative to the left) and distance (in meters, with positive being forwards and negative being backwards)
+
+5. Make autonomous drive command (Python)
+     - Given a target location and target type, create the next thing the robot should do, at a time scale of a few tens of milliseconds. (Whatever the time scale for the robot is.)
+    - Do we turn or move or stop?
+    - Returns a command.
