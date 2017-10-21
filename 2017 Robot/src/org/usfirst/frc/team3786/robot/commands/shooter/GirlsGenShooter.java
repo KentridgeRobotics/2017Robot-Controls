@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3786.robot.commands;
+package org.usfirst.frc.team3786.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj.command.Command;
 
