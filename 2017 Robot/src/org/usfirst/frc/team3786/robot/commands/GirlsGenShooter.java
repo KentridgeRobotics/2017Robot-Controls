@@ -1,41 +1,41 @@
-package org.usfirst.frc.team3786.robot.commands.grabber;
-
-import org.usfirst.frc.team3786.robot.subsystems.GearArm;
+package org.usfirst.frc.team3786.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+
+import org.usfirst.frc.team3786.robot.subsystems.GirlsGenShooterSubsystem;
 
 /**
  *
  */
-public class ServoMoveAuto extends Command {
-	public static ServoMoveAuto instance;
-	
-	public static ServoMoveAuto getInstance() {
-		if(instance == null)
-			instance = new ServoMoveAuto();
-		return instance;
-	}
+public class GirlsGenShooter extends Command {
+	boolean isDone;
+	boolean shoot;
 
-	
-    public ServoMoveAuto() {
-		requires(GearArm.getInstance());
-		setTimeout(1);
-		
+    public GirlsGenShooter() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	requires(GirlsGenShooterSubsystem.getInstance());
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
-    		GearArm.getInstance().close();
+    	isDone = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	if(shoot) {
+    		GirlsGenShooterSubsystem.getInstance().fling(1);
+    	}
+    	else {
+    		isDone = true;
+    	}
+    		
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut();
+        return isDone;
     }
 
     // Called once after isFinished returns true
