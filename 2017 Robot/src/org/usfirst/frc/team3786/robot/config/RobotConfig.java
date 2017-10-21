@@ -22,7 +22,7 @@ public abstract class RobotConfig {
 
 	public static RobotConfig getInstance() {
 		if(instance == null)
-			instance = new CompetitionConfig();
+			instance = new GirlsGenRobotConfig();
 		return instance;
 	}
 	
@@ -64,7 +64,7 @@ public abstract class RobotConfig {
 	
 	public abstract int getRightDriveMotor();
 	
-	public abstract int getGearArmMotor();
+	public abstract int getShooterMotor();
 	
 	public abstract int getWinchMotor();
 	
@@ -75,10 +75,6 @@ public abstract class RobotConfig {
 	public abstract double getDriveMaxVoltageRamp();
 	
 	public abstract double getDriveP();
-	
-	public abstract double getLeftEncoderTickFactor();
-	
-	public abstract double getRightEncoderTickFactor();
 	
 	public abstract double getGyroInversionMultiplier(); // Because sometimes we need to use the gyro upside down.
 	
