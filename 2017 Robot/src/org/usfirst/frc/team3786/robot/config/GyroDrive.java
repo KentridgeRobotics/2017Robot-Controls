@@ -90,6 +90,10 @@ public class GyroDrive extends UIConfig {
 		return -(getVelocity() + getTurn()) * .5;
 	}
 	
+	@Override
+	public JoystickButton getInvertDriveButton() {
+		return invertDriveButton;
+	}
 
 	@Override
 	public JoystickButton getServoOpenButton() {
