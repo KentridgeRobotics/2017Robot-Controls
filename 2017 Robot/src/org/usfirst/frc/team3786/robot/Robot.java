@@ -63,7 +63,8 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchDeployReverseButton().whileHeld(WinchDeploy.getReverseInstance());
 		UIConfig.getInstance().getWinchDeployReverseButton().whenReleased(WinchDeploy.getStopInstance());
 		//UIConfig.getInstance().getStopGyroButton().whenPressed(StopGyroDrive.getInstance());
-		UIConfig.getInstance().getShootButton().whenPressed(GirlsGenShooter.getInstance());
+		UIConfig.getInstance().getShootButton().whileHeld(GirlsGenShooter.getShootInstance());
+		UIConfig.getInstance().getShootButton().whenReleased(GirlsGenShooter.getStopInstance());
 		UIConfig.getInstance().getServoOpenButton().whenPressed(GirlsGenShooterServo.getOpenInstance());
 		UIConfig.getInstance().getServoCloseButton().whenPressed(GirlsGenShooterServo.getCloseInstance());
 		//		JoystickButton test = new JoystickButton(UIConfig.getInstance().getLeftStick(), 12);
