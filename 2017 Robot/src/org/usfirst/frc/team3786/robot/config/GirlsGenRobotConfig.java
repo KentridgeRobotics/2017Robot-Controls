@@ -6,7 +6,7 @@ public class GirlsGenRobotConfig extends RobotConfig {
 	
 	private static final int RIGHT_DRIVE_MOTOR = 2;
 	
-	private static final int SHOOTER_MOTOR = 3;
+	private static final int SHOOTER_MOTOR = 3; 
 	
 	private static final int WINCH_MOTOR = 5;
 	

@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 
+import com.ctre.CANTalon;
+
 import edu.wpi.first.wpilibj.VictorSP;
 
 /**
@@ -15,8 +17,8 @@ import edu.wpi.first.wpilibj.VictorSP;
 public class GirlsGenShooterSubsystem extends Subsystem {
 	private static GirlsGenShooterSubsystem instance;
 	
-	private final VictorSP flingerMotor;
-	
+	private CANTalon flingerMotor;
+
 	
 	
 	public static GirlsGenShooterSubsystem getInstance() {
@@ -29,7 +31,8 @@ public class GirlsGenShooterSubsystem extends Subsystem {
 	
 	
 	private GirlsGenShooterSubsystem() {
-		flingerMotor = new VictorSP(RobotConfig.getInstance().getShooterMotor());
+		flingerMotor = new CANTalon(RobotConfig.getInstance().getShooterMotor());
+		fling(0.0);
 	}
 
 	
@@ -37,6 +40,7 @@ public class GirlsGenShooterSubsystem extends Subsystem {
     }
     
     public void fling(double flingForce) {
+    	System.err.println("Flinging: "+flingForce);
     	flingerMotor.set(flingForce);
     }
 }

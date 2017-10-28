@@ -10,6 +10,7 @@ import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
 import org.usfirst.frc.team3786.robot.commands.drive.GyroTune;
 import org.usfirst.frc.team3786.robot.commands.drive.GyroTurnDegrees;
 import org.usfirst.frc.team3786.robot.commands.drive.StopGyroDrive;
+import org.usfirst.frc.team3786.robot.commands.shooter.GirlsGenShooter;
 import org.usfirst.frc.team3786.robot.commands.shooter.ShooterCommand;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
@@ -56,10 +57,12 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchUpButton().whenReleased(WinchMove.getStopInstance());
 		DeployTrigger.getInstance().whileActive(WinchDeploy.getMoveInstance());
 		DeployTrigger.getInstance().whenInactive(WinchDeploy.getStopInstance());
+		UIConfig.getInstance().getWinchDeployEnableButton().whileHeld(WinchDeploy.getMoveInstance());
+		UIConfig.getInstance().getWinchDeployEnableButton().whenReleased(WinchDeploy.getStopInstance());
 		UIConfig.getInstance().getWinchDeployReverseButton().whileHeld(WinchDeploy.getReverseInstance());
 		UIConfig.getInstance().getWinchDeployReverseButton().whenReleased(WinchDeploy.getStopInstance());
-		UIConfig.getInstance().getStopGyroButton().whenPressed(StopGyroDrive.getInstance());
-		
+		//UIConfig.getInstance().getStopGyroButton().whenPressed(StopGyroDrive.getInstance());
+		UIConfig.getInstance().getShootButton().whenPressed(GirlsGenShooter.getInstance());
 //		JoystickButton test = new JoystickButton(UIConfig.getInstance().getLeftStick(), 12);
 //		test.whenPressed(new TestCommand());
 
@@ -73,7 +76,7 @@ public class Robot extends IterativeRobot {
 		newChooser = new SendableChooser<Command>();
 		newChooser.addDefault("Do Nothing", new DoNothing());
 		newChooser.addObject("Go Forward", new AutoDriveNoEncoder(.5,-.5, 4));
-		newChooser.addObject("Shooter Beta", new ShooterCommand());
+//		newChooser.addObject("Shooter Beta", new ShooterCommand());
 		
 		SmartDashboard.putData(Scheduler.getInstance());
 		SmartDashboard.putData("Auto Mode", newChooser);
@@ -213,8 +216,7 @@ public class Robot extends IterativeRobot {
 //		SmartDashboard.putNumber("Left Out", UIConfig.getInstance().getLeftDrive());
 //		SmartDashboard.putNumber("Right Out", UIConfig.getInstance().getRightDrive());
 		
-		System.err.println("Gyro Heading" + RobotConfig.getInstance().getGyroHeading());
-
+		SmartDashboard.putData(Scheduler.getInstance());
 		
 	}
 

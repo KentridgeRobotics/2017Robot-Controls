@@ -8,12 +8,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class GyroDrive extends UIConfig {
+public class GirlsGenGyroDrive extends UIConfig {
 	
 	private Joystick leftStick = new Joystick(0);
 	private Joystick xbox = new Joystick(2);
 	//changes
-	private JoystickButton shoot = new JoystickButton(xbox, 4);
+//	private JoystickButton shoot = new JoystickButton(xbox, 4);
+	private JoystickButton shoot = new JoystickButton(leftStick, 4);
+	
 	private JoystickButton unusedButtonOne = new JoystickButton(xbox, 1);
 	
 	
@@ -22,11 +24,11 @@ public class GyroDrive extends UIConfig {
 	private JoystickButton servoCloseButton = new JoystickButton(xbox, 2);
 	private JoystickButton winchUpButton = new JoystickButton(xbox, 8);
 	private JoystickButton winchDownButton = new JoystickButton(xbox, 7);
-	private JoystickButton winchDeployMoveButton = new JoystickButton(xbox, 5);
-	private JoystickButton winchDeployEnableButton = new JoystickButton(xbox, 6);
-	private JoystickButton winchDeployReverseButton = new JoystickButton(leftStick, 7);
+	private JoystickButton winchDeployMoveButton = new JoystickButton(leftStick, 8);
+	private JoystickButton winchDeployEnableButton = new JoystickButton(leftStick, 7);
+	private JoystickButton winchDeployReverseButton = new JoystickButton(leftStick, 9);
 	private JoystickButton stopGyroButton = new JoystickButton(leftStick, 11);
-	private JoystickButton limitBreakButton = new JoystickButton(leftStick, 9);
+	private JoystickButton limitBreakButton = new JoystickButton(leftStick, 6);
 	private JoystickButton limitEnableButton = new JoystickButton(leftStick, 10);
 	
 //	private double lastTimeMillis;
@@ -45,7 +47,6 @@ public class GyroDrive extends UIConfig {
 		else
 			result = (Math.pow(leftStick.getY(), 3));
 		
-		System.err.println("Velocity: " + result);
 		return result;
 	}
 	@Override
@@ -64,7 +65,6 @@ public class GyroDrive extends UIConfig {
 //		
 //		
 //		return turn;'
-		System.err.println(leftStick.getX());
 		return -leftStick.getX();
 	}
 	
