@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class GirlsGenGyroDrive extends UIConfig {
+public class GirlsGenUIConfig extends UIConfig {
 	
 	private Joystick leftStick = new Joystick(0);
 	private Joystick xbox = new Joystick(2);
@@ -22,12 +22,12 @@ public class GirlsGenGyroDrive extends UIConfig {
 	private JoystickButton invertDriveButton = new JoystickButton(leftStick, 1);
 	private JoystickButton servoOpenButton = new JoystickButton(xbox, 3);
 	private JoystickButton servoCloseButton = new JoystickButton(xbox, 2);
-	private JoystickButton winchUpButton = new JoystickButton(xbox, 8);
-	private JoystickButton winchDownButton = new JoystickButton(xbox, 7);
+	private JoystickButton winchUpButton = new JoystickButton(leftStick, 11);
+	private JoystickButton winchDownButton = new JoystickButton(leftStick, 12);
 	private JoystickButton winchDeployMoveButton = new JoystickButton(leftStick, 8);
 	private JoystickButton winchDeployEnableButton = new JoystickButton(leftStick, 7);
 	private JoystickButton winchDeployReverseButton = new JoystickButton(leftStick, 9);
-	private JoystickButton stopGyroButton = new JoystickButton(leftStick, 11);
+	private JoystickButton stopGyroButton = new JoystickButton(xbox, 11);
 	private JoystickButton limitBreakButton = new JoystickButton(leftStick, 6);
 	private JoystickButton limitEnableButton = new JoystickButton(leftStick, 10);
 	

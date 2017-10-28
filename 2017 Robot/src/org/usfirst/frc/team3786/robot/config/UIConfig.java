@@ -14,7 +14,7 @@ public abstract class UIConfig {
 	
 	public static UIConfig getInstance() {
 		if(instance == null)
-			instance = new GirlsGenGyroDrive();
+			instance = new GirlsGenUIConfig();
 		return instance;
 	}
 	
