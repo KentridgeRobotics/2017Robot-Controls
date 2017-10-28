@@ -11,6 +11,7 @@ import org.usfirst.frc.team3786.robot.commands.drive.GyroTune;
 import org.usfirst.frc.team3786.robot.commands.drive.GyroTurnDegrees;
 import org.usfirst.frc.team3786.robot.commands.drive.StopGyroDrive;
 import org.usfirst.frc.team3786.robot.commands.shooter.GirlsGenShooter;
+import org.usfirst.frc.team3786.robot.commands.shooter.GirlsGenShooterServo;
 import org.usfirst.frc.team3786.robot.commands.shooter.ShooterCommand;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
@@ -63,7 +64,9 @@ public class Robot extends IterativeRobot {
 		UIConfig.getInstance().getWinchDeployReverseButton().whenReleased(WinchDeploy.getStopInstance());
 		//UIConfig.getInstance().getStopGyroButton().whenPressed(StopGyroDrive.getInstance());
 		UIConfig.getInstance().getShootButton().whenPressed(GirlsGenShooter.getInstance());
-//		JoystickButton test = new JoystickButton(UIConfig.getInstance().getLeftStick(), 12);
+		UIConfig.getInstance().getServoOpenButton().whenPressed(GirlsGenShooterServo.getOpenInstance());
+		UIConfig.getInstance().getServoCloseButton().whenPressed(GirlsGenShooterServo.getCloseInstance());
+		//		JoystickButton test = new JoystickButton(UIConfig.getInstance().getLeftStick(), 12);
 //		test.whenPressed(new TestCommand());
 
 		

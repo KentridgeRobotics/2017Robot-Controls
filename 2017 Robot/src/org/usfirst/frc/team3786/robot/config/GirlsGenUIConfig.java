@@ -20,16 +20,16 @@ public class GirlsGenUIConfig extends UIConfig {
 	
 	
 	private JoystickButton invertDriveButton = new JoystickButton(leftStick, 1);
-	private JoystickButton servoOpenButton = new JoystickButton(xbox, 3);
-	private JoystickButton servoCloseButton = new JoystickButton(xbox, 2);
+	private JoystickButton servoOpenButton = new JoystickButton(leftStick, 10);
+	private JoystickButton servoCloseButton = new JoystickButton(leftStick, 8);
 	private JoystickButton winchUpButton = new JoystickButton(leftStick, 11);
 	private JoystickButton winchDownButton = new JoystickButton(leftStick, 12);
 	private JoystickButton winchDeployMoveButton = new JoystickButton(leftStick, 8);
 	private JoystickButton winchDeployEnableButton = new JoystickButton(leftStick, 7);
 	private JoystickButton winchDeployReverseButton = new JoystickButton(leftStick, 9);
 	private JoystickButton stopGyroButton = new JoystickButton(xbox, 11);
-	private JoystickButton limitBreakButton = new JoystickButton(leftStick, 6);
-	private JoystickButton limitEnableButton = new JoystickButton(leftStick, 10);
+	private JoystickButton limitBreakButton = new JoystickButton(xbox, 6);
+	private JoystickButton limitEnableButton = new JoystickButton(xbox, 10);
 	
 //	private double lastTimeMillis;
 //	private double maxAngularVelocity = 360; //max angular velocity in deg/s
