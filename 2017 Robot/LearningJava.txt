@@ -24,6 +24,13 @@ Some vocabulary:
 
 - string: a sequence of characters. In a Java program, strings are put in double quotes, like this:
 	"This is a string"
+
+- print
+
+	When we want to have some information displayed on the Console, we call that "printing". In Java, you print like this:
+	
+	System.out.println("This is a message");
+	
 	
 - int: an integer. This is a number with no decimal part. In Java, an int can store
 	any number from -2,147,483,648 up to 2,147,483,647, inclusive.
