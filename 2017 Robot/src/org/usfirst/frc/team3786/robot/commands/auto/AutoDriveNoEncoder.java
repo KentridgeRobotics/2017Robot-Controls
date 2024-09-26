@@ -1,6 +1,5 @@
 package org.usfirst.frc.team3786.robot.commands.auto;
 
-import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 import org.usfirst.frc.team3786.robot.subsystems.GyroDriveSubsystem;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -20,7 +19,6 @@ public class AutoDriveNoEncoder extends Command {
 	 */
     public AutoDriveNoEncoder(double leftSpeed, double rightSpeed, double time) {
     	requires(GyroDriveSubsystem.getInstance());
-    	requires(GearArm.getInstance());
     	setTimeout(time);
     	this.leftSpeed = leftSpeed;
     	this.rightSpeed = rightSpeed;
@@ -28,7 +26,6 @@ public class AutoDriveNoEncoder extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	GearArm.getInstance().close();
     	GyroDriveSubsystem.getInstance().manualDrive(leftSpeed, rightSpeed);
     	GyroDriveSubsystem.getInstance().setCoast();
     }

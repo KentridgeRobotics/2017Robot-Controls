@@ -46,9 +46,9 @@ public class WinchMove extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	if(_driveMode == Mode.UP)
-    		Winch.getInstance().setSpeed(-1);
+    		Winch.getInstance().setSpeed(-1.0);
     	else if (_driveMode == Mode.DOWN)
-    		Winch.getInstance().setSpeed(1);
+    		Winch.getInstance().setSpeed(1.0);
     	else
     		Winch.getInstance().setSpeed(0);
 

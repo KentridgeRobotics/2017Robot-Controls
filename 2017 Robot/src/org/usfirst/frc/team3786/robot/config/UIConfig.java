@@ -14,7 +14,7 @@ public abstract class UIConfig {
 	
 	public static UIConfig getInstance() {
 		if(instance == null)
-			instance = new GyroDrive();
+			instance = new GirlsGenUIConfig();
 		return instance;
 	}
 	
@@ -40,9 +40,9 @@ public abstract class UIConfig {
 		
 	public abstract JoystickButton getServoCloseButton();
 		
-	public abstract JoystickButton getGearArmTopButton();
+	public abstract JoystickButton getShootButton();
 	
-	public abstract JoystickButton getGearArmBottomButton();
+	public abstract JoystickButton getUnusedButtonOne();
 	
 	public abstract JoystickButton getWinchUpButton();
 	

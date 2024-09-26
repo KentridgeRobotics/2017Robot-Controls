@@ -32,7 +32,7 @@ public class GyroDriveSubsystem extends PIDSubsystem {
 //	private double angularVelocity;
 //	private double maxAngularVelocity = 360.0;
 		
-	private double tolerance = 0.0;
+	private double tolerance = 0.001;
 
     // Initialize your subsystem here
     public GyroDriveSubsystem() {

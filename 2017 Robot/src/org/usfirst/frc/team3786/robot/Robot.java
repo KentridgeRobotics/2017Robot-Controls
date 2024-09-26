@@ -4,24 +4,17 @@ package org.usfirst.frc.team3786.robot;
 import org.usfirst.frc.team3786.robot.commands.TestCommand;
 import org.usfirst.frc.team3786.robot.commands.auto.AutoDriveNoEncoder;
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
-import org.usfirst.frc.team3786.robot.commands.auto.VisionAuto;
 import org.usfirst.frc.team3786.robot.commands.climber.DeployTrigger;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchDeploy;
 import org.usfirst.frc.team3786.robot.commands.climber.WinchMove;
 import org.usfirst.frc.team3786.robot.commands.drive.GyroTune;
 import org.usfirst.frc.team3786.robot.commands.drive.GyroTurnDegrees;
 import org.usfirst.frc.team3786.robot.commands.drive.StopGyroDrive;
-import org.usfirst.frc.team3786.robot.commands.grabber.GearArmBottomPosition;
-import org.usfirst.frc.team3786.robot.commands.grabber.GearArmTopPosition;
-import org.usfirst.frc.team3786.robot.commands.grabber.ServoClose;
-import org.usfirst.frc.team3786.robot.commands.grabber.ServoDance;
-import org.usfirst.frc.team3786.robot.commands.grabber.ServoOpen;
-import org.usfirst.frc.team3786.robot.commands.grabber.StartLimits;
-import org.usfirst.frc.team3786.robot.commands.grabber.StopLimits;
+import org.usfirst.frc.team3786.robot.commands.shooter.GirlsGenShooter;
+import org.usfirst.frc.team3786.robot.commands.shooter.GirlsGenShooterServo;
 import org.usfirst.frc.team3786.robot.commands.shooter.ShooterCommand;
 import org.usfirst.frc.team3786.robot.config.RobotConfig;
 import org.usfirst.frc.team3786.robot.config.UIConfig;
-import org.usfirst.frc.team3786.robot.subsystems.GearArm;
 import org.usfirst.frc.team3786.robot.subsystems.GyroDriveSubsystem;
 import org.usfirst.frc.team3786.robot.subsystems.Rangefinders;
 import org.usfirst.frc.team3786.robot.subsystems.RioAccelerometer;
@@ -59,24 +52,22 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		UIConfig.getInstance().getServoOpenButton().whenPressed(ServoOpen.getInstance());		
-		UIConfig.getInstance().getServoCloseButton().whenPressed(ServoClose.getInstance());
-		UIConfig.getInstance().getGearArmTopButton().whenPressed(GearArmTopPosition.getInstance());
-		UIConfig.getInstance().getGearArmBottomButton().whenPressed(GearArmBottomPosition.getInstance());
-		
 		UIConfig.getInstance().getWinchDownButton().whileHeld(WinchMove.getDownInstance());
 		UIConfig.getInstance().getWinchDownButton().whenReleased(WinchMove.getStopInstance());
 		UIConfig.getInstance().getWinchUpButton().whileHeld(WinchMove.getUpInstance());
 		UIConfig.getInstance().getWinchUpButton().whenReleased(WinchMove.getStopInstance());
 		DeployTrigger.getInstance().whileActive(WinchDeploy.getMoveInstance());
 		DeployTrigger.getInstance().whenInactive(WinchDeploy.getStopInstance());
+		UIConfig.getInstance().getWinchDeployEnableButton().whileHeld(WinchDeploy.getMoveInstance());
+		UIConfig.getInstance().getWinchDeployEnableButton().whenReleased(WinchDeploy.getStopInstance());
 		UIConfig.getInstance().getWinchDeployReverseButton().whileHeld(WinchDeploy.getReverseInstance());
 		UIConfig.getInstance().getWinchDeployReverseButton().whenReleased(WinchDeploy.getStopInstance());
-		UIConfig.getInstance().getStopGyroButton().whenPressed(StopGyroDrive.getInstance());
-		UIConfig.getInstance().getLimitBreakButton().whenPressed(StopLimits.getInstance());
-		UIConfig.getInstance().getLimitEnableButton().whenPressed(StartLimits.getInstance());
-		
-//		JoystickButton test = new JoystickButton(UIConfig.getInstance().getLeftStick(), 12);
+		//UIConfig.getInstance().getStopGyroButton().whenPressed(StopGyroDrive.getInstance());
+		UIConfig.getInstance().getShootButton().whileHeld(GirlsGenShooter.getShootInstance());
+		UIConfig.getInstance().getShootButton().whenReleased(GirlsGenShooter.getStopInstance());
+		UIConfig.getInstance().getServoOpenButton().whenPressed(GirlsGenShooterServo.getOpenInstance());
+		UIConfig.getInstance().getServoCloseButton().whenPressed(GirlsGenShooterServo.getCloseInstance());
+		//		JoystickButton test = new JoystickButton(UIConfig.getInstance().getLeftStick(), 12);
 //		test.whenPressed(new TestCommand());
 
 		
@@ -88,9 +79,8 @@ public class Robot extends IterativeRobot {
 		RobotConfig.getInstance().initialize();	
 		newChooser = new SendableChooser<Command>();
 		newChooser.addDefault("Do Nothing", new DoNothing());
-		newChooser.addObject("Vision Auto (in beta)", new VisionAuto());
 		newChooser.addObject("Go Forward", new AutoDriveNoEncoder(.5,-.5, 4));
-		newChooser.addObject("Shooter Beta", new ShooterCommand());
+//		newChooser.addObject("Shooter Beta", new ShooterCommand());
 		
 		SmartDashboard.putData(Scheduler.getInstance());
 		SmartDashboard.putData("Auto Mode", newChooser);
@@ -222,21 +212,15 @@ public class Robot extends IterativeRobot {
 		
 		
 //		SmartDashboard.putString("Drive Train Mode:", DriveTrain.getInstance().getDriveType());
-		SmartDashboard.putBoolean("Servo is closed", GearArm.getInstance().getIsClosed());
-		SmartDashboard.putString("Gear Arm Drive Mode", GearArm.getInstance().getMode());
 		SmartDashboard.putNumber("Test Rangefinder Voltage", Rangefinders.getInstance().getTestVoltage());
 		SmartDashboard.putNumber("Test Rangefinder Distance", FinderOfRange.rangeForVoltage(Rangefinders.getInstance().getTestVoltage()));
-		SmartDashboard.putNumber("Window Motor Voltage", GearArm.getInstance().getVoltage());
-		SmartDashboard.putBoolean("Top Limit", GearArm.getInstance().getTopLimitSwitch());
-		SmartDashboard.putBoolean("Bottom Limit", GearArm.getInstance().getBottomLimitSwitch());
 		SmartDashboard.putBoolean("Winch fwd limit", Winch.getInstance().getForwardLimitSwitch());
 		SmartDashboard.putBoolean("Winch rev limit", Winch.getInstance().getReverseLimitSwitch());
 		
 //		SmartDashboard.putNumber("Left Out", UIConfig.getInstance().getLeftDrive());
 //		SmartDashboard.putNumber("Right Out", UIConfig.getInstance().getRightDrive());
 		
-		System.err.println("Gyro Heading" + RobotConfig.getInstance().getGyroHeading());
-
+		SmartDashboard.putData(Scheduler.getInstance());
 		
 	}
 

@@ -8,23 +8,28 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class GyroDrive extends UIConfig {
+public class GirlsGenUIConfig extends UIConfig {
 	
 	private Joystick leftStick = new Joystick(0);
 	private Joystick xbox = new Joystick(2);
+	//changes
+//	private JoystickButton shoot = new JoystickButton(xbox, 4);
+	private JoystickButton shoot = new JoystickButton(leftStick, 4);
+	
+	private JoystickButton unusedButtonOne = new JoystickButton(xbox, 1);
+	
+	
 	private JoystickButton invertDriveButton = new JoystickButton(leftStick, 1);
-	private JoystickButton servoOpenButton = new JoystickButton(xbox, 3);
-	private JoystickButton gearArmTopButton = new JoystickButton(xbox, 4);
-	private JoystickButton gearArmBottomButton = new JoystickButton(xbox, 1);
-	private JoystickButton servoCloseButton = new JoystickButton(xbox, 2);
-	private JoystickButton winchUpButton = new JoystickButton(xbox, 8);
-	private JoystickButton winchDownButton = new JoystickButton(xbox, 7);
-	private JoystickButton winchDeployMoveButton = new JoystickButton(xbox, 5);
-	private JoystickButton winchDeployEnableButton = new JoystickButton(xbox, 6);
-	private JoystickButton winchDeployReverseButton = new JoystickButton(leftStick, 7);
-	private JoystickButton stopGyroButton = new JoystickButton(leftStick, 11);
-	private JoystickButton limitBreakButton = new JoystickButton(leftStick, 9);
-	private JoystickButton limitEnableButton = new JoystickButton(leftStick, 10);
+	private JoystickButton servoOpenButton = new JoystickButton(leftStick, 10);
+	private JoystickButton servoCloseButton = new JoystickButton(leftStick, 8);
+	private JoystickButton winchUpButton = new JoystickButton(leftStick, 11);
+	private JoystickButton winchDownButton = new JoystickButton(leftStick, 12);
+	private JoystickButton winchDeployMoveButton = new JoystickButton(leftStick, 8);
+	private JoystickButton winchDeployEnableButton = new JoystickButton(leftStick, 7);
+	private JoystickButton winchDeployReverseButton = new JoystickButton(leftStick, 9);
+	private JoystickButton stopGyroButton = new JoystickButton(xbox, 11);
+	private JoystickButton limitBreakButton = new JoystickButton(xbox, 6);
+	private JoystickButton limitEnableButton = new JoystickButton(xbox, 10);
 	
 //	private double lastTimeMillis;
 //	private double maxAngularVelocity = 360; //max angular velocity in deg/s
@@ -42,7 +47,6 @@ public class GyroDrive extends UIConfig {
 		else
 			result = (Math.pow(leftStick.getY(), 3));
 		
-		System.err.println("Velocity: " + result);
 		return result;
 	}
 	@Override
@@ -61,7 +65,6 @@ public class GyroDrive extends UIConfig {
 //		
 //		
 //		return turn;'
-		System.err.println(leftStick.getX());
 		return -leftStick.getX();
 	}
 	
@@ -106,13 +109,13 @@ public class GyroDrive extends UIConfig {
 	}
 
 	@Override
-	public JoystickButton getGearArmTopButton() {
-		return gearArmTopButton;
+	public JoystickButton getShootButton() {
+		return shoot;
 	}
 
 	@Override
-	public JoystickButton getGearArmBottomButton() {
-		return gearArmBottomButton;
+	public JoystickButton getUnusedButtonOne() {
+		return unusedButtonOne;
 	}
 
 	@Override
